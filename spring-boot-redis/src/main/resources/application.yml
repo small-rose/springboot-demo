@@ -1,0 +1,24 @@
+server:
+  servlet:
+    context-path: /springboot-redis
+  port: 8081
+
+logging:
+  level:
+    org.hibernate: debug
+    com.fenet: debug
+    com.fndsoft: debug
+
+spring:
+  redis:
+    database: 0
+    host: 121.4.26.45
+    port: 9733
+    password: Zhang@2020.cn
+    timeout: 3000
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
