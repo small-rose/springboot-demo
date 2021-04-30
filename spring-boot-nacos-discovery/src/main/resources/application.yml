@@ -1,0 +1,18 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /nacos-discovery
+
+spring:
+  application:
+    name: nacos-discovery # 应用名
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.10.127:8848 #服务注册中心地址
+        namespace: a7b30a99-94cb-48c0-af49-2746788e4b29 # 开发环境
+        enabled: true
+        service: ${spring.application.name}
+        log-name: sb-nacos-dis-log
+        watch:
+          enabled: true
