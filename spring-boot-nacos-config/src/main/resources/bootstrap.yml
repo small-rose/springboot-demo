@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: bp-paystation # 应用名 因为我的 nacos 配置中心已有这个名字的配置 bp-paystation-dev.yaml，就懒得改了
+  cloud:
+    nacos:
+
+      config:
+        server-addr: 192.168.10.127:8848 #配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+        namespace: a7b30a99-94cb-48c0-af49-2746788e4b29 # 开发环境
+        group: DEFAULT_GROUP
+        refresh-enabled: true
