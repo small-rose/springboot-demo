@@ -2,3 +2,8 @@ server:
   port: 8080
   servlet:
     context-path: /cxf
+
+
+webservice:
+  username: admin
+  password: root
