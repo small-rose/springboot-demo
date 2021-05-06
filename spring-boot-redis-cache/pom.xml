@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.xiaocai.demo</groupId>
-    <artifactId>springboot-redis</artifactId>
+    <artifactId>spring-boot-redis-cache</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-redis</name>
+    <name>spring-boot-redis-cache</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
