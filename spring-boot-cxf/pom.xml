@@ -93,6 +93,19 @@
             <version>1.1.41</version>
         </dependency>
 
+        <!-- 服务端：用来生成JSONArray -->
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <classifier>jdk15</classifier>
+            <version>2.4</version>
+        </dependency>
+        <!-- 客户端：用来解析JSONArray -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,13 +1,16 @@
 package cn.xiaocai.demo.cxf.config;
 
+import cn.xiaocai.demo.cxf.interceptor.AuthInterceptor;
 import cn.xiaocai.demo.cxf.service.TestService;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
+import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxws.EndpointImpl;
 
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +27,7 @@ import javax.xml.ws.Endpoint;
  * @create: 2021-04-30 17:07
  **/
 @Configuration
-@ImportResource({ "classpath:META-INF/cxf/cxf.xml","classpath:META-INF/cxf/cxf-extension-jaxws.xml","classpath:META-INF/cxf/cxf-servlet.xml" })
+//@ImportResource({ "classpath:META-INF/cxf/cxf.xml","classpath:META-INF/cxf/cxf-extension-jaxws.xml","classpath:META-INF/cxf/cxf-servlet.xml" })
 public class CxfConfig {
 
 
@@ -32,15 +35,34 @@ public class CxfConfig {
     public ServletRegistrationBean<CXFServlet> cxfServlet() {
         return new ServletRegistrationBean<CXFServlet>(new CXFServlet(),"/services/*");
     }
-    /*
-    @Bean(name = "cxfServlet")
-    public ServletRegistrationBean cxfServletRegistrationBean() {
-        CXFServlet servlet = new CXFServlet();
-        ServletRegistrationBean bean = new ServletRegistrationBean(servlet,
-                "/services/*");
-        bean.setLoadOnStartup(1);
-        return bean;
+
+    @Value("${webservice.username}")
+    private String username;
+    @Value("${webservice.password}")
+    private String password;
+
+    @Bean
+    public Bus bus(){
+        BusFactory busFactory = BusFactory.newInstance();
+        return busFactory.createBus();
     }
-*/
+
+    @Bean(name = Bus.DEFAULT_BUS_ID)
+    public SpringBus springBus() {
+        return new SpringBus();
+    }
+
+    @Autowired
+    private TestService testService;
+
+    /** JAX-WS **/
+    @Bean
+    public Endpoint endpoint(){
+        EndpointImpl endpoint = new EndpointImpl(springBus(), testService);
+        // 服务端添加自定义拦截器：用户密码
+        endpoint.getInInterceptors().add(new AuthInterceptor(username, password));
+        endpoint.publish("/TestService");
+        return endpoint;
+    }
 
 }
