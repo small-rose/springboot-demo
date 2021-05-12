@@ -1,0 +1,17 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /
+
+spring:
+  resources:
+    static-locations:
+      - /api/
+      - /css/
+      - /img/
+      - /js/
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+    static-path-pattern: /**

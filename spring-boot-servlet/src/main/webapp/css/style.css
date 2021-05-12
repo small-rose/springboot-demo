@@ -1,0 +1,85 @@
+/* Common */
+body {margin:0px;font-family:tahoma,arial,"Hiragino Sans GB","Microsoft Yahei","宋体"}
+.bold {font-weight:bold;}
+.center {text-align:center}
+.hidden {display:none}
+.left {float:left;}
+.right {float:right;}
+.clear {clear:both}
+.red {color:#E7100B;}
+.orange {color:#DF7514;}
+.green {color:#1CB841;}
+
+/* Layout */
+#layout {margin:0 auto;width:960px;}
+
+/* Header */
+#header {margin:0 0 10px 0;padding:15px 10px;border-bottom:1px solid #EEE;}
+    /* Logo */
+    #logo {float:left;width:200px;height:50px;background-repeat:no-repeat;background-size:200px;background-image:url(../img/yaic.png);cursor:pointer;}
+
+/* Content Left */
+#content-left {padding:10px;}
+    /* Order From */
+    .pure-form label {margin:0 0 10px 0;}
+    .pure-button {margin:10px 0;}
+    .pure-button-primary {background-color: #c7000a;}
+    /* Order Info */
+    #order-notice {margin:5px 0;font-size:15px;}
+
+/* Content Right */
+#content-right {padding:10px 10px 15px 10px;}
+    /* Bank List */
+    #bank-gateway {padding:0 0 5px 0;}
+    #bank-common {padding:5px 0;}
+    #bank-uncommon {margin:5px 10px;}
+    .bank-icon {border:1px solid #DDDDDD;background-color:#ffffff;margin:5px 10px;padding:5px;float:left;background-image:url("../img/bankicon_sh.png");background-repeat:no-repeat;height:24px;}
+    .bank-gateway {background-image:url("../img/gateway.png");}
+    .bank-selected {border:2px solid #E4393C;margin:4px 9px;}
+    /* Message */
+    #message {padding:5px 10px;text-align:center;font-size:15px;}
+    #message table {margin:0 auto;}
+    #error-title,#success-title{font-size:20px;}
+    #error-message,#success-message{margin:10px 0 10px 0;}
+    /* Bank Popup */
+    #paymentConfirm .pure-button {margin:10px;}
+    .popup {width:270px;padding:10px 20px;}
+    .button-success,.button-error,.button-return {display:block;color:#FFFFFF;}
+    .button-success {background-color:#1CB841;}
+    .button-error {background-color:#DF7514;}
+    .button-return {background-color:#42B8DD;}
+
+/* Footer */
+#footer {margin:10px 0;padding:10px;border-top: 1px solid #EEE;font-size:13px;}
+
+/* Responsive */
+#layout {width:960px;}
+#content-left {width:198px;}
+#content-right {width:720px;border-left:1px solid #EEE;min-height:400px;}
+.bank-icon{width:148px;}
+@media screen and (min-width: 720px) and (max-width: 959px) {
+    #layout {width:720px;}
+    #content-left {width:198px;}
+    #content-right {width:480px;min-height:300px;}
+    .bank-icon {width:128px;}
+}
+@media screen and (min-width: 480px) and (max-width: 719px) {
+    #layout {width:480px;}
+    #header {padding:10px;}
+    #content-left{width:460px;;}
+    #content-right{width:460px;border-top:1px solid #EEE;border-left:none;min-height:0px;}
+    #content-right table{margin:0;}
+    #message{padding:5px 0;text-align:left;}
+    .bank-icon {width:121px;}
+    #footer{margin:0 0 10px 0;}
+}
+@media screen and (max-width: 479px) {
+    #layout {width:320px;}
+    #header {padding:10px;}
+    #content-left{width:300px;}
+    #content-right{width:300px;border-top:1px solid #EEE;border-left:none;min-height:0px;}
+    #content-right table{margin:0;}
+    #message{padding:5px 0;text-align:left;}
+    .bank-icon {width:118px;}
+    #footer{margin:0 0 10px 0;}
+}

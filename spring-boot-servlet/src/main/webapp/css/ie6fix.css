@@ -1,0 +1,13 @@
+#logo {background-image:url(../img/yaic-w.png);}
+#content-left {font-size:13px;}
+#content-right {height:auto!important;height:360px;}
+@media screen and (min-width: 720px) and (max-width: 959px) {
+    #content-right {height:auto!important;height:300px;}
+}
+@media screen and (min-width: 480px) and (max-width: 719px) {
+    #content-right {height:auto!important;height:0px;}
+}
+@media screen and (max-width: 479px) {
+    #content-right {height:auto!important;height:0px;}
+}
+.pure-button-primary {padding:4px 14px;font-size:101%;border:none;}
