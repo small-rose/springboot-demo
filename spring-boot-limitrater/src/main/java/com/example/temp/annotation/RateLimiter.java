@@ -15,5 +15,11 @@ import java.lang.annotation.*;
 @Inherited
 public @interface RateLimiter {
 
+    int timeWindowPeriod() default 10;
+
+    long maxLimited() default 10L;
+
+    int blocks() default 10;
+
 
 }

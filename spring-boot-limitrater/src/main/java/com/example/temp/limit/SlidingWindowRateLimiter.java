@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author: zzy
  * @create: 2021-05-18 16:10
  **/
-public class SlidingWindowRateLimiter implements RateLimiter, Runnable{
+public class SlidingWindowRateLimiter implements IRateLimiter, Runnable{
 
     /**
      *  默认-每秒最大访问阈值
@@ -49,6 +49,10 @@ public class SlidingWindowRateLimiter implements RateLimiter, Runnable{
      * 当前时间所属块的统计
      */
     private AtomicLong count;
+
+    private Long timeWindowPeriod = 10L;
+
+    private Long perBlockLimit ;
 
     private volatile int index;
 
@@ -129,8 +133,8 @@ public class SlidingWindowRateLimiter implements RateLimiter, Runnable{
 
     @Override
     public void run() {
-        System.out.println(isOverLimit());
-        System.out.println(currentQPS());
+        System.out.println("isOverLimit() = " +isOverLimit());
+        System.out.println("currentQPS() = " + currentQPS());
         System.out.println("index:" + index);
         index = (index + 1) % block;
         long val = countPerBlock[index].getAndSet(0);

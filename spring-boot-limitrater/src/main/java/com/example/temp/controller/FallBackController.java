@@ -1,6 +1,7 @@
 package com.example.temp.controller;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.example.temp.annotation.RateLimiter;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FallBackController {
 
-    @HystrixCommand
+    @RateLimiter
+    @RequestMapping("/test")
     public String test(){
         return "111";
     }

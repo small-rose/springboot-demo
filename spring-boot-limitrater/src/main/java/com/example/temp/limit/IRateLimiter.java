@@ -7,7 +7,7 @@ package com.example.temp.limit;
  * @author: zzy
  * @create: 2021-05-18 16:55
  **/
-public interface RateLimiter {
+public interface IRateLimiter {
 
     boolean isOverLimit();
 

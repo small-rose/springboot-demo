@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * @program: springboot-redis
@@ -16,9 +17,9 @@ import org.springframework.core.annotation.Order;
  **/
 @Slf4j
 @Aspect
+@Component
 public class RateLimiterAop {
 
-    public RateLimiterAop(){}
 
     /**
      * Order 代表优先级，数字越小优先级越高
@@ -42,9 +43,12 @@ public class RateLimiterAop {
     public Object checkAround(ProceedingJoinPoint joinPoint, RateLimiter rateLimiter) throws Throwable {
         Object commonResult = null;
         // 获取方法名称
-        String methodName = joinPoint.getSignature().getName();
+        //String methodName = joinPoint.getSignature().getName();
         // 注解拦截处理
-        RateLimitHandlerAspectInvoker.getInstance().invoke(joinPoint);
+        boolean isOver = RateLimitHandlerAspectInvoker.getInstance().invoke(joinPoint);
+        if (isOver){
+            return "API Limit ";
+        }
         // 继续执行请求方法
         try {
             commonResult = joinPoint.proceed();
