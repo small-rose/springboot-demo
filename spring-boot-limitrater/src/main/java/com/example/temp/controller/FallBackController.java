@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FallBackController {
 
-    @RateLimiter
+    @RateLimiter(enableBlockAvg = true)
     @RequestMapping("/test")
     public String test(){
         return "111";

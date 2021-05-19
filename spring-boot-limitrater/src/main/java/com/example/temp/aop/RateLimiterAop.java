@@ -46,6 +46,7 @@ public class RateLimiterAop {
         //String methodName = joinPoint.getSignature().getName();
         // 注解拦截处理
         boolean isOver = RateLimitHandlerAspectInvoker.getInstance().invoke(joinPoint);
+        log.info("is over : " + isOver);
         if (isOver){
             return "API Limit ";
         }

@@ -3,6 +3,7 @@ package com.example.temp.service;
 import com.example.temp.annotation.RateLimiter;
 import com.example.temp.limit.IRateLimiter;
 import com.example.temp.limit.SlidingWindowRateLimiter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.HashMap;
  * @date: 2021/5/18 23:45
  * @version: v1.0
  */
+@Slf4j
 public class RateLimitHandler {
 
     private static final HashMap<String, IRateLimiter> CACHE_LIMIT = new HashMap<>();
@@ -27,15 +29,16 @@ public class RateLimitHandler {
 
     public boolean handler(Method method){
         String methodName = method.getName();
-        RateLimiter rateLimiterAt = method.getAnnotation(RateLimiter.class);
+        RateLimiter raLtAt = method.getAnnotation(RateLimiter.class);
         SlidingWindowRateLimiter sliWinRateLimiter = (SlidingWindowRateLimiter) CACHE_LIMIT.get(methodName);
         if(null == sliWinRateLimiter){
-            IRateLimiter swrLimiter = new SlidingWindowRateLimiter(rateLimiterAt.blocks(), rateLimiterAt.maxLimited());
+            log.info("SlidingWindowRateLimiter is going ... ");
+            IRateLimiter swrLimiter = new SlidingWindowRateLimiter(raLtAt.blocks(), raLtAt.maxLimited(), raLtAt.enableBlockAvg());
             CACHE_LIMIT.put(method.getName(), swrLimiter);
         }
         SlidingWindowRateLimiter rateLimiter = (SlidingWindowRateLimiter)CACHE_LIMIT.get(methodName);
-        rateLimiter.run();
-
-        return rateLimiter.visit();
+        boolean isover = rateLimiter.isOverLimit();
+        log.info("rateLimiter isOverLimit return " + isover);
+        return isover;
     }
 }

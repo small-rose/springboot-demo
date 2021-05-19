@@ -1,6 +1,7 @@
 package com.example.temp.annotation;
 
 import java.lang.annotation.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: springboot-redis
@@ -15,11 +16,13 @@ import java.lang.annotation.*;
 @Inherited
 public @interface RateLimiter {
 
-    int timeWindowPeriod() default 10;
+    int timeWindowPeriod() default 60;
 
-    long maxLimited() default 10L;
+    long maxLimited() default 30L;
 
     int blocks() default 10;
 
+    boolean enableBlockAvg() default false;
 
+    TimeUnit timeUnit() default TimeUnit.SECONDS;
 }

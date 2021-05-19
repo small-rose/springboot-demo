@@ -12,6 +12,4 @@ public interface IRateLimiter {
     boolean isOverLimit();
 
     Long currentQPS();
-
-    boolean visit();
 }
