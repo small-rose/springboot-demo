@@ -11,5 +11,5 @@ public interface IRateLimiter {
 
     boolean isOverLimit();
 
-    Long currentQPS();
+    Long currentQps();
 }

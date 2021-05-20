@@ -5,8 +5,11 @@ import com.example.temp.service.RateLimitHandlerAspectInvoker;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * @program: springboot-redis
@@ -43,7 +46,7 @@ public class RateLimiterAop {
     public Object checkAround(ProceedingJoinPoint joinPoint, RateLimiter rateLimiter) throws Throwable {
         Object commonResult = null;
         // 获取方法名称
-        //String methodName = joinPoint.getSignature().getName();
+        Method method = ((MethodSignature)joinPoint.getSignature()).getMethod();;
         // 注解拦截处理
         boolean isOver = RateLimitHandlerAspectInvoker.getInstance().invoke(joinPoint);
         log.info("is over : " + isOver);
@@ -61,7 +64,7 @@ public class RateLimiterAop {
 
 
 
-        return  commonResult == null ? "API Limit ": commonResult ;
+        return  method.getReturnType().cast(commonResult) ;
     }
 
 }

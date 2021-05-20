@@ -1,8 +1,12 @@
 package com.example.temp.limit;
 
+import com.example.temp.annotation.LimitStrategy;
+import com.example.temp.annotation.LimitTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,6 +19,8 @@ import java.util.concurrent.atomic.AtomicLong;
  * @create: 2021-05-18 16:10
  **/
 @Slf4j
+@Scope( ConfigurableBeanFactory.SCOPE_PROTOTYPE )
+@LimitStrategy(value = LimitTypeEnum.RateLimiter)
 public class SlidingWindowRateLimiter implements IRateLimiter{
 
     /**
@@ -129,7 +135,7 @@ public class SlidingWindowRateLimiter implements IRateLimiter{
             return  true;
         }
         long currentCounter = lastNode.counter.get();
-        currentQPS();
+        currentQps();
         log.info("-----lastNode counter = "+ currentCounter + " , blockAv counter = "+ (maxLimit/block));
         if (currentCounter >= (maxLimit/block) && isBlockAvg ){
             log.info("-----BlockNoe counter = "+currentCounter + " , blockAv counter = "+ (maxLimit/block));
@@ -198,7 +204,7 @@ public class SlidingWindowRateLimiter implements IRateLimiter{
     }
 
     @Override
-    public Long currentQPS() {
+    public Long currentQps() {
         BlockNode currentNode = lastNode;
         log.info(" currentNode counter " + currentNode.counter.get());
         return currentNode.counter.get();

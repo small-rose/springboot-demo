@@ -14,11 +14,21 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum LimitTypeEnum {
 
-    SlidedWindowLimit("fix rate limit"),
+    RateLimiter("RateLimiter"),
     /**
      * 固定时间窗口
      */
-    FixWindowLimit("fix rate limit");
+    CountLimiter("CountLimiter");
 
-    private final String desc;
+    private final String name;
+
+
+    public static LimitTypeEnum getName(String name){
+        for(LimitTypeEnum  temp : LimitTypeEnum.values()){
+            if (temp.name.equals(name)){
+                return  temp;
+            }
+        }
+        return null;
+    }
 }
