@@ -18,8 +18,8 @@ public class TimeUnitTest {
     private static TimeUnit timeUnit;
 
     public static void main(String[] args) {
-        timeUnit = TimeUnit.SECONDS ;
-        System.out.println(timeUnit.toMillis(2));
+        timeUnit = TimeUnit.HOURS ;
+        System.out.println(timeUnit.toMillis(1));
 
         int blcok = 10 ;
         System.out.println( blcok << 1);

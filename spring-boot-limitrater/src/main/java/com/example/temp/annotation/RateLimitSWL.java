@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 @Inherited
-public @interface RateLimiter {
+public @interface RateLimitSWL {
 
     int timeWindowPeriod() default 60;
 
@@ -22,7 +22,12 @@ public @interface RateLimiter {
 
     int blocks() default 10;
 
-    boolean enableBlockAvg() default false;
+    /**
+     * 滑动窗口就是为了平滑区间与流量，因此此值不建议修改
+     * 如果改成false,
+     * @return
+     */
+    boolean enableBlockAvg() default true;
 
     TimeUnit timeUnit() default TimeUnit.SECONDS;
 }

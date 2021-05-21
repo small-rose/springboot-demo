@@ -1,7 +1,7 @@
 package com.example.temp.service;
 
-import com.example.temp.annotation.CountLimiter;
-import com.example.temp.annotation.RateLimiter;
+import com.example.temp.annotation.RateLimitFCL;
+import com.example.temp.annotation.RateLimitSWL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -46,8 +46,8 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
 
         beanList.forEach((k, v) -> inClassList.add(applicationContext.getType(k)));
         List<Class<? extends Annotation>> annotationList = new ArrayList<>(2);
-        annotationList.add(RateLimiter.class);
-        annotationList.add(CountLimiter.class);
+        annotationList.add(RateLimitSWL.class);
+        annotationList.add(RateLimitFCL.class);
         for (Class<? extends Annotation> annotation : annotationList) {
             getMethodsWithAnnotationFromAllClasses(inClassList, annotation, RateLimiterContext.containsMap);
         }
