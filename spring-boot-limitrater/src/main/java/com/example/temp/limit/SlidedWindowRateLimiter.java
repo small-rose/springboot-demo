@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @program: springboot-redis
- * @description
+ * @program: springboot-limiter
+ * TODO 描述：  滑动窗口-限流算法
  * @function:
  * @author: zzy
  * @create: 2021-05-18 16:10

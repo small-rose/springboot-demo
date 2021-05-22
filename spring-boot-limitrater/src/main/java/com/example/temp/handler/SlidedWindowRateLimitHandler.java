@@ -44,7 +44,7 @@ public class SlidedWindowRateLimitHandler extends AbstractRateLimitHandler imple
                 log.info("SlidingWindowRateLimiter will registry newInstance ... ");
                 IRateLimiter swrLimiter = new SlidedWindowRateLimiter(rateLimit.blocks(), rateLimit.maxLimited(),
                         rateLimit.enableBlockAvg(), rateLimit.timeWindowPeriod(), rateLimit.timeUnit());
-                CACHE_LIMIT.put(method.getName(), swrLimiter);
+                CACHE_LIMIT.put(methodName, swrLimiter);
             }
         }
         return CACHE_LIMIT.get(methodName);

@@ -20,7 +20,11 @@ public enum LimitTypeEnum {
     /**
      * 固定时间窗口
      */
-    RateLimitFCL("fixed count and period limit");
+    RateLimitFCL("fixed count and period limit"),
+    /**
+     * 令牌桶算法
+     */
+    RateLimitTBL( "token bucket");
 
     private final String desc;
 

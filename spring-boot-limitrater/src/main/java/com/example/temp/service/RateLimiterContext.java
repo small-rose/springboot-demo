@@ -1,6 +1,10 @@
 package com.example.temp.service;
 
 import com.example.temp.annotation.LimitTypeEnum;
+import com.example.temp.handler.FixPeriodCounterLimitHandler;
+import com.example.temp.handler.LimitHandler;
+import com.example.temp.handler.SlidedWindowRateLimitHandler;
+import com.example.temp.handler.TokenBucketRateLimitHandler;
 import com.example.temp.limit.IRateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -21,6 +25,19 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class RateLimiterContext  {
+
+
+    public static final Map<String, Class<? extends LimitHandler>> handlerMap = new HashMap<>();
+
+    static {
+        handlerMap.put(LimitTypeEnum.RateLimitSWL.name(), SlidedWindowRateLimitHandler.class);
+        handlerMap.put(LimitTypeEnum.RateLimitFCL.name(), FixPeriodCounterLimitHandler.class);
+        handlerMap.put(LimitTypeEnum.RateLimitTBL.name(), TokenBucketRateLimitHandler.class);
+    }
+
+    public  Map<String, Class<? extends LimitHandler>> getHandlerMap() {
+        return handlerMap;
+    }
 
     @Autowired
     private ApplicationContext applicationContext;

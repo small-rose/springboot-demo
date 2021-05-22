@@ -3,12 +3,17 @@ package com.example.temp.interceptor;
 import com.example.temp.service.RateLimitHandlerAspectInvoker;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @program: springboot-demo
@@ -17,24 +22,39 @@ import java.lang.reflect.Type;
  * @author: zzy
  * @create: 2021-05-21 13:47
  **/
-public class RateLimitGlobalInterceptor implements RateLimitInterceptor {
-
+@Slf4j
+public class RateLimitGlobalInterceptor extends RateLimitInterceptor {
 
     @Override
     public Object invoke(final ProceedingJoinPoint joinPoint) throws Throwable {
         boolean result = RateLimitHandlerAspectInvoker.getInstance().invoke(joinPoint);
-        System.out.println("result : "+result);
+        log.info("RateLimitGlobalInterceptor invoke result : "+result);
         if (result){
-            Object object = getMethodReturn(joinPoint);
-            System.out.println(object);
-            return resultHandler(object) ;
+            this.setRateLimitInterceptor(new FallBackMethodInterceptor());
+            return rateLimitInterceptor.invoke(joinPoint);
+            //return resultHandler(joinPoint) ;
         }
-        return joinPoint.proceed();
+        return proceed(joinPoint);
     }
 
-    public Object resultHandler(Object object){
 
-        return null;
+
+    public Object resultHandler(final ProceedingJoinPoint joinPoint) throws IllegalAccessException, InstantiationException {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        Class<?> returnType = method.getReturnType();
+        Object object = returnType.newInstance();
+
+        if (object instanceof String){
+            object = "api limit";
+        }
+        if (object instanceof Map){
+            ((HashMap) object).put("limit","api limit");
+        }
+        if (object instanceof List){
+            ((ArrayList) object).add(0,"api limit");
+        }
+        return object;
     }
 
     public static JavaType getMethodReturn(ProceedingJoinPoint joinPoint) {

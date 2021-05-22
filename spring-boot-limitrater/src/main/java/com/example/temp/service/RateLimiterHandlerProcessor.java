@@ -2,6 +2,8 @@ package com.example.temp.service;
 
 import com.example.temp.annotation.RateLimitFCL;
 import com.example.temp.annotation.RateLimitSWL;
+import com.example.temp.annotation.RateLimitTBL;
+import com.example.temp.excepion.LimitConflictException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -27,8 +29,13 @@ import java.util.*;
 @Slf4j
 public class RateLimiterHandlerProcessor implements ApplicationContextAware {
 
+    private static List<Class<? extends Annotation>> annotationList = new ArrayList<>(3);
 
-
+    static {
+        annotationList.add(RateLimitFCL.class);
+        annotationList.add(RateLimitSWL.class);
+        annotationList.add(RateLimitTBL.class);
+    }
     /**
      * 获取所有的策略Beanclass 加入HandlerOrderContext属性中
      * @param applicationContext
@@ -45,9 +52,7 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
         beanList.putAll(applicationContext.getBeansWithAnnotation(Service.class));
 
         beanList.forEach((k, v) -> inClassList.add(applicationContext.getType(k)));
-        List<Class<? extends Annotation>> annotationList = new ArrayList<>(2);
-        annotationList.add(RateLimitSWL.class);
-        annotationList.add(RateLimitFCL.class);
+
         for (Class<? extends Annotation> annotation : annotationList) {
             getMethodsWithAnnotationFromAllClasses(inClassList, annotation, RateLimiterContext.containsMap);
         }
@@ -75,7 +80,10 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
                 //findAnnotation也可以拿到其父类是否包含该注解
                 if (null != method && null != AnnotationUtils.findAnnotation(method, annotation)) {
                     try {
+                        checkAnnotations(method);
                         methodList.add(method);
+                    }catch (LimitConflictException e){
+                        throw  new LimitConflictException(e.getMessage());
                     }catch (Exception e){
                         log.error(e.toString());
                     }
@@ -88,22 +96,24 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
 
         }
     }
-        /*
-        void test(ApplicationContext applicationContext){
-            //获取所有策略注解的Bean
-            Map<String, Object> orderStrategyMap = applicationContext.getBeansWithAnnotation(RateLimiter.class);
-            orderStrategyMap.forEach((k,v)->{
-                //获取策略实现类
-                Class<IRateLimiter> limiterClass = (Class<IRateLimiter>) v.getClass();
-                //获取策略实现类的注解值。
-                //LimitTypeEnum type = limiterClass.getAnnotation(RateLimiter.class).value();
-                //将class加入HandlerOrderContext的map中,type作为key
-                //RateLimiterContext.getStrategyMap().put(type, limiterClass);
-            });
-            RateLimiterContext.getStrategyMap().forEach((k,v) -> {
-                System.out.println("已限流策略： key = "+k +" , value = "+v);
 
-            });
+    private void checkAnnotations(Method method) {
+        System.out.println("check method : "+method);
+        int x = 0 ;
+        Annotation[] annotations = method.getDeclaredAnnotations();
+        System.out.println(annotationList);
+        System.out.println(annotations);
+
+        for (Class<? extends Annotation> annotation : annotationList){
+            System.out.println(annotation);
+            if (null != method && null != AnnotationUtils.findAnnotation(method, annotation)) {
+                System.out.println("--------" +annotation);
+                x++;
+            }
+            if (x>1){
+                throw new LimitConflictException("[the "+method+" of RateLimitXXX Annotations [ @RateLimitFCL @RateLimitSWL @RateLimitTBL ] must be only one on a method.");
+            }
         }
-    */
+    }
+
 }

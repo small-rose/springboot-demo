@@ -4,6 +4,7 @@ import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * springboot-limiter
  * @author ZHANGXIAOCAI
  */
 @Documented
@@ -11,6 +12,9 @@ import java.util.concurrent.TimeUnit;
 @Target({ElementType.METHOD})
 @Inherited
 public  @interface RateLimitFCL {
+
+    String failBack() default "";
+
     /**
      * 最大限流数
      * @return

@@ -2,13 +2,12 @@ package com.example.temp.limit;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @description: TODO 功能角色说明：
- * TODO 描述： 固定周期 限流 算法
+ * TODO 描述： 固定周期-计数器 限流算法
  * @author: 张小菜
  * @date: 2021/5/20 22:59
  * @version: v1.0

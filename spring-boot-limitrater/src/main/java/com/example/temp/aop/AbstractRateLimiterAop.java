@@ -1,23 +1,20 @@
 package com.example.temp.aop;
 
-import com.example.temp.annotation.RateLimitSWL;
+import com.example.temp.excepion.LimitConflictException;
 import com.example.temp.interceptor.RateLimitGlobalInterceptor;
 import com.example.temp.interceptor.RateLimitInterceptor;
 import com.example.temp.service.RateLimitHandlerAspectInvoker;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.SimpleType;
-import com.fasterxml.jackson.databind.type.TypeBase;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import lombok.extern.slf4j.Slf4j;
+import com.example.temp.service.RateLimiterContext;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.util.Set;
 
 /**
  * @program: springboot-limitRater
@@ -31,12 +28,21 @@ public abstract class AbstractRateLimiterAop {
 
     private final RateLimitInterceptor interceptor = new RateLimitGlobalInterceptor();
 
+    @Autowired
+    private RateLimiterContext context;
+
     /**
      * Order 代表优先级，数字越小优先级越高
      */
 
-    @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitSWL) || @annotation(com.example.temp.annotation.RateLimitFCL)")
-    public void limitInterceptor(){};
+    @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitSWL)")
+    public void SWLLimitInterceptor(){};
+
+    @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitFCL)")
+    public void FCLLimitInterceptor(){};
+
+    @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitTBL)")
+    public void TBLLimitInterceptor(){};
 
     /**
      *   拦截处理限流注解
@@ -44,8 +50,9 @@ public abstract class AbstractRateLimiterAop {
      * @return
      * @throws Throwable
      */
-    @Around(value = "limitInterceptor()")
+    @Around(value = "SWLLimitInterceptor() || FCLLimitInterceptor() || TBLLimitInterceptor()")
     public Object rateLimitMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
+        checkAnnotationCompatible(joinPoint);
         return interceptor.invoke(joinPoint);
         /* Object commonResult = null;
         // 获取方法名称
@@ -58,6 +65,22 @@ public abstract class AbstractRateLimiterAop {
         }*/
         // 继续执行请求方法
         // return  joinPoint.proceed() ;
+    }
+
+    protected  void checkAnnotationCompatible(ProceedingJoinPoint joinPoint){
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        Annotation[] annotations = method.getAnnotations();
+        Set<String> annotationMap = RateLimitHandlerAspectInvoker.handlerMap.keySet();
+        int x = 0 ;
+        for (Annotation annotation : annotations){
+            if(annotationMap.contains(annotation.annotationType().getSimpleName())){
+                x++;
+            }
+            if (x>1){
+                throw new LimitConflictException("Limit Annotations [ @RateLimitFCL @RateLimitSWL @RateLimitTBL ] must be only one on a method.");
+            }
+        }
     }
 
 

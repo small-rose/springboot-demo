@@ -1,4 +1,4 @@
-package com.example.temp.limit;
+package com.example.temp.test;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

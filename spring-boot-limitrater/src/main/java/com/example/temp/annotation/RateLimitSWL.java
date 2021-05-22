@@ -4,17 +4,18 @@ import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @program: springboot-redis
+ * @program: springboot-limiter
  * @description
  * @function:
- * @author: zzy
+ * @author: zhangxiaocai
  * @create: 2021-05-18 12:34
  **/
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-@Inherited
 public @interface RateLimitSWL {
+
+    String failBack() default "";
 
     int timeWindowPeriod() default 60;
 
