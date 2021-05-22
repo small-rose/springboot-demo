@@ -47,13 +47,7 @@ public class JavassistClientTest {
             proxy = (ZzyCodeService) new ZzyProxy().creatProxy(ZzyCodeService.class);
             proxy.code("System.out.println(\"hello world\");");
 
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }
 
