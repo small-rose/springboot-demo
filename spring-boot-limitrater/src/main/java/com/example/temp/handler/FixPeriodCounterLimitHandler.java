@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * @description: TODO 功能角色说明：
- * TODO 描述：
+ * TODO 描述： 固定周期固定限流处理器
  * @author: 张小菜
  * @date: 2021/5/20 21:33
  * @version: v1.0

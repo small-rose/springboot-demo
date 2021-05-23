@@ -18,7 +18,7 @@ import java.util.Objects;
 /**
  * @program: springboot-redis
  * @description
- * @function:
+ * @function:  验证是否需要执行 限流
  * @author: zzy
  * @create: 2021-05-18 17:52
  **/
@@ -46,7 +46,7 @@ public class RateLimitHandlerAspectInvoker {
     }
 
     /**
-     *  解析 限流注解，根据注解 实例化完成对应的 handler
+     *  解析限流注解，判断是否需要限流，如果需要就根据注解 实例化完成对应的 handler
      * @param point
      * @return
      * @throws Throwable
@@ -54,32 +54,6 @@ public class RateLimitHandlerAspectInvoker {
     public boolean invoke(final ProceedingJoinPoint point) throws Throwable {
         final MethodSignature signature = (MethodSignature) point.getSignature();
         final Method method = signature.getMethod();
-        return doHandler(method);
-        /*
-        final RateLimitFCL countLimiter = method.getAnnotation(RateLimitFCL.class);
-        final RateLimitSWL rateLimiter = method.getAnnotation(RateLimitSWL.class);
-
-        log.info("annotation : "+method.getReturnType());
-        if (!Objects.isNull(countLimiter) && !Objects.isNull(rateLimiter)){
-            throw new LimitConflictException("Limit Annotation must be only one ");
-        }
-        if(!Objects.isNull(countLimiter)){
-            Class<?>  handler = handlerMap.get(countLimiter.annotationType().getSimpleName());
-            FixPeriodCounterLimitHandler handlerInstance = (FixPeriodCounterLimitHandler) handler.newInstance();
-            return handlerInstance.handler(method);
-        }
-        if(!Objects.isNull(rateLimiter)){
-            log.info("--- rateLimiter RateLimitHandler is handler : "+  method);
-            Class<?>  handler =  handlerMap.get(rateLimiter.annotationType().getSimpleName());
-            System.out.println(method.toString());
-            SlidedWindowRateLimitHandler handlerInstance = (SlidedWindowRateLimitHandler) handler.newInstance();
-            return handlerInstance.handler(method);
-        }
-        return false;
-        */
-    }
-
-    private boolean doHandler(Method method) throws IllegalAccessException, InstantiationException {
         Annotation[] annotations = method.getDeclaredAnnotations();
         for (Annotation annotation : annotations){
             Class<?> handler = handlerMap.get(annotation.annotationType().getSimpleName());

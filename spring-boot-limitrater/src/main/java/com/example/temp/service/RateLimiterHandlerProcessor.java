@@ -98,7 +98,7 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
     }
 
     private void checkAnnotations(Method method) {
-        System.out.println("check method : "+method);
+        //System.out.println("check method : "+method);
         int x = 0 ;
         Annotation[] annotations = method.getDeclaredAnnotations();
         System.out.println(annotationList);
@@ -107,7 +107,7 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
         for (Class<? extends Annotation> annotation : annotationList){
             System.out.println(annotation);
             if (null != method && null != AnnotationUtils.findAnnotation(method, annotation)) {
-                System.out.println("--------" +annotation);
+                //System.out.println("--------" +annotation);
                 x++;
             }
             if (x>1){

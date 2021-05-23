@@ -1,7 +1,7 @@
 package com.example.temp.controller;
 
 import com.example.temp.annotation.RateLimitFCL;
-import com.example.temp.annotation.RateLimitFallBack;
+import com.example.temp.annotation.ExceptionFallBack;
 import com.example.temp.annotation.RateLimitTBL;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 public class FallBackController {
 
-    @RateLimitFallBack
+    @ExceptionFallBack
     @RequestMapping("/fb")
     public String fallBack(){
         return "SUCCESS api fallBack";
@@ -52,5 +52,8 @@ public class FallBackController {
     public String f1FallBack(){
         return "系统繁忙，请稍后再试！";
     }
+
+
+
 
 }

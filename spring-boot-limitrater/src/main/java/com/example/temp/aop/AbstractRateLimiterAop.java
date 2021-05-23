@@ -4,13 +4,12 @@ import com.example.temp.excepion.LimitConflictException;
 import com.example.temp.interceptor.RateLimitGlobalInterceptor;
 import com.example.temp.interceptor.RateLimitInterceptor;
 import com.example.temp.service.RateLimitHandlerAspectInvoker;
-import com.example.temp.service.RateLimiterContext;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -23,13 +22,15 @@ import java.util.Set;
  * @author: zzy
  * @create: 2021-05-18 17:36
  **/
+@Slf4j
 @Aspect
 public abstract class AbstractRateLimiterAop {
 
     private final RateLimitInterceptor interceptor = new RateLimitGlobalInterceptor();
-
+/*
     @Autowired
     private RateLimiterContext context;
+*/
 
     /**
      * Order 代表优先级，数字越小优先级越高
@@ -52,20 +53,12 @@ public abstract class AbstractRateLimiterAop {
      */
     @Around(value = "SWLLimitInterceptor() || FCLLimitInterceptor() || TBLLimitInterceptor()")
     public Object rateLimitMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
-        checkAnnotationCompatible(joinPoint);
+        // 启动的时候借助 RateLimiterContext 验证，此处可以不重复验证
+        // checkAnnotationCompatible(joinPoint);
+        log.trace("----限流切面----");
         return interceptor.invoke(joinPoint);
-        /* Object commonResult = null;
-        // 获取方法名称
-        Method method = ((MethodSignature)joinPoint.getSignature()).getMethod();;
-        // 注解拦截处理
-        boolean isOver = RateLimitHandlerAspectInvoker.getInstance().invoke(joinPoint);
-        log.info("is over : " + isOver);
-        if (isOver){
-            return "API Limit ";
-        }*/
-        // 继续执行请求方法
-        // return  joinPoint.proceed() ;
     }
+
 
     protected  void checkAnnotationCompatible(ProceedingJoinPoint joinPoint){
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

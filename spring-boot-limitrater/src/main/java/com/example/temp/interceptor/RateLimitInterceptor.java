@@ -3,15 +3,13 @@ package com.example.temp.interceptor;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
- * @program: springboot-demo
+ * @program: springboot-limiter
  * @description
- * @function:
+ * @function:  限流处理抽象类
  * @author: zzy
  * @create: 2021-05-21 13:33
  **/
 public abstract class RateLimitInterceptor {
-
-    private boolean isOverLimit = false;
 
     //责任链中的下一个元素
     protected RateLimitInterceptor rateLimitInterceptor;
@@ -20,20 +18,10 @@ public abstract class RateLimitInterceptor {
         this.rateLimitInterceptor = rateLimitInterceptor;
     }
 
-    /**
-     * 告诉拦截器是 否执行 fallback 方法
-     * @param isOverLimit
-     */
-     public void setOverLimit(boolean isOverLimit){
-         this.isOverLimit = isOverLimit;
-     }
-    public boolean getOverLimit(){
-        return this.isOverLimit ;
-    }
 
 
     /**
-     * 限流验证处理
+     * 限流验证, 异常降级处理
      * @param joinPoint
      * @return
      */

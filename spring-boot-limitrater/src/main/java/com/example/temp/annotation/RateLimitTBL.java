@@ -1,5 +1,6 @@
 package com.example.temp.annotation;
 
+import com.example.temp.fallback.FallBackHandler;
 import com.example.temp.limit.TokenBucketRateLimiter;
 
 import java.lang.annotation.*;
@@ -17,20 +18,52 @@ import java.util.concurrent.TimeUnit;
 @Target({ElementType.METHOD})
 public @interface RateLimitTBL {
 
-    String failBack() default "";
+    /**
+     * 限流降级时执行的方法
+     * @return
+     */
+    String failBack() default FallBackHandler.DEFAULT_FALL_BACK ;;
 
+    /**
+     * 令牌桶里最大令牌数量
+     * @return
+     */
     long maxLimit() default TokenBucketRateLimiter.DEFAULT_MAX_LIMIT;
 
+    /**
+     * 获取令牌-可以接受的等待（超时）时间
+     * @return
+     */
     long timeout() default 100 ;
 
+    /**
+     * 获取令牌-可以接受的等待（超时）时间 单位
+     * @return
+     */
     TimeUnit timeUnit() default TimeUnit.MILLISECONDS;
 
+    /**
+     * 每秒创建N个令牌放入令牌桶
+     * @return
+     */
     long createPerSecond() default 1;
 
+    /**
+     * 创建令牌的周期延迟
+     * @return
+     */
     long createDelay() default 1 ;
 
+    /**
+     * 创建令牌的周期
+     * @return
+     */
     long createPeriod() default 1;
 
+    /**
+     * 创建时的时间单位
+     * @return
+     */
     TimeUnit createTimeUnit() default TimeUnit.SECONDS;
 
 

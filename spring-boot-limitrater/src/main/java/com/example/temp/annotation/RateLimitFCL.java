@@ -1,10 +1,13 @@
 package com.example.temp.annotation;
 
+import com.example.temp.fallback.FallBackHandler;
+
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
  * springboot-limiter
+ * TODO 限流注解--固定时间窗口期 period 内限流  maxLimited
  * @author ZHANGXIAOCAI
  */
 @Documented
@@ -13,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Inherited
 public  @interface RateLimitFCL {
 
-    String failBack() default "";
+    String failBack() default FallBackHandler.DEFAULT_FALL_BACK ;;
 
     /**
      * 最大限流数

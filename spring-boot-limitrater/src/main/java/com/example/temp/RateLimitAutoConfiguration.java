@@ -1,5 +1,6 @@
 package com.example.temp;
 
+import com.example.temp.aop.SpringFallBackAspect;
 import com.example.temp.aop.SpringRateLimitAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +25,15 @@ public class RateLimitAutoConfiguration {
     @Bean
     public SpringRateLimitAspect springRateLimitAspect() {
         return new SpringRateLimitAspect();
+    }
+
+    /**
+     * FallBack  aspect spring boot fall back  aspect.
+     *
+     * @return the spring boot fall back aspect
+     */
+    @Bean
+    public SpringFallBackAspect springFallBackAspect() {
+        return new SpringFallBackAspect();
     }
 }

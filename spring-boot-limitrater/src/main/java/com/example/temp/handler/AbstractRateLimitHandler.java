@@ -3,10 +3,8 @@ package com.example.temp.handler;
 import com.example.temp.limit.IRateLimiter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,6 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public abstract class AbstractRateLimitHandler {
 
+    /**
+     * 将方法 与 对应的限流算法绑定并缓存
+     */
     final static Map<String, IRateLimiter> CACHE_LIMIT = new ConcurrentHashMap<>();
 
     /**
