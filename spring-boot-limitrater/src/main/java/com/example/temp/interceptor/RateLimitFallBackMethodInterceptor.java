@@ -34,12 +34,13 @@ public class RateLimitFallBackMethodInterceptor extends RateLimitInterceptor{
      * @return
      * @throws Throwable
      */
+    @Override
     public Object invoke(final ProceedingJoinPoint joinPoint) throws Throwable {
         if (this.isOverLimit()){
             return RateLimitFallBackHandler.getInstance().fallBackHandler(joinPoint);
         }
 
-        rateLimitInterceptor.setRateLimitInterceptor(new ExceptionFallBackCheckInterceptor());
+        setRateLimitInterceptor(new ExceptionFallBackCheckInterceptor());
         return rateLimitInterceptor.invoke(joinPoint);
     }
 }

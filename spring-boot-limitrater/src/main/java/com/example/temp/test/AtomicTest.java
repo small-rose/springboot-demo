@@ -17,7 +17,7 @@ public class AtomicTest {
 
     private AtomicLong token = new AtomicLong(200);
 
-    public static void main(String[] args) throws Exception{
+    private static void test01() throws InterruptedException {
         AtomicTest atomicTest = new AtomicTest();
 
         Thread thread1 = new Thread(new Runnable() {
@@ -53,5 +53,10 @@ public class AtomicTest {
         thread2.join();
         System.out.println(atomicTest.getToken().get());
         System.out.println(atomicTest2.getToken().get());
+    }
+    public static void main(String[] args) throws Exception {
+        //test01();
+        AtomicLong atomicLong = new AtomicLong();
+
     }
 }

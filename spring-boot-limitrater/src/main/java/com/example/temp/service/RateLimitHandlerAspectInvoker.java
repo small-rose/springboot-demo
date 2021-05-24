@@ -1,10 +1,7 @@
 package com.example.temp.service;
 
 import com.example.temp.annotation.LimitTypeEnum;
-import com.example.temp.handler.FixPeriodCounterLimitHandler;
-import com.example.temp.handler.LimitHandler;
-import com.example.temp.handler.SlidedWindowRateLimitHandler;
-import com.example.temp.handler.TokenBucketRateLimitHandler;
+import com.example.temp.handler.*;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -33,6 +30,7 @@ public class RateLimitHandlerAspectInvoker {
         handlerMap.put(LimitTypeEnum.RateLimitSWL.name(), SlidedWindowRateLimitHandler.class);
         handlerMap.put(LimitTypeEnum.RateLimitFCL.name(), FixPeriodCounterLimitHandler.class);
         handlerMap.put(LimitTypeEnum.RateLimitTBL.name(), TokenBucketRateLimitHandler.class);
+        handlerMap.put(LimitTypeEnum.RateLimitLBL.name(), LeakyBucketRateLimitHandler.class);
     }
 
     private RateLimitHandlerAspectInvoker() {

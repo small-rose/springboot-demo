@@ -1,19 +1,13 @@
 package com.example.temp.fallback;
 
-import com.example.temp.annotation.LimitTypeEnum;
-import com.example.temp.annotation.RateLimitFCL;
-import com.example.temp.annotation.RateLimitSWL;
-import com.example.temp.annotation.RateLimitTBL;
+import com.example.temp.annotation.*;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.*;
 
 /**
@@ -29,14 +23,14 @@ public class RateLimitFallBackHandler implements FallBackHandler{
 
     private static final RateLimitFallBackHandler INSTANCE = new RateLimitFallBackHandler();
 
-    public static final Map<String, Class<? extends Annotation>> annotationMap = new HashMap<>();
-
+    public static final Map<String, Class<? extends Annotation>> ANNOTATION_MAP = new HashMap<>();
 
 
     static {
-        annotationMap.put(LimitTypeEnum.RateLimitFCL.name(), RateLimitFCL.class);
-        annotationMap.put(LimitTypeEnum.RateLimitSWL.name(), RateLimitSWL.class);
-        annotationMap.put(LimitTypeEnum.RateLimitTBL.name(), RateLimitTBL.class);
+        ANNOTATION_MAP.put(LimitTypeEnum.RateLimitFCL.name(), RateLimitFCL.class);
+        ANNOTATION_MAP.put(LimitTypeEnum.RateLimitSWL.name(), RateLimitSWL.class);
+        ANNOTATION_MAP.put(LimitTypeEnum.RateLimitTBL.name(), RateLimitTBL.class);
+        ANNOTATION_MAP.put(LimitTypeEnum.RateLimitLBL.name(), RateLimitLBL.class);
     }
 
     private RateLimitFallBackHandler() {
@@ -58,13 +52,29 @@ public class RateLimitFallBackHandler implements FallBackHandler{
             Method method = signature.getMethod();
             // Class<?> returnType = method.getReturnType();
             String methodName = null;
+                /*
+            for (String annotationName : ANNOTATION_MAP.keySet()){
+                Class<? extends Annotation> aClass = ANNOTATION_MAP.get(annotationName);
+                // 目标注解
+                Annotation annotation = method.getAnnotation(aClass);
+                //Class<? extends Annotation> aClass2 = method.getAnnotation(annotation);
+                // 获取代理实例所持有的 InvocationHandler
+                InvocationHandler invocationHandler = Proxy.getInvocationHandler(annotation);
+
+                // 获取 AnnotationInvocationHandler 的 memberValues 字段
+                Field memberValuesField = invocationHandler.getClass().getDeclaredField()
+
+            }
+                 */
             final RateLimitFCL rateLimitFCL = method.getAnnotation(RateLimitFCL.class);
             final RateLimitSWL rateLimitSWL = method.getAnnotation(RateLimitSWL.class);
             final RateLimitTBL rateLimitTBL = method.getAnnotation(RateLimitTBL.class);
+            final RateLimitLBL rateLimitLBL = method.getAnnotation(RateLimitLBL.class);
 
             if (!Objects.isNull(rateLimitFCL)){ methodName = rateLimitFCL.failBack();}
             if (!Objects.isNull(rateLimitSWL)){ methodName = rateLimitSWL.failBack();}
             if (!Objects.isNull(rateLimitTBL)){ methodName = rateLimitTBL.failBack();}
+            if (!Objects.isNull(rateLimitLBL)){ methodName = rateLimitLBL.failBack();}
             if (DEFAULT_FALL_BACK.equals(methodName)){
                 return setResult(null);
             }

@@ -1,7 +1,9 @@
 package com.example.temp.limit;
 
+import com.example.temp.limit.factory.NamedThreadFactory;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Assert;
 
 import javax.annotation.PreDestroy;
 import java.util.Map;
@@ -17,72 +19,32 @@ import java.util.concurrent.atomic.AtomicLong;
  * @version: v1.0
  */
 @Slf4j
-public class TokenBucketRateLimiter implements TokenSupply, IRateLimiter{
+public class TokenBucketRateLimiter extends TokenCooperating implements IRateLimiter{
+
+    // 抽象到父类
+    //public final static Map<String, TokenCooperating> RATE_LIMITER_MAP = new ConcurrentHashMap<>();
 
     public final static TokenBucketManager tokenBucketManager = new TokenBucketManager();
-    private final Object lock = new Object();
 
     public static final long DEFAULT_MAX_LIMIT = 1000;
-    /**
-     *  桶内令牌个数
-     */
-    private volatile AtomicLong token ;
-    /**
-     * 桶中 令牌最大数目
-     */
-    private long maxLimit ;
-    /**
-     * 获取令牌的超时时间
-     */
-    private long timeout;
-    /**
-     *  获取令牌的超时时间 单位时间
-     */
-    private TimeUnit timeUnit;
 
-    /**
-     *  桶内令牌每秒创建个数
-     */
-    private long createNumPerSecond ;
+    private final long minLimit = 0;
 
-    private long createDelay ;
+    private final TokenBucket tokenBucket ;
 
-    private long createPeriod ;
-
-    private TimeUnit createTimeUnit;
-
-    private long minLimit = 0;
-
-    public TokenBucketRateLimiter(long maxLimit, long createNumPerSecond, long timeout, TimeUnit timeUnit,
+    public TokenBucketRateLimiter(long maxLimit, long createNumUnit, long timeout, TimeUnit timeUnit,
                                   long createDelay, long createPeriod, TimeUnit createTimeUnit) {
-        this.maxLimit = maxLimit;
-        this.createNumPerSecond = createNumPerSecond;
 
-        this.timeUnit = timeUnit;
-        this.timeout = this.timeUnit.toMillis(timeout);
-
-        this.createDelay = createDelay;
-        this.createPeriod = createPeriod;
-        this.createTimeUnit = createTimeUnit;
-        long expire = timeUnit.toMillis(timeout);
-        init();
+        Assert.isTrue(maxLimit > 0 , "this attribute 'maxLimit' must be greater than 0 ");
+        tokenBucket = new TokenBucket(maxLimit, createNumUnit, timeout, timeUnit,  createDelay,  createPeriod,  createTimeUnit);
     }
-
-    private void init() {
-        // 初始化，默认令牌数为最大令牌数
-        token = new AtomicLong(maxLimit);
-        TokenBucketManager.rateLimiterMap.put("",this);
-        tokenBucketManager.init(createDelay, createPeriod, createTimeUnit);
-    }
-
-
 
     @Override
     public boolean isOverLimit() {
-        log.info("before total token = "+token.get());
-        if (tryAcquire()){
+        log.info("before total token = "+ tokenBucket.getToken().get());
+        if (tokenBucket.tryAcquire()){
             // 拿到令牌就不限流
-            log.info("total token = "+token.get());
+            log.info("total token = "+tokenBucket.getToken().get());
             return false;
         }
         return true;
@@ -90,61 +52,28 @@ public class TokenBucketRateLimiter implements TokenSupply, IRateLimiter{
 
     @Override
     public Long currentQps() {
-        return token.get();
+        return tokenBucket.getToken().get();
     }
 
-    private boolean tryAcquire(){
-
-        if(getToken()){
-            return true;
-        }
-
-        long now = System.currentTimeMillis();
-        long future = now + timeout;
-        // 获取不到就
-        log.info("尝试获取令牌时，桶内剩余令牌数："+token.get());
-        while (token.get() <= minLimit  && timeout > 0){
-
-            synchronized (lock) {
-                try {
-                    log.info(Thread.currentThread().getName()+" will wait ---");
-                    lock.wait(timeout);
-                    log.info(Thread.currentThread().getName()+" will start ---");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-            }
-
-            if (future >= System.currentTimeMillis() && getToken()){
-                // 在超时时间范围内,拿到了令牌
-                return true;
-            } else{
-                return false;
-            }
-        }
-        return false;
-    }
-
-    private boolean getToken(){
-        if (token.get() > minLimit && token.decrementAndGet() >= 0){
-            //获取到令牌了
-            log.info("桶内剩余令牌数："+token.get());
-            return true;
-        }
-        return false;
-    }
 
     /**
      * 补充令牌
      */
-    public void supplement(final ExecutorService executorService){
+    @Override
+    public void cooperating(final ExecutorService executorService){
         // 按照指定的速率 放令牌
-        long free = maxLimit - token.get();
-        log.info("supply maxLimit : "+maxLimit +" , total token = "+token.get());
-        if (free >= createNumPerSecond){
-            token.getAndAdd(this.createNumPerSecond);
-            log.info("supply token add : "+createNumPerSecond +" , total token = "+token.get());
+        long free = tokenBucket.getMaxLimit() - currentQps();
+        if (log.isDebugEnabled()){
+            log.info("supply maxLimit : "+tokenBucket.getMaxLimit() +" , current total token = "+currentQps());
+        }
+
+        if (free >= tokenBucket.getCreateNumUnit()){
+            tokenBucket.getToken().getAndAdd(tokenBucket.getCreateNumUnit());
+            log.info("supply token add : "+tokenBucket.getCreateNumUnit() +" , total token = "+currentQps());
+        }else{
+            if (log.isDebugEnabled()){
+                log.info("the LeakyBucket  size [ "+currentQps()+" ] is full ! ");
+            }
         }
 
         executorService.execute(() -> {
@@ -156,11 +85,103 @@ public class TokenBucketRateLimiter implements TokenSupply, IRateLimiter{
 
 
     @Data
+    private class TokenBucket{
+        /**
+         *  桶内令牌个数
+         */
+        private volatile AtomicLong token ;
+        /**
+         * 桶中 令牌最大数目
+         */
+        private final long maxLimit ;
+        /**
+         * 获取令牌的超时时间
+         */
+        private final long timeout;
+        /**
+         *  获取令牌的超时时间 单位时间
+         */
+        private final TimeUnit timeUnit;
+
+        /**
+         *  桶内令牌 每个执行周期内 创建令牌个数
+         */
+        private final long createNumUnit ;
+        /**
+         *  执行周期延迟
+         */
+        private final long createDelay ;
+        /**
+         * 执行周期间隔 时间
+         */
+        private final long createPeriod ;
+        /**
+         * 执行周期间隔时间单位 （默认是秒）
+         */
+        private final TimeUnit createTimeUnit;
+
+
+        public TokenBucket(long maxLimit, long createNumUnit,long timeout, TimeUnit timeUnit, long createDelay, long createPeriod, TimeUnit createTimeUnit) {
+            this.maxLimit = maxLimit;
+            this.createNumUnit = createNumUnit;
+            this.timeUnit = timeUnit;
+            this.timeout = this.timeUnit.toMillis(timeout);
+            this.createDelay = createDelay;
+            this.createPeriod = createPeriod;
+            this.createTimeUnit = createTimeUnit;
+            // 初始化，默认令牌数为最大令牌数
+            token = new AtomicLong(maxLimit);
+            // 启动添加令牌的调度
+            tokenBucketManager.init(createDelay, createPeriod, createTimeUnit);
+        }
+
+
+        /**
+         * 尝试 取到令牌
+         * @return
+         */
+        private boolean tryAcquire(){
+
+            if(tryGetToken()){
+                return true;
+            }
+            long now = System.currentTimeMillis();
+            long expire = timeUnit.toMillis(timeout);
+            long future = now + expire;
+            // 获取不到就 等待超时时间
+            log.info("尝试获取令牌时，桶内剩余令牌数："+token.get());
+            while (token.get() <= minLimit  && timeout > 0
+                    && ( System.currentTimeMillis() <= future )){
+
+                waitLock(lock, timeout);
+                if (tryGetToken()){
+                    // 在超时时间范围内,尝试拿到了令牌
+                    return true;
+                }
+            }
+            return false;
+        }
+        /**
+         *  获取令牌操作
+         * @return
+         */
+        private boolean tryGetToken(){
+            if (token.get() > minLimit && token.decrementAndGet() >= 0){
+                //获取到令牌了
+                log.info("桶内剩余令牌数："+token.get());
+                return true;
+            }
+            return false;
+        }
+    }
+
+
+    @Data
     public static class TokenBucketManager{
 
-        public final static Map<String, TokenSupply> rateLimiterMap = new ConcurrentHashMap<>();
         // 定时线程
-        private final ScheduledThreadPoolExecutor scheduledCheck = new ScheduledThreadPoolExecutor(Runtime.getRuntime().availableProcessors());
+        private final static ScheduledThreadPoolExecutor scheduledCheck = new ScheduledThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
+                new NamedThreadFactory("token-bucket-group", "token-bucket-factory"));
         // 执行补充线程池
         private final ExecutorService executorService = new ThreadPoolExecutor(5, 200,
                 60L, TimeUnit.SECONDS, new SynchronousQueue<>(),
@@ -171,7 +192,6 @@ public class TokenBucketRateLimiter implements TokenSupply, IRateLimiter{
         public void init(long createDelay,long createPeriod, TimeUnit createTimeUnit){
             scheduledCheck.scheduleAtFixedRate(new SupplementRateLimiter(), createDelay, createPeriod, createTimeUnit);
         }
-
 
         @PreDestroy
         public void destroy(){
@@ -184,36 +204,10 @@ public class TokenBucketRateLimiter implements TokenSupply, IRateLimiter{
         private class SupplementRateLimiter implements Runnable{
             @Override
             public void run(){
-                rateLimiterMap.values().forEach(rateLimiter -> rateLimiter.supplement(executorService));
+                RATE_LIMITER_MAP.values().forEach(rateLimiter -> rateLimiter.cooperating(executorService));
             }
         }
 
-        /**
-         * 自定义工厂池
-         */
-        static class NamedThreadFactory implements ThreadFactory{
-            private final AtomicInteger poolNumber = new AtomicInteger(1);
-            private final ThreadGroup group;
-            private final AtomicInteger threadNumber = new AtomicInteger(1);
-            private final String namePrefix;
-            private final String factoryName;
-
-            public NamedThreadFactory(String group,String factoryName) {
-                this.group = new ThreadGroup(group);
-                this.factoryName = factoryName;
-                namePrefix = factoryName + "-pool-" +
-                        poolNumber.getAndIncrement() +
-                        "-thread-";
-            }
-
-            @Override
-            public Thread newThread(Runnable r) {
-                Thread t = new Thread(group, r,
-                        namePrefix + threadNumber.getAndIncrement(),
-                        0);
-                return t;
-            }
-        }
     }
 
 }

@@ -43,10 +43,10 @@ public @interface RateLimitTBL {
     TimeUnit timeUnit() default TimeUnit.MILLISECONDS;
 
     /**
-     * 每秒创建N个令牌放入令牌桶
+     * 每个执行周期 放入令牌桶 的令牌个数
      * @return
      */
-    long createPerSecond() default 1;
+    long createNumUnit() default 1;
 
     /**
      * 创建令牌的周期延迟

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @program: springboot-redis
+ * @program: springboot-limiter
  * @description
  * @function:
  * @author: zzy
@@ -22,19 +22,14 @@ public enum LimitTypeEnum {
      */
     RateLimitFCL("fixed count and period limit"),
     /**
+     * 漏斗桶算法
+     */
+    RateLimitLBL("leaky bucket"),
+    /**
      * 令牌桶算法
      */
     RateLimitTBL( "token bucket");
 
     private final String desc;
 
-
-    public static LimitTypeEnum getName(String name){
-        for(LimitTypeEnum  temp : LimitTypeEnum.values()){
-            if (temp.desc.equals(name)){
-                return  temp;
-            }
-        }
-        return null;
-    }
 }

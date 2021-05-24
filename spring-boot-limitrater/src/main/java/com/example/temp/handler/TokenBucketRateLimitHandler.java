@@ -3,7 +3,7 @@ package com.example.temp.handler;
 import com.example.temp.annotation.RateLimitTBL;
 import com.example.temp.limit.IRateLimiter;
 import com.example.temp.limit.TokenBucketRateLimiter;
-import com.example.temp.limit.TokenSupply;
+import com.example.temp.limit.TokenCooperating;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
@@ -33,11 +33,11 @@ public class TokenBucketRateLimitHandler extends AbstractRateLimitHandler implem
             synchronized (this) {
                 log.info("TokenBucketRateLimitHandler will registry newInstance ... ");
                 IRateLimiter swrLimiter = new TokenBucketRateLimiter(rateLimit.maxLimit(),
-                        rateLimit.createPerSecond(), rateLimit.timeout(), rateLimit.timeUnit(),
+                        rateLimit.createNumUnit(), rateLimit.timeout(), rateLimit.timeUnit(),
                         rateLimit.createDelay(), rateLimit.createPeriod(), rateLimit.createTimeUnit());
                 CACHE_LIMIT.put(methodName, swrLimiter);
                 // 创建一个补充令牌管理的
-                TokenBucketRateLimiter.TokenBucketManager.rateLimiterMap.put(methodName, (TokenSupply) swrLimiter);
+                TokenBucketRateLimiter.RATE_LIMITER_MAP.put(methodName, (TokenCooperating) swrLimiter);
             }
         }
         return CACHE_LIMIT.get(methodName);

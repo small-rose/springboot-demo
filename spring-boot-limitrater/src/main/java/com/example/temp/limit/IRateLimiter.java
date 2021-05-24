@@ -9,7 +9,15 @@ package com.example.temp.limit;
  **/
 public interface IRateLimiter {
 
+    /**
+     * 验证是否限流
+     * @return
+     */
     boolean isOverLimit();
 
+    /**
+     *  当前qps
+     * @return
+     */
     Long currentQps();
 }

@@ -32,9 +32,6 @@ public abstract class AbstractRateLimiterAop {
     private RateLimiterContext context;
 */
 
-    /**
-     * Order 代表优先级，数字越小优先级越高
-     */
 
     @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitSWL)")
     public void SWLLimitInterceptor(){};
@@ -45,13 +42,15 @@ public abstract class AbstractRateLimiterAop {
     @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitTBL)")
     public void TBLLimitInterceptor(){};
 
+    @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitLBL)")
+    public void LBLLimitInterceptor(){};
     /**
      *   拦截处理限流注解
      * @param joinPoint
      * @return
      * @throws Throwable
      */
-    @Around(value = "SWLLimitInterceptor() || FCLLimitInterceptor() || TBLLimitInterceptor()")
+    @Around(value = "SWLLimitInterceptor() || FCLLimitInterceptor() || TBLLimitInterceptor() || LBLLimitInterceptor()")
     public Object rateLimitMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
         // 启动的时候借助 RateLimiterContext 验证，此处可以不重复验证
         // checkAnnotationCompatible(joinPoint);
