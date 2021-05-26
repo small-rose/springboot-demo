@@ -5,6 +5,7 @@
 
     <groupId>cn.xiaocai.demo</groupId>
     <artifactId>springboot-demo</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot-demo</name>
     <description>Demo project for Spring Boot</description>
@@ -29,6 +30,7 @@
         <module>spring-boot-rabbitmq</module>
         <module>spring-boot-redis</module>
         <module>spring-boot-redis-cache</module>
+        <module>java-spi</module>
     </modules>
     <build>
         <plugins>
