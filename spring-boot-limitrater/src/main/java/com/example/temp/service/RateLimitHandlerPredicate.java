@@ -1,6 +1,5 @@
 package com.example.temp.service;
 
-import com.example.temp.annotation.LimitTypeEnum;
 import com.example.temp.handler.*;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,8 +7,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -20,28 +17,17 @@ import java.util.Objects;
  * @create: 2021-05-18 17:52
  **/
 @Slf4j
-public class RateLimitHandlerAspectInvoker {
+public class RateLimitHandlerPredicate extends AspectPredicatePreparatory {
 
-    private static final RateLimitHandlerAspectInvoker INSTANCE = new RateLimitHandlerAspectInvoker();
+    private static final RateLimitHandlerPredicate INSTANCE = new RateLimitHandlerPredicate();
 
-    public static final Map<String, Class<? extends LimitHandler>> handlerMap = new HashMap<>();
-
-    static {
-        handlerMap.put(LimitTypeEnum.RateLimitSWL.name(), SlidedWindowRateLimitHandler.class);
-        handlerMap.put(LimitTypeEnum.RateLimitFCL.name(), FixPeriodCounterLimitHandler.class);
-        handlerMap.put(LimitTypeEnum.RateLimitTBL.name(), TokenBucketRateLimitHandler.class);
-        handlerMap.put(LimitTypeEnum.RateLimitLBL.name(), LeakyBucketRateLimitHandler.class);
+    private RateLimitHandlerPredicate() {
     }
 
-    private RateLimitHandlerAspectInvoker() {
-    }
-
-
-
-
-    public static RateLimitHandlerAspectInvoker getInstance() {
+    public static RateLimitHandlerPredicate getInstance() {
         return INSTANCE;
     }
+
 
     /**
      *  解析限流注解，判断是否需要限流，如果需要就根据注解 实例化完成对应的 handler
@@ -49,6 +35,7 @@ public class RateLimitHandlerAspectInvoker {
      * @return
      * @throws Throwable
      */
+    @Override
     public boolean invoke(final ProceedingJoinPoint point) throws Throwable {
         final MethodSignature signature = (MethodSignature) point.getSignature();
         final Method method = signature.getMethod();

@@ -52,4 +52,10 @@ public @interface RateLimitSWL {
      * @return
      */
     TimeUnit timeUnit() default TimeUnit.SECONDS;
+
+    /**
+     * 是否是分布式限流
+     * @return
+     */
+    boolean distributed() default false ;
 }

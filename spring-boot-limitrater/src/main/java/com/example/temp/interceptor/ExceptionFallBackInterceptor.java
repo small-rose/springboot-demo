@@ -1,7 +1,7 @@
 package com.example.temp.interceptor;
 
 import com.example.temp.fallback.ExceptionFallBackHandler;
-import com.example.temp.service.FallBackHandlerAspectInvoker;
+import com.example.temp.service.FallBackHandlerPredicate;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -32,7 +32,7 @@ public class ExceptionFallBackInterceptor extends RateLimitInterceptor{
         final Method method = signature.getMethod();
         if (isFallBack){
             // 拿到之前构造的或者缓存的 降级规则处理器
-            ExceptionFallBackHandler fallBackHandler = FallBackHandlerAspectInvoker.ruleHandlerMap.get(method.toString());
+            ExceptionFallBackHandler fallBackHandler = FallBackHandlerPredicate.ruleHandlerMap.get(method.toString());
             this.setRateLimitInterceptor(fallBackHandler);
             return rateLimitInterceptor.invoke(joinPoint);
         }

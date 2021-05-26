@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Inherited
 public  @interface RateLimitFCL {
 
-    String failBack() default FallBackHandler.DEFAULT_FALL_BACK ;;
+    String failBack() default "" ;
 
     /**
      * 最大限流数
@@ -35,4 +35,10 @@ public  @interface RateLimitFCL {
      * @return
      */
     TimeUnit timeUnit() default TimeUnit.SECONDS;
+
+    /**
+     * 是否是分布式限流
+     * @return
+     */
+    boolean distributed() default false ;
 }

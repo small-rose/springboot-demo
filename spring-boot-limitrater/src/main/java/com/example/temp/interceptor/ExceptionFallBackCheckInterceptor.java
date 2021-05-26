@@ -1,6 +1,6 @@
 package com.example.temp.interceptor;
 
-import com.example.temp.service.FallBackHandlerAspectInvoker;
+import com.example.temp.service.FallBackHandlerPredicate;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 
@@ -18,7 +18,7 @@ public class ExceptionFallBackCheckInterceptor extends  RateLimitInterceptor{
     public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
         log.trace("----降级验证拦截器----");
         // 这里验证是否需要执行降级
-        boolean isFallBack = FallBackHandlerAspectInvoker.getInstance().invoke(joinPoint);
+        boolean isFallBack = FallBackHandlerPredicate.getInstance().invoke(joinPoint);
         // 向下传递 到降级处理器
         this.setRateLimitInterceptor(new ExceptionFallBackInterceptor(isFallBack));
         return rateLimitInterceptor.invoke(joinPoint);

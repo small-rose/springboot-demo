@@ -36,6 +36,7 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
         annotationList.add(RateLimitSWL.class);
         annotationList.add(RateLimitTBL.class);
     }
+
     /**
      * 获取所有的策略Beanclass 加入HandlerOrderContext属性中
      * @param applicationContext
@@ -50,6 +51,7 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
         Map<String, Object> beanList = applicationContext.getBeansWithAnnotation(RestController.class);
         beanList.putAll(applicationContext.getBeansWithAnnotation(Controller.class));
         beanList.putAll(applicationContext.getBeansWithAnnotation(Service.class));
+        beanList.putAll(applicationContext.getBeansWithAnnotation(Component.class));
 
         beanList.forEach((k, v) -> inClassList.add(applicationContext.getType(k)));
 
@@ -57,11 +59,6 @@ public class RateLimiterHandlerProcessor implements ApplicationContextAware {
             getMethodsWithAnnotationFromAllClasses(inClassList, annotation, RateLimiterContext.containsMap);
         }
 
-        // 打印数据
-        RateLimiterContext.containsMap.forEach((k,v) -> {
-            System.out.println("class : " +k);
-            v.forEach(m -> System.out.println("method : "+ m));
-        });
     }
     /**
      * 获取类里所有包含annotation的方法名

@@ -3,13 +3,15 @@ package com.example.temp.aop;
 import com.example.temp.excepion.LimitConflictException;
 import com.example.temp.interceptor.RateLimitGlobalInterceptor;
 import com.example.temp.interceptor.RateLimitInterceptor;
-import com.example.temp.service.RateLimitHandlerAspectInvoker;
+import com.example.temp.service.RateLimitHandlerPredicate;
+import com.example.temp.service.RateLimiterContext;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -27,10 +29,10 @@ import java.util.Set;
 public abstract class AbstractRateLimiterAop {
 
     private final RateLimitInterceptor interceptor = new RateLimitGlobalInterceptor();
-/*
+
     @Autowired
     private RateLimiterContext context;
-*/
+
 
 
     @Pointcut(value = "@annotation(com.example.temp.annotation.RateLimitSWL)")
@@ -54,7 +56,8 @@ public abstract class AbstractRateLimiterAop {
     public Object rateLimitMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
         // 启动的时候借助 RateLimiterContext 验证，此处可以不重复验证
         // checkAnnotationCompatible(joinPoint);
-        log.trace("----限流切面----");
+        log.trace("----限流切面----" + context);
+
         return interceptor.invoke(joinPoint);
     }
 
@@ -63,7 +66,7 @@ public abstract class AbstractRateLimiterAop {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         Annotation[] annotations = method.getAnnotations();
-        Set<String> annotationMap = RateLimitHandlerAspectInvoker.handlerMap.keySet();
+        Set<String> annotationMap = RateLimitHandlerPredicate.handlerMap.keySet();
         int x = 0 ;
         for (Annotation annotation : annotations){
             if(annotationMap.contains(annotation.annotationType().getSimpleName())){

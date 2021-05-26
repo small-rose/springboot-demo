@@ -66,5 +66,9 @@ public @interface RateLimitTBL {
      */
     TimeUnit createTimeUnit() default TimeUnit.SECONDS;
 
-
+    /**
+     * 是否是分布式限流
+     * @return
+     */
+    boolean distributed() default false ;
 }

@@ -27,7 +27,7 @@ public abstract class AbstractRateLimitHandler {
      * @param method
      * @return
      */
-    boolean defaultHandler(Method method){
+    protected boolean defaultHandler(Method method){
         IRateLimiter rateLimiter = registry(method);
         boolean overLimit = rateLimiter.isOverLimit();
         log.info("rateLimiter overLimit return = " + overLimit);
@@ -39,6 +39,6 @@ public abstract class AbstractRateLimitHandler {
      * @param method
      * @return
      */
-    abstract IRateLimiter registry(Method method);
+    protected abstract IRateLimiter registry(Method method);
 
 }

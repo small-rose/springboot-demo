@@ -5,16 +5,15 @@ import com.example.temp.handler.FixPeriodCounterLimitHandler;
 import com.example.temp.handler.LimitHandler;
 import com.example.temp.handler.SlidedWindowRateLimitHandler;
 import com.example.temp.handler.TokenBucketRateLimitHandler;
-import com.example.temp.limit.IRateLimiter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @description: TODO 功能角色说明：
@@ -24,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version: v1.0
  */
 @Component
-public class RateLimiterContext  {
+public class RateLimiterContext  implements ApplicationContextAware {
 
 
     public static final Map<String, Class<? extends LimitHandler>> handlerMap = new HashMap<>();
@@ -35,33 +34,37 @@ public class RateLimiterContext  {
         handlerMap.put(LimitTypeEnum.RateLimitTBL.name(), TokenBucketRateLimitHandler.class);
     }
 
-    public  Map<String, Class<? extends LimitHandler>> getHandlerMap() {
-        return handlerMap;
-    }
-
-    @Autowired
-    private ApplicationContext applicationContext;
 
     public static  Map<Class<?>, Set<Method>> containsMap = new HashMap<>();
+
+    private static ApplicationContext applicationContext;
     /**
-     *使用线程安全的ConcurrentHashMap存储所有实现Strategy接口的Bean
-     *key:beanName
-     *value：实现Strategy接口Bean
+     * 外部调用这个getBean方法就可以手动获取到bean
+     * 用bean组件的name来获取bean
+     * @param beanName
+     * @return
      */
-    private final static Map<LimitTypeEnum, Class<IRateLimiter>> strategyMap = new ConcurrentHashMap<>();
-
-
-    public static Map<LimitTypeEnum, Class<IRateLimiter>> getStrategyMap() {
-        return strategyMap;
+    @SuppressWarnings("unchecked")
+    public static <T> T  getBean(String beanName){
+        return (T) applicationContext.getBean(beanName);
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T  getBean(Class<?> beanName){
+        return (T) applicationContext.getBean(beanName);
+    }
 
-    public IRateLimiter getLimiterStrategy(LimitTypeEnum type){
-        Class<IRateLimiter> strategyClass = strategyMap.get(type);
-        if(strategyClass==null){
-            throw new IllegalArgumentException("没有对应的订单类型");
-        }
-        //从容器中获取对应的策略Bean
-        return applicationContext.getBean(strategyClass);
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        RateLimiterContext.applicationContext = applicationContext;
+    }
+
+    /**
+     * 从自己的 bean 管理器拿
+     * @param name
+     * @return
+     */
+    public static Object getBeanByName(String name) {
+        return ServiceLocator.getService(name);
     }
 }

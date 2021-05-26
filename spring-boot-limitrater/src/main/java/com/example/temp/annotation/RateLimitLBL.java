@@ -66,4 +66,10 @@ public @interface RateLimitLBL {
      * @return
      */
     TimeUnit leakTimeUnit() default TimeUnit.SECONDS;
+
+    /**
+     * 是否是分布式限流
+     * @return
+     */
+    boolean distributed() default false ;
 }

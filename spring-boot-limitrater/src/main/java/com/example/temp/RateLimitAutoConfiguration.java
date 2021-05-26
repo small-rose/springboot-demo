@@ -2,6 +2,7 @@ package com.example.temp;
 
 import com.example.temp.aop.SpringFallBackAspect;
 import com.example.temp.aop.SpringRateLimitAspect;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author: zzy
  * @create: 2021-05-21 13:58
  **/
+@Slf4j
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class RateLimitAutoConfiguration {
@@ -24,6 +26,7 @@ public class RateLimitAutoConfiguration {
      */
     @Bean
     public SpringRateLimitAspect springRateLimitAspect() {
+        log.info("Initializing Spring RateLimitAspect");
         return new SpringRateLimitAspect();
     }
 
@@ -34,6 +37,7 @@ public class RateLimitAutoConfiguration {
      */
     @Bean
     public SpringFallBackAspect springFallBackAspect() {
+        log.info("Initializing Spring FallBackAspect");
         return new SpringFallBackAspect();
     }
 }

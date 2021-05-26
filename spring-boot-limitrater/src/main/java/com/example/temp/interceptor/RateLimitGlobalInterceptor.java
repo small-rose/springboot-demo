@@ -1,6 +1,7 @@
 package com.example.temp.interceptor;
 
-import com.example.temp.service.RateLimitHandlerAspectInvoker;
+import cn.xiaocai.limiter.distributed.invoker.RateLimitDistributedPredicate;
+import com.example.temp.service.RateLimitHandlerPredicate;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 
@@ -16,10 +17,18 @@ public class RateLimitGlobalInterceptor extends RateLimitInterceptor {
 
     @Override
     public Object invoke(final ProceedingJoinPoint joinPoint) throws Throwable {
-        boolean result = RateLimitHandlerAspectInvoker.getInstance().invoke(joinPoint);
-        log.info("RateLimitGlobalInterceptor invoke result : "+ true);
-        // 责任链传递，看是否需要执行 RateLimitXXX的 failBack()降级方法
-        this.setRateLimitInterceptor(new RateLimitFallBackMethodInterceptor(result));
+        boolean result = RateLimitDistributedPredicate.getInstance().invoke(joinPoint);
+        if (result) {
+            // 如果是分布式限流 走分布式限流拦截
+            log.info("RateLimitGlobalInterceptor invoke distributed rate limiter ! result : "+ true);
+            this.setRateLimitInterceptor(new RateLimitDistributedInterceptor(result));
+        }else{
+            // 走普通的限流拦截
+            result = RateLimitHandlerPredicate.getInstance().invoke(joinPoint);
+            log.info("RateLimitGlobalInterceptor invoke rate limiter result : "+ true);
+            // 责任链传递，看是否需要执行 RateLimitXXX的 failBack()降级方法
+            this.setRateLimitInterceptor(new RateLimitFallBackMethodInterceptor(result));
+        }
         return rateLimitInterceptor.invoke(joinPoint);
     }
 
