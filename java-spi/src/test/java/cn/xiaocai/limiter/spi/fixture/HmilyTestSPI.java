@@ -15,22 +15,11 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi.fixture;
+package cn.xiaocai.limiter.spi.fixture;
 
+import cn.xiaocai.limiter.spi.InitializeSPI;
 
-import org.dromara.hmily.spi.HmilySPI;
-import org.dromara.hmily.spi.ScopeType;
-
-@HmilySPI(value = "oracle", order = 2, scopeType = ScopeType.PROTOTYPE)
-public class OracleSPI implements JdbcSPI {
+public interface HmilyTestSPI extends InitializeSPI {
     
-    @Override
-    public String getClassName() {
-        return "oracle";
-    }
-    
-    @Override
-    public void init() {
-    
-    }
+    String sayHello();
 }

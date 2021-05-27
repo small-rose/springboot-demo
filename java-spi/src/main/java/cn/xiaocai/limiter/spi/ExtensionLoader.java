@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi;
+package cn.xiaocai.limiter.spi;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The type Extension loader for dubbo ExtensionLoader.
+ * The type Extension loader for rate limiter ExtensionLoader.
  *
  * @param <T> the type parameter
  * @author xiaoyu(Myth)
@@ -48,7 +48,7 @@ public final class ExtensionLoader<T> {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(ExtensionLoader.class);
     
-    private static final String HMILY_DIRECTORY = "META-INF/hmily/";
+    private static final String HMILY_DIRECTORY = "META-INF/limiter/";
     
     private static final Map<Class<?>, ExtensionLoader<?>> LOADERS = new ConcurrentHashMap<>();
     
@@ -288,11 +288,11 @@ public final class ExtensionLoader<T> {
             String name = null;
             int order = 0;
             ScopeType scope = ScopeType.SINGLETON;
-            HmilySPI hmilySPI = clazz.getAnnotation(HmilySPI.class);
-            if (null != hmilySPI) {
-                name = hmilySPI.value();
-                order = hmilySPI.order();
-                scope = hmilySPI.scopeType();
+            RateLimitSPI rateLimitSPI = clazz.getAnnotation(RateLimitSPI.class);
+            if (null != rateLimitSPI) {
+                name = rateLimitSPI.value();
+                order = rateLimitSPI.order();
+                scope = rateLimitSPI.scopeType();
             }
             ExtensionEntity result = new ExtensionEntity(name, clazz, order, scope);
             entityList.add(result);

@@ -15,22 +15,11 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi.fixture;
+package cn.xiaocai.limiter.spi.fixture;
 
+import cn.xiaocai.limiter.spi.InitializeSPI;
 
-import org.dromara.hmily.spi.HmilySPI;
-import org.dromara.hmily.spi.ScopeType;
-
-@HmilySPI(value = "mysql", order = 1, scopeType = ScopeType.SINGLETON)
-public class MysqlSPI implements JdbcSPI {
+public interface JdbcSPI extends InitializeSPI {
     
-    @Override
-    public String getClassName() {
-        return "mysql";
-    }
-    
-    @Override
-    public void init() {
-    
-    }
+    String getClassName();
 }

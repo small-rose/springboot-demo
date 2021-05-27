@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi;
+package cn.xiaocai.limiter.spi;
 
 /**
  * The interface Initialize spi.

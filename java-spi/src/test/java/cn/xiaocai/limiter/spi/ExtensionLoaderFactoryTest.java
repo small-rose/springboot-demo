@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi;
+package cn.xiaocai.limiter.spi;
 
-import org.dromara.hmily.spi.fixture.HelloWorldTestSPI;
-import org.dromara.hmily.spi.fixture.HmilyTestSPI;
-import org.dromara.hmily.spi.fixture.NoHelloTestSPI;
+import cn.xiaocai.limiter.spi.fixture.HelloWorldTestSPI;
+import cn.xiaocai.limiter.spi.fixture.HmilyTestSPI;
+import cn.xiaocai.limiter.spi.fixture.NoHelloTestSPI;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -29,6 +29,9 @@ public final class ExtensionLoaderFactoryTest {
     
     @Test
     public void testSPI() {
+        HmilyTestSPI myTest = ExtensionLoaderFactory.load(HmilyTestSPI.class,"myTest");
+        System.out.println("myTest --> "+myTest);
+        
         HmilyTestSPI hmilyTestSPI = ExtensionLoaderFactory.load(HmilyTestSPI.class);
         System.out.println("hmilyTestSPI --> "+hmilyTestSPI);
         //assertThat(hmilyTestSPI.getClass().getName(), is(NoHelloTestSPI.class.getName()));

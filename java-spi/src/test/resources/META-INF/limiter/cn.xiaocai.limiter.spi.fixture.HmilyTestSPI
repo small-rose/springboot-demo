@@ -1,0 +1,3 @@
+cn.xiaocai.limiter.spi.fixture.HelloWorldTestSPI
+cn.xiaocai.limiter.spi.fixture.NoHelloTestSPI
+cn.xiaocai.limiter.spi.fixture.MyTestSPI

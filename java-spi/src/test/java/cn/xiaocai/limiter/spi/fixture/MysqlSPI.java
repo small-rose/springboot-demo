@@ -15,17 +15,19 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi.fixture;
+package cn.xiaocai.limiter.spi.fixture;
 
-import org.dromara.hmily.spi.HmilySPI;
-import org.dromara.hmily.spi.ScopeType;
 
-@HmilySPI(value = "no", order = 2, scopeType = ScopeType.PROTOTYPE)
-public class NoHelloTestSPI implements HmilyTestSPI {
+import cn.xiaocai.limiter.spi.RateLimitSPI;
+import cn.xiaocai.limiter.spi.ScopeType;
+import cn.xiaocai.limiter.spi.fixture.JdbcSPI;
+
+@RateLimitSPI(value = "mysql", order = 1, scopeType = ScopeType.SINGLETON)
+public class MysqlSPI implements JdbcSPI {
     
     @Override
-    public String sayHello() {
-        return " no hello world";
+    public String getClassName() {
+        return "mysql";
     }
     
     @Override

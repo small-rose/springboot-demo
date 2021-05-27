@@ -14,21 +14,43 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi;
+package cn.xiaocai.limiter.spi;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * The enum Scope type.
+ * HmilySPI Extend the processing.
  *
  * @author xiaoyu
+ * @see ExtensionLoader
  */
-public enum ScopeType {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface RateLimitSPI {
     
     /**
-     * Singleton scope type.
+     * Value string.
+     *
+     * @return the string
      */
-    SINGLETON,
+    String value();
+    
     /**
-     * Prototype scope type.
+     * Order int.
+     *
+     * @return the int
      */
-    PROTOTYPE
+    int order() default 0;
+    
+    /**
+     * Scope type scope type.
+     *
+     * @return the scope type
+     */
+    ScopeType scopeType() default ScopeType.SINGLETON;
 }

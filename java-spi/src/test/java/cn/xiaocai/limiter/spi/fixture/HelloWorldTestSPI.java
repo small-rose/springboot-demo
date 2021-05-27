@@ -15,11 +15,22 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi.fixture;
+package cn.xiaocai.limiter.spi.fixture;
 
-import org.dromara.hmily.spi.InitializeSPI;
+import cn.xiaocai.limiter.spi.RateLimitSPI;
+import cn.xiaocai.limiter.spi.ScopeType;
+import cn.xiaocai.limiter.spi.fixture.HmilyTestSPI;
 
-public interface HmilyTestSPI extends InitializeSPI {
+@RateLimitSPI(value = "hello", order = 1, scopeType = ScopeType.SINGLETON)
+public class HelloWorldTestSPI implements HmilyTestSPI {
     
-    String sayHello();
+    @Override
+    public String sayHello() {
+        return "hello world";
+    }
+    
+    @Override
+    public void init() {
+    
+    }
 }

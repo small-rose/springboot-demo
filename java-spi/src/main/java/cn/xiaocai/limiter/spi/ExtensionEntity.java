@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.dromara.hmily.spi;
+package cn.xiaocai.limiter.spi;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

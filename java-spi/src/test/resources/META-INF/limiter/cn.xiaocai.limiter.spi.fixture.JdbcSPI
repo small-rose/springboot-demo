@@ -1,0 +1,2 @@
+cn.xiaocai.limiter.spi.fixture.MysqlSPI
+cn.xiaocai.limiter.spi.fixture.OracleSPI
