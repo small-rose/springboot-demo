@@ -23,7 +23,7 @@ public class RateLimitGlobalInterceptor extends RateLimitInterceptor {
             log.info("RateLimitGlobalInterceptor invoke distributed rate limiter ! result : "+ true);
             this.setRateLimitInterceptor(new RateLimitDistributedInterceptor(result));
         }else{
-            // 走普通的限流拦截
+            // 走本地的限流拦截
             result = RateLimitHandlerPredicate.getInstance().invoke(joinPoint);
             log.info("RateLimitGlobalInterceptor invoke rate limiter result : "+ true);
             // 责任链传递，看是否需要执行 RateLimitXXX的 failBack()降级方法

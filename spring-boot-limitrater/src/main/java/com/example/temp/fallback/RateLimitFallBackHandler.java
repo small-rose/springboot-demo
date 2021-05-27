@@ -36,7 +36,7 @@ public class RateLimitFallBackHandler implements FallBackHandler{
     private RateLimitFallBackHandler() {
     }
 
-    public static RateLimitFallBackHandler getInstance() {
+    public static   RateLimitFallBackHandler getInstance() {
         return INSTANCE;
     }
 
