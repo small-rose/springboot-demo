@@ -25,9 +25,9 @@ public class TokenBucketRateLimitHandler extends AbstractRateLimitHandler implem
     }
 
     @Override
-    IRateLimiter registry(Method method) {
+    protected IRateLimiter registry(Method method) {
         String methodName = method.toString();
-        RateLimitTBL rateLimit = method.getAnnotation(RateLimitTBL.class);
+        final RateLimitTBL rateLimit = method.getAnnotation(RateLimitTBL.class);
         IRateLimiter rateLimiter = CACHE_LIMIT.get(methodName);
         if (Objects.isNull(rateLimiter)) {
             synchronized (this) {

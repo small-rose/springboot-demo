@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "limit.repository.redis.cluster",
+      "type": "java.lang.String",
+      "description": "Description for limit.repository.redis.cluster."
+  }
+] }

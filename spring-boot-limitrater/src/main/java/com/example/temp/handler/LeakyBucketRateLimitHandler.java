@@ -27,7 +27,7 @@ public class LeakyBucketRateLimitHandler  extends AbstractRateLimitHandler imple
     }
 
     @Override
-    IRateLimiter registry(Method method) {
+    protected IRateLimiter registry(Method method) {
         String methodName = method.toString();
         RateLimitLBL rateLimit = method.getAnnotation(RateLimitLBL.class);
         IRateLimiter rateLimiter = CACHE_LIMIT.get(methodName);

@@ -1,14 +1,8 @@
 package com.example.temp.interceptor;
 
 import cn.xiaocai.limiter.distributed.invoker.RateLimitDistributedPreparatory;
-import com.example.temp.handler.LimitHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Objects;
 
 /**
  * @program: springboot-limiter
@@ -33,7 +27,7 @@ public class RateLimitDistributedInterceptor extends RateLimitInterceptor  {
             // 分布式限流验证
             result = RateLimitDistributedPreparatory.getInstance().invoke(joinPoint);
         }
-        // 责任链传递，看是否需要执行 RateLimitXXX的 failBack()降级方法
+        // 责任链传递，检查是否需要执行 RateLimitXXX的 failBack()降级方法
         this.setRateLimitInterceptor(new RateLimitFallBackMethodInterceptor(result));
 
         return rateLimitInterceptor.invoke(joinPoint);

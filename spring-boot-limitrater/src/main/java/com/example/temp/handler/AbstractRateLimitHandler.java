@@ -20,7 +20,7 @@ public abstract class AbstractRateLimitHandler {
     /**
      * 将方法 与 对应的限流算法绑定并缓存
      */
-    final static Map<String, IRateLimiter> CACHE_LIMIT = new ConcurrentHashMap<>();
+    protected final static Map<String, IRateLimiter> CACHE_LIMIT = new ConcurrentHashMap<>();
 
     /**
      *  对应的算法实例及验证 QPS
