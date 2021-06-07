@@ -44,6 +44,12 @@
             <artifactId>jsoup</artifactId>
             <version>1.11.3</version>
         </dependency>
+        <!-- 模拟无页面浏览器 -->
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.50.0</version>
+        </dependency>
 
         <!-- ssh -->
         <dependency>
