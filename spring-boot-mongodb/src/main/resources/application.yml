@@ -1,0 +1,11 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /mongodb
+
+
+# spring.data.mongodb.uri=mongodb://name:pass@localhost:27017/test，其中name是用户名，pass是密码
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/test
