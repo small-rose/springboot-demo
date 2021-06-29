@@ -1,18 +1,8 @@
 package com.xiaocai.demo.excel.easyexcel;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.ExcelReader;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.read.builder.ExcelReaderBuilder;
-import com.alibaba.excel.read.metadata.ReadSheet;
-import com.alibaba.fastjson.JSON;
-import com.sun.applet2.AppletParameters;
-import com.xiaocai.demo.excel.common.FileUtils;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
