@@ -2,7 +2,10 @@ package com.xiaocai.demo.excel.easyexcel.bank;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.sun.istack.internal.NotNull;
+import com.xiaocai.demo.excel.common.DBType;
 import com.xiaocai.demo.excel.common.FileUtils;
+import lombok.Setter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,8 +21,28 @@ import java.util.List;
 public class BankGateWayListener extends AnalysisEventListener<BankGateWay> {
 
     private List<BankGateWay> list = new ArrayList<>();
-    private String sqlPath = "F:" + File.separator + "bankgateway.sql" ;
+
     private String insertSQL = "INSERT INTO D_BANKGATEWAY ( SEQID, ORDER_BANKCODE, ORDER_BANKNAME, BANKCODE, BANKNAME, GROUPTYPE, REQUEST_ID, REQUEST_URL, SIGNKEY, SIGNTYPE, INSU_MIDNO, ACCOUNTNO, CURRENCYCODE, PAYTYPE, CHARSET, SHOW_URL, NOTIFY_URL, RETURN_URL, VERYFY_URL, TRANSPORT, IFVALID, PAYMETHOD, DEFAULT_LOGIN, TIMESTAMP, LASTOPDATE, HIBERNATEVERSION, MODIFYDESC, POSID, MOBILE_REQUEST_URL, CONTRACTID, TYPENAME, USER_ID, PASSWORD, CUST_ID, TYPE, ACCOUNTNAME, SINGLE_MAXAMOUNT, PACKET_MAXAMOUNT, PACKET_MAXCOUNT, IFCHECKRESULT) values ";
+
+    private DBType dbType ;
+
+    private String sqlPath = "F:" + File.separator + "bankgateway.sql" ;
+
+    public void setDbType(DBType dbType) {
+        this.dbType = dbType;
+    }
+
+    public void setSqlPath(String sqlPath) {
+        if (dbType==null){
+            throw new RuntimeException("please sure to set DbType before set SqlPath");
+        }
+        String tmp = sqlPath;
+        tmp = tmp.substring(0, tmp.length()-4);
+        tmp = tmp.concat("_").concat(this.dbType.name().toLowerCase()).concat(".sql") ;
+        System.out.println(tmp);
+        this.sqlPath = tmp;
+    }
+
     @Override
     public void invoke(BankGateWay data, AnalysisContext context) {
         System.out.println(data);
@@ -28,12 +51,12 @@ public class BankGateWayListener extends AnalysisEventListener<BankGateWay> {
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
-        FileUtils.Write(sqlPath, insertSQL);
+        // FileUtils.Write(sqlPath, insertSQL);
         StringBuilder sb = new StringBuilder("");
         String tmpVal = "";
         for (BankGateWay bankGateWay : list){
+            sb.append(insertSQL);
             sb.append("(");
-            sb.append("'").append(bankGateWay.getSEQID()).append("',");
             sb.append("'").append(bankGateWay.getSEQID()).append("',");
             sb.append("'").append(bankGateWay.getORDER_BANKCODE()).append("',");
             sb.append("'").append(bankGateWay.getORDER_BANKNAME()).append("',");
@@ -73,14 +96,19 @@ public class BankGateWayListener extends AnalysisEventListener<BankGateWay> {
             sb.append("'").append(bankGateWay.getDEFAULT_LOGIN()).append("',");
             if (bankGateWay.getTIMESTAMP()==null){
                 sb.append(bankGateWay.getDEFAULT_LOGIN()).append(",");
-            }else {
-                sb.append("to_date('").append(bankGateWay.getTIMESTAMP()).append("','yyyy-MM-dd HH24:MI:SS'),");
             }
             if (bankGateWay.getLASTOPDATE()==null){
                 sb.append(bankGateWay.getDEFAULT_LOGIN()).append(",");
-            }else {
+            }
+
+            if (DBType.MYSQL == dbType  && bankGateWay.getTIMESTAMP()!=null){
+                sb.append("'").append(bankGateWay.getTIMESTAMP()).append("',");
+                sb.append("'").append(bankGateWay.getLASTOPDATE()).append("',");
+            }else if (DBType.ORACLE == dbType && bankGateWay.getTIMESTAMP()!=null) {
+                sb.append("to_date('").append(bankGateWay.getTIMESTAMP()).append("','yyyy-MM-dd HH24:MI:SS'),");
                 sb.append("to_date('").append(bankGateWay.getLASTOPDATE()).append("','yyyy-MM-dd HH24:MI:SS'),");
             }
+
             sb.append("").append(bankGateWay.getHIBERNATEVERSION()).append(",");
             sb.append("'").append(bankGateWay.getMODIFYDESC()).append("',");
             sb.append("'").append(bankGateWay.getPOSID()).append("',");
@@ -95,9 +123,9 @@ public class BankGateWayListener extends AnalysisEventListener<BankGateWay> {
             sb.append("'").append(bankGateWay.getSINGLE_MAXAMOUNT()).append("',");
             sb.append("'").append(bankGateWay.getPACKET_MAXAMOUNT()).append("',");
             sb.append("'").append(bankGateWay.getPACKET_MAXCOUNT()).append("',");
-            sb.append("'").append(bankGateWay.getIFCHECKRESULT()).append("',");
+            sb.append("'").append(bankGateWay.getIFCHECKRESULT()).append("'");
 
-            sb.append("),");
+            sb.append(");");
             tmpVal = sb.toString().replaceAll("'null'", "null");
             FileUtils.Write(sqlPath, tmpVal);
             sb.setLength(0);
