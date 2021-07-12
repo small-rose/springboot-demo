@@ -1,7 +1,6 @@
 package cn.xiaocai.demo.jsoup.spider.handler;
 
 import cn.xiaocai.demo.jsoup.common.NetUtil;
-import cn.xiaocai.demo.jsoup.spider.data.DataManager;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
 import lombok.Data;
 import org.jsoup.nodes.Document;
@@ -18,49 +17,27 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 public class CatchHandler {
+    // 临时容器
+    private List<Document>  tmpUrlList ;
 
     private Integer limitCount = 3;
 
     /**
      * 抓取页面
-     * @param urlList
+     * @param data
      */
-    public void spy(List<UrlData> urlList){
-        int index = 0 ;
-        UrlData data = null;
-        int counter = 0 ;
-        System.out.println( "即将使用 [ " + urlList.size() + " ] 个链接...");
-        while (index < urlList.size()){
-
-            try {
-                data = urlList.get(index);
-
-                Document document = NetUtil.getDocument(data.getUrl());
-                DataManager.documentList.add(document);
-                //DataManager.urlDataList.remove(data);
+    public Document spy(UrlData data){
+        Document document = null;
+        try {
+            int index = 0 ;
+            while (index <= limitCount && document == null) {
+                document = NetUtil.getDocument(data.getUrl());
 
                 TimeUnit.MILLISECONDS.sleep(250);
-                index += 1;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }catch (Exception e){
-                try {
-                    TimeUnit.MILLISECONDS.sleep(500);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-                counter ++ ;
-            }finally {
-                if (limitCount <= counter){
-                    counter = 0;
-                    index++;
-                    DataManager.rubbishList.add(data);
-                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        if (index == urlList.size()){
-            //DataManager.urlDataList.removeAll(urlList);
-        }
+        return  document;
     }
 }

@@ -1,6 +1,5 @@
 package cn.xiaocai.demo.jsoup.spider.handler;
 
-import cn.xiaocai.demo.jsoup.spider.data.DataManager;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
 import cn.xiaocai.demo.jsoup.spider.utils.UrlUtils;
 import org.jsoup.nodes.Document;
@@ -9,7 +8,6 @@ import org.jsoup.select.Elements;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @description: TODO 功能角色说明：
@@ -20,45 +18,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class UrlHandler {
 
-    private Integer limitCount = 3;
-
     // 临时容器
-    private List<UrlData>  tmpUrlList = null;
+    private List<UrlData>  tmpUrlList ;
 
     /**
      * 抓取 链接
+     * @return
      */
-    public void drawUrl(List<Document> docList){
-
+    public List<UrlData> drawUrl(Document document){
         tmpUrlList = new CopyOnWriteArrayList<>();
-        //docList = new ArrayList<>();
-        //docList.addAll(DataManager.documentList);
-
-        // DataManager.documentList.removeAll(docList);
-        int index = 0 ;
-        Document document = null;
-        int counter = 0 ;
-        System.out.println( "抓取到 [ " + docList.size() + " ] 个页面");
-        while (index < docList.size()){
-
-            try {
-                document = docList.get(index);
-
-                urlHandler(document);
-
-                TimeUnit.MILLISECONDS.sleep(250);
-                index += 1;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // 提取完成之后，删除已经处理的数据
-        if (index == docList.size()){
-            DataManager.documentList.removeAll(docList);
-            DataManager.urlDataList.addAll(tmpUrlList);
-            tmpUrlList.clear();
-        }
+        urlHandler(document);
+        return tmpUrlList;
     }
 
     /**

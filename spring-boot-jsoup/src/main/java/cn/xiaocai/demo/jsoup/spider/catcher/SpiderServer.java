@@ -1,10 +1,9 @@
 package cn.xiaocai.demo.jsoup.spider.catcher;
 
-import cn.xiaocai.demo.jsoup.spider.data.DataManager;
+import cn.xiaocai.demo.jsoup.spider.data.DocumentQueue;
+import cn.xiaocai.demo.jsoup.spider.data.UrlDataQueue;
 import cn.xiaocai.demo.jsoup.spider.thread.SpiderThreadManager;
 import lombok.Data;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @description: TODO 功能角色说明：
@@ -29,24 +28,21 @@ public class SpiderServer implements Server {
      */
     private String doorUrl ;
 
-    private long delayed ;
-
-    private long period ;
-
-    private TimeUnit timeUnit ;
-
 
     private SpiderThreadManager spiderThreadManager ;
 
 
     @Override
     public void init() {
-        spiderThreadManager = new SpiderThreadManager();
+
+        spiderThreadManager = SpiderThreadManager.getInstance();
+        spiderThreadManager.setDocumentQueue(new DocumentQueue());
+        spiderThreadManager.setUrlDataQueue(new UrlDataQueue());
     }
 
     @Override
     public void start() {
-        spiderThreadManager.init(doorUrl, delayed, period, timeUnit);
+        spiderThreadManager.init(doorUrl);
     }
 
     @Override
@@ -57,8 +53,6 @@ public class SpiderServer implements Server {
     @Override
     public void stop() {
 
-        DataManager.documentList.clear();
-        DataManager.urlDataList.clear();
-        DataManager.rubbishList.clear();
+        spiderThreadManager.stop();
     }
 }
