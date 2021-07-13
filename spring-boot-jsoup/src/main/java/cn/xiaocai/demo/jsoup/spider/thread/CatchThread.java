@@ -1,13 +1,11 @@
 package cn.xiaocai.demo.jsoup.spider.thread;
 
-import cn.xiaocai.demo.jsoup.spider.data.DataManager;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
+import cn.xiaocai.demo.jsoup.spider.data.UrlDataQueue;
 import cn.xiaocai.demo.jsoup.spider.handler.CatchHandler;
-import cn.xiaocai.demo.jsoup.spider.handler.UrlHandler;
 import org.jsoup.nodes.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * @description: TODO 功能角色说明：
@@ -16,33 +14,27 @@ import java.util.List;
  * @date: 2021/7/11 23:18
  * @version: v1.0
  */
-public class CatchThread implements Runnable{
+public class CatchThread implements Callable<String> {
 
-    private List<UrlData>  urlList = new ArrayList<>();
-    private List<Document>  docList = new ArrayList<>();
+    private final UrlDataQueue urlDataQueue ;
+    private final CatchHandler catchHandler ;
 
-    public CatchThread(List<UrlData> door){
-        this.urlList.addAll(door);
+    public CatchThread(UrlDataQueue UrlDataQueue){
+        this.urlDataQueue = UrlDataQueue;
+        this.catchHandler = new CatchHandler();
     }
-
-    CatchHandler catchHandler ;
 
     @Override
-    public void run() {
-        // 调抓页面
-        catchHandler = new CatchHandler();
-        catchHandler.spy(urlList);
-        // 解析页面的URL
-        docList.addAll(DataManager.documentList);
-        new UrlHandler().drawUrl(docList);
-        urlList.addAll(DataManager.urlDataList);
+    public String call() {
 
-        printResult();
-    }
-
-    private void printResult() {
-        docList.stream().forEach(System.out::println);
-        urlList.stream().forEach(System.out::println);
-        DataManager.rubbishList.stream().forEach(System.out::println);
+        UrlData urlData = null;
+        while ((urlData = urlDataQueue.get())!=null){
+            Document doc = catchHandler.spy(urlData);
+            if (doc!=null){
+                // 将抓取到的页面放到队列
+                SpiderThreadManager.getInstance().getDocumentQueue().add(doc);
+            }
+        }
+        return "SUCCESS";
     }
 }

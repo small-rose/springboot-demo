@@ -1,8 +1,11 @@
 package cn.xiaocai.demo.jsoup.spider.thread;
 
-import cn.xiaocai.demo.jsoup.spider.data.DataManager;
+import cn.xiaocai.demo.jsoup.spider.data.DocumentQueue;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
+import cn.xiaocai.demo.jsoup.spider.data.UrlDataQueue;
 import cn.xiaocai.demo.jsoup.spider.thread.factory.NamedThreadFactory;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.concurrent.*;
 
@@ -15,8 +18,21 @@ import java.util.concurrent.*;
  */
 public class SpiderThreadManager {
 
+    private static final SpiderThreadManager INSTANCE = new SpiderThreadManager();
+
+    public static  SpiderThreadManager getInstance(){
+        return INSTANCE;
+    }
+
+    @Setter
+    @Getter
+    private DocumentQueue documentQueue;
+    @Setter
+    @Getter
+    private UrlDataQueue urlDataQueue;
+
     // 蜘蛛线程
-    private final ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
+    private final ThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
             new NamedThreadFactory("spider-group", "spider-factory"));
 
     // 执行URL分析 过滤的线程池
@@ -26,16 +42,31 @@ public class SpiderThreadManager {
             new ThreadPoolExecutor.DiscardPolicy());
 
 
-    public void init(String door, long delayed,long period, TimeUnit timeUnit){
+
+    public void init(String door){
         // 调用入口线程去抓页面
         UrlData urlData = new UrlData();
         urlData.setUrl(door);
-        DataManager.urlDataList.add(urlData);
-        new Thread(new CatchThread(DataManager.urlDataList)).start();
+        urlDataQueue.add(urlData);
 
-        //new Thread(new Url()).start();
-        // 间隔一段时间抓取一次
-        //scheduled.scheduleAtFixedRate(new CatchThread(DataManager.urlDataList), delayed, period, timeUnit);
+        // 提交抓取页面的任务
+        Future<String> res = scheduled.submit(new CatchThread(urlDataQueue));
+        // 提交提取URL的任务
+        Future<String> res2 = executorService.submit(new AnalysisTask(documentQueue));
+
+        try {
+            String result1 = res.get();
+            String result2 = res2.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
      }
 
+
+    public void stop() {
+        scheduled.shutdown();
+        executorService.shutdown();
+    }
 }
