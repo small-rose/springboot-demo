@@ -1,0 +1,38 @@
+server:
+  port: 80
+  servlet:
+    context-path: /jdbc
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.10.184:3306/bp_dev?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+    username: sf_dev_01
+    password: Sf@123321
+    #测试环境
+    #url: jdbc:mysql://10.72.4.13:3306/bfip_ci_dev?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+    #username: bfci_dev_user
+    #password: b1#iipciAuser
+
+
+    #druid 数据源专有配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+    #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
+    #如果允许时报错  java.lang.ClassNotFoundException: org.apache.log4j.Priority
+    #则导入 log4j 依赖即可，Maven 地址：https://mvnrepository.com/artifact/log4j/log4j
+    #filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
