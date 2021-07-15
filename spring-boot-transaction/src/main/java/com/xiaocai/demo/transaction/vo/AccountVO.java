@@ -16,4 +16,5 @@ public class AccountVO {
     private String name ;
     private String nickName;
     private String pass ;
+
 }

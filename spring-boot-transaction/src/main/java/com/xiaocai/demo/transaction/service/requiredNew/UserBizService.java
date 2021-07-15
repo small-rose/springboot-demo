@@ -1,13 +1,15 @@
-package com.xiaocai.demo.transaction.requiredNew;
+package com.xiaocai.demo.transaction.service.requiredNew;
 
 import com.xiaocai.demo.transaction.entity.AccountRecord;
 import com.xiaocai.demo.transaction.entity.UserRecord;
 import com.xiaocai.demo.transaction.mapper.AccountMapper;
 import com.xiaocai.demo.transaction.mapper.UserMapper;
 import com.xiaocai.demo.transaction.vo.AccountVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 
@@ -19,16 +21,20 @@ import javax.annotation.Resource;
  * @create: 2021-07-01 17:58
  **/
 @Service
+@Slf4j
 public class UserBizService {
 
     @Resource
-    AccountMapper accountMapper;
+    private AccountMapper accountMapper;
     @Resource
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public void saveUserBizNormal(AccountVO accountVO){
+        boolean newTransaction = TransactionAspectSupport.currentTransactionStatus().isNewTransaction();
+        log.info("相同service 外层 REQUIRES_NEW 是否开启新事务 ？ " + newTransaction);
+
         UserRecord record = new UserRecord();
         record.setName(accountVO.getName());
         record.setPhone(accountVO.getPhone());
@@ -38,14 +44,19 @@ public class UserBizService {
         accountRecord.setNickName(accountVO.getNickName());
         accountRecord.setPass(accountVO.getPass());
         accountRecord.setUid(record.getId());
+        // 在方法内调用
         this.saveAccountNormal(accountRecord);
-
-        throw new RuntimeException("相同Service 内层事务抛出异常");
-
+        log.info("---------执行完毕---------");
     }
 
+    /** TODO 注意
+     * 这里 propagation = Propagation.REQUIRES_NEW 无法开启新的事务，因为 service 内部方法调用无法被代理增强
+     * @param accountRecord
+     */
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void saveAccountNormal(AccountRecord accountRecord){
+        boolean newTransaction = TransactionAspectSupport.currentTransactionStatus().isNewTransaction();
+        log.info("相同service 内层 REQUIRES_NEW 是否开启新事务 ？ " + newTransaction);
         accountMapper.insertAccount(accountRecord);
         try {
             Thread.sleep(100);
@@ -132,6 +143,8 @@ public class UserBizService {
         throw new RuntimeException("相同Service 外层事务抛出异常");
     }
 
+
     /** ---------------------------外层异常实例-----end---------------------------*/
+
 
 }

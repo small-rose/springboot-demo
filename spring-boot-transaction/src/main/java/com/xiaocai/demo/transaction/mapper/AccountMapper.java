@@ -17,10 +17,10 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface AccountMapper {
 
-    @Insert("insert into account (nickname, pass, uid) values( #{nickname}, #{pass}, #{uid})")
+    @Insert("insert into t_account (nickname, pass, uid) values( #{nickName}, #{pass}, #{uid})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     public void insertAccount(AccountRecord record);
 
-    @Select("select * from account where uid = #{uid} and pass = #{pass} ")
+    @Select("select * from t_account where uid = #{uid} and pass = #{pass} ")
     public AccountRecord getAccount(AccountRecord record);
 }

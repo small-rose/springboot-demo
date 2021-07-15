@@ -16,10 +16,10 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into user (name, phone) values( #{name}, #{phone})")
+    @Insert("insert into t_user (name, phone) values( #{name}, #{phone})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     public void insertUser(UserRecord record);
 
-    @Select("select * from user where phone= #{phone} ")
+    @Select("select * from t_user where phone= #{phone} ")
     public UserRecord getUser(UserRecord record);
 }
