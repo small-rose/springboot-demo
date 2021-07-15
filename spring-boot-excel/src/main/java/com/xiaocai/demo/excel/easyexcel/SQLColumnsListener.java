@@ -4,6 +4,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.xiaocai.demo.excel.common.FileUtils;
 import lombok.Data;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,6 +47,17 @@ public class SQLColumnsListener extends AnalysisEventListener<Map<Integer, Strin
     public SQLColumnsListener() {
     }
 
+    public void setSqlPath(String sqlPath) {
+        FileUtils.Delete(sqlPath);
+        this.sqlPath = sqlPath;
+    }
+
+    public void setCheckFile(String checkFile) {
+        if (check){
+            FileUtils.Delete(checkFile);
+        }
+        this.checkFile = checkFile;
+    }
 
     @Override
     public void invoke(Map<Integer, String> data, AnalysisContext context) {
@@ -71,10 +83,6 @@ public class SQLColumnsListener extends AnalysisEventListener<Map<Integer, Strin
         String tableName = sheetName.substring(0, sheetName.indexOf("（"));
         String tableComment = tableMap.get(tableName) ;
 
-        if (check && data.get(0)!=null && data.get(3)==null){
-
-            checkList.add(tableName.concat(" 第").concat(String.valueOf(lineNum)).concat("行 ").concat(data.get(0)));
-        }
 
         /*
         if(!sheetName.endsWith("）")){
@@ -94,20 +102,43 @@ public class SQLColumnsListener extends AnalysisEventListener<Map<Integer, Strin
         String comment = data.get(3);
         if (data.get(0).equalsIgnoreCase("CUSTSEQ") && null == comment){ comment = "业务唯一主键"; }
         if (data.get(0).equalsIgnoreCase("ID") && null == comment){ comment = "主键"; }
+        if (data.get(0).equalsIgnoreCase("URID") && null == comment){ comment = "主键"; }
         if (data.get(0).equalsIgnoreCase("BATCHID") && null == comment){ comment = "批次号"; }
         if (data.get(0).equalsIgnoreCase("OPDATE") && null == comment){ comment = "操作日期"; }
         //System.out.println("解析到一条数据：" + JSON.toJSONString(data));
         /*if (comment.equals("ISPRIVATE")){
             System.out.println(data.get(4));
         }*/
+
+        if (check && data.get(0)!=null && (data.get(3)==null && null == comment)){
+            checkList.add(tableName.concat(" 第").concat(String.valueOf(lineNum)).concat("行 ").concat(data.get(0)).concat(" 注释为空"));
+        }
+
+
         if (data.get(4)!=null){
-            comment = comment.concat("(").concat(data.get(4).concat(")"));
+            String extComment = data.get(4);
+            if (extComment.contains("'")){
+
+                extComment = extComment.replaceAll("'","");
+            }
+
+            comment = comment.concat("(").concat(extComment.concat(")"));
             comment.replaceAll("(.*) - (.*)","-");
             comment.replaceAll("\"","");
             comment.replaceAll(" \"","");
         }
 
-        String cc = String.format(c_sql, tableName, data.get(0), comment);
+        String isPrimary = data.get(2);
+        String isNull = "";
+        if(isPrimary.equals("Y")){
+            isNull = "NOT NULL";
+        }
+        comment = comment == null ? "" : comment ;
+        String type = data.get(1);
+        if (type.contains("VARCHAR2")){
+            type = type.replace("VARCHAR2", "VARCHAR");
+        }
+        String cc = String.format(c_sql, tableName, data.get(0), type, isNull, comment);
         //System.out.println(cc);
         tableColumnList.add(cc);
     }
@@ -121,9 +152,10 @@ public class SQLColumnsListener extends AnalysisEventListener<Map<Integer, Strin
         FileUtils.Write(sqlPath, "");
 
         if (check){
+
             checkList.stream().forEach((s)-> FileUtils.Write(checkFile, s));
             FileUtils.Write(sqlPath, "");
-            checkList.stream().forEach(System.out::println);
+            //checkList.stream().forEach(System.out::println);
             checkList.clear();
         }
 

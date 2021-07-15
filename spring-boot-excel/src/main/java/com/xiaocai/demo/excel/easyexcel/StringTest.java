@@ -1,5 +1,7 @@
 package com.xiaocai.demo.excel.easyexcel;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 /**
  * @program: springboot-demo
  * @description
@@ -17,5 +19,15 @@ public class StringTest {
         String s = "ALTER TABLE ATS_PAY_TRANSACTIONS MODIFY COLUMN  REC_OBJECT_TYPE COMMENT '收方对象类型(3—员工 4－供应商 5—手工，对于一般业务代付填5\")' ; ";
         String result = s.replaceAll("\"","");
         System.out.println(result);
+
+        String a = "'1'车险、'4'车船税、'A'车险和车船税";
+        System.out.println(a.indexOf("a"));
+        while (a.indexOf("'")>=0){
+            int x = a.indexOf("'");
+            a = a.replace("'","");
+
+
+        }
+        System.out.println(a.replaceAll("'",""));
     }
 }

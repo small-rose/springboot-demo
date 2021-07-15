@@ -54,4 +54,23 @@ public class FileUtils {
         }
     }
 
+
+    /**
+     * 写入的内容很多，就
+     * 应该使用更为高效的缓冲器流类BufferedWriter
+     */
+    public static boolean Delete(String path) {
+        //创建一个字符缓冲输出流对象
+        BufferedWriter bw = null;
+        File file = new File(path);
+        if (!file.exists() ){
+            System.out.println(path +" --> 文件不存在！");
+            return true;
+        }
+        if (file.delete()){
+            System.out.println(path +" --> 文件删除成功！");
+            return true;
+        }
+        return false;
+    }
 }
