@@ -23,9 +23,6 @@ public class SpiderMain {
         server.setId(1);
         server.setName("zzy");
         server.setDoorUrl("https://zhangxiaocai.cn");
-        server.setDelayed(1);
-        server.setPeriod(5);
-        server.setTimeUnit(TimeUnit.MINUTES);
         server.init();
         server.start();
 
