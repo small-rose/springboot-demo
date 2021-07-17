@@ -9,8 +9,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -35,6 +33,11 @@ public class ProgressBeanPostProcessor implements BeanPostProcessor, Application
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         count.incrementAndGet();
         beans.onNext(count.get()*100/total);
+       /* try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         return bean;
     }
 

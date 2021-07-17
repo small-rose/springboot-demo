@@ -27,6 +27,7 @@ public class LoadFrame extends JFrame {
     public LoadFrame() {
         //不显示边框
         setUndecorated(true);
+
         initComponents();
     }
 
@@ -37,12 +38,15 @@ public class LoadFrame extends JFrame {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         progress = new JProgressBar();
+
         imgPanel = new ImagePanel();
 
         //======== this ========
         setMinimumSize(new Dimension(600, 400));
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+
         contentPane.add(progress, BorderLayout.SOUTH);
 
         //======== imgPanel ========
@@ -54,6 +58,25 @@ public class LoadFrame extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+    }
+
+
+    public void setForce(){
+        if(progress.getValue()<20){
+            this.progress.setForeground(Color.BLUE);
+        }
+        else if(progress.getValue()<40){
+            this.progress.setForeground(Color.YELLOW);
+        }
+        else if(progress.getValue()<60){
+            this.progress.setForeground(Color.RED);
+        }
+        else if(progress.getValue()<80){
+            this.progress.setForeground(Color.GREEN);
+        }
+        else{
+            this.progress.setForeground(Color.CYAN);
+        }
     }
 
     private class ImagePanel extends JPanel{

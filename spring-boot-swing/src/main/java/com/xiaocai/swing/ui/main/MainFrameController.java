@@ -1,11 +1,7 @@
 package com.xiaocai.swing.ui.main;
 
 import com.xiaocai.swing.common.SpringContextHolder;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-
-import javax.swing.*;
-import java.io.IOException;
 
 /**
  * @program: springboot-demo
@@ -17,16 +13,19 @@ import java.io.IOException;
 @Component("MainFrameController")
 public class MainFrameController {
 
-    private MainFrame mainFrame;
+    private MyFrame myFrame;
 
 
     /**
      * 准备工作 和显示主界面
      */
     public void prepareAndOpenFrame()  {
-        if(mainFrame==null){
-            mainFrame = SpringContextHolder.getBean(MainFrame.class);
+        if(myFrame==null){
+            myFrame =  SpringContextHolder.getBean(MyFrame.class);
         }
-        mainFrame.setVisible(true);
+        MainListener listener = new MainListener(myFrame);
+        listener.addListeners();
+        myFrame.pack();
+        myFrame.setVisible(true);
     }
 }

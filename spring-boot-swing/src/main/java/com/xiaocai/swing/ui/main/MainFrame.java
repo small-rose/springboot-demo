@@ -1,26 +1,20 @@
 package com.xiaocai.swing.ui.main;
 
+import com.xiaocai.swing.common.Constants;
 import com.xiaocai.swing.function.listener.TabActionListener;
-import com.xiaocai.swing.ui.menu.MyMenu;
 import com.xiaocai.swing.ui.tool.MyButton;
+import lombok.Getter;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
-import javax.swing.plaf.PanelUI;
-import javax.swing.plaf.basic.BasicButtonUI;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.multi.MultiToolBarUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.ColorModel;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Hashtable;
 
 /**
  * @program: springboot-demo
@@ -30,18 +24,15 @@ import java.util.Hashtable;
  * @create: 2021-07-15 09:36
  **/
 @Component("MainFrame")
+@Getter
 public class MainFrame extends JFrame {
-
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JMenuBar menuBar1;
-    private JMenu menu1;
-    private JMenu menu2;
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private JToolBar toolBar1;
     private JButton button1 ;
     private JButton button2 ;
+
+    private JSplitPane topPanel ;
+    private JSplitPane leftPanel ;
 
     public MainFrame() {
         initAttributes();
@@ -60,33 +51,28 @@ public class MainFrame extends JFrame {
 
 
     private void initComponents() {
-
-
-        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        menuBar1 = new JMenuBar();
-
-        menu1 = new MyMenu("文件");
-        menu2 = new MyMenu("编辑");
+        InitGlobalFont(new Font("微软雅黑", Font.PLAIN, 40)); // 统一设置字体
+        setForeground(Constants.GREEN_COLOR);
 
         //======== this ========
         setMinimumSize(new Dimension(1000, 500));
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        menuBar1.add(menu1);
-        menuBar1.add(menu2);
-        setJMenuBar(menuBar1);
 
         toolBar1 = new JToolBar();
         toolBar1.setFloatable(false);
+        toolBar1.setBorderPainted(true);
+        MultiToolBarUI.createUI(toolBar1);
 
         JPanel leftCards = new JPanel(new CardLayout());
-
+        leftCards.setForeground(Constants.GREEN_COLOR);
         leftCards.setMinimumSize(new Dimension(300,300));
 
 
 
         JTabbedPane rightPanel = new JTabbedPane();
+        rightPanel.setForeground(Constants.GREEN_COLOR);
 
         JPanel tools = new JPanel(new FlowLayout(FlowLayout.LEFT,5,5));
         tools.setMaximumSize(new Dimension(100,getHeight()));
@@ -94,36 +80,14 @@ public class MainFrame extends JFrame {
         int b = 1 ;
         while (b < 10){
             MyButton m1 = new MyButton("Tools-0"+b);
-            m1.addActionListener(new TabActionListener(rightPanel,m1));
+            m1.addActionListener(new TabActionListener(rightPanel, m1));
             tools.add(m1);
             b++;
         }
 
         JPanel codes = new JPanel(new FlowLayout(FlowLayout.LEFT,5,5));
-        JTree.DynamicUtilTreeNode nodes = new JTree.DynamicUtilTreeNode("Root", null);
-        nodes.setAllowsChildren(true);
-        int c = 1 ;
-        MutableTreeNode treeNode = null ;
-        while (c < 10){
 
-            if (c==1){
-                treeNode = new JTree.DynamicUtilTreeNode("level" + c, null );
 
-                int x = 0 ;
-                MutableTreeNode[] children = new MutableTreeNode[5];
-                while (x < 5){
-                    children[x] = new DefaultMutableTreeNode("Data-"+x);
-                    children[x].setParent(treeNode);
-                    x ++ ;
-                }
-
-            }else {
-                treeNode = new JTree.DynamicUtilTreeNode("level" + c, null);
-            }
-            nodes.add(treeNode);
-            c++;
-        }
-        codes.add(new JTree(nodes));
         codes.setMaximumSize(new Dimension(100,getHeight()));
 
         leftCards.add(tools,"Tools");
@@ -162,10 +126,11 @@ public class MainFrame extends JFrame {
         // 创建一个水平JSplitPane，左边是p1,右边是p2
         JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftCards, rightPanel);
         // 设置分割条的位置
-        sp.setDividerLocation(110);
+        sp.setDividerLocation(120);
 
         JSplitPane main = new JSplitPane(JSplitPane.VERTICAL_SPLIT, toolBar1, sp);
         setContentPane(main);
+
         pack();
         setLocationRelativeTo(getOwner());
         //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -174,5 +139,25 @@ public class MainFrame extends JFrame {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
+    /**
+     * 统一设置字体，父界面设置之后，所有由父界面进入的子界面都不需要再次设置字体
+     */
+    private static void InitGlobalFont(Font font) {
+        FontUIResource fontRes = new FontUIResource(font);
+        // 打印字体信息
+        System.out.println("fontRes:" + fontRes);
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys(); keys.hasMoreElements();) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
 
+            if (value instanceof FontUIResource) {
+                // 打印默认的所有有关字体的信息
+                System.out.println("key:" + key + "value:" + value);
+                UIManager.put(key, fontRes);
+                // 打印更改后的相关信息
+                System.out.println("key:" + key + "value:" + UIManager.get(key));
+            }
+
+        }
+    }
 }

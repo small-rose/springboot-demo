@@ -1,0 +1,163 @@
+JFDML JFormDesigner: "7.0.4.0.360" Java: "11.0.6" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JToolBar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
+				name: "toolBar1"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "toolsButton"
+					"text": "工具"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "codeButton"
+					"text": "代码"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "noteButton"
+					"text": "速记"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "mainPanel"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
+					name: "leftPanel"
+					"preferredSize": new java.awt.Dimension( 118, 242 )
+					"minimumSize": new java.awt.Dimension( 280, 600 )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq {par l {comp ipButton::l:p:95:p, comp xmlButton::l:p:95:p, comp jsonButton::t:p::p}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp ipButton:::p::p, space :::p, comp xmlButton:::p::p, space :::p, comp jsonButton:::p::p, space ::238:x}}"
+					} ) {
+						name: "leftcard_tools"
+						"border": new javax.swing.border.CompoundBorder( new javax.swing.border.TitledBorder( "工具" ), sfield com.jgoodies.forms.factories.Borders DLU2_BORDER )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "ipButton"
+							"text": "IP工具"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "ipButtonActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "xmlButton"
+							"text": "XML格式化"
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "jsonButton"
+							"text": "JSON格式化"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "card1"
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "West"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
+					name: "rightPanel"
+					add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+						name: "tool_card"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :::p, comp label1:::p::p, space s:::p, par l {comp pingButton::l:p:134:p, comp ipValue::l:p:369:p, comp scrollPane1::l:::x}, space ::63:x}}"
+							"$verticalGroup": "par l {seq l {space :p:28:p, par l {comp label1:::p::p, comp ipValue:::p::p}, space :::p, comp pingButton:::p::p, space :::p, comp scrollPane1::::249:x, space :::p}}"
+						} ) {
+							name: "ipcard_panel"
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "ipValue"
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "pingButton"
+								"text": "ping 一下"
+								"font": new java.awt.Font( "Microsoft YaHei UI Light", 0, 14 )
+							} )
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane1"
+								add( new FormComponent( "javax.swing.JTextArea" ) {
+									name: "ipResult"
+									"rows": 10
+									"font": new java.awt.Font( "Microsoft YaHei UI Light", 0, 14 )
+								} )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label1"
+								"text": "IP或者域名"
+								"font": new java.awt.Font( "Microsoft YaHei UI Light", 0, 14 )
+							} )
+						}, new FormLayoutConstraints( null ) {
+							"title": "Ping"
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :p:16:p, par l {comp scrollPane3::::499:x, seq {par l {comp scrollPane2::::493:x, seq {comp xmlFormatButton:::p::p, space u:::p, comp xmlUnFormatBtn:::p::p, space :0:365:x}}, space :::p}}}}"
+							"$verticalGroup": "par l {seq l {space :::p, comp scrollPane2:::p:146:p, space s:::p, par b {comp xmlFormatButton::b:p::p, comp xmlUnFormatBtn::b:p::p}, space :::p, comp scrollPane3:::p:128:p, space :::p}}"
+						} ) {
+							name: "xmlcard_panel"
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane2"
+								add( new FormComponent( "javax.swing.JTextArea" ) {
+									name: "xmlSource"
+									"rows": 10
+								} )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "xmlFormatButton"
+								"text": "格式化"
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "xmlUnFormatBtn"
+								"text": "压缩"
+							} )
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane3"
+								add( new FormComponent( "javax.swing.JTextArea" ) {
+									name: "xmlTarget"
+									"rows": 10
+								} )
+							} )
+						}, new FormLayoutConstraints( null ) {
+							"title": "XML格式化"
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :p:16:p, par l {comp scrollPane5::::499:x, seq {par l {comp scrollPane4::::493:x, seq {space :p:6:p, comp button4:::p::p, space :p:30:p, comp button5:::p::p, space :0:341:x}}, space :::p}}}}"
+							"$verticalGroup": "par l {seq l {space :::p, comp scrollPane4:::p:148:p, space u:::p, par b {comp button4::b:p::p, comp button5::b:p::p}, space u:::p, comp scrollPane5:::p:129:p, space ::18:x}}"
+						} ) {
+							name: "jsoncard_panel"
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane4"
+								add( new FormComponent( "javax.swing.JTextArea" ) {
+									name: "jsonSource"
+									"rows": 10
+								} )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "button4"
+								"text": "格式化"
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "button5"
+								"text": "压缩"
+							} )
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane5"
+								add( new FormComponent( "javax.swing.JTextArea" ) {
+									name: "jsonTarget"
+									"rows": 10
+								} )
+							} )
+						}, new FormLayoutConstraints( null ) {
+							"title": "Json格式化"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "card1"
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 635, 445 )
+		} )
+	}
+}

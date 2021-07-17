@@ -16,6 +16,7 @@ import java.io.IOException;
 public class SpringBootSwingApplication {
 
     public static void main(String[] args) {
+        //UIManager.setInstalledLookAndFeels("");
         //先启动启动画面
         banner();
 
@@ -52,8 +53,14 @@ public class SpringBootSwingApplication {
         load.setTitle("张小菜");
         load.setVisible(true);
         //监听进度并更新
-        ProgressBeanPostProcessor.observe().subscribe(integer -> load.getProgress().setValue(integer)
+        ProgressBeanPostProcessor.observe().subscribe(integer -> {
+                    load.getProgress().setValue(integer);
+                    // 变色
+                    //load.setForce();
+                }
+
                 , e -> {
+                    e.printStackTrace();
                 }
                 , () -> load.setVisible(false));
     }
