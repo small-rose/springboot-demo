@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="sampile.main.MainController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="工具">
+            <items>
+              <MenuItem id="ipConfigMenuItem" mnemonicParsing="false" onAction="#ipConfigOnAction" text="ipconfig" />
+                  <MenuItem id="xmlFormatMenuItem" mnemonicParsing="false" text="Xml格式化" />
+                  <MenuItem id="jsonFormatMenuItem" mnemonicParsing="false" text="Json格式化" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="数据库">
+            <items>
+              <MenuItem id="mysqlMenuItem" mnemonicParsing="false" text="MySQL" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="关于">
+            <items>
+              <MenuItem id="aboutMenuItem" mnemonicParsing="false" text="关于" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(204, 232, 207);" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
