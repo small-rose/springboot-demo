@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @program: springboot-servlet
- * @description
+ * @description  注册方式 二  : 直接使用 @ServletComponentScan 的方式扫描 @WebServlet 注解，[可指定路径]
  * @function:
  * @author: zzy
  * @create: 2021-05-11 17:30
