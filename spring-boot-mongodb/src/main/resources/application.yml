@@ -4,7 +4,7 @@ server:
     context-path: /mongodb
 
 
-# spring.data.mongodb.uri=mongodb://name:pass@localhost:27017/test£¬ÆäÖĞnameÊÇÓÃ»§Ãû£¬passÊÇÃÜÂë
+# spring.data.mongodb.uri=mongodb://name:pass@localhost:27017/testï¼Œå…¶ä¸­nameæ˜¯ç”¨æˆ·åï¼Œpassæ˜¯å¯†ç 
 spring:
   data:
     mongodb:
