@@ -25,8 +25,8 @@ public class PostApplication {
             "</HEAD>\n" +
             "<BODY>\n" +
             "    <APP_BASE>\n" +
-            "        <CHECK_CODE>00004</CHECK_CODE>   <!--校验码-->\n" +
-            "        <INSU_MIDNO>00004</INSU_MIDNO>   <!--商户号-->\n" +
+            "        <CHECK_CODE>00005</CHECK_CODE>   <!--校验码-->\n" +
+            "        <INSU_MIDNO>00005</INSU_MIDNO>   <!--商户号-->\n" +
             "        <AMOUNT>1</AMOUNT> <!--交易金额-->\n" +
             "        <DIRECT_BANKCODE></DIRECT_BANKCODE>    <!--付款银行代码-->\n" +
             "        <DIRECT_ORDERBANKCODE></DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
