@@ -25,8 +25,8 @@ public class PostApplication {
             "</HEAD>\n" +
             "<BODY>\n" +
             "    <APP_BASE>\n" +
-            "        <CHECK_CODE>00005</CHECK_CODE>   <!--校验码-->\n" +
-            "        <INSU_MIDNO>00005</INSU_MIDNO>   <!--商户号-->\n" +
+            "        <CHECK_CODE>00012</CHECK_CODE>   <!--校验码-->\n" +
+            "        <INSU_MIDNO>00012</INSU_MIDNO>   <!--商户号-->\n" +
             "        <AMOUNT>1</AMOUNT> <!--交易金额-->\n" +
             "        <DIRECT_BANKCODE></DIRECT_BANKCODE>    <!--付款银行代码-->\n" +
             "        <DIRECT_ORDERBANKCODE></DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
@@ -53,10 +53,10 @@ public class PostApplication {
             "        <BANKPROVINCE></BANKPROVINCE>\n" +
             "        <BANKTYPE></BANKTYPE>\n" +
             "        <ISPAYPUBLIC></ISPAYPUBLIC>\n" +
-            "        <MOBILENUMBER></MOBILENUMBER>\n" +
+            "        <MOBILENUMBER>13636592964</MOBILENUMBER>\n" +
             "        <CARDFLAG></CARDFLAG>\n" +
             "        <CERTIFICATETYPE></CERTIFICATETYPE>\n" +
-            "        <CERTIFICATENO></CERTIFICATENO>\n" +
+            "        <CERTIFICATENO>42212619900108303X</CERTIFICATENO>\n" +
             "        <CUSTEMAIL></CUSTEMAIL>\n" +
             "        <EXPIRYDATE></EXPIRYDATE>\n" +
             "        <STAGENUM></STAGENUM>\n" +
@@ -81,7 +81,7 @@ public class PostApplication {
             "            <CURRENCYTYPE>CNY</CURRENCYTYPE>  <!--币种-->\n" +
             "            <AMOUNT>1</AMOUNT>    <!--金额（分）-->\n" +
             "            <TRANSACTORNAME>测试业务</TRANSACTORNAME>    <!--业务经办人-->\n" +
-            "            <APPLICANTNAME>重庆市楷晟建材有限公司</APPLICANTNAME>   <!--投保人名称-->\n" +
+            "            <APPLICANTNAME>张宗愿</APPLICANTNAME>   <!--投保人名称-->\n" +
             "            <APPLICANTCODE>ACU820210000000591</APPLICANTCODE>   <!--投保人代码-->\n" +
             "            <INSUREDNAME>重庆市楷晟建材有限公司</INSUREDNAME>     <!--被保人名称-->\n" +
             "            <INSUREDCODE>ACU820210000000591</INSUREDCODE>     <!--被保险人代码-->\n" +
@@ -110,7 +110,7 @@ public class PostApplication {
             "            <CURRENCYTYPE>CNY</CURRENCYTYPE>  <!--币种-->\n" +
             "            <AMOUNT>0</AMOUNT>    <!--金额（分）-->\n" +
             "            <TRANSACTORNAME>测试业务</TRANSACTORNAME>    <!--业务经办人-->\n" +
-            "            <APPLICANTNAME>重庆市楷晟建材有限公司</APPLICANTNAME>   <!--投保人名称-->\n" +
+            "            <APPLICANTNAME>张宗愿</APPLICANTNAME>   <!--投保人名称-->\n" +
             "            <APPLICANTCODE>ACU820210000000591</APPLICANTCODE>   <!--投保人代码-->\n" +
             "            <INSUREDNAME>重庆市楷晟建材有限公司</INSUREDNAME>     <!--被保人名称-->\n" +
             "            <INSUREDCODE>ACU820210000000591</INSUREDCODE>     <!--被保险人代码-->\n" +

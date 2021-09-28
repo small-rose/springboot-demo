@@ -1,1 +1,4 @@
-
+server:
+  port: 9028   # 2021-09-28
+  servlet:
+    context-path: /httpDemo
