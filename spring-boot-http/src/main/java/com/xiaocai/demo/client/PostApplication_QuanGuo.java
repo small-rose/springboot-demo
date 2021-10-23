@@ -1,7 +1,6 @@
 package com.xiaocai.demo.client;
 
 import com.xiaocai.demo.http.HttpClientUtil;
-import org.apache.http.client.utils.HttpClientUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,7 @@ import java.util.Map;
  * @Date ：2021/9/9 16:05
  * @Version ： 1.0
  **/
-public class PostApplication {
+public class PostApplication_QuanGuo {
 
     public static String requestMessage = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<PACKET TYPE=\"REQUEST\">\n" +
@@ -25,7 +24,7 @@ public class PostApplication {
             "</HEAD>\n" +
             "<BODY>\n" +
             "    <APP_BASE>\n" +
-            "        <CHECK_CODE>00023</CHECK_CODE>   <!--校验码-->\n" +
+            "        <CHECK_CODE>00022</CHECK_CODE>   <!--校验码-->\n" +
             "        <INSU_MIDNO>00016</INSU_MIDNO>   <!--商户号-->\n" +
             "        <AMOUNT>1</AMOUNT> <!--交易金额-->\n" +
             "        <DIRECT_BANKCODE></DIRECT_BANKCODE>    <!--付款银行代码-->\n" +
@@ -67,7 +66,7 @@ public class PostApplication {
             "        <VEHICLEOWNERIDNO>91500228MA5YQ2U05J</VEHICLEOWNERIDNO>  <!--车主证件号-->\n" +
             "        <VEHICLEOWNERPHONENO>18596869685</VEHICLEOWNERPHONENO>    <!--车主手机号-->\n" +
             "        <APPLICANTIDCODE>01</APPLICANTIDCODE>    <!--投保人证件类型-->\n" +
-            "        <REALNAMEMODE>01</REALNAMEMODE>    <!-- 00非实名 01 江苏模式 02-全国 03-深圳 04-上海-->\n" +
+            "        <REALNAMEMODE>02</REALNAMEMODE>    <!-- 00非实名 01 江苏模式 02-全国 03-深圳 04-上海-->\n" +
             "        <APPLICANTNATURE>1</APPLICANTNATURE> <!--投保人类型-->\n" +
             "        <PAYACCOUNTNAME>张宗愿</PAYACCOUNTNAME>   <!--付款人名称-->\n" +
             "        <RELATIONSHIPCODE>99</RELATIONSHIPCODE>   <!--投保人与付款人关系？？？？-->\n" +
