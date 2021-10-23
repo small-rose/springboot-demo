@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * http工具类
+ * http工具类  apache的 http 工具类
  *
  * @author zuoqing
  */
