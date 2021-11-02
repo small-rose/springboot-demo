@@ -31,7 +31,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.*;
 
-import static com.sun.deploy.security.TrustDecider.timeout;
+
 
 /**
  * @Project : springboot-demo
