@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>二维码生成器</title>
+    <style type="text/css">
+        textarea {
+            font-size: 16px;
+            width: 300px;
+            height: 100px;
+        }
+
+        .hint {
+            color: red;
+            display: none;
+        }
+
+        .qrCodeDiv {
+            width: 200px;
+            height: 200px;
+            border: 2px solid sandybrown;
+        }
+
+        .qrCodeDiv img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+        .button{
+            padding: 8px;
+            margin: 5px;
+        }
+        .textarea{
+            width: 1000px;
+            height: 150px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#wechat").click(function () {
+
+                $.ajax({
+                    url: "/qrCode/Wechat/authLink",
+                    type: "get",
+                    contentType: "text",
+                    success:function(result){
+                        $("textarea").html(result);
+                    },
+                    error:function(error){
+                        console.log(error);
+                    }
+                });
+
+            });
+
+            $("#alipay").click(function () {
+
+                $.ajax({
+                    url: "/qrCode/Alipay/authLink",
+                    type: "get",
+                    contentType: "text",
+                    success:function(result){
+                        $("textarea").html(result);
+                    },
+                    error:function(error){
+                        console.log(error);
+                    }
+                });
+
+            });
+
+            $("#qrCode").click(function () {
+                var codeContent = $("textarea").val();
+                console.log(codeContent);
+                /**
+                 * 如果输出的内容为空，则提示，否则改变 img 的地址重新生成 二维码
+                 */
+                if (codeContent.trim() == "") {
+                    $(".hint").text("二维码内容不能为空").fadeIn(500);
+                } else {
+                    $(".hint").text("").fadeOut(500);
+                    /**coco 是应用名称，qrCode 是后台访问路径，codeContent 是后台控制层接收的参数*/
+                    $("#codeImg").attr("src", "/qrCode/getQrCode/generator?codeContent=" + codeContent);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<textarea placeholder="二维码内容..." class="textarea" ></textarea><br>
+<button id="wechat" type="button" class="button">微信授权链接</button>
+<button id="alipay" type="button" class="button">支付宝授权链接</button>
+<button id="qrCode" type="button" class="button">生成二维码</button>
+<span class="hint"></span>
+
+<!--二维码显示曲，与验证码一样，直接使用 img 标签请求即可-->
+<!--下面是 thymeleaf 的写法，qrCode 是后台访问的路径, codeContent 是 get 请求携带的参数，值为 "谢谢"-->
+<!--如果是纯 html 或者 jsp 写法，则可以用：<img src="/coco/qrCode?codeContent=谢谢" id="codeImg">，coco 是应用名称-->
+<div class="qrCodeDiv">
+    <img src="" th:src="@{/qrCode/getQrCode/generator(codeContent=谢谢)}" id="codeImg">
+</div>
+</body>
+</html>
