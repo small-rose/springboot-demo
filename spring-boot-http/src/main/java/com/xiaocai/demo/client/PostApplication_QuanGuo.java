@@ -28,7 +28,7 @@ public class PostApplication_QuanGuo {
             "        <INSU_MIDNO>00016</INSU_MIDNO>   <!--商户号-->\n" +
             "        <AMOUNT>1</AMOUNT> <!--交易金额-->\n" +
             "        <DIRECT_BANKCODE></DIRECT_BANKCODE>    <!--付款银行代码-->\n" +
-            "        <DIRECT_ORDERBANKCODE>CMBPAY</DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
+            "        <DIRECT_ORDERBANKCODE>YEEPAY</DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
             "        <REMARK>测试数据</REMARK>   <!--备注（江苏实名，投保人与付款人关系为“其他”时必传）-->\n" +
             "        <OPCODE></OPCODE>   <!--操作员代码-->\n" +
             "        <OPPW></OPPW>   <!--操作员密码-->\n" +
@@ -37,8 +37,8 @@ public class PostApplication_QuanGuo {
             "        <PAYWAY>07</PAYWAY>   <!--支付方式-->\n" +
             "        <CHECKNO><![CDATA[11111aaa]]></CHECKNO> <!--支票号-->\n" +
             "        <CHECKSERRAL></CHECKSERRAL> <!--支票流水号-->\n" +
-            "        <POLICYSTARTDATE>20211030000000</POLICYSTARTDATE>   <!--过期时间（起保时间）-->\n" +
-            "        <SUBCOMPANY>51</SUBCOMPANY>    <!--分公司代码-->\n" +
+            "        <POLICYSTARTDATE>20211130000000</POLICYSTARTDATE>   <!--过期时间（起保时间）-->\n" +
+            "        <SUBCOMPANY>50</SUBCOMPANY>    <!--分公司代码-->\n" +
             "        <CURRENCYTYPE>CNY</CURRENCYTYPE>    <!--币种-->\n" +
             "        <PARANORMALDAY></PARANORMALDAY>\n" +
             "        <INSUREDNAME><![CDATA[重庆市楷晟建材有限公司]]></INSUREDNAME> <!--缴款人名称-->\n" +
@@ -66,7 +66,7 @@ public class PostApplication_QuanGuo {
             "        <VEHICLEOWNERIDNO>91500228MA5YQ2U05J</VEHICLEOWNERIDNO>  <!--车主证件号-->\n" +
             "        <VEHICLEOWNERPHONENO>18596869685</VEHICLEOWNERPHONENO>    <!--车主手机号-->\n" +
             "        <APPLICANTIDCODE>01</APPLICANTIDCODE>    <!--投保人证件类型-->\n" +
-            "        <REALNAMEMODE>02</REALNAMEMODE>    <!-- 00非实名 01 江苏模式 02-全国 03-深圳 04-上海-->\n" +
+            "        <REALNAMEMODE>00</REALNAMEMODE>    <!-- 00非实名 01 江苏模式 02-全国 03-深圳 04-上海-->\n" +
             "        <APPLICANTNATURE>1</APPLICANTNATURE> <!--投保人类型-->\n" +
             "        <PAYACCOUNTNAME>张宗愿</PAYACCOUNTNAME>   <!--付款人名称-->\n" +
             "        <RELATIONSHIPCODE>99</RELATIONSHIPCODE>   <!--投保人与付款人关系？？？？-->\n" +
@@ -138,7 +138,8 @@ public class PostApplication_QuanGuo {
     public static void main(String[] args) {
         //String url = "http://192.168.50.251:9090/bp-paystation/ApplicationsServlet";
 
-        String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
+        //String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
+        String url = "http://10.1.4.171:9090/bp-paystation/ApplicationsServlet";
         // 调收付 接口
         Map<String, String> params = new HashMap<>(2);
         params.put("param1", "postApplication");

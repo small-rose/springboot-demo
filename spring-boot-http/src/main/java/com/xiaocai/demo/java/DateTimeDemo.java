@@ -2,9 +2,13 @@ package com.xiaocai.demo.java;
 
 import org.junit.Test;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -45,4 +49,42 @@ public class DateTimeDemo {
         String expiredTime = now.plusHours(24).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println(expiredTime);
     }
+
+    @Test
+    public  void main02() {
+        
+        Date  date = new Date();
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        //方式二 直接使用LocalDateTime.ofInstant
+        LocalDateTime localDateTime1 = LocalDateTime.ofInstant(instant, zoneId).minusHours(2).minusSeconds(5);
+        System.out.println(localDateTime1);
+        String a = localDateTime1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("--------------------" +a);
+        LocalDateTime dtLocal = LocalDateTime.now(); //.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println(dtLocal);
+        LocalDateTime limit = dtLocal.minusHours(2);
+        System.out.println(limit);
+        String b = limit.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("--------------------" +b);
+
+        System.out.println(a.compareTo(b));
+
+        if (a.compareTo(b) > 0 ){
+            System.out.println("a > b");
+            //return true ;
+        }else if (a.compareTo(b) < 0 ){
+            System.out.println("a < b");
+        }else{
+            System.out.println("a = b");
+        }
+        //那么这个时间就会存储：2020-01-01 02:00:00，提前8个小时
+
+        LocalDateTime dtUtc = LocalDateTime.now(ZoneOffset.UTC);
+        System.out.println(dtUtc);
+
+    }
+
+
 }
