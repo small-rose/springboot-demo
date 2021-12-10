@@ -1,5 +1,7 @@
 package com.xiaocai.demo.java;
 
+import org.junit.Test;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -42,4 +44,50 @@ public class StringTest {
 
 
     }
+
+
+    @Test
+    public void test(){
+        String   paySuccessDate = "2021-11-25 10:02:18";
+        System.out.println("---"+paySuccessDate.substring(0,10).replaceAll("-",""));
+        System.out.println("---"+paySuccessDate.substring(11).replaceAll(":",""));
+    }
+
+    @Test
+    public void test02(){
+        String alipayResult = "000000|<form action='' />";
+        String[] results = alipayResult.split("\\|");
+        System.out.println("--results[0]-"+results[0]);
+        System.out.println("--results[1]-"+results[1]);
+
+        int i = alipayResult.lastIndexOf("|");
+        String ms = alipayResult.substring(i+1,alipayResult.length());
+        String mm = alipayResult.substring(0, i);
+        System.out.println("--------------------");
+        System.out.println("--ms-"+ms);
+        System.out.println("--mm-"+mm);
+
+    }
+
+
+    @Test
+    public void substring() {
+        String aliForm = "<form action='' ></form><script>alert('test')</script>";
+        String form = aliForm.substring(0, aliForm.indexOf("<script>"));
+        System.out.println(form);
+        form = form.concat("<script>document.forms[0].submit();</script>");
+        System.out.println(form);
+
+    }
+
+    @Test
+    public void substring02() {
+        String aliForm = "https://qr.alipay.com/bax08692juhdbtp1bzki0087ALIPAYFTF";
+        String form = aliForm.substring(0, aliForm.indexOf("ALIPAYFTF"));
+        System.out.println(form);
+
+
+    }
+
+
 }

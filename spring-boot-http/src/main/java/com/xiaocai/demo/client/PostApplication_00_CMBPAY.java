@@ -29,7 +29,7 @@ public class PostApplication_00_CMBPAY {
             "        <INSU_MIDNO></INSU_MIDNO>   <!--商户号-->\n" +
             "        <AMOUNT>9800</AMOUNT> <!--交易金额-->\n" +
             "        <DIRECT_BANKCODE></DIRECT_BANKCODE>    <!--付款银行代码-->\n" +
-            "        <DIRECT_ORDERBANKCODE>CMBPAY</DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
+            "        <DIRECT_ORDERBANKCODE></DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
             "        <REMARK></REMARK>   <!--备注（江苏实名，投保人与付款人关系为“其他”时必传）-->\n" +
             "        <OPCODE></OPCODE>   <!--操作员代码-->\n" +
             "        <OPPW></OPPW>   <!--操作员密码-->\n" +

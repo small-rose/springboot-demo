@@ -87,4 +87,26 @@ public class DateTimeDemo {
     }
 
 
+
+    @Test
+    public void test(){
+        LocalDateTime now = LocalDateTime.now();
+        //long hours = Long.parseLong("0.5") ;
+        double hours = Double.parseDouble("0.5") ;
+        System.out.println(hours);
+        String expiredTime = now.plusHours(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    @Test
+    public void test02() throws ParseException {
+        String test = "20210910173958";
+        String date = test.substring(0,8);
+        System.out.println(date);
+        String inPaymentTime = test.substring(8);
+        System.out.println(inPaymentTime);
+
+
+        Date inPaymentDate = new SimpleDateFormat("yyyyMMdd").parse(date);
+        System.out.println(inPaymentDate);
+    }
 }
