@@ -105,6 +105,7 @@ public class UserBizService {
             this.saveAccountInnerThrowException(accountRecord);
         }catch (Exception e){
             e.printStackTrace();
+            throw new RuntimeException("内部");
         }
 
     }
