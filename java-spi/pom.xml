@@ -8,8 +8,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.xiaocai.spi.demo</groupId>
     <artifactId>java-spi</artifactId>
-    <packaging>maven-plugin</packaging>
-    <name>java-spi Maven Mojo</name>
+    <packaging>jar</packaging>
+    <name>java-spi</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -42,4 +42,35 @@
             <version>1.2.17</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- 指定项目编译时的java版本和编码方式 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <target>1.8</target>
+                    <source>1.8</source>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <execution>
+                            <goals><goal>repackage</goal></goals>
+                        </execution>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
