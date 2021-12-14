@@ -1,1 +1,18 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /bp-excel
 
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.10.108.70:1521/PAYMT
+    username: paymt
+    password: paymt_1
+    dbcp2:
+      max-idle: 10
+      max-wait-millis: 10000
+      min-idle: 5
+      initial-size: 5
