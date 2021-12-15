@@ -33,8 +33,10 @@ public class OracleSelectDao {
      */
     public List<TableInfo> getAllTables(String schema){
 
-        String querySQL = "SELECT distinct t1.TABLE_NAME as tableName, t.COMMENTS as tableComment, T1.TABLESPACE_NAME as tableSpaceName " +
+        String querySQL = "SELECT distinct t1.TABLE_NAME as tableName, nvl(t.COMMENTS, '')as tableComment, T1.TABLESPACE_NAME as tableSpaceName " +
                 "FROM DBA_TAB_COMMENTS t, DBA_TABLES t1 WHERE t.TABLE_NAME = t1.TABLE_NAME AND t.OWNER = ? ";
+        System.out.println("=====SQL: "+ querySQL);
+        System.out.println("=====schema: "+ schema);
         RowMapper<TableInfo> rowMapper = new BeanPropertyRowMapper<>(TableInfo.class);
         List<TableInfo> voList = jdbcTemplate.query(querySQL, new Object[] { schema }, new int[] {Types.CHAR}, rowMapper);
         return voList ;
@@ -58,9 +60,11 @@ public class OracleSelectDao {
                 "AND b.constraint_type = 'P'  \n" +
                 "AND a.OWNER = ? AND a.TABLE_NAME IN (\n" +
                 "    SELECT TABLE_NAME FROM DBA_TABLES WHERE OWNER=? \n" +
-                "    )  ;";
+                "    )  ";
+        System.out.println("=====SQL: "+ querySQL);
+        System.out.println("=====schema: "+ schema);
         RowMapper<TablePrimary> rowMapper = new BeanPropertyRowMapper<>(TablePrimary.class);
-        List<TablePrimary> voList = jdbcTemplate.query(querySQL, new Object[] { schema }, new int[] {Types.CHAR}, rowMapper);
+        List<TablePrimary> voList = jdbcTemplate.query(querySQL, new Object[] { schema, schema }, new int[] {Types.CHAR, Types.CHAR}, rowMapper);
 
         if (null == voList || voList.isEmpty()){
             return new HashMap<>(0);
@@ -86,7 +90,7 @@ public class OracleSelectDao {
                 "        CASE TC.DATA_TYPE WHEN 'DATE' THEN  TC.DATA_TYPE\n" +
                 "            ELSE    TC.DATA_TYPE || '(' || TC.DATA_LENGTH || ')'\n" +
                 "        END columnType ,\n" +
-                "        U.COMMENTS as columnComment,\n" +
+                "        nvl(U.COMMENTS,'') as columnComment,\n" +
                 "        TC.NULLABLE \n" +
                 "FROM DBA_TAB_COLS TC,\n" +
                 "     DBA_TABLES T,\n" +
@@ -94,8 +98,10 @@ public class OracleSelectDao {
                 "WHERE TC.TABLE_NAME = T.TABLE_NAME AND T.TABLE_NAME=U.TABLE_NAME\n" +
                 "  AND TC.COLUMN_NAME = U.COLUMN_NAME\n" +
                 "  AND TC.OWNER = ?  \n" +
-                "  AND U.TABLE_NAME = ? \n" +
-                ";";
+                "  AND U.TABLE_NAME = ? " ;
+        System.out.println("=====SQL: "+ querySQL);
+        System.out.println("=====schema: "+ schema);
+        System.out.println("=====tableName: "+ tableName);
         RowMapper<TableColumn> rowMapper = new BeanPropertyRowMapper<>(TableColumn.class);
         List<TableColumn> voList = jdbcTemplate.query(querySQL, new Object[] { schema, tableName }, new int[] {Types.CHAR, Types.CHAR }, rowMapper);
 
