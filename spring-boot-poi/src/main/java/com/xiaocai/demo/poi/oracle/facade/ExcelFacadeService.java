@@ -41,8 +41,6 @@ public class ExcelFacadeService {
         // 表信息使用模板填充
         String fileName  = fillTableInfo(allTables);
 
-        // 表列信息动态添加
-        //addColumnInfos(schema, fileName, allTables);
 
         try {
             poiExcelFacadeService.appendSheet(schema, fileName, allTables);
