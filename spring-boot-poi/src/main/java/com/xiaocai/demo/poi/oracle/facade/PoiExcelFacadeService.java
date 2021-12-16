@@ -7,6 +7,8 @@ import com.xiaocai.demo.poi.oracle.vo.TableInfo;
 import com.xiaocai.demo.poi.utils.ExcelConstant;
 import com.xiaocai.demo.poi.utils.PoiExcel07Util;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.ss.formula.functions.Hyperlink;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +43,18 @@ public class PoiExcelFacadeService {
     XSSFCellStyle cs1 = null, cs2 = null, cs3 = null, cs4 = null, cs5 = null;
 
 
-    public void appendSheet(String schema, String fileName, List<TableInfo> allTables) throws IOException {
+    public void appendSheet(String schema, String fileName) throws IOException {
+        File file = new File(fileName);
+        String excelName = file.getName();
+        List<TableInfo> allTables = oracleSelectService.getAllTables(schema);
+
         Map<String, String> tablePrimaryKey = getTablePrimaryKey(schema);
         //获取工作簿
-        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(fileName)));
+        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
+
+        workbook.getSheetAt(0);
+        //第一个sheet页的处理
+        fillTableInfo(workbook, allTables, excelName);
 
         XSSFSheet sheet = null;
         XSSFCell cell = null;
@@ -71,12 +81,16 @@ public class PoiExcelFacadeService {
                 XSSFCell tempCell = null;
                 if (r == 0) {
                     cell = PoiExcel07Util.createACellInRow(row, 0, "表名称：" + tableName);
-                    cell = PoiExcel07Util.createACellInRow(row, 3, "含义：" + tableInfo.getTableComment());
+                    cell = PoiExcel07Util.createACellInRow(row, 2, "含义：" + tableInfo.getTableComment());
                     // 合并首行
                     sheet.addMergedRegion(new CellRangeAddress(r, r, 0, 1));
                     sheet.addMergedRegion(new CellRangeAddress(r, r, 2, 4));
-                }else
-                if (r == 1) {
+
+                    cell = PoiExcel07Util.createACellInRow(row, 5, "返回首页：");
+                    cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+                    cell.setCellFormula("HYPERLINK(\"["+excelName+"]'sheet1'!A1\",\"返回首页\")"); //HYPERLINK("#明细!A1","homepage"),#代表本工作簿
+
+                }else if (r == 1) {
                     cell = PoiExcel07Util.createACellInRow(row, 0, "表名称：" + tableName);
                     for (int c = 0; c < headers.size(); c++) {
                         cell = PoiExcel07Util.createACellInRow(row, c, headers.get(c));
@@ -111,6 +125,29 @@ public class PoiExcelFacadeService {
         }
 
         log.info("----开始处理考勤统计数据-----");
+    }
+
+    private void fillTableInfo(XSSFWorkbook workbook, List<TableInfo> allTables, String excelName) {
+        XSSFSheet sheet = workbook.getSheetAt(0);
+
+        XSSFRow row = null;
+        XSSFCell cell = null;
+        for (int i = 4; i <allTables.size() + 4 ; i++){
+            row = sheet.getRow(i);
+            TableInfo tableInfo = allTables.get(i - 4);
+
+            System.out.println("i " + i);
+            cell = row.getCell(9);
+            cell.setCellValue(tableInfo.getTableName());
+
+            cell = row.getCell(10);
+            cell.setCellValue(tableInfo.getTableComment());
+
+            cell = row.getCell(12);
+            cell.setCellFormula("HYPERLINK(\"["+excelName+"]'sheet"+(i-3)+"'!A1\",\"点击前往\")");
+
+        }
+
     }
 
 
