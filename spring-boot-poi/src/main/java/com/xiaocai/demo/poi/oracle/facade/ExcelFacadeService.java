@@ -5,11 +5,17 @@ import com.xiaocai.demo.poi.oracle.service.OracleSelectService;
 import com.xiaocai.demo.poi.oracle.vo.TableInfo;
 import com.xiaocai.demo.poi.utils.TestFileUtil;
 import lombok.extern.slf4j.Slf4j;
+
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -37,15 +43,10 @@ public class ExcelFacadeService {
      * @return
      */
     public String generatedExcel(String schema) {
-        List<TableInfo> allTables = oracleSelectService.getAllTables(schema);
-        // 表信息使用模板填充
-        String fileName  = fillTableInfo(allTables);
-
-        // 表列信息动态添加
-        //addColumnInfos(schema, fileName, allTables);
-
+        // 复制模板 ，然后处理
         try {
-            poiExcelFacadeService.appendSheet(schema, fileName, allTables);
+            String fileName  = copyFile();
+            poiExcelFacadeService.appendSheet(schema, fileName);
             System.out.println("poi追加sheet 成功！");
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,30 +55,7 @@ public class ExcelFacadeService {
     }
 
 
-
-
-    private void addColumnInfos(String schema, String fileName, List<TableInfo> allTables) {
-        if (allTables.isEmpty()){
-            log.info(" allTables size is 0 ");
-        }
-
-
-        int index = 2 ;
-        for (TableInfo tableInfo : allTables){
-            if (index == 4){
-                break;
-            }
-
-            index++;
-        }
-
-
-        System.out.println("=====执行完成=====");
-    }
-
-
-    private String fillTableInfo(List<TableInfo> allTables){
-
+    private String copyFile() throws IOException {
 
         //模板路径
         String templateFileName = TestFileUtil.getPath() + "paymt" + File.separator + "db_table_template.xlsx";
@@ -86,7 +64,10 @@ public class ExcelFacadeService {
 
         // 方案1 一下子全部放到内存里面 并填充
         String fileName =  "D:\\onlyTest\\paymt_" + datetime + ".xlsx";
-
+        FileUtils.copyFile(new File(templateFileName), new File(fileName));
         return fileName ;
     }
+
+
+
 }
