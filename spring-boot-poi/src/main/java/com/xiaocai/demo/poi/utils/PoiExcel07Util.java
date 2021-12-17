@@ -352,7 +352,7 @@ public class PoiExcel07Util {
 	
 	//str 是单元格需要放入的 字符串 fontCountInline 是该单元格每行多少个汉字 全角为1 英文或符号为0.5
 	public static float getExcelCellAutoHeight(String str, float fontCountInline) {
-	     float defaultRowHeight = 12.00f;//每一行的高度指定
+	     float defaultRowHeight = 15.00f;//每一行的高度指定
 	     float defaultCount = 0.00f;
 	     for (int i = 0; i < str.length(); i++) {
 	          float ff = getregex(str.substring(i, i + 1));

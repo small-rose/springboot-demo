@@ -50,4 +50,14 @@ public class OracleSelectService {
     public List<TableColumn> getColumnInfo(String schema, String tableName){
         return  oracleSelectDao.getColumnInfo(schema, tableName);
     }
+
+
+    /**
+     * 查表 的最后更时间
+     * @return
+     */
+    public Map<String, String> getTableLastDDLTime(String schema){
+        return  oracleSelectDao.getTableLastDDLTime(schema);
+    }
+
 }

@@ -60,7 +60,7 @@ public class ExcelFacadeService {
         //模板路径
         String templateFileName = TestFileUtil.getPath() + "paymt" + File.separator + "db_table_template.xlsx";
 
-        String datetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        String datetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss"));
 
         // 方案1 一下子全部放到内存里面 并填充
         String fileName =  "D:\\onlyTest\\paymt_" + datetime + ".xlsx";

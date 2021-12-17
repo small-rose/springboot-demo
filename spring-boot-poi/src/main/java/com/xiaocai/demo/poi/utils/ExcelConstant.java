@@ -12,9 +12,9 @@ public class ExcelConstant {
 	
 	public static final String XSSF         = ".xlsx";
     
-	public static final short Font_Size  = 10;
+	public static final short Font_Size  = 9;
 	
-	public static final String Font_Name  = "宋体";
+	public static final String Font_Name  = "微软雅黑";
 	
 	public static final short Font_BoderWeight  = 2;
 	
