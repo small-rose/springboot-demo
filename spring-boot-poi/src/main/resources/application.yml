@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /bp-excel
+    context-path: /poi-excel
 
 
 spring:
