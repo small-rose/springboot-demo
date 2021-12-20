@@ -36,13 +36,27 @@ public class SelectController {
     @Autowired
     private OracleSelectService oracleSelectService;
 
-    @ApiOperation(value = "执行入口",response = Map.class)
-    @GetMapping("/init")
-    public Map go(String schema){
+    @ApiOperation(value = "执行入口-生成EXCEL",response = Map.class)
+    @GetMapping("/initExcel")
+    public Map toExcel(String schema){
         if (StringUtils.isEmpty(schema)){
             schema = "PAYMT";
         }
         String result = excelFacadeService.generatedExcel(schema);
+        Map map = new HashMap(2);
+        map.put("code", "200");
+        map.put("result", result);
+        return map ;
+    }
+
+
+    @ApiOperation(value = "执行入口-解析Excel",response = Map.class)
+    @GetMapping("/initSQL")
+    public Map toSQL(String schema){
+        if (StringUtils.isEmpty(schema)){
+            schema = "PAYMT";
+        }
+        String result = excelFacadeService.analysisExcel(schema);
         Map map = new HashMap(2);
         map.put("code", "200");
         map.put("result", result);

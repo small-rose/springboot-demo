@@ -1,10 +1,7 @@
 package com.xiaocai.demo.poi.oracle.dao;
 
 
-import com.xiaocai.demo.poi.oracle.vo.TableColumn;
-import com.xiaocai.demo.poi.oracle.vo.TableInfo;
-import com.xiaocai.demo.poi.oracle.vo.TableLastDDLTime;
-import com.xiaocai.demo.poi.oracle.vo.TablePrimary;
+import com.xiaocai.demo.poi.oracle.vo.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +61,7 @@ public class OracleSelectDao {
                 "AND a.OWNER = ? AND a.TABLE_NAME IN (\n" +
                 "    SELECT TABLE_NAME FROM DBA_TABLES WHERE OWNER=? \n" +
                 "    )  ";
-        System.out.println("=====SQL: "+ querySQL);
+//        System.out.println("=====SQL: "+ querySQL);
         //System.out.println("=====schema: "+ schema);
         RowMapper<TablePrimary> rowMapper = new BeanPropertyRowMapper<>(TablePrimary.class);
         List<TablePrimary> voList = jdbcTemplate.query(querySQL, new Object[] { schema, schema }, new int[] {Types.CHAR, Types.CHAR}, rowMapper);
@@ -124,14 +122,34 @@ public class OracleSelectDao {
                 "  AND T.OWNER= ?  " +
                 "  AND UTC.TABLE_NAME= ?  " +
                 "ORDER BY UTC.COLUMN_ID ASC  " ;
-        System.out.println("=====SQL: "+ querySQL);
+//        System.out.println("=====SQL: "+ querySQL);
         //System.out.println("=====schema: "+ schema);
-        System.out.println("=====tableName: "+ tableName);
+//        System.out.println("=====tableName: "+ tableName);
         RowMapper<TableColumn> rowMapper = new BeanPropertyRowMapper<>(TableColumn.class);
         List<TableColumn> voList = jdbcTemplate.query(querySQL, new Object[] { schema, tableName }, new int[] {Types.CHAR, Types.CHAR }, rowMapper);
 
         return voList ;
     }
 
+    /**
+     * 查表的索引
+     * @param schema
+     * @param tableName
+     * @return
+     */
+    public List<TableIndex> getIndexList(String schema, String tableName) {
+        String querySQL = "SELECT UIC.INDEX_NAME as indexName, TC.COLUMN_NAME AS columnName\n" +
+                "FROM USER_IND_COLUMNS UIC," +
+                "DBA_TAB_COLS TC \n" +
+                "WHERE TC.TABLE_NAME = UIC.TABLE_NAME " +
+                "  AND TC.COLUMN_NAME = UIC.COLUMN_NAME " +
+                "  AND TC.OWNER = ? \n" +
+                "  AND TC.TABLE_NAME= ? \n" +
+                "ORDER BY UIC.INDEX_NAME, UIC.COLUMN_POSITION ";
+//        System.out.println("=====SQL: "+ querySQL);
+         RowMapper<TableIndex> rowMapper = new BeanPropertyRowMapper<>(TableIndex.class);
+        List<TableIndex> tableIndexes = jdbcTemplate.query(querySQL, new Object[] { schema, tableName }, new int[] {Types.CHAR, Types.CHAR }, rowMapper);
 
+        return tableIndexes ;
+    }
 }

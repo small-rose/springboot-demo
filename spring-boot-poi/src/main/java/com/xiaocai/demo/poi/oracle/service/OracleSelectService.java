@@ -3,6 +3,7 @@ package com.xiaocai.demo.poi.oracle.service;
 
 import com.xiaocai.demo.poi.oracle.dao.OracleSelectDao;
 import com.xiaocai.demo.poi.oracle.vo.TableColumn;
+import com.xiaocai.demo.poi.oracle.vo.TableIndex;
 import com.xiaocai.demo.poi.oracle.vo.TableInfo;
 import org.springframework.stereotype.Service;
 
@@ -60,4 +61,7 @@ public class OracleSelectService {
         return  oracleSelectDao.getTableLastDDLTime(schema);
     }
 
+    public List<TableIndex> getIndexList(String schema, String tableName) {
+        return oracleSelectDao.getIndexList(schema, tableName);
+    }
 }

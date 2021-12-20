@@ -38,6 +38,9 @@ public class ExcelFacadeService {
 
     @Autowired
     private PoiExcelFacadeService poiExcelFacadeService;
+    @Autowired
+    private PoiAnalysisExcelService poiAnalysisExcelService;
+
     /**
      * 生成最终的Excel
      * @return
@@ -46,8 +49,10 @@ public class ExcelFacadeService {
         // 复制模板 ，然后处理
         try {
             String fileName  = copyFile();
+
             poiExcelFacadeService.appendSheet(schema, fileName);
             System.out.println("poi追加sheet 成功！");
+            log.info("生成文件路径："+fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,6 +73,17 @@ public class ExcelFacadeService {
         return fileName ;
     }
 
-
-
+    /**
+     * 使用Excel 生成SQL
+     * @param fileName
+     * @return
+     */
+    public String analysisExcel(String fileName, String sqlFile) {
+        try {
+            poiAnalysisExcelService.analysisExcel(fileName, sqlFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sqlFile;
+    }
 }
