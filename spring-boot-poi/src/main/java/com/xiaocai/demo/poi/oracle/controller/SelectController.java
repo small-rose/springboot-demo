@@ -56,7 +56,9 @@ public class SelectController {
         if (StringUtils.isEmpty(schema)){
             schema = "PAYMT";
         }
-        String result = excelFacadeService.analysisExcel(schema);
+        String excelFile = "";
+        String sqlFile = "";
+        String result = excelFacadeService.analysisExcel(excelFile, sqlFile);
         Map map = new HashMap(2);
         map.put("code", "200");
         map.put("result", result);
