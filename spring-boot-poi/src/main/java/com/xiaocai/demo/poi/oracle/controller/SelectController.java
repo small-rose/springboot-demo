@@ -6,6 +6,8 @@ import com.xiaocai.demo.poi.oracle.service.OracleSelectService;
 import com.xiaocai.demo.poi.oracle.vo.TableColumn;
 import com.xiaocai.demo.poi.oracle.vo.TableInfo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,14 @@ public class SelectController {
     @Autowired
     private OracleSelectService oracleSelectService;
 
+    private static Map fileNmame = new HashMap();
+
     @ApiOperation(value = "执行入口-生成EXCEL",response = Map.class)
     @GetMapping("/initExcel")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "schema", value = "db schema", required = true, dataType="string",
+                    defaultValue = "PAYMT", example = "PAYMT"),
+    })
     public Map toExcel(String schema){
         if (StringUtils.isEmpty(schema)){
             schema = "PAYMT";
@@ -52,14 +60,23 @@ public class SelectController {
 
     @ApiOperation(value = "执行入口-解析Excel",response = Map.class)
     @GetMapping("/initSQL")
-    public Map toSQL(String schema){
-        if (StringUtils.isEmpty(schema)){
-            schema = "PAYMT";
-        }
-        String excelFile = "";
-        String sqlFile = "";
-        String result = excelFacadeService.analysisExcel(excelFile, sqlFile);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "excelFile", value = "EXCEL路径", required = true, dataType="string",
+                    defaultValue = "D:\\onlyTest\\paymt_db.xlsx", example = "D:\\onlyTest\\paymt_db.xlsx"),
+            @ApiImplicitParam(name = "sqlFile", value = "SQL文件路径", required = true, dataType="string",
+                    defaultValue = "D:\\onlyTest\\paymt_db_sql.sql", example = "D:\\onlyTest\\paymt_db_sql.sql")
+    })
+    public Map toSQL(String excelFile, String sqlFile){
+
         Map map = new HashMap(2);
+
+        if (StringUtils.isEmpty(excelFile) || StringUtils.isEmpty(sqlFile)){
+            map.put("code", "100");
+            map.put("result", "参数不允许为空");
+        }
+//        String excelFile = "";
+//        String sqlFile = "";
+        String result = excelFacadeService.analysisExcel(excelFile, sqlFile);
         map.put("code", "200");
         map.put("result", result);
         return map ;

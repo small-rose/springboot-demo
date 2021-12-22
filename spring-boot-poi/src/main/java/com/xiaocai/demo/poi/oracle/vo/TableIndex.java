@@ -15,4 +15,6 @@ public class TableIndex {
 
     private String indexName;
     private String columnName;
+    private String columnType;
+
 }

@@ -19,6 +19,8 @@ public class TableColumn {
 
     private String comments;
 
+    private String dataDefault;
+
     private String nullable;
 
 }

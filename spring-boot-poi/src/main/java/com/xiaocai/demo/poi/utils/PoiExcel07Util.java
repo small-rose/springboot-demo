@@ -92,6 +92,8 @@ public class PoiExcel07Util {
 				style.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
 			}else if(color.equals(ExcelConstant.BgColor_Grey_25_Percent)){
 				style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+			}else if (color.equals(ExcelConstant.BgColor_ROSE)){
+				style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
 			}
 			
 			style.setFillPattern(CellStyle.SOLID_FOREGROUND);

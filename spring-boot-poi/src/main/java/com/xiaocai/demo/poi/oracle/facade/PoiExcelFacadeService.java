@@ -43,12 +43,12 @@ public class PoiExcelFacadeService {
     @Autowired
     private OracleSelectService oracleSelectService;
 
-    private static List<String> headers = Arrays.asList("字段名称","类型","是否主键","含义","说明");
-    private static List<String> indexs = Arrays.asList("索引名称","类型","","索引描述","相关字段");
+    private static List<String> headers = Arrays.asList("字段名称","类型", "是否主键","含义","说明", "默认值", "是否为空");
+    private static List<String> indexs = Arrays.asList("索引名称","类型","","索引描述","相关字段", "", "");
 
 
 
-    XSSFCellStyle cs1 = null, cs2 = null, cs3 = null, cs4 = null, cs5 = null;
+    XSSFCellStyle cs1 = null, cs2 = null, cs3 = null, cs4 = null ;
 
 
      public void appendSheet(String schema, String fileName) throws IOException {
@@ -74,24 +74,27 @@ public class PoiExcelFacadeService {
         //设置样式
         cs1 = PoiExcel07Util.getAXSSFCellStyle(workbook, ExcelConstant.Font_Position_Left,10, XSSFFont.BOLDWEIGHT_BOLD,true,ExcelConstant.BgColor_Pale_Blue);
         cs2 = PoiExcel07Util.getAXSSFCellStyle(workbook,ExcelConstant.Font_Position_Left,9,XSSFFont.BOLDWEIGHT_NORMAL,false, "");
+        cs4 = PoiExcel07Util.getAXSSFCellStyle(workbook,ExcelConstant.Font_Position_Center,9,XSSFFont.BOLDWEIGHT_BOLD,true, ExcelConstant.BgColor_ROSE);
 
-        Map<String, String> indexMap = null;
-        int bk = 0 ;
+        //Map<String, String> indexMap = null;
+        int bk = 1 ;
+        int all = allTables.size();
         for (TableInfo tableInfo : allTables){
+            bk = bk+1;
+            if (!tableInfo.getTableName().startsWith("T_")){
+                continue ;
+            }
+            log.info("执行进度："+((bk)/all) * 100 +"%");
             String tableName = tableInfo.getTableName();
             List<TableColumn> columnInfos = oracleSelectService.getColumnInfo(schema, tableInfo.getTableName());
 
-            if (bk == 6){
-                break;
-            }
-            bk++;
 
             sheet = PoiExcel07Util.createASheetInWorkbook(workbook, tableInfo.getTableName());
 
-            indexMap = new HashMap<String, String>(columnInfos.size());
+            //indexMap = new HashMap<String, String>(columnInfos.size());
 
             for (int r=0; r< columnInfos.size()+2; r++){
-                String shuoMing = "";
+                String shuoMing = "" , defaultVal="", isNull ="";
                 String primaryKey = "N";
                 XSSFRow row = PoiExcel07Util.createARowInSheet(sheet, r, 0);
                 XSSFCell tempCell = null;
@@ -106,16 +109,17 @@ public class PoiExcelFacadeService {
                     sheet.addMergedRegion(new CellRangeAddress(r, r, 0, 1));
                     sheet.addMergedRegion(new CellRangeAddress(r, r, 2, 4));
 
-                    cell = PoiExcel07Util.createACellInRow(row, 5, "返回首页：");
-
+                    XSSFCell cellBack = PoiExcel07Util.createACellInRow(row, 5, "返回首页：");
+                    sheet.addMergedRegion(new CellRangeAddress(r, r, 5, 6));
                     //Hyperlink hyperlink = helper.createHyperlink(XSSFHyperlink.LINK_DOCUMENT);
                     int number = bk +4 ;
                     //hyperlink.setAddress("HYPERLINK(\"["+excelName+"]-首页 - J"+number +"\",\"返回首页\")");
-                    cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+                    cellBack.setCellStyle(cs4);
+                    cellBack.setCellType(HSSFCell.CELL_TYPE_FORMULA);
                     //cell.setHyperlink(hyperlink);
                     //cell.setCellFormula("HYPERLINK(\"["+excelName+"]-首页 - J"+number +"\",\"返回首页\")"); //HYPERLINK("#明细!A1","homepage"),#代表本工作簿
-                    cell.setCellFormula("HYPERLINK(\"["+excelName+"]首页!J"+number +"\",\"返回首页\") \n"); //HYPERLINK("#明细!A1","homepage"),#代表本工作簿
-                    cell.getCellStyle().setWrapText(true);
+                    cellBack.setCellFormula("HYPERLINK(\"["+excelName+"]首页!J"+number +"\",\"返回首页\") \n"); //HYPERLINK("#明细!A1","homepage"),#代表本工作簿
+                    cellBack.getCellStyle().setWrapText(true);
                 }else if (r == 1) {
                     for (int c = 0; c < headers.size(); c++) {
                         cell = PoiExcel07Util.createACellInRow(row, c, headers.get(c));
@@ -125,7 +129,7 @@ public class PoiExcelFacadeService {
 
                 }else if (r > 1) {
                     TableColumn column = columnInfos.get(r - 2);
-                    indexMap.put(column.getColumnName(), column.getColumnType());
+                    //indexMap.put(column.getColumnName(), column.getColumnType());
 
                    /* if (r %7 ==2){
                         column.setComments("要拿五斤鳎目去换顺北边来的哑巴腰里别的喇叭，\n" +
@@ -151,14 +155,22 @@ public class PoiExcelFacadeService {
                     }
                     row.setHeight((short)(max*50));
 
-                    if (!StringUtils.isEmpty(column.getNullable()) && "N".equals(column.getNullable())){
-                        shuoMing = "NOT NULL";
-                    }
 
-                    cell = PoiExcel07Util.createACellInRow(row, 4, shuoMing);
+                    cell = PoiExcel07Util.createACellInRow(row, 4, "");
+
+                    if (!StringUtils.isEmpty(column.getDataDefault()) && StringUtils.hasText(column.getDataDefault())){
+                        defaultVal = "DEFAULT  " + column.getDataDefault();
+                    }
+                    cell = PoiExcel07Util.createACellInRow(row, 5, defaultVal);
+
+                    if (!StringUtils.isEmpty(column.getNullable()) && "N".equals(column.getNullable())){
+                        isNull = "NOT NULL" ;
+                    }
+                    cell = PoiExcel07Util.createACellInRow(row, 6, isNull);
 
                     for (int c = 0; c < headers.size(); c++) {
                         tempCell = row.getCell(c);
+
                         tempCell.setCellStyle(cs2);
                         if (c!=3) {
                             sheet.autoSizeColumn(c);
@@ -167,9 +179,18 @@ public class PoiExcelFacadeService {
                             sheet.setColumnWidth(c, 40*256);
                         }
                     }
+
+                    //sheet.setColumnWidth(0, 16*256);
+                    //sheet.setColumnWidth(1, 16*256);
                     sheet.setColumnWidth(4, 20*256);
                 }
 
+                if ("T_CENTRALPAYMENTINFO_TD".equals(tableName)) {
+                    for (int c = 0; c < headers.size(); c++) {
+                        int columnWidth = sheet.getColumnWidth(c);
+                        System.out.println(" columnWidth " + columnWidth);
+                    }
+                }
             }
 
 
@@ -178,8 +199,8 @@ public class PoiExcelFacadeService {
             int rownum = columnInfos.size() + 2; //已经写到的行数
 
             List<TableIndex> indexList = oracleSelectService.getIndexList(schema, tableName);
-            int all = rownum + indexList.size() + 3 ; // 空行 + 索引+ 索引表头 + 末尾行
-            for (int r =rownum; r<= all ; r++){
+            int total = rownum + indexList.size() + 3 ; // 空行 + 索引+ 索引表头 + 末尾行
+            for (int r =rownum; r<= total ; r++){
                 XSSFCell tempCell = null;
                 XSSFRow row = PoiExcel07Util.createARowInSheet(sheet, r, 0);
                 if (r == rownum){
@@ -201,12 +222,13 @@ public class PoiExcelFacadeService {
                         cell.setCellStyle(cs3);
                     }
                     row.setHeight((short) 400);
-                }else if (r >= rownum +3 && r < all){
+                }else if (r >= rownum +3 && r < total){
                     // 数据行
                     TableIndex tableIndex = indexList.get(r - (rownum + 3));
                     String columnName = tableIndex.getColumnName();
                     cell = PoiExcel07Util.createACellInRow(row, 0, tableIndex.getIndexName());
-                    cell = PoiExcel07Util.createACellInRow(row, 1, indexMap.get(columnName));
+                    //cell = PoiExcel07Util.createACellInRow(row, 1, indexMap.get(columnName));
+                    cell = PoiExcel07Util.createACellInRow(row, 1, tableIndex.getColumnType());
 
                     cell = PoiExcel07Util.createACellInRow(row, 2, "");
 
@@ -214,6 +236,8 @@ public class PoiExcelFacadeService {
 
                     cell = PoiExcel07Util.createACellInRow(row, 4, columnName);
 
+                    cell = PoiExcel07Util.createACellInRow(row, 5, "");
+                    cell = PoiExcel07Util.createACellInRow(row, 6, "");
                     for (int c = 0; c < indexs.size(); c++) {
                         tempCell = row.getCell(c);
                         tempCell.setCellStyle(cs2);
@@ -222,7 +246,18 @@ public class PoiExcelFacadeService {
                     // 根据文字计算行高, 每行10个汉字
                     float f = PoiExcel07Util.getExcelCellAutoHeight("" , 10f);
                     row.setHeight((short)(f*50));
-                }else if (r == all){
+
+
+                    for (int c = 0; c < indexs.size(); c++) {
+                        tempCell = row.getCell(c);
+
+                        tempCell.setCellStyle(cs2);
+                        if (c!=3) {
+                            sheet.autoSizeColumn(c);
+                        }
+                    }
+
+                }else if (r == total){
                     // 末行 正常情况数据来不到这里
                     for (int c = 0; c < indexs.size(); c++) {
                         if (c==0){
@@ -302,6 +337,7 @@ public class PoiExcelFacadeService {
                 cellFont.setColor(HSSFColor.BLUE.index);
                 cellstyle12.setFont(cellFont);
                 cell2.setCellStyle(cellstyle12);
+                cell2.getCellStyle().setWrapText(true);
 
                 //cell.setCellFormula("HYPERLINK(\"#"+tableName+" - A1\",\"点击前往\")\n");
 

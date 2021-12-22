@@ -111,12 +111,14 @@ public class OracleSelectDao {
         String querySQL = "SELECT UTC.COLUMN_NAME as columnName,\n" +
                 "       CASE UTC.DATA_TYPE WHEN 'DATE' THEN  UTC.DATA_TYPE\n" +
                 "            ELSE    UTC.DATA_TYPE || '(' || UTC.DATA_LENGTH || ')'\n" +
-                "       END columnType,\n" +
-                "       UCC.COMMENTS as columnComment,\n" +
-                "       UTC.NULLABLE\n" +
+                "       END columnType, \n" +
+                "       UCC.COMMENTS as comments, \n" +
+                "       UTC.DATA_DEFAULT as dataDefault, \n "+
+                "       UTC.NULLABLE as nullable, \n" +
+                "       UTC.DEFAULT_ON_NULL \n "+
                 "FROM USER_TAB_COLUMNS  UTC ,\n" +
-                "     DBA_TABLES T,\n" +
-                "     USER_COL_COMMENTS UCC\n" +
+                "     DBA_TABLES T, \n" +
+                "     USER_COL_COMMENTS UCC \n" +
                 "WHERE UTC.TABLE_NAME = T.TABLE_NAME AND T.TABLE_NAME=UCC.TABLE_NAME\n" +
                 "  AND UTC.COLUMN_NAME = UCC.COLUMN_NAME\n" +
                 "  AND T.OWNER= ?  " +
@@ -138,7 +140,10 @@ public class OracleSelectDao {
      * @return
      */
     public List<TableIndex> getIndexList(String schema, String tableName) {
-        String querySQL = "SELECT UIC.INDEX_NAME as indexName, TC.COLUMN_NAME AS columnName\n" +
+        String querySQL = "SELECT UIC.INDEX_NAME as indexName, TC.COLUMN_NAME AS columnName,\n" +
+                " CASE TC.DATA_TYPE WHEN 'DATE' THEN  TC.DATA_TYPE " +
+                " ELSE    TC.DATA_TYPE || '(' || TC.DATA_LENGTH || ')' "+
+                " END columnType  \n"+
                 "FROM USER_IND_COLUMNS UIC," +
                 "DBA_TAB_COLS TC \n" +
                 "WHERE TC.TABLE_NAME = UIC.TABLE_NAME " +

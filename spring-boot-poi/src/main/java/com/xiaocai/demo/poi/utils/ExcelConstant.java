@@ -26,7 +26,10 @@ public class ExcelConstant {
 	public static final String Font_Position_Center = "center" ;//中间
 	
 	public static final String BgColor_Pale_Blue = "paleBlue"  ;
-	
+
 	public static final String BgColor_Grey_25_Percent = "grey"  ;
+
+	public static final String BgColor_ROSE = "rose"  ;
+
 
 }
