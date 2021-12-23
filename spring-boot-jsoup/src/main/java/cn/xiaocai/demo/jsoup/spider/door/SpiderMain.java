@@ -21,8 +21,9 @@ public class SpiderMain {
     public static void main(String[] args) {
         SpiderServer server = new SpiderServer();
         server.setId(1);
-        server.setName("zzy");
-        server.setDoorUrl("https://zhangxiaocai.cn");
+        server.setName("xinyueyun");
+        server.setDoorUrl("https://www.ivsky.com/bizhi/huge_t542/");
+        server.setDownloadThreadNumbers(3); //下载图片线程数
         server.init();
         server.start();
 

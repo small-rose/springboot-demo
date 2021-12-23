@@ -1,6 +1,7 @@
 package cn.xiaocai.demo.jsoup.spider.catcher;
 
 import cn.xiaocai.demo.jsoup.spider.data.DocumentQueue;
+import cn.xiaocai.demo.jsoup.spider.data.PicQueue;
 import cn.xiaocai.demo.jsoup.spider.data.UrlDataQueue;
 import cn.xiaocai.demo.jsoup.spider.thread.SpiderThreadManager;
 import lombok.Data;
@@ -28,6 +29,10 @@ public class SpiderServer implements Server {
      */
     private String doorUrl ;
 
+    /**
+     * 图片下载线程数
+     */
+    private int downloadThreadNumbers = 3;
 
     private SpiderThreadManager spiderThreadManager ;
 
@@ -38,11 +43,13 @@ public class SpiderServer implements Server {
         spiderThreadManager = SpiderThreadManager.getInstance();
         spiderThreadManager.setDocumentQueue(new DocumentQueue());
         spiderThreadManager.setUrlDataQueue(new UrlDataQueue());
+        spiderThreadManager.setPicQueue(new PicQueue());
+        spiderThreadManager.setDownThreadNum(this.downloadThreadNumbers);
     }
 
     @Override
     public void start() {
-        spiderThreadManager.init(doorUrl);
+        spiderThreadManager.start(doorUrl);
     }
 
     @Override

@@ -1,8 +1,9 @@
 package cn.xiaocai.demo.jsoup.spider.thread;
 
-import cn.xiaocai.demo.jsoup.spider.data.DocumentQueue;
-import cn.xiaocai.demo.jsoup.spider.data.UrlData;
+import cn.xiaocai.demo.jsoup.spider.data.*;
+import cn.xiaocai.demo.jsoup.spider.handler.CatchHandler;
 import cn.xiaocai.demo.jsoup.spider.handler.UrlHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 
 import java.util.List;
@@ -15,27 +16,31 @@ import java.util.concurrent.Callable;
  * @date: 2021/7/12 23:51
  * @version: v1.0
  */
-public class AnalysisTask implements Callable {
+@Slf4j
+public class AnalysisTask implements Callable<String> {
 
-    private DocumentQueue documentQueue ;
-    private UrlHandler urlHandler ;
+    private PicQueue picQueue ;
+    private UrlDataQueue urlDataQueue ;
+    private final CatchHandler catchHandler = new CatchHandler();
+    private final UrlHandler urlHandler = new UrlHandler();
 
-    AnalysisTask(DocumentQueue documentQueue, UrlHandler urlHandler){
-        this.documentQueue = documentQueue;
-        this.urlHandler = urlHandler;
+
+    AnalysisTask(UrlDataQueue urlDataQueue, PicQueue picQueue){
+        this.picQueue = picQueue;
+        this.urlDataQueue = urlDataQueue;
     }
-    AnalysisTask(DocumentQueue documentQueue){
-        this.documentQueue = documentQueue;
-        this.urlHandler = new UrlHandler();
-    }
+
+
     @Override
     public String call() throws Exception {
 
+        UrlData urldata = null;
+        while ((urldata = urlDataQueue.get())!=null){
 
-        Document doc = null;
-        while ((doc = documentQueue.get())!=null){
-            List<UrlData> dataList = urlHandler.drawUrl(doc);
-            SpiderThreadManager.getInstance().getUrlDataQueue().add(dataList);
+            Document document = catchHandler.spyAsync(urldata);
+            List<PicData> picList = urlHandler.analysisImgUrl(document);
+            log.info(" AnalysisTask get picList size " + picList.size());
+            picQueue.add(picList);
         }
         return "SUCCESS";
     }

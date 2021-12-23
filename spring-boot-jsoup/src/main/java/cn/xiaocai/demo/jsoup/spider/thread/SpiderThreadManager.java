@@ -1,11 +1,14 @@
 package cn.xiaocai.demo.jsoup.spider.thread;
 
 import cn.xiaocai.demo.jsoup.spider.data.DocumentQueue;
+import cn.xiaocai.demo.jsoup.spider.data.PicQueue;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
 import cn.xiaocai.demo.jsoup.spider.data.UrlDataQueue;
 import cn.xiaocai.demo.jsoup.spider.thread.factory.NamedThreadFactory;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
 
@@ -16,6 +19,7 @@ import java.util.concurrent.*;
  * @date: 2021/7/11 23:01
  * @version: v1.0
  */
+@Slf4j
 public class SpiderThreadManager {
 
     private static final SpiderThreadManager INSTANCE = new SpiderThreadManager();
@@ -30,6 +34,13 @@ public class SpiderThreadManager {
     @Setter
     @Getter
     private UrlDataQueue urlDataQueue;
+    @Setter
+    @Getter
+    private PicQueue picQueue;
+
+    @Setter
+    @Getter
+    private int downThreadNum = 3 ;
 
     // 蜘蛛线程
     private final ThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
@@ -43,7 +54,7 @@ public class SpiderThreadManager {
 
 
 
-    public void init(String door){
+    public void start(String door){
         // 调用入口线程去抓页面
         UrlData urlData = new UrlData();
         urlData.setUrl(door);
@@ -51,17 +62,16 @@ public class SpiderThreadManager {
 
         // 提交抓取页面的任务
         Future<String> res = scheduled.submit(new CatchThread(urlDataQueue));
+        log.info("----提交url data queue --- catch thread ");
         // 提交提取URL的任务
-        Future<String> res2 = executorService.submit(new AnalysisTask(documentQueue));
-
-        try {
-            String result1 = res.get();
-            String result2 = res2.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        Future<String> res2 = executorService.submit(new AnalysisTask(urlDataQueue, picQueue));
+        log.info("----提交 document queue --- AnalysisTask thread ");
+        // 提交下载图片的任务
+        for (int i = 0; i< downThreadNum; i++){
+            executorService.submit(new DownloadTask(picQueue));
         }
+        log.info("----提交 document queue --- AnalysisTask thread nums :"+downThreadNum);
+
      }
 
 
