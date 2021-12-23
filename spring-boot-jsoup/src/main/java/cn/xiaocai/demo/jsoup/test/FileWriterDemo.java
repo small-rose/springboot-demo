@@ -1,4 +1,4 @@
-package cn.xiaocai.demo.jsoup.common;
+package cn.xiaocai.demo.jsoup.test;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

@@ -1,6 +1,6 @@
 package cn.xiaocai.demo.jsoup.spider.handler;
 
-import cn.xiaocai.demo.jsoup.common.NetUtil;
+import cn.xiaocai.demo.jsoup.spider.utils.NetUtil;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,5 @@
 package cn.xiaocai.demo.jsoup.spider.utils;
 
-import cn.xiaocai.demo.jsoup.common.ConstantUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.File;

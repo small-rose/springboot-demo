@@ -1,4 +1,4 @@
-package cn.xiaocai.demo.jsoup.common;
+package cn.xiaocai.demo.jsoup.spider.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.HttpStatusException;

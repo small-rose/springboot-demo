@@ -1,10 +1,8 @@
 package cn.xiaocai.demo.jsoup.spider.handler;
 
-import cn.xiaocai.demo.jsoup.common.NetUtil;
 import cn.xiaocai.demo.jsoup.spider.data.PicData;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
 import cn.xiaocai.demo.jsoup.spider.utils.RegexUtil;
-import cn.xiaocai.demo.jsoup.spider.utils.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

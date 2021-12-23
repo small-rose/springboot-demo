@@ -1,5 +1,6 @@
-package cn.xiaocai.demo.jsoup.common;
+package cn.xiaocai.demo.jsoup.test;
 
+import cn.xiaocai.demo.jsoup.spider.utils.HtmlUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 

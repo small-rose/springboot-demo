@@ -1,4 +1,4 @@
-package cn.xiaocai.demo.jsoup.common;
+package cn.xiaocai.demo.jsoup.test;
 
 import com.jcraft.jsch.*;
 
@@ -20,7 +20,7 @@ public class SSHTest {
         String host = "121.4.26.45";
         int port = 22;
         String user = "root";
-        String password = "small.CAI3366";
+        String password = "111small.CAI3366";
         // ifconfig
         String command = "journalctl -u redis.service";
         String res = exeCommand(host,port,user,password,command);

@@ -1,4 +1,4 @@
-package cn.xiaocai.demo.jsoup.common;
+package cn.xiaocai.demo.jsoup.spider.utils;
 
 import java.util.HashMap;
 import java.util.Map;

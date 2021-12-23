@@ -1,6 +1,7 @@
-package cn.xiaocai.demo.jsoup.common;
+package cn.xiaocai.demo.jsoup.test;
 
 
+import cn.xiaocai.demo.jsoup.spider.utils.NetUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
