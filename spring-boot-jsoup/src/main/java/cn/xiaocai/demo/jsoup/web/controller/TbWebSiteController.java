@@ -8,12 +8,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,7 +33,7 @@ public class TbWebSiteController {
 
 
     @ApiOperation(value = "add",response = Map.class)
-    @GetMapping("/add")
+    @PostMapping("/add")
     public Map add(@RequestBody TbWebSite tbWebSite) {
         TbWebSite result = tbWebSiteService.add(tbWebSite);
         Map map = new HashMap(2);
@@ -45,7 +43,7 @@ public class TbWebSiteController {
     }
 
     @ApiOperation(value = "update",response = Map.class)
-    @GetMapping("/update")
+    @PostMapping("/update")
     public Map update(@RequestBody TbWebSite tbWebSite) {
         TbWebSite result = tbWebSiteService.update(tbWebSite);
         Map map = new HashMap(2);
@@ -56,7 +54,7 @@ public class TbWebSiteController {
 
 
     @ApiOperation(value = "select",response = Map.class)
-    @GetMapping("/select")
+    @PostMapping("/select")
     public Map select(@RequestBody TbWebSite tbWebSite) {
         TbWebSite result = tbWebSiteService.selectById(tbWebSite.getWebId());
         Map map = new HashMap(2);
@@ -65,10 +63,10 @@ public class TbWebSiteController {
         return map ;
     }
 
-    @ApiOperation(value = "select",response = Map.class)
-    @GetMapping("/queryList")
+    @ApiOperation(value = "queryList",response = Map.class)
+    @PostMapping("/queryList")
     public Map queryList(@RequestBody TbWebSite tbWebSite) {
-        TbWebSite result = tbWebSiteService.queryList(tbWebSite.getWebId());
+        List<TbWebSite> result = tbWebSiteService.queryList(tbWebSite);
         Map map = new HashMap(2);
         map.put("code", "200");
         map.put("result", result);

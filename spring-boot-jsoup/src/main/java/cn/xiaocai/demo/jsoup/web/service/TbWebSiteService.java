@@ -45,7 +45,7 @@ public class TbWebSiteService {
         return  tbWebSiteDao.getOne(id);
     }
 
-    public List<TbWebSite> queryList(Long webId) {
+    public List<TbWebSite> queryList(TbWebSite tbWebSite) {
         List<TbWebSite> list = new ArrayList<TbWebSite>();
 
         return list ;

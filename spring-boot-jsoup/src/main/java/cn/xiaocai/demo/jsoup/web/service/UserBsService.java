@@ -14,7 +14,7 @@ import java.util.List;
  * @author Xiaocai.Zhang
  */
 @Service
-public class UserBsService extends BaseService<User> {
+public class UserBsService {
 
     @Autowired
     private UserMapper userMapper;
