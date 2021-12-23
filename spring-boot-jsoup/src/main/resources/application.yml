@@ -1,1 +1,31 @@
 
+server:
+  port: 8805
+
+  # DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/db_async?serverTimezone=GMT%2b8&useSSL=true&Unicode=true&characterEncoding=utf8&autoReconnectForPools=true&allowMultiQueries=true&rewriteBatchedStatements=true
+
+  # jpa 配置
+  jpa:
+    #在建表的时候，将默认的存储引擎切换为 InnoDB
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # 配置在日志中打印出执行的 SQL 语句信息。
+    show-sql: true
+    # 配置指明在程序启动的时候要删除并且创建实体类对应的表。
+    hibernate:
+      ddl-auto: create #update
+
+
+mybatis:
+  mapper-Locations: classpath:/mapper/*.xml,classpath:/mapper/**/*.xml"
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+

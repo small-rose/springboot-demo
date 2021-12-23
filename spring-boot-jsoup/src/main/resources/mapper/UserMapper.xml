@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaocai.base.demo.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="cn.xiaocai.demo.jsoup.web.model.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+
+
+
+  <select id="selectListByUser" parameterType="cn.xiaocai.demo.jsoup.web.model.User" resultMap="BaseResultMap">
+    select * from tbUser
+    <where>
+      <if test="tbUser.name != null and tbUser.name != '' ">
+        and  name like CONCAT('%', CONCAT(#{tbUser.name}),'%')
+      </if>
+      <if test="tbUser.age != null and tbUser.age != '' ">
+        and  age = #{tbUser.age}
+      </if>
+      <if test="tbUser.email != null and tbUser.email != '' ">
+        and email like CONCAT('%', CONCAT(#{tbUser.email}),'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectSpecialAgeOver20"  parameterType="cn.xiaocai.demo.jsoup.web.model.User" resultMap="BaseResultMap" >
+    select * from tbUser
+    <where>
+      age > #{age}
+    </where>
+  </select>
+
+</mapper>

@@ -1,6 +1,6 @@
 package cn.xiaocai.demo.jsoup.web.service.impl;
 
-import cn.xiaocai.demo.jsoup.common.NetUtil;
+import cn.xiaocai.demo.jsoup.spider.utils.NetUtil;
 import cn.xiaocai.demo.jsoup.web.service.CatchService;
 import org.jsoup.nodes.Document;
 
@@ -17,8 +17,6 @@ public class CatchServiceImpl implements CatchService {
 
     @Override
     public Document catchHtml(String url) {
-
-
         return NetUtil.getDocument(url);
     }
 
