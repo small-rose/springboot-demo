@@ -1,5 +1,6 @@
 package cn.xiaocai.demo.jsoup.common;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,12 +14,13 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * @program: springboot-redis
+ * @program: springboot-jsoup
  * @description
  * @function:
  * @author: zzy
  * @create: 2021-05-06 14:31
  **/
+@Slf4j
 public class NetUtil {
 
     /**
@@ -33,6 +35,7 @@ public class NetUtil {
         try{
             //System.out.println("get : url : "+url);
             trustEveryone();
+            log.info("url-----" + url);
             doc =  Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).get();
             return doc;
         }catch (HttpStatusException e) {
