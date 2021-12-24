@@ -1,6 +1,9 @@
 
 server:
   port: 8805
+  servlet:
+    context-path: /bp-soup
+
 
   # DataSource Config
 spring:
@@ -8,7 +11,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/db_async?serverTimezone=GMT%2b8&useSSL=true&Unicode=true&characterEncoding=utf8&autoReconnectForPools=true&allowMultiQueries=true&rewriteBatchedStatements=true
+    url: jdbc:mysql://localhost:3306/db_async?serverTimezone=GMT%2b8&useSSL=false&Unicode=true&characterEncoding=utf8&autoReconnectForPools=true&allowMultiQueries=true&rewriteBatchedStatements=true
 
   # jpa 配置
   jpa:
@@ -18,8 +21,16 @@ spring:
     show-sql: true
     # 配置指明在程序启动的时候要删除并且创建实体类对应的表。
     hibernate:
-      ddl-auto: create #update
-
+      ddl-auto: update #create #update
+##   ##  ##  ##  ##  ##
+#  解析：
+#  ddl-auto表示对数据库进行自动化配置
+#     值有三个选择：
+#     create表示创建，如果说数据库中不管有没有这张表，都会先干掉，然后在重新创建，不适合生产环境
+#     update表示更新，如果说数据库中有这张表，则执行进行更新表中的数据，如果没有这张表，则直接创建这张表，适合生产环境
+#     none 没有任何操作
+#    https://blog.csdn.net/cmx1060220219/article/details/106259423
+#
 
 mybatis:
   mapper-Locations: classpath:/mapper/*.xml,classpath:/mapper/**/*.xml"

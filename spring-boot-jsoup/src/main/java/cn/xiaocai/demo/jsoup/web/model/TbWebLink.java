@@ -13,7 +13,8 @@ import java.io.Serializable;
  * @Date ：2021/12/23 17:49
  * @Version ： 1.0
  **/
-@Entity(name = "tb_web_link")
+@Entity
+@Table(name = "tb_web_link")
 @Data
 public class TbWebLink implements Serializable {
 
@@ -24,11 +25,15 @@ public class TbWebLink implements Serializable {
     @Column(name = "link_id")
     private Long linkId;
 
+
+    @Column(name = "category_id")
+    private Long categoryId;
+
     @Column(name = "page_id")
     private Long pageId;
 
     @Column(name = "link_no")
-    private String linkNo;
+    private Long linkNo;
 
     @Column(name = "link_href")
     private String linkHref;
@@ -38,6 +43,10 @@ public class TbWebLink implements Serializable {
 
     @Column(name = "link_valid")
     private String linkValid;
+
+
+    @Column(name = "link_mark")
+    private String linkMark;
 
     @Column(name = "img_tag")
     private String imgTag;

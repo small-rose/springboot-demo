@@ -1,8 +1,8 @@
 package cn.xiaocai.demo.jsoup.web.service;
 
-import cn.xiaocai.demo.jsoup.web.model.TbWebSite;
-import cn.xiaocai.demo.jsoup.web.repository.TbWebSiteDao;
-import cn.xiaocai.demo.jsoup.web.vo.TbWebSiteQueryVO;
+import cn.xiaocai.demo.jsoup.web.model.TbWebPicture;
+import cn.xiaocai.demo.jsoup.web.repository.TbWebPictureDao;
+import cn.xiaocai.demo.jsoup.web.vo.TbWebPictureQueryVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
@@ -26,45 +26,45 @@ import java.util.Map;
 /**
  * @Project : springboot-demo
  * @Author : zhangzongyuan
- * @Description : [ TbWebSiteService ] 说明：无
+ * @Description : [ TbWebPictureService ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/23 17:55
  * @Version ： 1.0
  **/
 @Service
 @Slf4j
-public class TbWebSiteService {
+public class TbWebPictureService {
 
     @Resource
-    private TbWebSiteDao tbWebSiteDao ;
+    private TbWebPictureDao tbWebPictureDao ;
 
 
-    public TbWebSite add(TbWebSite tbWebSite){
-       return  tbWebSiteDao.save(tbWebSite);
+    public TbWebPicture add(TbWebPicture tbWebPicture){
+       return  tbWebPictureDao.save(tbWebPicture);
     }
 
 
-    public TbWebSite update(TbWebSite tbWebSite){
-        return  tbWebSiteDao.saveAndFlush(tbWebSite);
+    public TbWebPicture update(TbWebPicture tbWebPicture){
+        return  tbWebPictureDao.saveAndFlush(tbWebPicture);
     }
 
 
-    public boolean delete(TbWebSite tbWebSite){
-        tbWebSiteDao.delete(tbWebSite);
+    public boolean delete(TbWebPicture tbWebPicture){
+        tbWebPictureDao.delete(tbWebPicture);
         return true ;
     }
 
 
-    public TbWebSite selectById(Long id){
-        return  tbWebSiteDao.getOne(id);
+    public TbWebPicture selectById(Long id){
+        return  tbWebPictureDao.getOne(id);
     }
 
-    public List<TbWebSite> queryList(TbWebSite tbWebSite) {
+    public List<TbWebPicture> queryList(TbWebPicture tbWebPicture) {
 
-        TbWebSite queryVo = new TbWebSite();
-        queryVo.setWebName(tbWebSite.getWebName());
-        queryVo.setWebUrl(tbWebSite.getWebUrl());
-        queryVo.setWebId((long) 1234);
+        TbWebPicture queryVo = new TbWebPicture();
+        queryVo.setPicName(tbWebPicture.getPicName());
+        queryVo.setPicDesc(tbWebPicture.getPicName());
+        queryVo.setPicId((long) 1234);
         // 自定义匹配策略
         ExampleMatcher matcher = ExampleMatcher.matching()
                 //.withMatcher("web_name", ExampleMatcher.GenericPropertyMatchers.ignoreCase())//忽略大小写
@@ -72,18 +72,17 @@ public class TbWebSiteService {
                 .withMatcher("web_name", ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_name}%
                 .withMatcher("web_url" ,ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_url}%
                 .withIgnorePaths("web_id");//忽略字段，即不管password是什么值都不加入查询条件
-        Example<TbWebSite> example = Example.of(queryVo ,matcher);
+        Example<TbWebPicture> example = Example.of(queryVo ,matcher);
 
-        List<TbWebSite> list = tbWebSiteDao.findAll(example);
+        List<TbWebPicture> list = tbWebPictureDao.findAll(example);
         return list ;
     }
 
 
-    public Page<TbWebSite> queryListForPage(TbWebSite tbWebSite, Pageable pageable) {
-        TbWebSite queryVo = new TbWebSite();
-        queryVo.setWebName(tbWebSite.getWebName());
-        queryVo.setWebUrl(tbWebSite.getWebUrl());
-        queryVo.setWebId((long) 1234);
+    public Page<TbWebPicture> queryListForPage(TbWebPicture webPicture, Pageable pageable) {
+        TbWebPicture queryVo = new TbWebPicture();
+        queryVo.setPicName(webPicture.getPicName());
+         queryVo.setPicId((long) 1234);
         // 自定义匹配策略
         ExampleMatcher matcher = ExampleMatcher.matching()
                 //.withMatcher("web_name", ExampleMatcher.GenericPropertyMatchers.ignoreCase())//忽略大小写
@@ -91,21 +90,21 @@ public class TbWebSiteService {
                 .withMatcher("web_name", ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_name}%
                 .withMatcher("web_url" ,ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_url}%
                 .withIgnorePaths("web_id");//忽略字段，即不管password是什么值都不加入查询条件
-        Example<TbWebSite> example = Example.of(queryVo ,matcher);
+        Example<TbWebPicture> example = Example.of(queryVo ,matcher);
 
-        return tbWebSiteDao.findAll(example, pageable);
+        return tbWebPictureDao.findAll(example, pageable);
     }
 
 
 
-    public Page<TbWebSite> queryListPageSpecification(TbWebSite tbWebSite, Pageable pageable) {
-        TbWebSite queryVo = new TbWebSite();
-        queryVo.setWebName(tbWebSite.getWebName());
-        queryVo.setWebUrl(tbWebSite.getWebUrl());
-        queryVo.setWebId((long) 1234);
+    public Page<TbWebPicture> queryListPageSpecification(TbWebPicture queryParams, Pageable pageable) {
+        TbWebPicture queryVo = new TbWebPicture();
+        queryVo.setPicName(queryParams.getPicName());
+        queryVo.setPicDesc(queryParams.getPicName());
+        queryVo.setPicId((long) 1234);
 
         //规格定义
-        Specification<TbWebSite> specification = new Specification<TbWebSite>() {
+        Specification<TbWebPicture> specification = new Specification<TbWebPicture>() {
 
             /**
              * 构造断言
@@ -115,21 +114,17 @@ public class TbWebSiteService {
              * @return 断言
              */
             @Override
-            public Predicate toPredicate(Root<TbWebSite> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<TbWebPicture> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>(); //所有的断言
-                if(StringUtils.isNotBlank(tbWebSite.getWebName())){ //添加断言
-                    Predicate likeNickName = cb.like(root.get("web_name").as(String.class),tbWebSite.getWebName()+"%");
+                if(StringUtils.isNotBlank(queryParams.getPicName())){ //添加断言
+                    Predicate likeNickName = cb.like(root.get("pic_name").as(String.class),queryParams.getPicName()+"%");
                     predicates.add(likeNickName);
                 }
                 return cb.and(predicates.toArray(new Predicate[0]));
             }
         };
-       /* // JPA 分页从0开始
-        if(pageNumber==null) pageNumber=1;
-        if(pageSize==null) pageNumber=10;
-        Pageable pageable = PageRequest.of(pageNumber-1, pageSize, Sort.Direction.DESC,"add_time");*/
         //查询
-         return tbWebSiteDao.findAll(specification, pageable);
+         return tbWebPictureDao.findAll(specification, pageable);
     }
 
 
@@ -147,39 +142,39 @@ public class TbWebSiteService {
      * 分页查询 写法五
      * 使用entityManager，适用于动态sql查询
      *
-     * （其他写法见 TbWebSiteDao 中）
+     * （其他写法见 TbWebPictureDao 中）
      *
-     * @param tbWebSite
+     * @param tbWebPicture
      * @param pageable
      * @return
      */
-    public Page<TbWebSite> queryListPageAppendSQL(TbWebSiteQueryVO tbWebSite, Pageable pageable) {
+    public Page<TbWebPicture> queryListPageAppendSQL(TbWebPictureQueryVO tbWebPicture, Pageable pageable) {
         StringBuilder countSelectSql = new StringBuilder();
-        countSelectSql.append("select count(*) from TbWebSite po where 1=1 ");
+        countSelectSql.append("select count(*) from TbWebPicture po where 1=1 ");
 
         StringBuilder selectSql = new StringBuilder();
-        selectSql.append("from TbWebSite po where 1=1 ");
+        selectSql.append("from TbWebPicture po where 1=1 ");
 
         Map<String,Object> params = new HashMap<>();
         StringBuilder whereSql = new StringBuilder();
-        if(StringUtils.isNotBlank(tbWebSite.getWebName())){
-            whereSql.append(" and po.webName=:webName ");
-            params.put("webName", tbWebSite.getWebName());
+        if(StringUtils.isNotBlank(tbWebPicture.getPicName())){
+            whereSql.append(" and po.picName=:webName ");
+            params.put("webName", tbWebPicture.getPicName());
         }
-        if(StringUtils.isNotBlank(tbWebSite.getWebUrl())){
-            whereSql.append(" and po.webUrl like :webUrl ");
-            params.put("webUrl", "%"+tbWebSite.getWebUrl()+"%");
+        if(StringUtils.isNotBlank(tbWebPicture.getPicName())){
+            whereSql.append(" and po.picDesc like :webName ");
+            params.put("webName", "%"+tbWebPicture.getPicName()+"%");
         }
 
-        if (tbWebSite.getStart() != null)
+        if (tbWebPicture.getStart() != null)
         {
             whereSql.append(" and po.addTime >= :startTime");
-            params.put("startTime", tbWebSite.getStart());
+            params.put("startTime", tbWebPicture.getStart());
         }
-        if (tbWebSite.getEnd() != null)
+        if (tbWebPicture.getEnd() != null)
         {
             whereSql.append(" and po.addTime <= :endTime");
-            params.put("endTime", tbWebSite.getEnd());
+            params.put("endTime", tbWebPicture.getEnd());
         }
 
         String countSql = new StringBuilder().append(countSelectSql).append(whereSql).toString();
@@ -189,19 +184,19 @@ public class TbWebSiteService {
         Long count = (Long) countQuery.getSingleResult();
 
         String querySql = new StringBuilder().append(selectSql).append(whereSql).toString();
-        TypedQuery query = this.entityManager.createQuery(querySql, TbWebSite.class);
+        TypedQuery query = this.entityManager.createQuery(querySql, TbWebPicture.class);
         this.setParameters(query,params);
         if(pageable != null){ //分页
             query.setFirstResult(pageable.getPageNumber());
             query.setMaxResults(pageable.getPageSize());
         }
 
-        List<TbWebSite> tbWebSiteList = query.getResultList();
+        List<TbWebPicture> tbWebPictureList = query.getResultList();
         if(pageable != null) { //分页
-            Page<TbWebSite> incomeDailyPage = new PageImpl<TbWebSite>(tbWebSiteList, pageable, count);
+            Page<TbWebPicture> incomeDailyPage = new PageImpl<TbWebPicture>(tbWebPictureList, pageable, count);
             return incomeDailyPage;
         }else{ //不分页
-            return new PageImpl<TbWebSite>(tbWebSiteList);
+            return new PageImpl<TbWebPicture>(tbWebPictureList);
         }
     }
 

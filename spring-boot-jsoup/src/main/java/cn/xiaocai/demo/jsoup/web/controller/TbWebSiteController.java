@@ -7,6 +7,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,6 +71,40 @@ public class TbWebSiteController {
     @PostMapping("/queryList")
     public Map queryList(@RequestBody TbWebSite tbWebSite) {
         List<TbWebSite> result = tbWebSiteService.queryList(tbWebSite);
+        Map map = new HashMap(2);
+        map.put("code", "200");
+        map.put("result", result);
+        return map ;
+    }
+
+    @ApiOperation(value = "queryListPage",response = Map.class)
+    @PostMapping("/queryListPage")
+    public Map queryList(@RequestBody TbWebSite tbWebSite,  Integer pageNumber,Integer pageSize) {
+
+        // JPA 分页从0开始
+        if(pageNumber==null) pageNumber=1;
+        if(pageSize==null) pageNumber=10;
+        Pageable pageable = PageRequest.of(pageNumber-1, pageSize, Sort.Direction.DESC,"add_time");
+
+        //查询
+        Page<TbWebSite> result = tbWebSiteService.queryListForPage(tbWebSite,pageable);
+        Map map = new HashMap(2);
+        map.put("code", "200");
+        map.put("result", result);
+        return map ;
+    }
+
+    @ApiOperation(value = "queryListPage02",response = Map.class)
+    @PostMapping("/queryListPage02")
+    public Map queryList02(@RequestBody TbWebSite tbWebSite,  Integer pageNumber,Integer pageSize) {
+
+        // JPA 分页从0开始
+        if(pageNumber==null) pageNumber=1;
+        if(pageSize==null) pageNumber=10;
+        Pageable pageable = PageRequest.of(pageNumber-1, pageSize, Sort.Direction.DESC,"add_time");
+
+        //查询
+        Page<TbWebSite> result = tbWebSiteService.queryListPageSpecification(tbWebSite,pageable);
         Map map = new HashMap(2);
         map.put("code", "200");
         map.put("result", result);

@@ -1,8 +1,8 @@
 package cn.xiaocai.demo.jsoup.web.service;
 
-import cn.xiaocai.demo.jsoup.web.model.TbWebSite;
-import cn.xiaocai.demo.jsoup.web.repository.TbWebSiteDao;
-import cn.xiaocai.demo.jsoup.web.vo.TbWebSiteQueryVO;
+import cn.xiaocai.demo.jsoup.web.model.TbWebCategory;
+import cn.xiaocai.demo.jsoup.web.repository.TbWebCategoryDao;
+import cn.xiaocai.demo.jsoup.web.vo.TbWebCategoryQueryVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
@@ -26,44 +26,44 @@ import java.util.Map;
 /**
  * @Project : springboot-demo
  * @Author : zhangzongyuan
- * @Description : [ TbWebSiteService ] 说明：无
+ * @Description : [ TbWebCategoryService ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/23 17:55
  * @Version ： 1.0
  **/
 @Service
 @Slf4j
-public class TbWebSiteService {
+public class TbWebCategoryService {
 
     @Resource
-    private TbWebSiteDao tbWebSiteDao ;
+    private TbWebCategoryDao tbWebCategoryDao ;
 
 
-    public TbWebSite add(TbWebSite tbWebSite){
-       return  tbWebSiteDao.save(tbWebSite);
+    public TbWebCategory add(TbWebCategory tbWebCategory){
+       return  tbWebCategoryDao.save(tbWebCategory);
     }
 
 
-    public TbWebSite update(TbWebSite tbWebSite){
-        return  tbWebSiteDao.saveAndFlush(tbWebSite);
+    public TbWebCategory update(TbWebCategory tbWebCategory){
+        return  tbWebCategoryDao.saveAndFlush(tbWebCategory);
     }
 
 
-    public boolean delete(TbWebSite tbWebSite){
-        tbWebSiteDao.delete(tbWebSite);
+    public boolean delete(TbWebCategory tbWebCategory){
+        tbWebCategoryDao.delete(tbWebCategory);
         return true ;
     }
 
 
-    public TbWebSite selectById(Long id){
-        return  tbWebSiteDao.getOne(id);
+    public TbWebCategory selectById(Long id){
+        return  tbWebCategoryDao.getOne(id);
     }
 
-    public List<TbWebSite> queryList(TbWebSite tbWebSite) {
+    public List<TbWebCategory> queryList(TbWebCategory tbWebCategory) {
 
-        TbWebSite queryVo = new TbWebSite();
-        queryVo.setWebName(tbWebSite.getWebName());
-        queryVo.setWebUrl(tbWebSite.getWebUrl());
+        TbWebCategory queryVo = new TbWebCategory();
+        queryVo.setCategoryName(tbWebCategory.getCategoryName());
+        queryVo.setCategoryUrl(tbWebCategory.getCategoryUrl());
         queryVo.setWebId((long) 1234);
         // 自定义匹配策略
         ExampleMatcher matcher = ExampleMatcher.matching()
@@ -72,17 +72,17 @@ public class TbWebSiteService {
                 .withMatcher("web_name", ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_name}%
                 .withMatcher("web_url" ,ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_url}%
                 .withIgnorePaths("web_id");//忽略字段，即不管password是什么值都不加入查询条件
-        Example<TbWebSite> example = Example.of(queryVo ,matcher);
+        Example<TbWebCategory> example = Example.of(queryVo ,matcher);
 
-        List<TbWebSite> list = tbWebSiteDao.findAll(example);
+        List<TbWebCategory> list = tbWebCategoryDao.findAll(example);
         return list ;
     }
 
 
-    public Page<TbWebSite> queryListForPage(TbWebSite tbWebSite, Pageable pageable) {
-        TbWebSite queryVo = new TbWebSite();
-        queryVo.setWebName(tbWebSite.getWebName());
-        queryVo.setWebUrl(tbWebSite.getWebUrl());
+    public Page<TbWebCategory> queryListForPage(TbWebCategory tbWebCategory, Pageable pageable) {
+        TbWebCategory queryVo = new TbWebCategory();
+        queryVo.setCategoryName(tbWebCategory.getCategoryName());
+        queryVo.setCategoryUrl(tbWebCategory.getCategoryUrl());
         queryVo.setWebId((long) 1234);
         // 自定义匹配策略
         ExampleMatcher matcher = ExampleMatcher.matching()
@@ -91,21 +91,17 @@ public class TbWebSiteService {
                 .withMatcher("web_name", ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_name}%
                 .withMatcher("web_url" ,ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{web_url}%
                 .withIgnorePaths("web_id");//忽略字段，即不管password是什么值都不加入查询条件
-        Example<TbWebSite> example = Example.of(queryVo ,matcher);
+        Example<TbWebCategory> example = Example.of(queryVo ,matcher);
 
-        return tbWebSiteDao.findAll(example, pageable);
+        return tbWebCategoryDao.findAll(example, pageable);
     }
 
 
 
-    public Page<TbWebSite> queryListPageSpecification(TbWebSite tbWebSite, Pageable pageable) {
-        TbWebSite queryVo = new TbWebSite();
-        queryVo.setWebName(tbWebSite.getWebName());
-        queryVo.setWebUrl(tbWebSite.getWebUrl());
-        queryVo.setWebId((long) 1234);
+    public Page<TbWebCategory> queryListPageSpecification(TbWebCategory tbWebCategory, Pageable pageable) {
 
         //规格定义
-        Specification<TbWebSite> specification = new Specification<TbWebSite>() {
+        Specification<TbWebCategory> specification = new Specification<TbWebCategory>() {
 
             /**
              * 构造断言
@@ -115,10 +111,10 @@ public class TbWebSiteService {
              * @return 断言
              */
             @Override
-            public Predicate toPredicate(Root<TbWebSite> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<TbWebCategory> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>(); //所有的断言
-                if(StringUtils.isNotBlank(tbWebSite.getWebName())){ //添加断言
-                    Predicate likeNickName = cb.like(root.get("web_name").as(String.class),tbWebSite.getWebName()+"%");
+                if(StringUtils.isNotBlank(tbWebCategory.getCategoryName())){ //添加断言
+                    Predicate likeNickName = cb.like(root.get("web_name").as(String.class),tbWebCategory.getCategoryName()+"%");
                     predicates.add(likeNickName);
                 }
                 return cb.and(predicates.toArray(new Predicate[0]));
@@ -129,7 +125,7 @@ public class TbWebSiteService {
         if(pageSize==null) pageNumber=10;
         Pageable pageable = PageRequest.of(pageNumber-1, pageSize, Sort.Direction.DESC,"add_time");*/
         //查询
-         return tbWebSiteDao.findAll(specification, pageable);
+         return tbWebCategoryDao.findAll(specification, pageable);
     }
 
 
@@ -147,39 +143,35 @@ public class TbWebSiteService {
      * 分页查询 写法五
      * 使用entityManager，适用于动态sql查询
      *
-     * （其他写法见 TbWebSiteDao 中）
+     * （其他写法见 TbWebCategoryDao 中）
      *
-     * @param tbWebSite
+     * @param tbWebCategory
      * @param pageable
      * @return
      */
-    public Page<TbWebSite> queryListPageAppendSQL(TbWebSiteQueryVO tbWebSite, Pageable pageable) {
+    public Page<TbWebCategory> queryListPageAppendSQL(TbWebCategoryQueryVO tbWebCategory, Pageable pageable) {
         StringBuilder countSelectSql = new StringBuilder();
-        countSelectSql.append("select count(*) from TbWebSite po where 1=1 ");
+        countSelectSql.append("select count(*) from TbWebCategory po where 1=1 ");
 
         StringBuilder selectSql = new StringBuilder();
-        selectSql.append("from TbWebSite po where 1=1 ");
+        selectSql.append("from TbWebCategory po where 1=1 ");
 
         Map<String,Object> params = new HashMap<>();
         StringBuilder whereSql = new StringBuilder();
-        if(StringUtils.isNotBlank(tbWebSite.getWebName())){
-            whereSql.append(" and po.webName=:webName ");
-            params.put("webName", tbWebSite.getWebName());
-        }
-        if(StringUtils.isNotBlank(tbWebSite.getWebUrl())){
-            whereSql.append(" and po.webUrl like :webUrl ");
-            params.put("webUrl", "%"+tbWebSite.getWebUrl()+"%");
+        if(StringUtils.isNotBlank(tbWebCategory.getCategoryName())){
+            whereSql.append(" and po.categoryName=:categoryName ");
+            params.put("categoryName", tbWebCategory.getCategoryName());
         }
 
-        if (tbWebSite.getStart() != null)
+        if (tbWebCategory.getStart() != null)
         {
             whereSql.append(" and po.addTime >= :startTime");
-            params.put("startTime", tbWebSite.getStart());
+            params.put("startTime", tbWebCategory.getStart());
         }
-        if (tbWebSite.getEnd() != null)
+        if (tbWebCategory.getEnd() != null)
         {
             whereSql.append(" and po.addTime <= :endTime");
-            params.put("endTime", tbWebSite.getEnd());
+            params.put("endTime", tbWebCategory.getEnd());
         }
 
         String countSql = new StringBuilder().append(countSelectSql).append(whereSql).toString();
@@ -189,19 +181,19 @@ public class TbWebSiteService {
         Long count = (Long) countQuery.getSingleResult();
 
         String querySql = new StringBuilder().append(selectSql).append(whereSql).toString();
-        TypedQuery query = this.entityManager.createQuery(querySql, TbWebSite.class);
+        TypedQuery query = this.entityManager.createQuery(querySql, TbWebCategory.class);
         this.setParameters(query,params);
         if(pageable != null){ //分页
             query.setFirstResult(pageable.getPageNumber());
             query.setMaxResults(pageable.getPageSize());
         }
 
-        List<TbWebSite> tbWebSiteList = query.getResultList();
+        List<TbWebCategory> tbWebCategoryList = query.getResultList();
         if(pageable != null) { //分页
-            Page<TbWebSite> incomeDailyPage = new PageImpl<TbWebSite>(tbWebSiteList, pageable, count);
+            Page<TbWebCategory> incomeDailyPage = new PageImpl<TbWebCategory>(tbWebCategoryList, pageable, count);
             return incomeDailyPage;
         }else{ //不分页
-            return new PageImpl<TbWebSite>(tbWebSiteList);
+            return new PageImpl<TbWebCategory>(tbWebCategoryList);
         }
     }
 

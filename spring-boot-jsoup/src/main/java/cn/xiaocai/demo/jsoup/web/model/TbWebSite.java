@@ -14,7 +14,8 @@ import java.io.Serializable;
  * @Version ： 1.0
  **/
 
-@Entity(name = "tb_web_site")
+@Entity
+@Table(name = "tb_web_site")
 @Data
 public class TbWebSite implements Serializable {
 

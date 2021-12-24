@@ -77,7 +77,7 @@ public class UrlHandler {
 
     private void imgUrlHandler(Document document) {
 
-        Elements imgTags = document.select("img[src]");
+        Elements imgTags = document.select("div.left  ul.il  img[src]");
         for (Element link : imgTags) {
             String linkName = link.text();
             if(StringUtils.isEmpty(linkName) || "".equals(linkName.trim())){

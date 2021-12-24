@@ -14,52 +14,49 @@ import java.io.Serializable;
  * @Version ： 1.0
  **/
 @Entity
-@Table(name = "tb_web_pic")
+@Table(name = "tb_web_page")
 @Data
-public class TbWebPicture implements Serializable {
+public class TbWebPage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pic_id")
-    private Long picId;
+    @Column(name = "page_id")
+    private Long pageId;
 
-    @Column(name = "link_id")
-    private Long linkId;
+    @Column(name = "category_id")
+    private Long categoryId;
 
-    @Column(name = "pic_href")
-    private String picHref;
+    @Column(name = "page_no")
+    private Long pageNo;
 
-    @Column(name = "pic_name")
-    private String picName;
+    @Column(name = "page_href")
+    private String pageHref;
 
-    @Column(name = "pic_old_name")
-    private String picOldName;
+    @Column(name = "page_name")
+    private String pageName;
 
-    @Column(name = "pic_desc")
-    private String picDesc;
+    @Column(name = "page_mark")
+    private String pageMark;
 
-    @Column(name = "pic_suffix")
-    private String picSuffix;
+    @Column(name = "link_tag")
+    private String linkTag;
 
-    @Column(name = "pic_size")
-    private Long picSize;
+    @Column(name = "link_tag_attr")
+    private String linkTagAttr;
 
-    @Column(name = "pic_path")
-    private String picPath;
 
-    @Column(name = "pic_type")
-    private String picType;
+    @Column(name = "link_keys")
+    private String linkKeys;
 
-    @Column(name = "pic_no")
-    private Long picNo;
+    @Column(name = "link_total")
+    private Long linkTotal;
 
-    @Column(name = "add_time")
+     @Column(name = "add_time")
     private String addTime;
 
-    @Column(name = "pic_content")
-    private byte[] picContent;
+
 /*
 
 
