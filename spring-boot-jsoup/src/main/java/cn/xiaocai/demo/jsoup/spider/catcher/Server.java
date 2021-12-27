@@ -6,7 +6,5 @@ public interface Server {
 
     void start();
 
-    void save();
-
     void stop();
 }

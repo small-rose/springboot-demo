@@ -1,11 +1,14 @@
 package cn.xiaocai.demo.jsoup.spider.handler;
 
 import cn.xiaocai.demo.jsoup.spider.data.PicData;
+import cn.xiaocai.demo.jsoup.spider.data.PicLinkQueue;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
+import cn.xiaocai.demo.jsoup.spider.rules.PicLinkRule;
 import cn.xiaocai.demo.jsoup.spider.utils.DownPicUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -17,13 +20,54 @@ import java.util.List;
  * @Version ： 1.0
  **/
 @Slf4j
-public class DownloadHandler {
+public class DownloadHandler extends BaseHandler{
+
+    protected volatile PicLinkQueue picLinkQueue ;
+
+    public DownloadHandler(PicLinkQueue picLinkQueue){
+        this.picLinkQueue = picLinkQueue;
+
+        this.rule = picLinkQueue.getRules() ;
+    }
+
 
     private static final String path = "d:\\download\\";
 
-    public void down(PicData picData) {
-        DownPicUtil.save(path, picData.getUrl(), picData.getPicName(), picData.getSuffix());
-        log.info("save pic success "+ picData.getUrl());
+
+
+    @Override
+    public List<UrlData> analsysUrlList(UrlData doc) {
+        return null;
+    }
+
+
+    @Override
+    protected boolean skipRules(String absHref, String text) {
+        return false;
+    }
+
+    @Override
+    protected void execute(UrlData urlData) {
+        System.out.println("准备下载 ： "+urlData.getUrl());
+        PicData picData = (PicData) urlData;
+        PicLinkRule picRule = (PicLinkRule) rule;
+        String downPath = path;
+        if (StringUtils.hasLength(picRule.getDownLoadPath())){
+            downPath = picRule.getDownLoadPath();
+        }
+        if (!downPath.endsWith("/")){
+            downPath += File.separator ;
+        }
+        if (StringUtils.hasLength(picData.getTag())){
+            downPath += picData.getTag();
+        }
+
+        try {
+            DownPicUtil.save(downPath, picData.getUrl(), picData.getPicName(), picData.getSuffix(), ((PicLinkRule) rule).getReferer());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("^_^ download pic success ,You can find in "+ downPath);
     }
 
 

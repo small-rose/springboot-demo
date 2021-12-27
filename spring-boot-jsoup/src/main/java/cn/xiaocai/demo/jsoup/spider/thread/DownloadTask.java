@@ -1,38 +1,55 @@
 package cn.xiaocai.demo.jsoup.spider.thread;
 
-import cn.xiaocai.demo.jsoup.spider.data.*;
-import cn.xiaocai.demo.jsoup.spider.handler.CatchHandler;
+import cn.xiaocai.demo.jsoup.spider.data.PicData;
+import cn.xiaocai.demo.jsoup.spider.data.PicLinkQueue;
 import cn.xiaocai.demo.jsoup.spider.handler.DownloadHandler;
-import org.jsoup.nodes.Document;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Project : springboot-demo
- * @Author : zhangzongyuan
- * @Description : [ DownloadTask ] 说明：无
- * @Function :  功能说明：无
- * @Date ：2021/12/23 11:17
- * @Version ： 1.0
- **/
-public class DownloadTask implements Callable<String> {
+ * @description: TODO 功能角色说明：   第5步 使用图片链接完成下载
+ * TODO 描述：
+ * @author: 张小菜
+ * @date: 2021/12/23 23:51
+ * @version: v1.0
+ */
+@Slf4j
+public class DownloadTask extends DownloadHandler implements Runnable {
 
+    private String threadName ;
 
-     private final PicQueue picQueue ;
-    private final DownloadHandler downloadHandler = new DownloadHandler();
+    static  int number = 1 ;
+    public DownloadTask(PicLinkQueue picLinkQueue ){
+        super(picLinkQueue);
 
-    public DownloadTask(PicQueue picQueue ){
-        this.picQueue = picQueue;
-     }
+        this.threadName = "-".concat(picLinkQueue.getClass().getSimpleName()+"-" +number);
+        number ++ ;
+    }
 
     @Override
-    public String call() throws Exception {
+    public void run() {
+        log.info("---ThreadName---[ "+threadName+" ]下载任务"  );
         PicData urlData = null;
-        while ((urlData = picQueue.get())!=null){
-            downloadHandler.down(urlData);
-            TimeUnit.MILLISECONDS.sleep(500);
+        while ((urlData = picLinkQueue.take())!=null){
+
+            log.info("---ThreadName---[ "+threadName+" ]下载 PicData : " +urlData );
+             toToDownLoad(urlData);
+
         }
-        return null;
+    }
+
+    private void toToDownLoad(PicData urlData) {
+        try {
+            //数据标记
+            urlData.setMark(urlData.getMark().concat(threadName));
+
+
+            this.execute(urlData);
+
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

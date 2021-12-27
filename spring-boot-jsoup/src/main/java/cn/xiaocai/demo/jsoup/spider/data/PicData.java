@@ -14,4 +14,10 @@ public class PicData extends UrlData{
 
     private String picName ;
     private String suffix ;
+
+    private String refer ;
+
+    public String toString(){
+        return "PicData( url= "+url+", picName="+picName+", tag="+tag+", name="+name+", suffix="+suffix+")" ;
+    }
 }
