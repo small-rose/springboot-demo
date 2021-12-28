@@ -63,8 +63,14 @@ public abstract class BaseHandler<T> {
                 continue;
             }
             newData = new UrlData();
+            newData.setReferer(urlData.getReferer());
             newData.setUrl(absHref);
-            newData.setTag(urlData.getTag());
+
+            if(StringUtils.hasText(urlData.getTag())){
+                newData.setTag(urlData.getTag());
+            }else{
+                newData.setTag(text);
+            }
             newData.setName(text);
             newData.setMark(urlData.getMark());
 

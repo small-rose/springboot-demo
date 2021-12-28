@@ -32,7 +32,7 @@ public class SpiderThreadManager {
     // 蜘蛛线程
     private  ThreadPoolExecutor scheduled = null;
     private  ThreadPoolExecutor download = null;
-    private  ThreadPoolExecutor categoryExecutor = null;
+    //private  ThreadPoolExecutor categoryExecutor = null;
     private  ThreadPoolExecutor categoryPageExecutor = null;
     private  ThreadPoolExecutor linkSetExecutor = null;
     private  ThreadPoolExecutor linkSetPageExecutor = null;
@@ -51,10 +51,13 @@ public class SpiderThreadManager {
             initExecutor(spiderThread.getKeyName());
             // 调用入口线程去抓页面
             UrlData urlData = new UrlData();
+            urlData.setReferer(spiderThread.getDoorUrl());
             urlData.setUrl(spiderThread.getDoorUrl());
 
             // 提交抓取首页的任务
-            categoryExecutor.submit(new CategoryTask(urlData, spiderThread.getCategoryQueue()));
+            CategoryTask thread = new CategoryTask(urlData, spiderThread.getCategoryQueue());
+            new Thread(thread).start();
+
             log.info("----提交 CategoryTask -------- ");
 
             categoryPageExecutor.submit(new CategoryPageListTask(spiderThread.getCategoryQueue(), spiderThread.getPageListQueue()));
@@ -73,12 +76,13 @@ public class SpiderThreadManager {
                 log.info("----提交 LinkSetPageTask ---------- ");
             //}
             // 提交提取URL的任务
-            picLinkExecutor.submit(new PictureTask(spiderThread.getLinkPageQueue(), spiderThread.getPicLinkQueue()));
+            picLinkExecutor.submit(new PicLinkTask(spiderThread.getLinkPageQueue(), spiderThread.getPicLinkQueue()));
             log.info("----提交 PictureTask ---------- ");
             // 提交下载图片的任务
-            for (int i = 0; i< spiderThread.getThreadNums(); i++){
-                download.submit(new DownloadTask(spiderThread.getPicLinkQueue()));
-            }
+            //for (int i = 0; i< spiderThread.getThreadNums(); i++){
+            scheduled.submit(new DownloadTask(spiderThread.getPicLinkQueue()));
+            //}
+
             QueueCheckTask queueCheckTask = new QueueCheckTask();
             queueCheckTask.setCategoryQueue(spiderThread.getCategoryQueue());
             queueCheckTask.setPageListQueue(spiderThread.getPageListQueue());
@@ -96,7 +100,7 @@ public class SpiderThreadManager {
 
     public void stop() {
         scheduled.shutdown();
-        categoryExecutor.shutdown();
+        //categoryExecutor.shutdown();
         categoryPageExecutor.shutdown();
         linkSetExecutor.shutdown();
         linkSetPageExecutor.shutdown();
@@ -108,30 +112,27 @@ public class SpiderThreadManager {
 
     public void initExecutor(String name) {
 
-        scheduled = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "scheduled-factory-"+name));
+        scheduled = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("spider-group-"+name, "scheduled-"+name));
 
-        download = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "download-pic-"+name));
+        download = new ScheduledThreadPoolExecutor(1, new NamedThreadFactory("spider-group-"+name, "download-pic-"+name));
 
-        categoryExecutor = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "category-factory-"+name));
+        //categoryExecutor = new ScheduledThreadPoolExecutor(1,  new NamedThreadFactory("spider-group-"+name, "category-"+name));
 
         categoryPageExecutor = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "categoryPage-factory-"+name));
+                new NamedThreadFactory("spider-group-"+name, "categoryPage-"+name));
 
         linkSetExecutor = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "linkSet-factory-"+name));
+                new NamedThreadFactory("spider-group-"+name, "linkSet-"+name));
 
         linkSetPageExecutor = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "linkSetPage-factory-"+name));
+                new NamedThreadFactory("spider-group-"+name, "linkSetPage-"+name));
 
         picLinkExecutor = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "picLink-factory"+name));
+                new NamedThreadFactory("spider-group-"+name, "picLink-"+name));
 
         executorService = new ThreadPoolExecutor(1, 200,
                 60L, TimeUnit.SECONDS, new SynchronousQueue<>(),
-                new NamedThreadFactory("spider-pic-down-group"+name, "pic-down-factory-"+name),
+                new NamedThreadFactory("spider-pic-down-group"+name, "pic-down-"+name),
                 new ThreadPoolExecutor.DiscardPolicy());
     }
 

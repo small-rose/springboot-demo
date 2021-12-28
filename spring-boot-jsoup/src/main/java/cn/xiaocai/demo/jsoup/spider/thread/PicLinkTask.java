@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit;
  * @version: v1.0
  */
 @Slf4j
-public class PictureTask extends PicLinkHandler implements Callable<String> {
+public class PicLinkTask extends PicLinkHandler implements Callable<String> {
 
     private String threadName ;
 
-    public PictureTask(LinkPageQueue linkPageQueue, PicLinkQueue picQueue) {
+    public PicLinkTask(LinkPageQueue linkPageQueue, PicLinkQueue picQueue) {
 
         super(linkPageQueue, picQueue);
 
@@ -32,7 +32,7 @@ public class PictureTask extends PicLinkHandler implements Callable<String> {
 
 
     @Override
-    public String call() throws Exception {
+    public String call()  {
 
         UrlData urlData = null;
         while ((urlData = linkPageQueue.get()) != null) {
@@ -57,7 +57,7 @@ public class PictureTask extends PicLinkHandler implements Callable<String> {
 
         List<PicData> picList = this.analsysUrlList(urlData);
 
-        //picQueue.add(picList);
+        picLinkQueue.add(picList);
         picLinkQueue.print();
         log.info("图组链接的抓取剩余 ："+linkPageQueue.size());
     }

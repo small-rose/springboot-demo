@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 public class DownloadHandler extends BaseHandler{
 
-    protected volatile PicLinkQueue picLinkQueue ;
+    protected final PicLinkQueue picLinkQueue ;
 
     public DownloadHandler(PicLinkQueue picLinkQueue){
         this.picLinkQueue = picLinkQueue;
@@ -48,26 +48,37 @@ public class DownloadHandler extends BaseHandler{
 
     @Override
     protected void execute(UrlData urlData) {
-        System.out.println("准备下载 ： "+urlData.getUrl());
+        //System.out.println("准备下载 ： "+urlData.getUrl());
         PicData picData = (PicData) urlData;
         PicLinkRule picRule = (PicLinkRule) rule;
         String downPath = path;
         if (StringUtils.hasLength(picRule.getDownLoadPath())){
             downPath = picRule.getDownLoadPath();
         }
-        if (!downPath.endsWith("/")){
+        File file = new File(downPath);
+        if (!file.getAbsolutePath().endsWith("/")){
             downPath += File.separator ;
         }
         if (StringUtils.hasLength(picData.getTag())){
             downPath += picData.getTag();
         }
-
+        if (!file.getAbsolutePath().endsWith("/")){
+            downPath += File.separator ;
+        }
+        if (StringUtils.hasLength(picData.getName())){
+            downPath += picData.getName();
+        }
         try {
-            DownPicUtil.save(downPath, picData.getUrl(), picData.getPicName(), picData.getSuffix(), ((PicLinkRule) rule).getReferer());
+            File createFile = new File(downPath);
+            if(!createFile.exists()){
+                createFile.mkdirs();
+            }
+
+            DownPicUtil.save(downPath, picData.getUrl(), picData.getPicName(), picData.getSuffix(), picData.getReferer());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("^_^ download pic success ,You can find in "+ downPath);
+        System.out.println("^_^ download pic success ,You can find it in "+ downPath);
     }
 
 

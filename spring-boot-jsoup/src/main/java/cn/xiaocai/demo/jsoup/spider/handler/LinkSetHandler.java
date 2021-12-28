@@ -75,6 +75,7 @@ public class LinkSetHandler extends BaseHandler{
             }
 
             UrlData urlData = new UrlData();
+            urlData.setReferer(paraData.getReferer());
             urlData.setUrl(absHref);
             urlData.setMark(paraData.getMark());
             urlData.setName(text);

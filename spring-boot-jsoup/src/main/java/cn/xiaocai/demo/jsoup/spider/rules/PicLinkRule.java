@@ -17,7 +17,6 @@ import javax.annotation.PostConstruct;
 public class PicLinkRule extends BaseRule{
 
     private String downLoadPath = "";
-    private String referer = "";
 
     @Override
     protected BaseRule getRules() {

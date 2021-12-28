@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class LinkPageListHandler extends BaseHandler implements BasePageHandler{
     protected final LinkPageQueue linkPageQueue ;
 
 
-    private List<UrlData> pageList ;
+    private List<UrlData> pageList = new CopyOnWriteArrayList<>();
 
 
 
@@ -46,7 +47,7 @@ public class LinkPageListHandler extends BaseHandler implements BasePageHandler{
     @Override
     public List<UrlData> analsysUrlList(UrlData urlData) {
 
-        pageList = new ArrayList<>();
+
         List<UrlData> firstList = this.collectUrl(urlData);
         if (firstList.isEmpty()){
             return firstList ;
@@ -57,7 +58,55 @@ public class LinkPageListHandler extends BaseHandler implements BasePageHandler{
      }
 
 
+    @Override
+    protected List<UrlData> collectUrl(UrlData urlData) {
+        Document document = catchHandler.spyAsync(urlData);
+        tmpUrlList = new ArrayList<>();
+        boolean boolself = pageList.stream().anyMatch(t -> t.getUrl().equals(urlData.getUrl()));
+        if (!boolself){
+            pageList.add(urlData);
+        }
+        String absHref = "";
+        String text = "";
+        log.info("link page rule : " + rule.getEleLocation());
+        Elements links = document.select(rule.getEleLocation());
+        log.info("link page links : " + links.size());
+        UrlData newData = null;
+        for (Element link : links) {
+            text = link.text();
+            absHref = link.attr(rule.getLinkHrefKey());
+            log.info("link text :"+text +" , link = "+absHref);
 
+            if (StringUtils.isEmpty(absHref) || "#".equals(absHref)){
+                continue;
+            }
+
+            if (skipRules(absHref, text)){
+                continue;
+            }
+            newData = new UrlData();
+            newData.setReferer(urlData.getReferer());
+            newData.setUrl(absHref);
+
+            if(StringUtils.hasText(urlData.getTag())){
+                newData.setTag(urlData.getTag());
+            }else{
+                newData.setTag(text);
+            }
+            newData.setName(urlData.getName());
+            newData.setMark(urlData.getMark());
+
+            final String finalAbsHref = absHref;
+            boolean bool = pageList.stream().anyMatch(t -> t.getUrl().equals(finalAbsHref));
+            if (bool){
+                continue;
+            }
+            log.info("add a url data : " + newData);
+            pageList.add(newData);
+            tmpUrlList.add(newData);
+        }
+        return tmpUrlList;
+    }
 
     public List<UrlData> getAllPageListUrl(ArrayList<UrlData> list) {
 
@@ -95,7 +144,7 @@ public class LinkPageListHandler extends BaseHandler implements BasePageHandler{
         for (Element link : links) {
             text = link.text();
             absHref = link.attr(rule.getLinkHrefKey());
-            log.info("LinkPageList Link text :"+text +" , link = "+absHref);
+            // log.info("LinkPageList Link text :"+text +" , link = "+absHref);
 
             final String finalAbsHref = absHref;
             boolean bool = pageList.stream().anyMatch(t -> t.getUrl().equals(finalAbsHref));
@@ -111,15 +160,22 @@ public class LinkPageListHandler extends BaseHandler implements BasePageHandler{
             }
             newUrlData = new UrlData();
             newUrlData.setUrl(absHref);
-            newUrlData.setTag(urlData.getTag());
+            newUrlData.setReferer(urlData.getReferer());
+
             newUrlData.setMark(urlData.getMark());
-            newUrlData.setName(urlData.getTag());
+            if(StringUtils.hasText(urlData.getTag())){
+                newUrlData.setTag(urlData.getTag());
+            }else{
+                newUrlData.setTag(text);
+            }
+            newUrlData.setName(urlData.getName());
+
             log.info("add a url data : " + newUrlData);
             pageList.add(newUrlData);
             //linkPageQueue.add(newUrlData);
             collectPageListUrl(newUrlData);
         }
-
+        log.info("LinkPageList useful links : " + pageList.size());
         return pageList;
     }
 

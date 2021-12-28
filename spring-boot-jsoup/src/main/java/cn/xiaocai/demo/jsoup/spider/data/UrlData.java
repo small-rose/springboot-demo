@@ -12,6 +12,8 @@ import lombok.Data;
 @Data
 public class UrlData {
 
+
+
     protected String url ;
 
     protected String tag ;
@@ -20,6 +22,6 @@ public class UrlData {
 
     protected String mark ;
 
-
+    protected String referer ;
 
 }

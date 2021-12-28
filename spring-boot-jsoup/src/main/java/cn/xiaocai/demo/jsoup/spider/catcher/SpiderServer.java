@@ -58,12 +58,9 @@ public class SpiderServer implements Server {
 
             PicLinkQueue picLinkQueue = new PicLinkQueue();
             webRule.getPicLinkRule().setDownLoadPath(webRule.getDownLoadPath());
-            webRule.getPicLinkRule().setReferer(webRule.getDoorUrl());
             picLinkQueue.setRule(webRule.getPicLinkRule());
 
             spiderThread.setPicLinkQueue(picLinkQueue);
-
-
 
 
             spiderThread.setDoorUrl(webRule.getDoorUrl());

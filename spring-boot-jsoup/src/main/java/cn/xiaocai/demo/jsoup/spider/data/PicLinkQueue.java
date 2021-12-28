@@ -63,7 +63,7 @@ public class PicLinkQueue {
      *
      * @return
      */
-    public PicData take() {
+    public PicData take1() {
         PicData poll = null;
         try {
             poll =  queue.take();
@@ -74,7 +74,17 @@ public class PicLinkQueue {
         return poll;
     }
 
-
+    /**
+     * 获取元素
+     *
+     * @return
+     */
+    public PicData poll() {
+        PicData poll = null;
+        poll =  queue.poll();
+        log.info("取出 PicData 值: " + poll );
+        return poll;
+    }
     public BaseRule getRules() {
         return rule;
     }

@@ -2,8 +2,8 @@ package cn.xiaocai.demo.jsoup.spider.door;
 
 import cn.xiaocai.demo.jsoup.spider.catcher.SpiderServer;
 import cn.xiaocai.demo.jsoup.spider.door.baserules.BaseWebRule;
-import cn.xiaocai.demo.jsoup.spider.door.webrules.FulituCc;
-import cn.xiaocai.demo.jsoup.spider.door.webrules.IvskyDoCom;
+/*import cn.xiaocai.demo.jsoup.spider.door.webrules.FulituCc;
+import cn.xiaocai.demo.jsoup.spider.door.webrules.IvskyDoCom;*/
 import cn.xiaocai.demo.jsoup.spider.door.webrules.MeituluCn;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class SpiderMain {
         SpiderServer server = new SpiderServer();
         List<BaseWebRule> rules = new ArrayList<>();
         //https://pixabay.com/photos/search/?cat=travel&
-        if (num==0 || num==1) {
+        /*if (num==0 || num==1) {
             IvskyDoCom ivskyDoCom = new IvskyDoCom("https://www.ivsky.com/");
             ivskyDoCom.setThreadNameKey("ivsky");
             ivskyDoCom.setDownloadThreadNumbers(3); //下载图片线程数
@@ -57,7 +57,7 @@ public class SpiderMain {
             fulituCc.setDownloadThreadNumbers(1); //下载图片线程数
             fulituCc.setDownLoadPath(downPath);
             rules.add(fulituCc);
-        }
+        }*/
         if (num==0 || num==3) {
 
             MeituluCn meituluCn = new MeituluCn("http://www.meitulu.cn");

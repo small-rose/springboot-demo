@@ -163,7 +163,7 @@ public class DownPicUtil {
             //保存文件到本地
             File saveDir = new File(filePath);
             if(!saveDir.exists()){
-                saveDir.mkdir();
+                saveDir.mkdirs();
             }
             File file = new File(saveDir+File.separator+fileName);
             System.out.println("filepath : "+file.getAbsolutePath());

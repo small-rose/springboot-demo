@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.util.StringUtils;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: springboot-jsoup
@@ -25,18 +27,31 @@ public class NetUtil {
 
     /**
      * html
-
      * @param url
      * @return
      * @throws IOException
      */
     public static Document getDocument(String url) {
+        return getDocument(url, "");
+    }
+
+    /**
+     * html
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    public static Document getDocument(String url, String referer) {
         Document doc = null;
         try{
             //System.out.println("get : url : "+url);
             trustEveryone();
             log.info("url-----" + url);
-            doc =  Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).get();
+            if (StringUtils.hasText(referer)){
+                doc = Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).get();
+            }else {
+                doc = Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).referrer(referer).get();
+            }
             return doc;
         }catch (HttpStatusException e) {
             // TODO: handle exception
@@ -47,7 +62,11 @@ public class NetUtil {
         }catch (SocketTimeoutException e) {
             // TODO: handle exception
             try {
-                doc = (Document) Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).get();
+                if (StringUtils.hasText(referer)){
+                    doc = Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).get();
+                }else {
+                    doc = Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).referrer(referer).get();
+                }
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -57,8 +76,13 @@ public class NetUtil {
         catch (UnknownHostException e) {
             // TODO: handle exception
             try {
-                doc = (Document) Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).get();
-            } catch (IOException e1) {
+                TimeUnit.SECONDS.sleep(1);
+                if (StringUtils.hasText(referer)){
+                    doc = Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).get();
+                }else {
+                    doc = Jsoup.connect(url).timeout(15000).userAgent(ConstantUtils.getAgent()).referrer(referer).get();
+                }
+            } catch (IOException | InterruptedException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
@@ -66,11 +90,9 @@ public class NetUtil {
         }
         catch(IOException e){
             System.out.println("IOException : url : "+url);
-
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
-
         }
         return doc;
     }
@@ -82,7 +104,7 @@ public class NetUtil {
      * @return
      * @throws IOException
      */
-    public static Document getDocumentPost(String url) throws IOException {
+    public static Document getDocumentPostSSL(String url) throws IOException {
         trustEveryone();
         Document doc = (Document) Jsoup.connect(url).timeout(10000).userAgent(ConstantUtils.getAgent()).post();
         return doc;

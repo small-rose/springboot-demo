@@ -58,7 +58,7 @@ public class CategoryPageListHandler extends BaseHandler implements BasePageHand
     public List<UrlData> getAllPageListUrl(UrlData urlData) {
         pageList = new ArrayList<>();
 
-        log.info("get page for all list ------------ " + urlData.getUrl());
+        log.info("get page for all list ------------ " + urlData);
         this.collectPageListUrl(urlData);
 
 
@@ -101,12 +101,13 @@ public class CategoryPageListHandler extends BaseHandler implements BasePageHand
                 continue;
             }
             newUrlData = new UrlData();
+            newUrlData.setReferer(urlData.getReferer());
             newUrlData.setUrl(absHref);
-            newUrlData.setTag(text);
+            newUrlData.setName(text);
             newUrlData.setMark(urlData.getMark());
 
             if (StringUtils.hasText(urlData.getName())){
-                newUrlData.setName(urlData.getTag());
+                newUrlData.setTag(urlData.getName());
             }
 
             log.info("add a url data : " + newUrlData);

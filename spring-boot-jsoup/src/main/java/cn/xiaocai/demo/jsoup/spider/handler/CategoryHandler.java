@@ -3,7 +3,12 @@ package cn.xiaocai.demo.jsoup.spider.handler;
 import cn.xiaocai.demo.jsoup.spider.data.CategoryQueue;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +52,7 @@ public class CategoryHandler extends BaseHandler{
 
     @Override
     protected void execute(UrlData urlData) {
-
+        log.info("xxxxxxxxxx 不应该被执行的 xxxxxxxxxx");
     }
 
 

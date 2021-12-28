@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @description: TODO 功能角色说明：
@@ -22,7 +23,7 @@ import java.util.List;
 @Slf4j
 public class PicLinkHandler extends BaseHandler{
 
-    protected  List<PicData>  picList ;
+    protected  List<PicData>  picList = new CopyOnWriteArrayList<>();
 
     protected final LinkPageQueue linkPageQueue;
     protected final PicLinkQueue picLinkQueue;
@@ -36,7 +37,7 @@ public class PicLinkHandler extends BaseHandler{
 
     @Override
     public List<PicData> analsysUrlList(UrlData urlData) {
-
+        picList.clear();
         return this.analysisImgUrl(urlData);
     }
 
@@ -53,7 +54,6 @@ public class PicLinkHandler extends BaseHandler{
 
 
     public List<PicData> analysisImgUrl(UrlData paramData) {
-        //picList = new CopyOnWriteArrayList<PicData>();
 
         Document document = catchHandler.spyAsync(paramData);
 
@@ -62,6 +62,7 @@ public class PicLinkHandler extends BaseHandler{
         log.info("imgTags absHref : " + rule.getImgSrcKey());
         Elements imgTags = document.select(rule.getEleLocation());
         log.info("imgTags size : " + imgTags.size());
+        PicData picData = null;
         for (Element link : imgTags) {
             String linkName = link.attr("alt");
             if(StringUtils.isEmpty(linkName) || "".equals(linkName.trim())){
@@ -73,21 +74,25 @@ public class PicLinkHandler extends BaseHandler{
             String urlFileName = absHref.substring(absHref.lastIndexOf("/")+1,absHref.length()-4);
             //String fileName = linkName.concat(urlFileName);
 
-            PicData urlData = new PicData();
-            urlData.setUrl(absHref);
-            urlData.setPicName(urlFileName);
-            urlData.setTag(paramData.getMark());
+            picData = new PicData();
+            picData.setReferer(paramData.getReferer());
+            picData.setUrl(absHref);
+            picData.setPicName(urlFileName);
+            picData.setTag(paramData.getMark());
+            picData.setName(paramData.getName());
+            picData.setMark(paramData.getMark());
             if (StringUtils.hasText(paramData.getTag())){
-                urlData.setTag(paramData.getTag());
+                picData.setTag(paramData.getTag());
             }else{
-                urlData.setTag(linkName);
+                picData.setTag(linkName);
             }
-            String suffix = absHref.substring(absHref.lastIndexOf("."));
-            urlData.setSuffix(suffix);
 
-            log.info("add a pic url data : " + urlData);
-            //picList.add(urlData);
-            picLinkQueue.add(urlData);
+            String suffix = absHref.substring(absHref.lastIndexOf("."));
+            picData.setSuffix(suffix);
+
+            log.info("add a pic url data : " + picData);
+            picList.add(picData);
+            //picLinkQueue.add(urlData);
         }
         return picList ;
     }

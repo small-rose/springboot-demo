@@ -40,7 +40,7 @@ public class LinkSetPageTask extends LinkPageListHandler implements Callable<Str
                 //数据标记
                 urlData.setMark(urlData.getMark().concat(threadName));
 
-                urlData.setTag(urlData.getName());
+                //urlData.setTag(urlData.getName());
                 linkPageQueue.add(urlData);//当前组的第一页
                 this.execute( urlData);
 

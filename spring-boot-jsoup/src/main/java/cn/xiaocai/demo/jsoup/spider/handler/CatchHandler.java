@@ -26,21 +26,7 @@ public class CatchHandler {
      * @param data
      */
     public Document spy(UrlData data){
-        Document document  = NetUtil.getDocument(data.getUrl());
-        try {
-            int index = 0 ;
-            while ( document == null && index <= limitCount ) {
-
-                TimeUnit.MILLISECONDS.sleep(300);
-
-                document = NetUtil.getDocument(data.getUrl());
-
-                index++;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return  document;
+        return getDocument(data);
     }
 
 
@@ -49,14 +35,19 @@ public class CatchHandler {
      * @param data
      */
     public Document spyAsync(UrlData data){
-        Document document = NetUtil.getDocument(data.getUrl());
+        return getDocument(data);
+    }
+
+
+    private Document getDocument(UrlData data) {
+        Document document = NetUtil.getDocument(data.getUrl(), data.getReferer());
         try {
             int index = 0 ;
             while ( document == null && index <= limitCount ) {
 
                 TimeUnit.MILLISECONDS.sleep(300);
 
-                document = NetUtil.getDocument(data.getUrl());
+                document = NetUtil.getDocument(data.getUrl(), data.getReferer());
 
                 index++;
             }

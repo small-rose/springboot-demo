@@ -2,9 +2,11 @@ package cn.xiaocai.demo.jsoup.spider.thread;
 
 import cn.xiaocai.demo.jsoup.spider.data.PicData;
 import cn.xiaocai.demo.jsoup.spider.data.PicLinkQueue;
+import cn.xiaocai.demo.jsoup.spider.data.UrlData;
 import cn.xiaocai.demo.jsoup.spider.handler.DownloadHandler;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @version: v1.0
  */
 @Slf4j
-public class DownloadTask extends DownloadHandler implements Runnable {
+public class DownloadTask extends DownloadHandler implements Callable<String> {
 
     private String threadName ;
 
@@ -28,13 +30,24 @@ public class DownloadTask extends DownloadHandler implements Runnable {
     }
 
     @Override
-    public void run() {
+    public String call() {
         log.info("---ThreadName---[ "+threadName+" ]下载任务"  );
         PicData urlData = null;
-        while ((urlData = picLinkQueue.take())!=null){
+        while (true){
+
+            urlData = picLinkQueue.poll();
+            if (urlData==null){
+                try {
+                    log.info("PicLinkQueue size is 0 ---Please Waiting some seconds .... ");
+                    TimeUnit.SECONDS.sleep(5);
+                    continue ;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
             log.info("---ThreadName---[ "+threadName+" ]下载 PicData : " +urlData );
-             toToDownLoad(urlData);
+            toToDownLoad(urlData);
 
         }
     }
@@ -51,5 +64,11 @@ public class DownloadTask extends DownloadHandler implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    protected void execute(UrlData urlData) {
+        super.execute(urlData);
     }
 }

@@ -35,9 +35,11 @@ public class CategoryPageListTask extends CategoryPageListHandler implements Run
 
             try {
                 urlData.setMark(urlData.getMark().concat(threadName));
+                pageListQueue.add(urlData);// 首页
+
                 this.execute(urlData);
 
-                TimeUnit.MINUTES.sleep(30);
+                TimeUnit.SECONDS.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
