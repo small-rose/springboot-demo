@@ -12,22 +12,14 @@ import lombok.Data;
 @Data
 public class UrlData {
 
-    private String url ;
+    protected String url ;
 
-    private String tag ;
+    protected String tag ;
 
-    private boolean isPage ;
+    protected String name ;
 
-    private boolean isMedia ;
+    protected String mark ;
 
 
-    public boolean isPage() {
 
-        return isPage;
-    }
-
-    public boolean isMedia() {
-
-        return isMedia;
-    }
 }

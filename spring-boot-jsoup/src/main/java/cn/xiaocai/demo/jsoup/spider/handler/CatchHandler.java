@@ -1,12 +1,11 @@
 package cn.xiaocai.demo.jsoup.spider.handler;
 
-import cn.xiaocai.demo.jsoup.spider.utils.NetUtil;
 import cn.xiaocai.demo.jsoup.spider.data.UrlData;
+import cn.xiaocai.demo.jsoup.spider.utils.NetUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,24 +18,24 @@ import java.util.concurrent.TimeUnit;
 @Data
 @Slf4j
 public class CatchHandler {
-    // 临时容器
-    private List<Document>  tmpUrlList ;
 
-    private Integer limitCount = 3;
+    private final Integer limitCount = 3;
 
     /**
      * 抓取页面
      * @param data
      */
     public Document spy(UrlData data){
-        Document document = null;
+        Document document  = NetUtil.getDocument(data.getUrl());
         try {
             int index = 0 ;
-            while (index <= limitCount && document == null) {
+            while ( document == null && index <= limitCount ) {
+
+                TimeUnit.MILLISECONDS.sleep(300);
+
                 document = NetUtil.getDocument(data.getUrl());
 
-                //TimeUnit.MILLISECONDS.sleep(250);
-                TimeUnit.MILLISECONDS.sleep(2000);
+                index++;
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -50,14 +49,16 @@ public class CatchHandler {
      * @param data
      */
     public Document spyAsync(UrlData data){
-        Document document = null;
+        Document document = NetUtil.getDocument(data.getUrl());
         try {
             int index = 0 ;
-            while (index <= limitCount && document == null) {
+            while ( document == null && index <= limitCount ) {
+
+                TimeUnit.MILLISECONDS.sleep(300);
+
                 document = NetUtil.getDocument(data.getUrl());
 
-                //TimeUnit.MILLISECONDS.sleep(250);
-                TimeUnit.MILLISECONDS.sleep(2000);
+                index++;
             }
         }catch (Exception e){
             e.printStackTrace();

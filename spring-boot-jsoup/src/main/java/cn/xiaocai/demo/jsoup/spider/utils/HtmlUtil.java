@@ -62,7 +62,8 @@ public class HtmlUtil {
 
         //直接将加载完成的页面转换成xml格式的字符串
         String pageXml = page.asXml();
-
+        //Document ownerDocument = page.getOwnerDocument();
+        //System.out.println(ownerDocument);
         return pageXml ;
     }
 }

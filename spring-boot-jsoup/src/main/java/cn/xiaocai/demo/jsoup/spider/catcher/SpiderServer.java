@@ -1,10 +1,11 @@
 package cn.xiaocai.demo.jsoup.spider.catcher;
 
-import cn.xiaocai.demo.jsoup.spider.data.DocumentQueue;
-import cn.xiaocai.demo.jsoup.spider.data.PicQueue;
-import cn.xiaocai.demo.jsoup.spider.data.UrlDataQueue;
+import cn.xiaocai.demo.jsoup.spider.data.*;
+import cn.xiaocai.demo.jsoup.spider.door.baserules.BaseWebRule;
 import cn.xiaocai.demo.jsoup.spider.thread.SpiderThreadManager;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @description: TODO 功能角色说明：
@@ -15,19 +16,9 @@ import lombok.Data;
  */
 @Data
 public class SpiderServer implements Server {
-    /**
-     * 编号
-     */
-    private Integer id;
-    /**
-     * 别名
-     */
-    private String name;
 
-    /**
-     * 洞口
-     */
-    private String doorUrl ;
+    private List<BaseWebRule> ruleList ;
+
 
     /**
      * 图片下载线程数
@@ -40,22 +31,56 @@ public class SpiderServer implements Server {
     @Override
     public void init() {
 
+
+        // 校验爬取规则是否为空
+        ruleList.forEach(webRule -> webRule.check());
+
         spiderThreadManager = SpiderThreadManager.getInstance();
-        spiderThreadManager.setDocumentQueue(new DocumentQueue());
-        spiderThreadManager.setUrlDataQueue(new UrlDataQueue());
-        spiderThreadManager.setPicQueue(new PicQueue());
-        spiderThreadManager.setDownThreadNum(this.downloadThreadNumbers);
+        //每个网站创建爬取规则
+        ruleList.forEach(webRule ->{
+
+            SpiderThread spiderThread = new SpiderThread();
+            CategoryQueue categoryQueue = new CategoryQueue();
+            categoryQueue.setCategoryRule(webRule.getCategoryRule());
+            spiderThread.setCategoryQueue(categoryQueue);
+
+            PageListQueue pageListQueue = new PageListQueue();
+            pageListQueue.setRule(webRule.getPageListRule());
+            spiderThread.setPageListQueue(pageListQueue);
+
+            LinkSetQueue linkSetQueue = new LinkSetQueue();
+            linkSetQueue.setRule(webRule.getLinkSetRule());
+            spiderThread.setLinkSetQueue(linkSetQueue);
+
+            LinkPageQueue linkPageQueue = new LinkPageQueue();
+            linkPageQueue.setRule(webRule.getLinkPageRule());
+            spiderThread.setLinkPageQueue(linkPageQueue);
+
+            PicLinkQueue picLinkQueue = new PicLinkQueue();
+            webRule.getPicLinkRule().setDownLoadPath(webRule.getDownLoadPath());
+            webRule.getPicLinkRule().setReferer(webRule.getDoorUrl());
+            picLinkQueue.setRule(webRule.getPicLinkRule());
+
+            spiderThread.setPicLinkQueue(picLinkQueue);
+
+
+
+
+            spiderThread.setDoorUrl(webRule.getDoorUrl());
+            spiderThread.setThreadNums(webRule.getDownloadThreadNumbers());
+            spiderThread.setKeyName(webRule.getThreadNameKey());
+            SpiderThreadManager.THREAD_LIST.add(spiderThread);
+        });
     }
 
     @Override
     public void start() {
-        spiderThreadManager.start(doorUrl);
+
+        init();
+        spiderThreadManager.start();
     }
 
-    @Override
-    public void save() {
 
-    }
 
     @Override
     public void stop() {
