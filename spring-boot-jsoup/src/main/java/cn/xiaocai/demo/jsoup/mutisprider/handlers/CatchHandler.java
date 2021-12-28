@@ -31,7 +31,7 @@ public class CatchHandler {
         try {
             int index = 0 ;
             while (index <= limitCount && document == null) {
-                document = NetUtil.getDocument(data.getUrl());
+                document = NetUtil.getDocument(data.getUrl(), data.getReferer());
 
                 //TimeUnit.MILLISECONDS.sleep(250);
                 TimeUnit.MILLISECONDS.sleep(300);
@@ -53,7 +53,7 @@ public class CatchHandler {
         try {
             int index = 0 ;
             while (index <= limitCount && document == null) {
-                document = NetUtil.getDocument(data.getUrl());
+                document = NetUtil.getDocument(data.getUrl(), data.getReferer());
 
                 //TimeUnit.MILLISECONDS.sleep(250);
                 TimeUnit.MILLISECONDS.sleep(300);

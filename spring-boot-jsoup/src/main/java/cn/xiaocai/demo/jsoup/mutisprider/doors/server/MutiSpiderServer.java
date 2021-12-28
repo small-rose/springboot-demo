@@ -5,11 +5,6 @@ import cn.xiaocai.demo.jsoup.mutisprider.queues.CategoryQueue;
 import cn.xiaocai.demo.jsoup.mutisprider.queues.LinkGroupPageQueue;
 import cn.xiaocai.demo.jsoup.mutisprider.queues.LinkGroupQueue;
 import cn.xiaocai.demo.jsoup.mutisprider.threads.ThreadsManager;
-import cn.xiaocai.demo.jsoup.mutisprider.doors.server.Server;
-import cn.xiaocai.demo.jsoup.spider.data.DocumentQueue;
-import cn.xiaocai.demo.jsoup.spider.data.PicQueue;
-import cn.xiaocai.demo.jsoup.spider.data.UrlDataQueue;
-import cn.xiaocai.demo.jsoup.spider.thread.SpiderThreadManager;
 import lombok.Data;
 
 /**
