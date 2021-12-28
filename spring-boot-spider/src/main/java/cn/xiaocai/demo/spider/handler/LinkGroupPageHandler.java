@@ -161,8 +161,10 @@ public class LinkGroupPageHandler extends BaseHandler implements BasePageHandler
             newUrlData = new UrlData();
             newUrlData.setUrl(absHref);
             newUrlData.setReferer(urlData.getReferer());
+            if (IS_MARK) {
+                newUrlData.setMark(urlData.getMark());
+            }
 
-            newUrlData.setMark(urlData.getMark());
             if(StringUtils.hasText(urlData.getTag())){
                 newUrlData.setTag(urlData.getTag());
             }else{

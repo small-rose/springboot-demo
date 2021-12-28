@@ -16,6 +16,7 @@ public abstract class BaseWebRule {
 
     protected String doorUrl ;
     protected String downLoadPath ;
+    protected String categoryKeys ;
     protected String threadNameKey = "Default";
     protected int DownloadThreadNumbers = 3;
 

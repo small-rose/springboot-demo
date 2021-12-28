@@ -38,8 +38,10 @@ public class PicLinkTask extends PicLinkHandler implements Callable<String> {
         while ((urlData = linkGroupPageQueue.get()) != null) {
 
             try {
-                //数据标记
-                urlData.setMark(urlData.getMark().concat(threadName));
+                if (IS_MARK) {
+                    //数据标记
+                    urlData.setMark(urlData.getMark().concat(threadName));
+                }
 
                 execute( urlData);
 

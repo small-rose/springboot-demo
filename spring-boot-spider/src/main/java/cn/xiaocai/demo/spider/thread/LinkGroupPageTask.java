@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @description: TODO 功能角色说明：   第四步 提取图片组中的分页链接集合
@@ -37,15 +36,16 @@ public class LinkGroupPageTask extends LinkGroupPageHandler implements Callable<
         while ((urlData = linkGroupQueue.get())!=null){
 
             try {
-                //数据标记
-                urlData.setMark(urlData.getMark().concat(threadName));
-
+                if (IS_MARK) {
+                    //数据标记
+                    urlData.setMark(urlData.getMark().concat(threadName));
+                }
                 //urlData.setTag(urlData.getName());
                 linkGroupPageQueue.add(urlData);//当前组的第一页
                 this.execute( urlData);
 
-                TimeUnit.MINUTES.sleep(1);
-            } catch (InterruptedException e) {
+                //TimeUnit.SECONDS.sleep(1);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

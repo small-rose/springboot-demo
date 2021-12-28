@@ -77,9 +77,13 @@ public class LinkGroupHandler extends BaseHandler{
             UrlData urlData = new UrlData();
             urlData.setReferer(paraData.getReferer());
             urlData.setUrl(absHref);
-            urlData.setMark(paraData.getMark());
+
             urlData.setName(text);
             urlData.setTag(text);
+
+            if (IS_MARK) {
+                urlData.setMark(paraData.getMark());
+            }
             if (paraData!=null) {
                 urlData.setTag(paraData.getTag());
             }

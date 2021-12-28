@@ -5,6 +5,7 @@ import cn.xiaocai.demo.spider.data.PicLinkQueue;
 import cn.xiaocai.demo.spider.data.UrlData;
 import cn.xiaocai.demo.spider.rules.PicLinkRule;
 import cn.xiaocai.demo.spider.utils.DownPicUtil;
+import cn.xiaocai.demo.spider.utils.HttpsDownPicUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
@@ -73,12 +74,16 @@ public class PicDownloadHandler extends BaseHandler{
             if(!createFile.exists()){
                 createFile.mkdirs();
             }
-
-            DownPicUtil.save(downPath, picData.getUrl(), picData.getPicName(), picData.getSuffix(), picData.getReferer());
+            String path =  "xxx";
+            if (picData.getUrl().startsWith("https")){
+                path = HttpsDownPicUtil.save(downPath, picData.getUrl(), picData.getPicName(), picData.getSuffix(), picData.getReferer());
+            }else {
+                path = DownPicUtil.save(downPath, picData.getUrl(), picData.getPicName(), picData.getSuffix(), picData.getReferer());
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("^_^ download pic success ,You can find it in "+ downPath);
+        System.out.println("^_^ download pic success ,You can find it in "+ path);
     }
 
 

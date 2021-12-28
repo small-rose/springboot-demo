@@ -26,7 +26,7 @@ public class LinkGroupQueue {
     /**
      *  url队列
      */
-    private final BlockingQueue<UrlData>  queue  = new ArrayBlockingQueue<>(20,true);
+    private final BlockingQueue<UrlData>  queue  = new ArrayBlockingQueue<>(200,true);
 
 
     /**

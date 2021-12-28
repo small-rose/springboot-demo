@@ -48,13 +48,15 @@ public class QueueCheckTask implements Runnable{
 
                 time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+                log.info("-----------------------------------------------------------------");
                 log.info("=+=+=+=+=+=+=+=+=+= >>>>> 监听队列 start <<<<< =+=+=+=+=+=+=+=+=+=+");
-                log.info( time + " CategoryQueue size : " + categoryQueue.size());
-                log.info(time + " PageListQueue size : " + pageListQueue.size());
-                log.info(time + " LinkSetQueue  size : " + linkGroupQueue.size());
-                log.info(time + " LinkPageQueue size : " + linkGroupPageQueue.size());
-                log.info(time + " PicLinkQueue  size : " + picLinkQueue.size());
+                log.info(time + " CategoryQueue      size : " + categoryQueue.size());
+                log.info(time + " CategoryPageQueue  size : " + pageListQueue.size());
+                log.info(time + " LinkGroupQueue     size : " + linkGroupQueue.size());
+                log.info(time + " LinkGroupPageQueue size : " + linkGroupPageQueue.size());
+                log.info(time + " PicLinkQueue       size : " + picLinkQueue.size());
                 log.info("=+=+=+=+=+=+=+=+=+= >>>>> 监听队列 end  <<<<< =+=+=+=+=+=+=+=+=+=+");
+                log.info("-----------------------------------------------------------------");
 
 
                 TimeUnit.SECONDS.sleep(second/2);
