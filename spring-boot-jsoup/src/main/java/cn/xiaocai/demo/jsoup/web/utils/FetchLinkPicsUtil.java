@@ -1,11 +1,5 @@
 package cn.xiaocai.demo.jsoup.web.utils;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.xiaocai.demo.jsoup.spider.utils.DownPicUtil;
 import cn.xiaocai.demo.jsoup.spider.utils.NetUtil;
 import cn.xiaocai.demo.jsoup.spider.utils.RegexUtil;
@@ -15,6 +9,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
+
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 根据 TbWebLink 取 TbWebPicture
@@ -187,7 +187,12 @@ public class FetchLinkPicsUtil {
 	}
 	
 	private static TbWebPicture getPicContent(String dir ,String imgsrc, String oldName, String sufffix,TbWebPicture pictrue){
-		String filePath = DownPicUtil.save(dir,imgsrc, oldName, sufffix);
+		String filePath = null;
+		try {
+			filePath = DownPicUtil.save(dir,imgsrc, oldName, sufffix, "");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		File file = new File(filePath);
 		if(FileOptionUtil.checkImgSizePx(filePath)){
 			return pictrue;
