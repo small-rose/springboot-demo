@@ -9,14 +9,13 @@ import java.util.Arrays;
  * @description: TODO 功能角色说明：
  * TODO 描述：
  * @author: 张小菜
- * @date: 2021/12/26 0:48
+ * @date: 2021/12/25 17:26
  * @version: v1.0
  */
-public class MeituluCn extends BaseWebRule {
+public class FulituCc extends BaseWebRule {
 
 
-    public MeituluCn(String doorUrl){
-        super();
+    public FulituCc(String doorUrl){
         this.doorUrl = doorUrl;
     }
 
@@ -29,27 +28,28 @@ public class MeituluCn extends BaseWebRule {
     @Override
     protected void loadRule() {
         CategoryRule categoryRule = new CategoryRule();
-        categoryRule.setEleLocation("body div.header div.top div.nav ul.menu li#tag ul#tag_ul li a");
+        categoryRule.setEleLocation("div#bs-example-navbar-collapse-1  ul.nav.navbar-nav ul.dropdown-menu li a");
         //categoryRule.setEleLocation("html.no-js body nav.navbar.navbar-default.navbar-fixed-top div.container-fluid div#bs-example-navbar-collapse-1.collapse.navbar-collapse ul.nav.navbar-nav li.dropdown ul.dropdown-menu li > a");
-        categoryRule.setSkipKeys(null);
+        categoryRule.setSkipKeys(Arrays.asList("所有","admin/login"));
         setCategoryRule(categoryRule);
 
         CategoryPageRule pageListRule = new CategoryPageRule();
-        pageListRule.setEleLocation("div#pages a");
+        pageListRule.setEleLocation("html.no-js body div.content ol.page-navigator li a");
+
         setCategoryPageRule(pageListRule);
 
         LinkGroupRule linkSetRule = new LinkGroupRule();
-        linkSetRule.setEleLocation("div.main div.boxs ul.img li p.p_title a");
+        linkSetRule.setEleLocation("div#masonry div.item div.item-title a");
         linkSetRule.setSkipKeys(Arrays.asList("img.reapi.cn"));
         setLinkGroupRule(linkSetRule);
 
-        LinkGroupPageRule linkGroupPageRule = new LinkGroupPageRule();
-        linkGroupPageRule.setEleLocation("html body center div#pages a");
-        linkGroupPageRule.setSkipKeys(Arrays.asList("上一组","下一组"));
-        setLinkGroupPageRule(linkGroupPageRule);
+        LinkGroupPageRule linkPageRule = new LinkGroupPageRule();
+        linkPageRule.setEleLocation(BaseRule.NO_ELEMENT_LOCATION);
+        setLinkGroupPageRule(linkPageRule);
 
         PicLinkRule picLinkRule = new PicLinkRule();
-        picLinkRule.setEleLocation("html body div.content center a img.content_img");
+        picLinkRule.setImgSrcKey(BaseRule.IMG_DATA_ORIGINAL);
+        picLinkRule.setEleLocation("div#masonry  div.post-item img");
         setPicLinkRule(picLinkRule);
 
     }

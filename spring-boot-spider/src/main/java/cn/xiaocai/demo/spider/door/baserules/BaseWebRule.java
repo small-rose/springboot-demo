@@ -23,12 +23,12 @@ public abstract class BaseWebRule {
 
     protected CategoryRule categoryRule ;
 
-    protected CategoryPageRule pageListRule ;
+    protected CategoryPageRule categoryPageRule ;
 
-    protected LinkGroupRule linkSetRule ;
+    protected LinkGroupRule linkGroupRule ;
 
 
-    protected LinkGroupPageRule linkPageRule;
+    protected LinkGroupPageRule linkGroupPageRule;
 
     protected PicLinkRule picLinkRule ;
 
@@ -45,14 +45,14 @@ public abstract class BaseWebRule {
 
         Assert.hasText(doorUrl, "doorUrl is required !");
         Assert.notNull(categoryRule, "categoryRule is required !");
-        Assert.notNull(pageListRule, "pageListRule is required !");
-        Assert.notNull(linkSetRule, "linkSetRule is required !");
-        Assert.notNull(linkPageRule, "linkPageRule is required !");
+        Assert.notNull(categoryPageRule, "pageListRule is required !");
+        Assert.notNull(linkGroupRule, "linkSetRule is required !");
+        Assert.notNull(linkGroupPageRule, "linkPageRule is required !");
         Assert.notNull(picLinkRule, "picLinkRule is required !");
         Assert.hasText(categoryRule.getEleLocation(), "categoryRule's eleLocation is required !");
-        Assert.hasText(pageListRule.getEleLocation(), "pageListRule's eleLocation is required !");
-        Assert.hasText(linkSetRule.getEleLocation(), "linkSetRule's eleLocation is required !");
-        Assert.notNull(linkPageRule.getEleLocation(), "linkPageRule's eleLocation is required !");
+        Assert.hasText(categoryPageRule.getEleLocation(), "pageListRule's eleLocation is required !");
+        Assert.hasText(linkGroupRule.getEleLocation(), "linkSetRule's eleLocation is required !");
+        Assert.notNull(linkGroupPageRule.getEleLocation(), "linkPageRule's eleLocation is required !");
         Assert.hasText(picLinkRule.getEleLocation(), "picLinkRule's eleLocation is required !");
      }
 

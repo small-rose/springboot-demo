@@ -51,15 +51,15 @@ public class SpiderServer implements Server {
             spiderThread.setCategoryQueue(categoryQueue);
 
             CategoryPageQueue pageListQueue = new CategoryPageQueue();
-            pageListQueue.setRule(webRule.getPageListRule());
+            pageListQueue.setRule(webRule.getCategoryPageRule());
             spiderThread.setPageListQueue(pageListQueue);
 
             LinkGroupQueue linkGroupQueue = new LinkGroupQueue();
-            linkGroupQueue.setRule(webRule.getLinkSetRule());
+            linkGroupQueue.setRule(webRule.getLinkGroupRule());
             spiderThread.setLinkGroupQueue(linkGroupQueue);
 
             LinkGroupPageQueue linkGroupPageQueue = new LinkGroupPageQueue();
-            linkGroupPageQueue.setRule(webRule.getLinkPageRule());
+            linkGroupPageQueue.setRule(webRule.getLinkGroupPageRule());
             spiderThread.setLinkGroupPageQueue(linkGroupPageQueue);
 
             PicLinkQueue picLinkQueue = new PicLinkQueue();
