@@ -80,7 +80,9 @@ public class PicLinkHandler extends BaseHandler{
             picData.setPicName(urlFileName);
             picData.setTag(paramData.getMark());
             picData.setName(paramData.getName());
-            picData.setMark(paramData.getMark());
+            if (IS_MARK) {
+                picData.setMark(paramData.getMark());
+            }
             if (StringUtils.hasText(paramData.getTag())){
                 picData.setTag(paramData.getTag());
             }else{

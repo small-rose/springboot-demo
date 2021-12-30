@@ -21,11 +21,20 @@ public class CategoryTask extends CategoryHandler implements Runnable {
 
     private UrlData urlData ;
 
+    protected String[] categorykeyArrays ;
+
     public CategoryTask(UrlData urlData , CategoryQueue categoryQueue){
         super(categoryQueue);
         this.urlData = urlData;
         this.threadName = "-".concat(categoryQueue.getClass().getSimpleName());
+        this.categorykeyArrays = new String[0];
+    }
 
+    public CategoryTask(UrlData urlData , CategoryQueue categoryQueue,String categoryKeys){
+        super(categoryQueue);
+        this.urlData = urlData;
+        this.threadName = "-".concat(categoryQueue.getClass().getSimpleName());
+        this.categorykeyArrays = categoryKeys.split("\\+");
     }
 
     @Override
@@ -33,7 +42,9 @@ public class CategoryTask extends CategoryHandler implements Runnable {
          if (urlData !=null){
              //categoryQueue.add(urlData);
              try {
-                 urlData.setMark(threadName);
+                 if (IS_MARK) {
+                     urlData.setMark(threadName);
+                 }
                  execute(urlData);
              }catch (Exception e){
                  e.printStackTrace();
@@ -47,12 +58,25 @@ public class CategoryTask extends CategoryHandler implements Runnable {
     protected void execute(UrlData urlData) {
 
 
-
             // 将抓取到的页面放到 文档 队列
             List<UrlData> dataList = this.analsysUrlList(urlData);
 
             log.info("CategoryTask 本次抓取分类数量：" +dataList);
-            categoryQueue.add(dataList);
+
+
+            if (categorykeyArrays.length>0){
+                for (String key : categorykeyArrays){
+                    for (UrlData data : dataList){
+                        if (data.getName().contains(key)){
+                            System.out.println(data);
+                            categoryQueue.add(data);
+                        }
+                    }
+                }
+            }else{
+                categoryQueue.add(dataList);
+            }
+
             categoryQueue.print();
 
     }

@@ -34,9 +34,10 @@ public class LinkGroupTask extends LinkGroupHandler implements Runnable{
         while ( (urlData = pageListQueue.get()) != null){
 
             try {
-                //数据标记
-                urlData.setMark(urlData.getMark().concat(threadName));
-
+                if (IS_MARK) {
+                    //数据标记
+                    urlData.setMark(urlData.getMark().concat(threadName));
+                }
                 execute(urlData);
 
                 log.info("分类的分页的抓取剩余 ："+pageListQueue.size());

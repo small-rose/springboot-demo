@@ -56,7 +56,7 @@ public class SpiderThreadManager {
             urlData.setUrl(spiderThread.getDoorUrl());
 
             // 提交抓取首页的任务
-            CategoryTask thread = new CategoryTask(urlData, spiderThread.getCategoryQueue());
+            CategoryTask thread = new CategoryTask(urlData, spiderThread.getCategoryQueue(), spiderThread.getCategoryKeys());
             new Thread(thread).start();
 
             log.info("----提交 CategoryTask -------- ");

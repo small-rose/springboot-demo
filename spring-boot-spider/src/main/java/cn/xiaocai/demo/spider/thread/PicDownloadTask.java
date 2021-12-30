@@ -54,9 +54,10 @@ public class PicDownloadTask extends PicDownloadHandler implements Callable<Stri
 
     private void toToDownLoad(PicData urlData) {
         try {
-            //数据标记
-            urlData.setMark(urlData.getMark().concat(threadName));
-
+            if (IS_MARK) {
+                //数据标记
+                urlData.setMark(urlData.getMark().concat(threadName));
+            }
 
             this.execute(urlData);
 

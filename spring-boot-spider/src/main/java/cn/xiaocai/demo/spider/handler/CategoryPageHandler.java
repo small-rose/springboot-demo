@@ -104,8 +104,9 @@ public class CategoryPageHandler extends BaseHandler implements BasePageHandler 
             newUrlData.setReferer(urlData.getReferer());
             newUrlData.setUrl(absHref);
             newUrlData.setName(text);
-            newUrlData.setMark(urlData.getMark());
-
+            if (IS_MARK) {
+                newUrlData.setMark(urlData.getMark());
+            }
             if (StringUtils.hasText(urlData.getName())){
                 newUrlData.setTag(urlData.getName());
             }

@@ -15,6 +15,8 @@ public class SpiderThread {
 
     private String keyName = "default";
 
+    private String categoryKeys = "";
+
     private String doorUrl;
 
     private int threadNums = 3;

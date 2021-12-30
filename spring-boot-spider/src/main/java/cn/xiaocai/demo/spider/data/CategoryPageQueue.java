@@ -27,7 +27,7 @@ public class CategoryPageQueue {
     /**
      *  类型队列
      */
-    private final BlockingQueue<UrlData> queue  = new ArrayBlockingQueue<>(20,true);
+    private final BlockingQueue<UrlData> queue  = new ArrayBlockingQueue<>(200,true);
 
 
     /**

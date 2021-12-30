@@ -34,7 +34,9 @@ public class CategoryPageTask extends CategoryPageHandler implements Runnable {
         while ( (urlData = categoryQueue.get()) != null){
 
             try {
-                urlData.setMark(urlData.getMark().concat(threadName));
+                if (IS_MARK) {
+                    urlData.setMark(urlData.getMark().concat(threadName));
+                }
                 pageListQueue.add(urlData);// 首页
 
                 this.execute(urlData);

@@ -43,10 +43,10 @@ public class MeituluCn extends BaseWebRule {
         linkSetRule.setSkipKeys(Arrays.asList("img.reapi.cn"));
         setLinkSetRule(linkSetRule);
 
-        LinkGroupPageRule linkPageRule = new LinkGroupPageRule();
-        linkPageRule.setEleLocation("html body center div#pages a");
-        linkPageRule.setSkipKeys(Arrays.asList("上一组","下一组"));
-        setLinkPageRule(linkPageRule);
+        LinkGroupPageRule linkGroupPageRule = new LinkGroupPageRule();
+        linkGroupPageRule.setEleLocation("html body center div#pages a");
+        linkGroupPageRule.setSkipKeys(Arrays.asList("上一组","下一组"));
+        setLinkPageRule(linkGroupPageRule);
 
         PicLinkRule picLinkRule = new PicLinkRule();
         picLinkRule.setEleLocation("html body div.content center a img.content_img");

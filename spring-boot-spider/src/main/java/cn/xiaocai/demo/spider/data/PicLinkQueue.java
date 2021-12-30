@@ -28,7 +28,7 @@ public class PicLinkQueue {
     /**
      * pic 队列
      */
-    private final BlockingQueue<PicData> queue = new ArrayBlockingQueue<>(20,true);
+    private final BlockingQueue<PicData> queue = new ArrayBlockingQueue<>(200,true);
 
 
     /**

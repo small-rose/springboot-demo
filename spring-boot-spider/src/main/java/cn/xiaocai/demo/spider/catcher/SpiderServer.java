@@ -68,6 +68,8 @@ public class SpiderServer implements Server {
 
             spiderThread.setPicLinkQueue(picLinkQueue);
 
+            //指定分类过滤
+            spiderThread.setCategoryKeys(webRule.getCategoryKeys());
 
             spiderThread.setDoorUrl(webRule.getDoorUrl());
             spiderThread.setThreadNums(webRule.getDownloadThreadNumbers());

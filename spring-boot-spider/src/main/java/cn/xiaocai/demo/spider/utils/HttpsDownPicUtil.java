@@ -1,29 +1,31 @@
 package cn.xiaocai.demo.spider.utils;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Project : springboot-demo
- * @Author : zhangzongyuan
- * @Description : [ SavePicUtil ] 说明：无
- * @Function :  功能说明：无
- * @Date ：2021/12/23 11:51
- * @Version ： 1.0
- **/
-@Slf4j
-public class DownPicUtil {
+ * @description: TODO 功能角色说明：
+ * TODO 描述：
+ * @author: 张小菜
+ * @date: 2021/12/28 21:46
+ * @version: v1.0
+ */
+public class HttpsDownPicUtil {
 
-     static SimpleDateFormat tmp = new SimpleDateFormat("yyyyMMddHHmmsss");
+
+    static SimpleDateFormat tmp = new SimpleDateFormat("yyyyMMddHHmmsss");
     static int retryTime = 3;
 
 
@@ -46,9 +48,15 @@ public class DownPicUtil {
         String result = "";
         try{
 
-            //System.err.println("imgSrc :"+imgSrc);
+
+            SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");//第一个参数为 返回实现指定安全套接字协议的SSLContext对象。第二个为提供者
+            TrustManager[] tm = {new MyX509TrustManager()};
+            sslContext.init(null, tm, new SecureRandom());
+            SSLSocketFactory ssf = sslContext.getSocketFactory();
+
             URL url = new URL(imgSrc);
-            URLConnection conn = url.openConnection();
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setSSLSocketFactory(ssf);
             if (StringUtils.hasLength( referer)) {
                 conn.setRequestProperty("referer", referer);
             }
@@ -70,13 +78,7 @@ public class DownPicUtil {
                     fileName = Name +sufffix ;
                 }
             }
-            //System.out.println("fileName 1:"+fileName);
-            if(!RegexUtil.isFileName(fileName)){
-                String tmpName = tmp.format(new Date());
-                fileName = tmpName + sufffix;
-            }
 
-            //System.out.println("fileName 2:"+fileName);
             //缓冲区
             byte[] bs = new byte[1024];
             //长度
@@ -108,7 +110,7 @@ public class DownPicUtil {
             out.close();
             str.close();
 
-            //System.out.println("down pic success" + file.getAbsolutePath());
+            System.out.println("down pic success" + file.getAbsolutePath());
             result = file.getAbsolutePath();
             return result ;
         }catch (Exception e) {
@@ -148,9 +150,16 @@ public class DownPicUtil {
 
         String result = "";
         try{
-            //System.err.println("imgSrc :"+imgSrc);
+
+            SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");//第一个参数为 返回实现指定安全套接字协议的SSLContext对象。第二个为提供者
+            TrustManager[] tm = {new MyX509TrustManager()};
+            sslContext.init(null, tm, new SecureRandom());
+            SSLSocketFactory ssf = sslContext.getSocketFactory();
+
             URL url = new URL(imgSrc);
-            URLConnection conn = url.openConnection();
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setSSLSocketFactory(ssf);
+
             //设置超时
             conn.setConnectTimeout(10*1000);
             //设置代理

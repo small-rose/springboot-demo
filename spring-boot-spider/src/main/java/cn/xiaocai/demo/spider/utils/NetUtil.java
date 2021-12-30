@@ -111,6 +111,7 @@ public class NetUtil {
     }
 
     public static void trustEveryone() {
+        SSLContext context = null ;
         try {
             HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
                 @Override
@@ -119,8 +120,8 @@ public class NetUtil {
                 }
             });
 
-            SSLContext context = SSLContext.getInstance("TLS");
-            SSLContext sc = SSLContext.getInstance("SSL");
+             context = SSLContext.getInstance("TLS");
+            SSLContext ssl = SSLContext.getInstance("SSL");
             context.init(null, new X509TrustManager[] { new X509TrustManager() {
                 @Override
                 public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -140,5 +141,39 @@ public class NetUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+     }
+
+    public static SSLContext trustSSL() {
+        SSLContext context = null ;
+        try {
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+
+            //context = SSLContext.getInstance("TLS");
+            context = SSLContext.getInstance("SSL");
+            context.init(null, new X509TrustManager[] { new X509TrustManager() {
+                @Override
+                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                }
+
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            } }, new SecureRandom());
+            //HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
+            //HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  context ;
     }
 }

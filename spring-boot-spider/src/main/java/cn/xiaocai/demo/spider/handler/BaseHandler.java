@@ -21,6 +21,10 @@ import java.util.List;
 @Slf4j
 public abstract class BaseHandler<T> {
 
+    /**
+     * 数据打标记
+     */
+    protected boolean IS_MARK = Boolean.FALSE;
 
     protected CatchHandler catchHandler = new CatchHandler();
 
@@ -72,8 +76,9 @@ public abstract class BaseHandler<T> {
                 newData.setTag(text);
             }
             newData.setName(text);
-            newData.setMark(urlData.getMark());
-
+            if (IS_MARK) {
+                newData.setMark(urlData.getMark());
+            }
             final String finalAbsHref = absHref;
             boolean bool = tmpUrlList.stream().anyMatch(t -> t.getUrl().equals(finalAbsHref));
             if (bool){

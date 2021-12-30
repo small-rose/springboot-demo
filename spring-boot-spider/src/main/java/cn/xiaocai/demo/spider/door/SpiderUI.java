@@ -1,6 +1,8 @@
 package cn.xiaocai.demo.spider.door;
 
 
+import java.util.Scanner;
+
 /**
  * @description: TODO 功能角色说明：
  * TODO 描述：
@@ -11,10 +13,13 @@ package cn.xiaocai.demo.spider.door;
 public class SpiderUI  {
 
 
+    Scanner number = null ;
 
     public void init() {
 
+
     }
+
 
     public void start() {
 

@@ -36,6 +36,13 @@ public class CategoryHandler extends BaseHandler{
         if (rule.getSkipKeys()!=null){
             // 文本关键词过滤 过滤
             for (String key : rule.getSkipKeys()){
+                if (absHref.contains(key)){
+                    skip = true;
+                    break;
+                }
+            }
+            // 文本关键词过滤 过滤
+            for (String key : rule.getSkipKeys()){
                 if (text.contains(key)){
                     skip = true;
                     break;

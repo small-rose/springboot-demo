@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
+        <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.xiaocai.demo</groupId>
     <artifactId>spring-boot-spider</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.4.0</version>
     <name>spring-boot-spider</name>
     <description>Demo project for Spring Boot Spider</description>
     <properties>
@@ -19,7 +19,13 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -37,7 +43,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+           <!-- <optional>true</optional>-->
+            <version>1.18.20</version>
         </dependency>
 
         <dependency>
@@ -51,6 +58,7 @@
             <artifactId>htmlunit</artifactId>
             <version>2.50.0</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -60,6 +68,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cn.xiaocai.demo.spider.SpiderMain</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
