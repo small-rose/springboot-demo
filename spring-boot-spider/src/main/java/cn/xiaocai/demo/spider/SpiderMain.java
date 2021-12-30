@@ -122,8 +122,8 @@ public class SpiderMain {
 
         try {
             //LoadRulesHelper.loadProperties();
-            LoadRulesHelper.loadYml();
-
+            //LoadRulesHelper.loadYml();
+            LoadRulesHelper.saveYml();
             System.out.println(LoadRulesHelper.rules);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
