@@ -1,7 +1,6 @@
 package com.xiaocai.demo.excel.platUrl;
 
 import com.alibaba.excel.EasyExcel;
-import com.xiaocai.demo.excel.easyexcel.SQLTableListener;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -21,11 +20,12 @@ public class PlatMain {
 
     static String SEPARATOR = File.separator ;
 
-    static final String targetSqlPath = "D:"+SEPARATOR+"onlyTest"+SEPARATOR+"AnCheng"+ SEPARATOR+"db_plat_init.sql";
+    static final String targetSqlPath = "D:"+SEPARATOR+"AnCheng"+ SEPARATOR+"db_plat_update.sql";
 
-    static String sql = "INSERT INTO MM_SWITCHCONTROL_TC (SUBCOMPANY, SWITCHEDSYS, IFVALID, DESCRIPTION, TIMESTAMP, SWITCHINFO, INTFTYPE) values ('%s', '%s', '1', '%s实名认证地址', sysdate, '%s', '=');";
+    //static String sql = "INSERT INTO MM_SWITCHCONTROL_TC (SUBCOMPANY, SWITCHEDSYS, IFVALID, DESCRIPTION, TIMESTAMP, SWITCHINFO, INTFTYPE) values ('%s', '%s', '1', '%s实名认证地址', sysdate, '%s', '=');";
+    static String sql = "UPDATE MM_SWITCHCONTROL_TC SET SWITCHINFO= '%s' WHERE SUBCOMPANY='%s' AND SWITCHEDSYS = '%s';";
 
-    static String sourceFile = "D:"+SEPARATOR+"onlyTest"+SEPARATOR+"Ancheng"+ File.separator+"ac_plat_urls.xls";
+    static String sourceFile = "D:"+SEPARATOR+"Ancheng"+ File.separator+"ac_plat_prod_urls.xlsx";
 
     
     static {
@@ -55,7 +55,8 @@ public class PlatMain {
     }
 
     public static void main(String[] args) {
-        PlatExcelReadListener platListener = new PlatExcelReadListener();
+        //PlatExcelReadListener platListener = new PlatExcelReadListener();
+        PlatExcelReadForUpdateListener platListener = new PlatExcelReadForUpdateListener();
         platListener.setInsert_sql(sql);
         platListener.setSqlPath(targetSqlPath);
         platListener.setSubcompany(subcompany);

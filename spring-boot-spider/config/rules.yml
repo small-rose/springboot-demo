@@ -1,0 +1,61 @@
+rules:
+  - door: https://zhangxiaocai.cn
+    category-rule:
+      eleLocation: ul.bzmenu > li > a
+      categoryName: JK  # 只抓取指定分类，不配则抓全部分类多个直接使用+相连，如JK+黑丝
+      skipKeys:  # 过滤规则，
+        - 所有
+        - 广告
+    category-pages-rule:
+      eleLocation: body div#pages > a
+      skipKeys:
+        - 所有
+        - JK
+    link-group-rule:
+      eleLocation: div#man ul.list > li > a
+      skipKeys:
+        - 所有
+        - 广告
+    link-group-pages-rule:
+      eleLocation: body div#pages > a
+      skipKeys: # 防止抓图组分页时跑其他图组了
+        - 上一组
+        - 下一组
+        - 前一组
+        - 后一组
+    pic-link-rule:
+      eleLocation: body div#pages > img
+      img-src-key: abs:src    # abs:src or  abs:data-original
+      skipKeys: # 一般用不上
+        - 广告
+        - AD
+
+  - door: https://zhangxiaocai.cn
+    category-rule:
+      eleLocation: ul.bzmenu > li > a
+      skipKeys:
+        - 所有
+        - 广告
+    category-pages-rule:
+      eleLocation: body div#pages > a
+      skipKeys:
+        - 所有
+        - JK
+    link-group-rule:
+      eleLocation: div#man ul.list > li > a
+      skipKeys:
+        - 广告
+        - AD
+    link-group-pages-rule:
+      eleLocation: body div#pages > a
+      skipKeys:  # 防止抓图组分页时跑其他图组了
+        - 上一组
+        - 下一组
+        - 前一组
+        - 后一组
+    pic-link-rule:
+      eleLocation: body div#pages > img
+      img-src-key: abs:src    # abs:src or  abs:data-original
+      skipKeys: # 一般用不上
+        - 广告
+        - AD

@@ -8,6 +8,7 @@ import cn.xiaocai.demo.spider.door.webrules.MeituluCn;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -35,6 +36,8 @@ public class SpiderMain {
      */
     public static void main(String[] args) {
 
+        loadOuterRules();
+
         if (!StringUtils.isEmpty(args) && args.length>0){
             String path = args[0] ;
             if (!"default".equalsIgnoreCase(path)){
@@ -60,6 +63,9 @@ public class SpiderMain {
         System.out.println("1）https://www.fulitu.cc/");
         System.out.println("2）https://www.meizitu.cn/");
         System.out.println("tips : java -jar spiderMan-v.1.4.0.jar [file download path] [categoey keys] ");
+        System.out.println("默认路径下载所有分类 : java -jar spiderMan-v.1.4.0.jar   ");
+        System.out.println("默认路径下载指定分类 : java -jar spiderMan-v.1.4.0.jar  default  JK制服");
+        System.out.println("默认路径下载N个分类 : java -jar spiderMan-v.1.4.0.jar  default  JK制服+黑丝 ");
         System.out.println("自定义下载路径 : java -jar spiderMan-v.1.4.0.jar  c:\\download   ");
         System.out.println("自定义下载路径和分类. : java -jar spiderMan-v.1.4.0.jar  c:\\download  JK制服 ");
         System.out.println("自定义下载路径和多个分类. : java -jar spiderMan-v.1.4.0.jar  c:\\download  JK制服+黑丝 ");
@@ -110,6 +116,18 @@ public class SpiderMain {
         server.setRuleList(rules);
         server.start();
 
+    }
+
+    private static void loadOuterRules() {
+
+        try {
+            //LoadRulesHelper.loadProperties();
+            LoadRulesHelper.loadYml();
+
+            System.out.println(LoadRulesHelper.rules);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }
