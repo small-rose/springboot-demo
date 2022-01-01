@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "data.rules",
+      "type": "java.util.ArrayList",
+      "description": "Description for data.rules."
+  }
+] }
