@@ -1,0 +1,54 @@
+data:
+  rules:
+    - id: 1
+      door: https://zhangxiaocai.cn
+      category:
+        eleLocation: 121
+        categoryName: test
+        skipKeys:
+          - active
+          - MAVEN_BATCH_ECHO
+      categoryPages:
+        eleLocation: 123456
+        skipKeys:
+          - 123456
+          - 333456
+      link-group:
+        eleLocation: db_async
+        skipKeys:
+          - xx
+          - zz
+      link-group-pages:
+        eleLocation: 243242
+        skipKeys:
+          - qq
+          - ww
+      pic-link:
+        eleLocation: qqq
+        img-src-key: dddd
+    - id: 2
+      door: https://zhangxiaocai.cn
+      category:
+        eleLocation: 121
+        categoryName: test
+        skipKeys:
+          - active
+          - MAVEN_BATCH_ECHO
+      categoryPages:
+        eleLocation: 123456
+        skipKeys:
+          - 123456
+          - 333456
+      link-group:
+        eleLocation: db_async
+        skipKeys:
+          - xx
+          - zz
+      link-group-pages:
+        eleLocation: 243242
+        skipKeys:
+          - qq
+          - ww
+      pic-link:
+        eleLocation: qqq
+        img-src-key: dddd
