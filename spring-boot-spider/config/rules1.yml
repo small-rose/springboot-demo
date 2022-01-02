@@ -1,0 +1,29 @@
+- !!cn.xiaocai.demo.spider.door.webrules.TemplateRule
+  categoryKeys: JK
+  categoryPageRule:
+    defaultKeys: [首页, 第一页, 前一页, 后一页, 上一页, 下一页, 尾页, 末页, 最后一页]
+    eleLocation: cagete#pageList1
+    imgSrcKey: abs:src
+    linkHrefKey: abs:href
+    skipKeys: ['1', '2']
+    suffixes: null
+  categoryRule:
+    eleLocation: cagete#cat1
+    imgSrcKey: abs:src
+    linkHrefKey: abs:href
+    skipKeys: [ck1, ck2]
+    suffixes: null
+  doorUrl: door 00011
+  downLoadPath: null
+  downloadThreadNumbers: 3
+  linkGroupPageRule:
+    defaultKeys: [上一组, 下一组, 前一组, 后一组]
+    eleLocation: eleLocation1
+    imgSrcKey: abs:src
+    linkHrefKey: abs:href
+    skipKeys: ['1111', '2222']
+    suffixes: null
+  linkGroupRule: null
+  picLinkRule: {downLoadPath: '', eleLocation: mian.img 1, imgSrcKey: 'abs:src', linkHrefKey: 'abs:href',
+    skipKeys: null, suffixes: null}
+  threadNameKey: Default

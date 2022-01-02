@@ -144,7 +144,6 @@ public class LoadRulesHelper {
 
             FileWriter dumpFile  = new FileWriter(testPath);
 
-            //Map<String, Object> objectMap = (Map<String, Object>) yaml.load(inputStream);
             List ruleList = new ArrayList<>();
             TemplateRule templateRule = null ;
             CategoryRule categoryRule= null ;
@@ -152,53 +151,47 @@ public class LoadRulesHelper {
             LinkGroupRule linkGroupRule= null ;
             LinkGroupPageRule linkGroupPageRule= null ;
             PicLinkRule picLinkRule= null ;
-            LinkedHashMap category, categoryPage, linkgroup, linkGroupPage, picLink;
-            for (Object object : ruleList){
-                System.out.println(object);
-                LinkedHashMap rule = (LinkedHashMap) object;
-                String door = (String) rule.get("door");
-                category = (LinkedHashMap) rule.get("category-rule");
-                categoryPage = (LinkedHashMap) rule.get("category-pages-rule");
-                linkgroup = (LinkedHashMap) rule.get("link-group-rule");
-                linkGroupPage = (LinkedHashMap) rule.get("link-group-pages-rule");
-                picLink = (LinkedHashMap) rule.get("pic-link-rule");
+            for (int i =1 ;i<2;  i++){
+
+                String door = "door 0001" +i;
+
 
                 templateRule = new TemplateRule(door);
                 categoryRule = new CategoryRule();
                 ;
-                categoryRule.setEleLocation((String) category.get("eleLocation"));
-                List<String> ckeys = (List<String>) category.get("skipKeys");
+                categoryRule.setEleLocation("cagete#cat" +i);
+                List<String> ckeys =  Arrays.asList("ck1","ck2");
                 categoryRule.setSkipKeys(ckeys);
 
 
-                String categoryName = (String) category.get("skipKeys");
+                String categoryName = "JK";
                 if (StringUtils.hasText(categoryName)) {
                     templateRule.setCategoryKeys(categoryName);
                 }
                 templateRule.setCategoryRule(categoryRule);
 
                 categoryPageRule = new CategoryPageRule();
-                categoryPageRule.setEleLocation((String) categoryPage.get("eleLocation"));
-                List<String> cpkeys = (List<String>) categoryPage.get("skipKeys");
+                categoryPageRule.setEleLocation("cagete#pageList" +i);
+                List<String> cpkeys = Arrays.asList("1","2");
                 categoryPageRule.setSkipKeys(cpkeys);
                 templateRule.setCategoryPageRule(categoryPageRule);
 
                 linkGroupRule = new LinkGroupRule();
-                linkGroupRule.setEleLocation((String) linkgroup.get("eleLocation"));
-                List<String> lkeys = (List<String>) linkgroup.get("skipKeys");
+                linkGroupRule.setEleLocation("link#link");
+                List<String> lkeys = Arrays.asList("l1","l2");;
                 linkGroupRule.setSkipKeys(lkeys);
                 templateRule.setCategoryRule(categoryRule);
 
 
                 linkGroupPageRule = new LinkGroupPageRule();
-                linkGroupPageRule.setEleLocation((String) linkGroupPage.get("eleLocation"));
-                List<String> lgkeys = (List<String>) linkGroupPage.get("skipKeys");
+                linkGroupPageRule.setEleLocation("eleLocation"+i);
+                List<String> lgkeys =  Arrays.asList("1111","2222");
                 linkGroupPageRule.setSkipKeys(lgkeys);
                 templateRule.setLinkGroupPageRule(linkGroupPageRule);
 
                 picLinkRule = new PicLinkRule();
-                picLinkRule.setEleLocation((String) picLink.get("eleLocation"));
-                picLinkRule.setImgSrcKey((String) picLink.get("img-src-key"));
+                picLinkRule.setEleLocation("mian.img " +i);
+                picLinkRule.setImgSrcKey("abs:src");
                 templateRule.setPicLinkRule(picLinkRule);
 
                 rules.add(templateRule);
