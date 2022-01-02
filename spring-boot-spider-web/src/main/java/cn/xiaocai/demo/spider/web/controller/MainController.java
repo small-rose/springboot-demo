@@ -3,9 +3,10 @@ package cn.xiaocai.demo.spider.web.controller;
 import cn.xiaocai.demo.spider.web.config.InnerDataConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -17,22 +18,25 @@ import javax.servlet.http.HttpServletRequest;
  * @Version ： 1.0
  **/
 @Slf4j
-@RestController
-@RequestMapping("/")
+@Controller
 public class MainController extends RulesData{
 
     @Autowired
     private InnerDataConfig innerDataConfig ;
 
+    @PostConstruct
+    public void init(){
+        RULELIST.addAll(innerDataConfig.getRuleList());
+    }
 
-    @RequestMapping("/index.html")
+    @GetMapping(value = {"/index.html", "/"})
     public String getString(HttpServletRequest request){
         String name = "Small Spider ";
         request.setAttribute("name",name);
 
-        RULELIST.addAll(innerDataConfig.getRuleList());
+
 
         request.setAttribute("ruleList", RULELIST);
-        return "index.html";
+        return "index";
     }
 }
