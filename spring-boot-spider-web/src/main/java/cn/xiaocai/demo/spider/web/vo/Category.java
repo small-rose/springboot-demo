@@ -13,20 +13,24 @@ import java.util.List;
  * @Version ： 1.0
  **/
 @Data
-public class Category extends CommonRule{
+public class Category  {
 
     /**
      * 元素定位规则
      */
     protected String eleLocation ;
+    /**
+     * 指定分类
+     */
     protected String categoryName ;
     /**
      * 定义跳过规则
      */
     protected List<String> skipKeys ;
 
-
+    /**
+     * 默认连接取值方式
+     */
     protected String linkHrefKey = "abs:href"  ;
 
-    protected String imgSrcKey = "abs:src"  ;
 }

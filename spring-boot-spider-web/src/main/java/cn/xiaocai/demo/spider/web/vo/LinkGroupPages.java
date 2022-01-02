@@ -13,14 +13,13 @@ import java.util.List;
  * @Version ： 1.0
  **/
 @Data
-public class LinkGroupPages extends CommonRule{
+public class LinkGroupPages {
 
     protected String eleLocation ;
 
     protected List<String> skipKeys ;
 
-
     protected String linkHrefKey = "abs:href"  ;
 
-    protected String imgSrcKey = "abs:src"  ;
+
 }
