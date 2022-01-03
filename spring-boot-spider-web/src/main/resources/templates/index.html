@@ -6,6 +6,7 @@
     <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
     <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+
 </head>
 <style>
     .table th, .table td {
@@ -15,36 +16,84 @@
         text-align: left;
         vertical-align: middle!important;
     }
+
+
+    .navbar-custom {
+        background-color: rgba(104, 216, 227, 0.97);
+    }
+    /* 自定义brand和文字颜色 */
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+        color: rgba(255,255,255,.8);
+    }
+    /* 自定义链接颜色 */
+    .navbar-custom .navbar-nav .nav-link {
+        color: rgba(255,255,255,.5);
+    }
+    /* 自定义激活或者悬停的链接颜色 */
+    .navbar-custom .nav-item.active .nav-link,
+    .navbar-custom .nav-item:hover .nav-link {
+        color: #ffffff;
+    }
+
+    .title-custom{
+        color-adjust: economy;
+        font-size: medium;
+    }
+    .title-custom:hover{
+
+    }
+    .btn-info-custom {
+        /*color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;*/
+        color: #fff;
+        background-color: #31b0d5;
+        border-color: #269abc;
+    }
+
+   .btn-info-custom:hover {
+        color: #fff;
+        background-color: #31b0d5;
+        border-color: #269abc;
+    }
+
+    .panel-group {
+        margin-bottom: 10px;
+    }
 </style>
 <body>
+
 <div class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid btn-info">
-            <div class="navbar-header ">
-                <a class="navbar-brand" href="#">
-                    <img alt="small-spider" width="20" height="20" src="https://cdn.jsdelivr.net/gh/small-rose/small-rose.github.io@master/medias/logo-3.png" />
-                </a>
-             </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li class=""><a href="#">Small Spider</a></li>
-                    <!--<li><a href="#">SVN</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            asp.net
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">asp.net初级</a></li>
-                            <li><a href="#">asp.net初级</a></li>
-                            <li><a href="#">asp.net初级</a></li>
-                        </ul>
-                    </li>-->
-                </ul>
-            </div>
+
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid  ">
+            <div class="container">
+                <div class="navbar-header ">
+                    <a class="navbar-brand" href="#">
+                        <img alt="small-spider" width="24" height="24" src="https://cdn.jsdelivr.net/gh/small-rose/small-rose.github.io@master/medias/logo-3.png" />
+                    </a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class=" "><a class=" title-custom">Small Spider</a></li>
+                        <!--<li><a href="#">SVN</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                asp.net
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">asp.net初级</a></li>
+                                <li><a href="#">asp.net初级</a></li>
+                                <li><a href="#">asp.net初级</a></li>
+                            </ul>
+                        </li>-->
+                    </ul>
+                </div></div>
         </div>
     </nav>
- <hr/>
+    <hr/>
 
     <!--/*@thymesVar id="ruleList" type="java.util.ArrayList"*/-->
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" th:each="rule:${ruleList}">
@@ -119,12 +168,15 @@
                             <td  class="middle">分类分页</td>
                             <td>
                                 <table class=" table">
+                                    <thead>
                                     <tr>
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
                                         <td class="col-sm-2">规则说明</td>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <tr>
                                         <td>分类分页CSS坐标</td>
                                         <td>eleLocation</td>
@@ -145,6 +197,7 @@
                                         </td>
                                         <td>该配置用于抓取分配时，可以排除重复检索，提高抓取效率，默认值如上一页、下一页，可选配置</td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>
@@ -152,12 +205,15 @@
                             <td  class="middle">图组</td>
                             <td>
                                 <table class=" table">
+                                    <thead>
                                     <tr>
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
                                         <td class="col-sm-2">规则说明</td>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <tr>
                                         <td>图组的CSS坐标</td>
                                         <td>eleLocation</td>
@@ -178,6 +234,7 @@
                                         </td>
                                         <td>该配置用于抓取图组时，可以剔除广告链接</td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>
@@ -185,12 +242,15 @@
                             <td  class="middle">图组分页</td>
                             <td>
                                 <table class=" table">
+                                    <thead>
                                     <tr>
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
                                         <td class="col-sm-2">规则说明</td>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <tr>
                                         <td>图组分页的CSS坐标</td>
                                         <td>eleLocation</td>
@@ -211,6 +271,7 @@
                                         </td>
                                         <td>该配置用于抓取图组分页时，可以剔除重复链接，也可以防止抓取时，提取到重复提取邻近图组，默认值有上一组、下一组。前一组。后一组</td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>
@@ -218,12 +279,15 @@
                             <td  class="middle">图片提取</td>
                             <td>
                                 <table class=" table">
+                                    <thead>
                                     <tr>
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
                                         <td class="col-sm-2">规则说明</td>
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     <tr>
                                         <td>图片的CSS坐标</td>
                                         <td>eleLocation</td>
@@ -256,6 +320,7 @@
                                         </td>
                                         <td>该配置用于抓取图组的图片时，可以剔除重复链接，也可以防止抓取广告，可选配置</td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>
