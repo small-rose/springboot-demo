@@ -4,6 +4,7 @@ import cn.xiaocai.demo.spider.data.LinkGroupPageQueue;
 import cn.xiaocai.demo.spider.data.PicData;
 import cn.xiaocai.demo.spider.data.PicLinkQueue;
 import cn.xiaocai.demo.spider.data.UrlData;
+import cn.xiaocai.demo.spider.rules.PicLinkRule;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -63,8 +64,7 @@ public class PicLinkHandler extends BaseHandler{
 
         log.info("imgTags from : " + paramData.getUrl());
         log.info("imgTags rule : " + rule.getEleLocation());
-        log.info("imgTags absHref : " + rule.getImgSrcKey());
-        Elements imgTags = document.select(rule.getEleLocation());
+         Elements imgTags = document.select(rule.getEleLocation());
         log.info("imgTags size : " + imgTags.size());
         PicData picData = null;
         for (Element link : imgTags) {
@@ -72,8 +72,13 @@ public class PicLinkHandler extends BaseHandler{
             if(StringUtils.isEmpty(linkName) || "".equals(linkName.trim())){
                 linkName = link.attr("title");
             }
+            String absHref = "";
+            if (link.hasClass(PicLinkRule.IMG_ATTR_DATA_ORIGINAL)){
+                absHref = link.attr(PicLinkRule.IMG_DATA_ORIGINAL);
+            }else{
+                absHref = link.attr(PicLinkRule.IMG_SRC_NOMARL);
+            }
 
-            String absHref = link.attr(rule.getImgSrcKey());
             log.info("pic Link linkName :"+linkName +" , link = "+absHref);
             String urlFileName = absHref.substring(absHref.lastIndexOf("/")+1,absHref.length()-4);
             //String fileName = linkName.concat(urlFileName);

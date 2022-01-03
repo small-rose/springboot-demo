@@ -22,6 +22,17 @@ public class PicLinkRule extends BaseRule{
 
     private String downLoadPath = "";
 
+    protected String imgSrcKey1 = IMG_SRC_NOMARL   ;
+
+    protected String imgSrcKey2 = IMG_DATA_ORIGINAL  ;
+
+    public final static String IMG_SRC_NOMARL = "abs:src" ;
+
+    public final static String IMG_DATA_ORIGINAL = "abs:data-original" ;
+
+    public final static String IMG_ATTR_DATA_ORIGINAL = "data-original" ;
+
+
     @Override
     protected BaseRule getRules() {
         return this;

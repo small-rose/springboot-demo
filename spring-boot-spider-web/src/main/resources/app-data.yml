@@ -25,7 +25,9 @@ rules:
           - ww
     picLink:
         eleLocation: qqq
-        imgSrcKey: dddd
+        skipKeys:
+          - qq
+          - ww
 
   - id: 2
     door: https://meizitu.cn
@@ -52,4 +54,6 @@ rules:
           - ww
     picLink:
         eleLocation: qqq
-        imgSrcKey: dddd
+        skipKeys:
+          - qq
+          - ww

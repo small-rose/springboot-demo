@@ -23,5 +23,4 @@ public class PicLink {
 
     protected List<String> skipKeys ;
 
-    protected String imgSrcKey = "abs:src"  ;
 }

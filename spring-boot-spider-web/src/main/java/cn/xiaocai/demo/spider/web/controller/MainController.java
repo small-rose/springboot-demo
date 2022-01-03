@@ -31,11 +31,6 @@ public class MainController extends RulesData{
 
     @GetMapping(value = {"/index.html", "/"})
     public String getString(HttpServletRequest request){
-        String name = "Small Spider ";
-        request.setAttribute("name",name);
-
-
-
         request.setAttribute("ruleList", RULELIST);
         return "index";
     }
