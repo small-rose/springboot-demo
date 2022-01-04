@@ -1,5 +1,6 @@
 package cn.xiaocai.demo.spider.web.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.util.List;
@@ -18,14 +19,17 @@ public class Category  {
     /**
      * 元素定位规则
      */
+    @JSONField(ordinal = 1)
     protected String eleLocation ;
     /**
      * 指定分类
      */
+    @JSONField(ordinal = 2)
     protected String categoryName ;
     /**
      * 定义跳过规则
      */
+    @JSONField(ordinal = 3)
     protected List<String> skipKeys ;
 
     /**
