@@ -24,17 +24,17 @@ public class UpdateApplication {
             "    </HEAD>\n" +
             "    <BODY>\n" +
             "        <BASE>\n" +
-            "            <PAY_APP_NO>210102182184</PAY_APP_NO>\n" +
-            "            <PAYWAY></PAYWAY>\n" +
-            "            <DIRECT_ORDERBANKCODE>YEEPAY</DIRECT_ORDERBANKCODE>\n" +
+            "            <PAY_APP_NO>220530000499</PAY_APP_NO>\n" +
+            "            <PAYWAY>06</PAYWAY>\n" +
+            "            <DIRECT_ORDERBANKCODE></DIRECT_ORDERBANKCODE>\n" +
             "        </BASE>\n" +
             "    </BODY>\n" +
             "</PACKET>";
 
     public static void main(String[] args) {
         //String url = "http://192.168.120.21:9090/bp-paystation/ApplicationsServlet";
-//        String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
-        String url = "http://192.168.50.254:9090/bp-paystation/ApplicationsServlet";
+        String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
+//        String url = "http://192.168.50.254:9090/bp-paystation/ApplicationsServlet";
 
         // 调收付 接口
         Map<String, String> params = new HashMap<>(2);
