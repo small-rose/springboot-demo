@@ -38,7 +38,7 @@ public class PostApplication_SH {
             "        <PAYWAY>07</PAYWAY>   <!--支付方式-->\n" +
             "        <CHECKNO><![CDATA[]]></CHECKNO> <!--支票号-->\n" +
             "        <CHECKSERRAL></CHECKSERRAL> <!--支票流水号-->\n" +
-            "        <POLICYSTARTDATE>20211130000000</POLICYSTARTDATE>   <!--过期时间（起保时间）-->\n" +
+            "        <POLICYSTARTDATE>20220101100000</POLICYSTARTDATE>   <!--过期时间（起保时间）-->\n" +
             "        <SUBCOMPANY>31</SUBCOMPANY>    <!--分公司代码-->\n" +
             "        <CURRENCYTYPE>CNY</CURRENCYTYPE>    <!--币种-->\n" +
             "        <PARANORMALDAY></PARANORMALDAY>\n" +
@@ -175,6 +175,8 @@ public class PostApplication_SH {
         String url = "http://192.168.50.254:9090/bp-paystation/ApplicationsServlet";
 
 //        String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
+//        String url = "https://payprod.e-acic.com/bp-paystation/ApplicationsServlet";
+
         // 调收付 接口
         Map<String, String> params = new HashMap<>(2);
         params.put("param1", "postApplication");
