@@ -48,7 +48,6 @@ public class FulituCc extends BaseWebRule {
         setLinkGroupPageRule(linkPageRule);
 
         PicLinkRule picLinkRule = new PicLinkRule();
-        picLinkRule.setImgSrcKey(BaseRule.IMG_DATA_ORIGINAL);
         picLinkRule.setEleLocation("div#masonry  div.post-item img");
         setPicLinkRule(picLinkRule);
 

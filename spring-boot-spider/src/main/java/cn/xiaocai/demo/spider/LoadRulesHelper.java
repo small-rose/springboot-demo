@@ -7,10 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -136,5 +133,89 @@ public class LoadRulesHelper {
         log.info("---------load over----------");
 
 
+    }
+
+    public static void saveYml() throws FileNotFoundException {
+        Yaml yaml = new Yaml();
+
+         String testPath = "D:\\dev-tools-JetBrains\\idea-work\\springboot-demo\\spring-boot-spider\\config\\rules1.yml";
+        try {
+            //testPath = "config/rules.properties";
+
+            FileWriter dumpFile  = new FileWriter(testPath);
+
+            List ruleList = new ArrayList<>();
+            TemplateRule templateRule = null ;
+            CategoryRule categoryRule= null ;
+            CategoryPageRule categoryPageRule= null ;
+            LinkGroupRule linkGroupRule= null ;
+            LinkGroupPageRule linkGroupPageRule= null ;
+            PicLinkRule picLinkRule= null ;
+            for (int i =1 ;i<2;  i++){
+
+                String door = "door 0001" +i;
+
+
+                templateRule = new TemplateRule(door);
+                categoryRule = new CategoryRule();
+                ;
+                categoryRule.setEleLocation("cagete#cat" +i);
+                List<String> ckeys =  Arrays.asList("ck1","ck2");
+                categoryRule.setSkipKeys(ckeys);
+
+
+                String categoryName = "JK";
+                if (StringUtils.hasText(categoryName)) {
+                    templateRule.setCategoryKeys(categoryName);
+                }
+                templateRule.setCategoryRule(categoryRule);
+
+                categoryPageRule = new CategoryPageRule();
+                categoryPageRule.setEleLocation("cagete#pageList" +i);
+                List<String> cpkeys = Arrays.asList("1","2");
+                categoryPageRule.setSkipKeys(cpkeys);
+                templateRule.setCategoryPageRule(categoryPageRule);
+
+                linkGroupRule = new LinkGroupRule();
+                linkGroupRule.setEleLocation("link#link");
+                List<String> lkeys = Arrays.asList("l1","l2");;
+                linkGroupRule.setSkipKeys(lkeys);
+                templateRule.setCategoryRule(categoryRule);
+
+
+                linkGroupPageRule = new LinkGroupPageRule();
+                linkGroupPageRule.setEleLocation("eleLocation"+i);
+                List<String> lgkeys =  Arrays.asList("1111","2222");
+                linkGroupPageRule.setSkipKeys(lgkeys);
+                templateRule.setLinkGroupPageRule(linkGroupPageRule);
+
+                picLinkRule = new PicLinkRule();
+                picLinkRule.setEleLocation("mian.img " +i);
+                picLinkRule.setImgSrcKey("abs:src");
+                templateRule.setPicLinkRule(picLinkRule);
+
+                rules.add(templateRule);
+
+            }
+
+
+            yaml.dump(rules, dumpFile);
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+            log.info("找不到配置文件！");
+            throw new FileNotFoundException("找不到配置文件！");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        log.info("---------load over----------");
+
+        /*
+        <dependency>
+            <groupId>org.jyaml</groupId>
+            <artifactId>jyaml</artifactId>
+            <version>1.3</version>
+        </dependency>
+         */
     }
 }

@@ -1,54 +1,59 @@
-data:
-  rules:
-    - id: 1
-      door: https://zhangxiaocai.cn
-      category:
+#data:
+rules:
+  - id: 1
+    door: https://zhangxiaocai.cn
+    category:
+        eleLocation: 121
+        categoryName: test+TEST2
+        skipKeys:
+          - active
+          - MAVEN_BATCH_ECHO
+    categoryPages:
+        eleLocation: 123456
+        skipKeys:
+          - 123456
+          - 333456
+    linkGroup:
+        eleLocation: db_async
+        skipKeys:
+          - xx
+          - zz
+    linkGroupPages:
+        eleLocation: 243242
+        skipKeys:
+          - qq
+          - ww
+    picLink:
+        eleLocation: qqq
+        skipKeys:
+          - qq
+          - ww
+
+  - id: 2
+    door: https://meizitu.cn
+    category:
         eleLocation: 121
         categoryName: test
         skipKeys:
           - active
           - MAVEN_BATCH_ECHO
-      categoryPages:
+    categoryPages:
         eleLocation: 123456
         skipKeys:
           - 123456
           - 333456
-      link-group:
+    linkGroup:
         eleLocation: db_async
         skipKeys:
           - xx
           - zz
-      link-group-pages:
+    linkGroupPages:
         eleLocation: 243242
         skipKeys:
           - qq
           - ww
-      pic-link:
+    picLink:
         eleLocation: qqq
-        img-src-key: dddd
-    - id: 2
-      door: https://zhangxiaocai.cn
-      category:
-        eleLocation: 121
-        categoryName: test
-        skipKeys:
-          - active
-          - MAVEN_BATCH_ECHO
-      categoryPages:
-        eleLocation: 123456
-        skipKeys:
-          - 123456
-          - 333456
-      link-group:
-        eleLocation: db_async
-        skipKeys:
-          - xx
-          - zz
-      link-group-pages:
-        eleLocation: 243242
         skipKeys:
           - qq
           - ww
-      pic-link:
-        eleLocation: qqq
-        img-src-key: dddd

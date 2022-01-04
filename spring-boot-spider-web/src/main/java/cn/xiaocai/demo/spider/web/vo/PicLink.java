@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : zhangxiaocai
  * @Description : [ PicLink ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/31 23:46
@@ -14,10 +14,13 @@ import java.util.List;
  **/
 
 @Data
-public class PicLink extends CommonRule{
+public class PicLink {
+
+    /**
+     * 图片的css定位
+     */
     protected String eleLocation ;
 
     protected List<String> skipKeys ;
 
-    protected String imgSrcKey = "abs:src"  ;
 }

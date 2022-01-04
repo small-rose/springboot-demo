@@ -29,7 +29,8 @@ public abstract class BaseRule {
 
     protected String linkHrefKey = "abs:href"  ;
 
-    protected String imgSrcKey = "abs:src"  ;
+
+    public final static String NO_ELEMENT_LOCATION = ".abcdefghijklmn" ;
     /**
      * 元素后缀规则
      */
@@ -39,8 +40,7 @@ public abstract class BaseRule {
     protected abstract BaseRule getRules();
 
 
-    public final static String IMG_DATA_ORIGINAL = "abs:data-original" ;
-    public final static String NO_ELEMENT_LOCATION = ".abcdefghijklmn" ;
+
 
 
 

@@ -4,11 +4,14 @@ import cn.xiaocai.demo.spider.web.vo.Category;
 import cn.xiaocai.demo.spider.web.vo.Rules;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
+import org.yaml.snakeyaml.Yaml;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -24,20 +27,22 @@ import java.util.List;
 //@Configuration
 //@PropertySource("classpath:app-data.yml")
 @Component
-@ConfigurationProperties(prefix = "data")
 public class InnerDataConfig {
 
-    @Value("${category}")
-    private Category category ;
+     private Category category ;
 
-    @Value("${rules}")
-    private List<Rules> ruleList ;
+     private List<Rules> ruleList ;
 
 
     @PostConstruct
-    public void init(){
+    public void init() throws FileNotFoundException {
 
+        File visitor = ResourceUtils.getFile("classpath:app-data.yml");
+        Yaml yaml = new Yaml();
+        RuleConfig ruleConfig = yaml.loadAs(new FileInputStream(visitor), RuleConfig.class);
+        ruleList = ruleConfig.getRules();
 
+        log.info("ruleConfig :" + ruleConfig);
         log.info("Initialized : "+ category);
         log.info("Initialized : "+ ruleList);
     }

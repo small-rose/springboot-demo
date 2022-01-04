@@ -2,34 +2,631 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Small Spider</title>
     <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
     <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
-</head>
-<body>
-<h1>name</h1>
-<div class="container">
-<div class="topbar">
-    <div class="wrapper">
-        <div class="topbar-wrapper"><a href="#" class="link">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAYFBMVEUAAABUfwBUfwBUfwBUfwBUfwBUfwBUfwBUfwBUfwBUfwBUfwBUfwBUfwBUfwB0lzB/n0BfhxBpjyC0x4////+qv4CJp1D09++ft3C/z5/K16/U379UfwDf58/q79+Ur2D2RCk9AAAAHXRSTlMAEEAwn9//z3Agv4/vYID/////////////////UMeji1kAAAD8SURBVHgBlZMFAoQwDATRxbXB7f+vPKnlXAZn6k2cf3A9z/PfOC8IIYni5FmmABM8FMhwT17c9hnhiZL1CwvEL1tmPD0qSKq6gaStW/kMXanVmAVRDUlH1OvuuTINo6k90Sxf8qsOtF6g4ff1osP3OnMcV7d4pzdIUtu1oA4V0DZoKmxmlEYvtDUjjS3tmKmqB+pYy8pD1VPf7jPE0I40HHcaBwnue6fGzgyS5tXIU96PV7rkDWHNLV0DK4FkoKmFpN5oUnvi8KoeA2/JXsmXQuokx0siR1G8tLkN6eB9sLwJp/yymcyaP/TrP+RPmbMMixcJVgTR1aUZ93oGXsgXQAaG6EwAAAAASUVORK5CYII=" alt="Swagger UI" width="30" height="30"><span>swagger</span></a><form class="download-url-wrapper"><label class="select-label" for="select"><span>Select a spec</span><select id="select" style="background-color: rgb(204, 232, 207);"><option value="https://plytst.e-acic.com/bp-paystation/v2/api-docs">default</option></select></label></form></div></div></div>
 
-<table border="1">
-    <tr>
-        <td>ID</td>
-        <td>网站</td>
-        <td>规则</td>
-    </tr>
+</head>
+<style>
+    .table th, .table td {
+        vertical-align: middle!important;
+    }
+    .table th, .table td.middle {
+        text-align: left;
+        vertical-align: middle!important;
+    }
+
+
+    .navbar-custom {
+        background-color: rgba(104, 216, 227, 0.97);
+    }
+    /* 自定义brand和文字颜色 */
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+        color: rgba(255,255,255,.8);
+    }
+    /* 自定义链接颜色 */
+    .navbar-custom .navbar-nav .nav-link {
+        color: rgba(255,255,255,.5);
+    }
+    /* 自定义激活或者悬停的链接颜色 */
+    .navbar-custom .nav-item.active .nav-link,
+    .navbar-custom .nav-item:hover .nav-link {
+        color: #ffffff;
+        background-color:#dff0d8
+    }
+
+    .title-custom{
+        color-adjust: economy;
+        font-size: medium;
+    }
+    .title-custom:hover{
+
+    }
+    .btn-info-custom {
+        /*color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;*/
+        color: #fff;
+        background-color: #31b0d5;
+        border-color: #269abc;
+    }
+
+   .btn-info-custom:hover {
+        color: #fff;
+        background-color: #31b0d5;
+        border-color: #269abc;
+    }
+
+    .panel-group {
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+<script type="text/javascript">
+
+    function getTemplate(index) {
+        var newWeb = '<div class="panel panel-default panel-success newTabs" >\n' +
+            '            <div class="panel-heading bg-success" role="tab" id="headingNew"'+index +' >\n' +
+            '                <h4 class="panel-title">\n' +
+            '                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNew'+index +'" aria-expanded="true" aria-controls="collapseOne">\n' +
+            '                        <div> 开始新站配置 </div>\n' +
+            '                    </a>\n' +
+            '                    \n' +
+            '                </h4>\n' +
+            '            </div>\n' +
+            '            <!-- .collapse in show the content-->\n' +
+            '            <div id="collapseNew'+index +'"  class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">\n' +
+            '                <div class="panel-body panel-info">\n' +
+            '                    <!--<button> 抓取 </button>-->\n' +
+            '                    <table class=" table">\n' +
+            '                        <tr>\n' +
+            '                            <td class="col-sm-2">规则 定义</td>\n' +
+            '                            <td class="col-sm-10">\n' +
+            '                                 <table class=" table">\n' +
+            '                                    <thead>\n' +
+            '                                    <tr>\n' +
+            '                                        <td class="col-sm-2">主站地址</td>\n' +
+            '                                        <td class="col-sm-2">door</td>\n' +
+            '                                        <td class="col-sm-4"><input type="text"  class="col-sm-4  form-control" id="door'+index +'" name="door'+index +'" value=" "></td>\n' +
+            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </thead>\n' +
+            '                                 </table>\n' +
+            '                            </td>\n' +
+            '                        </tr>\n' +
+            '                        <tr>\n' +
+            '                            <td class="middle">分类</td>\n' +
+            '                            <td>\n' +
+            '                                <table class=" table">\n' +
+            '                                    <thead>\n' +
+            '                                    <tr>\n' +
+            '                                        <td class="col-sm-2">规则</td>\n' +
+            '                                        <td class="col-sm-2">key</td>\n' +
+            '                                        <td class="col-sm-4">值</td>\n' +
+            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </thead>\n' +
+            '                                    <tbody>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>分类CSS坐标</td>\n' +
+            '                                        <td>eleLocation</td>\n' +
+            '                                        <td>\n' +
+            '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.Category"*/-->\n' +
+            '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryEleLocation'+index +'" name="categoryEleLocation'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                    </tr>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>指定分类</td>\n' +
+            '                                        <td>categoryName</td>\n' +
+            '                                        <td>\n' +
+            '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.Category"*/-->\n' +
+            '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryName'+index +'"  name="categoryName'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>抓取指定分类，多个使用+号连接</td>\n' +
+            '                                    </tr>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>跳过关键字</td>\n' +
+            '                                        <td>categorykeys</td>\n' +
+            '                                        <td>\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categorySkipKeys'+index +'" name="categorySkipKeys'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>该配置用于抓取分配时，可以排除所有分类或者广告、登录字样、也可用于排除不需要的分配</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </tbody>\n' +
+            '                                </table>\n' +
+            '                            </td>\n' +
+            '                        </tr>\n' +
+            '                        <tr>\n' +
+            '                            <td  class="middle">分类分页</td>\n' +
+            '                            <td>\n' +
+            '                                <table class=" table">\n' +
+            '                                    <thead>\n' +
+            '                                    <tr>\n' +
+            '                                        <td class="col-sm-2">规则</td>\n' +
+            '                                        <td class="col-sm-2">key</td>\n' +
+            '                                        <td class="col-sm-4">值</td>\n' +
+            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </thead>\n' +
+            '                                    <tbody>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>分类分页CSS坐标</td>\n' +
+            '                                        <td>eleLocation</td>\n' +
+            '                                        <td>\n' +
+            '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.CategoryPages"*/-->\n' +
+            '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryPagesEleLocation'+index +'" name="categoryPagesEleLocation'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                    </tr>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>跳过关键字</td>\n' +
+            '                                        <td>categorykeys</td>\n' +
+            '                                        <td>\n' +
+            '                                            <input type="text" class="col-sm-4  form-control" id="categoryPagesSkipKeys'+index +'"  name="categoryPagesSkipKeys'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>该配置用于抓取分配时，可以排除重复检索，提高抓取效率，默认值如上一页、下一页，可选配置</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </tbody>\n' +
+            '                                </table>\n' +
+            '                            </td>\n' +
+            '                        </tr>\n' +
+            '                        <tr>\n' +
+            '                            <td  class="middle">图组</td>\n' +
+            '                            <td>\n' +
+            '                                <table class=" table">\n' +
+            '                                    <thead>\n' +
+            '                                    <tr>\n' +
+            '                                        <td class="col-sm-2">规则</td>\n' +
+            '                                        <td class="col-sm-2">key</td>\n' +
+            '                                        <td class="col-sm-4">值</td>\n' +
+            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </thead>\n' +
+            '                                    <tbody>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>图组的CSS坐标</td>\n' +
+            '                                        <td>eleLocation</td>\n' +
+            '                                        <td>\n' +
+            '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroup"*/-->\n' +
+            '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupEleLocation'+index +'" name="linkGroupEleLocation'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                    </tr>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>跳过关键字</td>\n' +
+            '                                        <td>skipKeys</td>\n' +
+            '                                        <td>\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupSkipKeys'+index +'" name="linkGroupSkipKeys'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>该配置用于抓取图组时，可以剔除广告链接</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </tbody>\n' +
+            '                                </table>\n' +
+            '                            </td>\n' +
+            '                        </tr>\n' +
+            '                        <tr>\n' +
+            '                            <td  class="middle">图组分页</td>\n' +
+            '                            <td>\n' +
+            '                                <table class=" table">\n' +
+            '                                    <thead>\n' +
+            '                                    <tr>\n' +
+            '                                        <td class="col-sm-2">规则</td>\n' +
+            '                                        <td class="col-sm-2">key</td>\n' +
+            '                                        <td class="col-sm-4">值</td>\n' +
+            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </thead>\n' +
+            '                                    <tbody>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>图组分页的CSS坐标</td>\n' +
+            '                                        <td>eleLocation</td>\n' +
+            '                                        <td>\n' +
+            '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroupPages"*/-->\n' +
+            '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupPagesEleLocation'+index +'" name="linkGroupPagesEleLocation'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>抓取图组分页的css坐标</td>\n' +
+            '                                    </tr>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>跳过关键字</td>\n' +
+            '                                        <td>skipKeys</td>\n' +
+            '                                        <td>\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupPagesSkipKeys'+index +'" name="linkGroupPagesSkipKeys'+index +'" value=" ">\n' +
+            '                                        </td>\n' +
+            '                                        <td>该配置用于抓取图组分页时，可以剔除重复链接，也可以防止抓取时，提取到重复提取邻近图组，默认值有上一组、下一组。前一组。后一组</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </tbody>\n' +
+            '                                </table>\n' +
+            '                            </td>\n' +
+            '                        </tr>\n' +
+            '                        <tr>\n' +
+            '                            <td  class="middle">图片提取</td>\n' +
+            '                            <td>\n' +
+            '                                <table class=" table">\n' +
+            '                                    <thead>\n' +
+            '                                    <tr>\n' +
+            '                                        <td class="col-sm-2">规则</td>\n' +
+            '                                        <td class="col-sm-2">key</td>\n' +
+            '                                        <td class="col-sm-4">值</td>\n' +
+            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </thead>\n' +
+            '                                    <tbody>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>图片的CSS坐标</td>\n' +
+            '                                        <td>eleLocation</td>\n' +
+            '                                        <td>\n' +
+            '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.PicLink"*/-->\n' +
+            '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="picLinkEleLocation'+index +'" name="picLinkEleLocation'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                    </tr>\n' +
+            '                                    <tr>\n' +
+            '                                        <td>跳过关键字</td>\n' +
+            '                                        <td>skipKeys</td>\n' +
+            '                                        <td>\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="picLinkSkipKeys'+index +'" name="picLinkSkipKeys'+index +'" value="">\n' +
+            '                                        </td>\n' +
+            '                                        <td>该配置用于抓取图组的图片时，可以剔除重复链接，也可以防止抓取广告，可选配置</td>\n' +
+            '                                    </tr>\n' +
+            '                                    </tbody>\n' +
+            '                                </table>\n' +
+            '                            </td>\n' +
+            '                        </tr>\n' +
+            '                    </table>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '        </div>';
+        return newWeb;
+    }
+
+
+    $(function(){
+
+        $("#refresh").click(function(){
+            location.reload();
+        });
+
+        var index = 1 ;
+        $("#addNew").click(function(){
+            if (index > 1){
+                alert("别贪心一个个的配置吧！");
+                return false ;
+            }
+            $("#accordion").append(getTemplate(index));
+            index++;
+        });
+
+        $("#saveNew").click(function () {
+             //取配置数据
+            var door = $("#door"+index).val();
+            var categoryEleLocation = $("#categoryEleLocation"+index).val();
+            var categoryName = $("#categoryName"+index).val();
+            var categorySkipKeys = $("#categorySkipKeys"+index).val();
+            var categoryPagesEleLocation = $("#categoryPagesEleLocation"+index).val();
+            var categoryPagesSkipKeys = $("#categoryPagesSkipKeys"+index).val();
+            var linkGroupEleLocation = $("#linkGroupEleLocation"+index).val();
+            var linkGroupSkipKeys = $("#linkGroupSkipKeys"+index).val();
+            var linkGroupPagesEleLocation = $("#linkGroupPagesEleLocation"+index).val();
+            var linkGroupPagesSkipKeys = $("#linkGroupPagesSkipKeys"+index).val();
+            var picLinkEleLocation = $("#picLinkEleLocation"+index).val();
+            var picLinkSkipKeys = $("#picLinkSkipKeys"+index).val();
+            var data = "{'door':door, 'category':{'eleLocation':'"+categoryEleLocation+"}}";
+            $.ajax({
+                type: 'POST',
+                url: "/rule/add",
+                dataType:"json",
+                data: data,
+                success:function(data){
+                    if(data.code==200){
+                        alert(data.msg);
+                    }else{
+                        alert(data.msg);
+                    }
+                },
+                error:function(jqXHR){
+                    console.log("Error: "+jqXHR.status);
+                }
+
+            });
+        });
+    });
+</script>
+<div class="container">
+
+    <nav class="navbar bg-success">
+        <div class="container-fluid  bg-success">
+            <div class="container">
+                <div class="navbar-header bg-success">
+                    <a class="navbar-brand" href="#">
+                        <img alt="small-spider" width="24" height="24" src="https://cdn.jsdelivr.net/gh/small-rose/small-rose.github.io@master/medias/logo-3.png" />
+                    </a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class=" "><a class=" title-custom">Small Spider</a></li>
+                    </ul>
+                </div></div>
+        </div>
+    </nav>
+    <hr/>
+
     <!--/*@thymesVar id="ruleList" type="java.util.ArrayList"*/-->
-    <tr th:each="reule:${ruleList}">
-        <!--/*@thymesVar id="id" type="java.lang.String"*/-->
-        <td th:text="${reule.id}"></td>
-        <!--/*@thymesVar id="door" type="java.lang.String"*/-->
-        <td th:text="${reule.door}"></td>
-        <td> 规则</td>
-    </tr>
-</table>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" >
+        <div class="panel panel-default panel-success" th:each="rule:${ruleList}">
+            <div class="panel-heading bg-success" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#collapseOne'+ ${rule.id}" aria-expanded="true" aria-controls="collapseOne">
+                        <span th:text="${rule.door}"></span>
+                    </a>
+
+                </h4>
+            </div>
+            <!-- .collapse in show the content-->
+            <div id="collapseOne" th:id="'collapseOne'+ ${rule.id}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body panel-info">
+                    <!--<button> 抓取 </button>-->
+
+                    <table class=" table">
+                        <tr>
+                            <td class="col-sm-2">规则 定义</td>
+                            <td class="col-sm-10">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-danger">终止抓取</button>
+                                    <button type="button" class="btn btn-primary"> 开始抓取</button>
+
+                                    <div class="btn-group" role="group">
+
+                                        <select class="form-control btn-warning">
+                                            <option value="1">刷新频率 1s</option>
+                                            <option value="2">刷新频率 2s</option>
+                                            <option value="3">刷新频率 3s</option>
+                                            <option value="4">刷新频率 4s</option>
+                                            <option value="5">刷新频率 5s</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="middle">分类</td>
+                            <td>
+                                <table class=" table">
+                                    <thead>
+                                    <tr>
+                                        <td class="col-sm-2">规则</td>
+                                        <td class="col-sm-2">key</td>
+                                        <td class="col-sm-4">值</td>
+                                        <td class="col-sm-2">规则说明</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>分类CSS坐标</td>
+                                        <td>eleLocation</td>
+                                        <td>
+                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.Category"*/-->
+                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
+                                            <input type="text"  class="col-sm-4  form-control" name="categoryEleLocation" th:value="${rule.category.eleLocation}">
+                                        </td>
+                                        <td>抓取分类的坐标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>指定分类</td>
+                                        <td>categoryName</td>
+                                        <td>
+                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.Category"*/-->
+                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
+                                            <input type="text"  class="col-sm-4  form-control"  name="categoryName" th:value="${rule.category.categoryName}">
+                                        </td>
+                                        <td>抓取指定分类，多个使用+号连接</td>
+                                    </tr>
+                                    <tr>
+                                        <td>跳过关键字</td>
+                                        <td>categorykeys</td>
+                                        <td>
+                                            <input type="text"  class="col-sm-4  form-control" name="categorySkipKeys" th:value="${rule.category.skipKeys}">
+                                        </td>
+                                        <td>该配置用于抓取分配时，可以排除所有分类或者广告、登录字样、也可用于排除不需要的分配</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td  class="middle">分类分页</td>
+                            <td>
+                                <table class=" table">
+                                    <thead>
+                                    <tr>
+                                        <td class="col-sm-2">规则</td>
+                                        <td class="col-sm-2">key</td>
+                                        <td class="col-sm-4">值</td>
+                                        <td class="col-sm-2">规则说明</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>分类分页CSS坐标</td>
+                                        <td>eleLocation</td>
+                                        <td>
+                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.CategoryPages"*/-->
+                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
+                                            <input type="text"  class="col-sm-4  form-control" name="CategoryPagesEleLocation" th:value="${rule.CategoryPages.eleLocation}">
+                                        </td>
+                                        <td>抓取分类的坐标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>跳过关键字</td>
+                                        <td>categorykeys</td>
+                                        <td>
+                                            <input type="text" class="col-sm-4  form-control"  name="CategoryPagesSkipKeys" th:value="${rule.CategoryPages.skipKeys}">
+                                        </td>
+                                        <td>该配置用于抓取分配时，可以排除重复检索，提高抓取效率，默认值如上一页、下一页，可选配置</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  class="middle">图组</td>
+                            <td>
+                                <table class=" table">
+                                    <thead>
+                                    <tr>
+                                        <td class="col-sm-2">规则</td>
+                                        <td class="col-sm-2">key</td>
+                                        <td class="col-sm-4">值</td>
+                                        <td class="col-sm-2">规则说明</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>图组的CSS坐标</td>
+                                        <td>eleLocation</td>
+                                        <td>
+                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroup"*/-->
+                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
+                                            <input type="text"  class="col-sm-4  form-control" name="linkGroupEleLocation" th:value="${rule.linkGroup.eleLocation}">
+                                        </td>
+                                        <td>抓取分类的坐标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>跳过关键字</td>
+                                        <td>skipKeys</td>
+                                        <td>
+                                            <input type="text"  class="col-sm-4  form-control" name="linkGroupSkipKeys" th:value="${rule.linkGroup.skipKeys}">
+                                        </td>
+                                        <td>该配置用于抓取图组时，可以剔除广告链接</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  class="middle">图组分页</td>
+                            <td>
+                                <table class=" table">
+                                    <thead>
+                                    <tr>
+                                        <td class="col-sm-2">规则</td>
+                                        <td class="col-sm-2">key</td>
+                                        <td class="col-sm-4">值</td>
+                                        <td class="col-sm-2">规则说明</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>图组分页的CSS坐标</td>
+                                        <td>eleLocation</td>
+                                        <td>
+                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroupPages"*/-->
+                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
+
+                                            <input type="text"  class="col-sm-4  form-control" name="linkGroupPagesEleLocation" th:value="${rule.linkGroupPages.eleLocation}">
+
+                                        </td>
+                                        <td>抓取图组分页的css坐标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>跳过关键字</td>
+                                        <td>skipKeys</td>
+                                        <td>
+                                            <input type="text"  class="col-sm-4  form-control" name="linkGroupSkipKeys" th:value="${rule.linkGroupPages.skipKeys}">
+                                        </td>
+                                        <td>该配置用于抓取图组分页时，可以剔除重复链接，也可以防止抓取时，提取到重复提取邻近图组，默认值有上一组、下一组。前一组。后一组</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  class="middle">图片提取</td>
+                            <td>
+                                <table class=" table">
+                                    <thead>
+                                    <tr>
+                                        <td class="col-sm-2">规则</td>
+                                        <td class="col-sm-2">key</td>
+                                        <td class="col-sm-4">值</td>
+                                        <td class="col-sm-2">规则说明</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>图片的CSS坐标</td>
+                                        <td>eleLocation</td>
+                                        <td>
+                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.PicLink"*/-->
+                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
+
+                                            <input type="text"  class="col-sm-4  form-control" name="picLinkEleLocation" th:value="${rule.picLink.eleLocation}">
+
+                                        </td>
+                                        <td>抓取分类的坐标</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>跳过关键字</td>
+                                        <td>skipKeys</td>
+                                        <td>
+                                            <input type="text"  class="col-sm-4  form-control" name="picLinkSkipKeys" th:value="${rule.picLink.skipKeys}">
+                                        </td>
+                                        <td>该配置用于抓取图组的图片时，可以剔除重复链接，也可以防止抓取广告，可选配置</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+       <!-- <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Collapsible Group Item #2
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Collapsible Group Item #3
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>-->
+    </div>
+    <div class="btn-group" role="group" aria-label=" ">
+        <button type="button" class="btn btn-info" id="refresh">刷新</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" id="addNew">添加新站</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-success" id="saveNew">保存新站</button>
+    </div>
+
+
 </div>
 </body>
 </html>

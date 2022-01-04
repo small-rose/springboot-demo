@@ -13,15 +13,13 @@ import java.util.List;
  * @Version ： 1.0
  **/
 @Data
-public class CategoryPages extends CommonRule{
+public class CategoryPages {
 
     protected String eleLocation ;
 
     protected List<String> skipKeys ;
 
-
     protected String linkHrefKey = "abs:href"  ;
 
-    protected String imgSrcKey = "abs:src"  ;
 
 }
