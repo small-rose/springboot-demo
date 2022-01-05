@@ -18,7 +18,7 @@ public class QueryApplication {
     public static String requestMessage = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<PACKET TYPE=\"REQUEST\" >\n" +
             "<HEAD>\n" +
-            "<TRAN_CODE>0</TRAN_CODE>\n" +
+            "<TRAN_CODE>B0</TRAN_CODE>\n" +
             "\n" +
             "\t\t<USER>\n" +
             "\t\t\t<![CDATA[Hx05]]>\n" +
@@ -36,8 +36,8 @@ public class QueryApplication {
 
     public static void main(String[] args) {
         //String url = "http://192.168.120.21:9090/bp-paystation/ApplicationsServlet";
-        String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
-        //String url = "http://192.168.50.254:9090/bp-paystation/ApplicationsServlet";
+//        String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
+        String url = "http://192.168.50.254:9090/bp-paystation/ApplicationsServlet";
 
         // 调收付 接口
         Map<String, String> params = new HashMap<>(2);
