@@ -35,7 +35,7 @@ import java.util.*;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ HttpClientUtils ] 说明：无
  * @Function :  功能说明： HttpClient 封装 https  请求  和 http 请求
  * @Date ：2021/10/23 10:17

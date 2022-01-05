@@ -7,7 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ EchoServerHandler ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/8/1 9:22

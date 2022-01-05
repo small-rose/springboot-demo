@@ -10,7 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ EchoServer ] 说明：Echo服务端
  * @Function :  功能说明：无
  * @Date ：2021/8/1 9:28

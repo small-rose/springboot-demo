@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @Project : bp-paystation
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ AesUtil ] 说明：不是自己创建的类，是安诚承保系统提供
  * @Function :  功能说明：承保对接时，文档中提供的加密相关的文件
  * @Date ：2021/9/22 14:17

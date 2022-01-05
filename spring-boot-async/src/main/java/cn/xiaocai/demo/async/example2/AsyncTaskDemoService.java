@@ -12,7 +12,7 @@ import java.util.concurrent.Future;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ AsyncTaskDemoService ] 说明：使用线程池对象，来开启异步任务
  * @Function :  功能说明： 使用线程池对象，来开启异步任务
  * @Date ：2021/12/20 14:12

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ CategoryThread ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/27 14:37

@@ -2,7 +2,7 @@ package cn.xiaocai.demo.jsoup.mutisprider.handlers;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ BaseHandler ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/27 14:21

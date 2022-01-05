@@ -14,7 +14,7 @@ import java.util.Random;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ AlipayAuthController ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/11/12 13:57

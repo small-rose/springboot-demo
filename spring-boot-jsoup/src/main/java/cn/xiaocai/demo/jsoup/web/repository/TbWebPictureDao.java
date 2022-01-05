@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ TbWebPictureDao ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/24 9:33

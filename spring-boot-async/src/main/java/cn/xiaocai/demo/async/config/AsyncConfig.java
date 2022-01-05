@@ -7,7 +7,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ AsyncConfig ] 说明：  线程池的配置
  * @Function :  功能说明：  配置好后，@Async会默认从线程池获取线程，当然也可以显式的指定@Async("asyncTaskExecutor")
  * @Date ：2021/12/20 13:40

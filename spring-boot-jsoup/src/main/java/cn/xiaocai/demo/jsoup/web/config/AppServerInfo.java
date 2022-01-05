@@ -14,7 +14,7 @@ import java.net.InetAddress;
 
 /**
  * @Project : bp-paystation
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ AppServerInfo ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/7/29 16:24

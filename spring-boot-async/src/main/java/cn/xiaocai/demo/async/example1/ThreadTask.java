@@ -2,7 +2,7 @@ package cn.xiaocai.demo.async.example1;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ ThreadTask ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/20 13:32

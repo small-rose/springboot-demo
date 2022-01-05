@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ MyBean ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/9/22 14:46

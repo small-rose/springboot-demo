@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @Project : bp-paystation
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ PayBackToCBResponse ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/9/22 15:15

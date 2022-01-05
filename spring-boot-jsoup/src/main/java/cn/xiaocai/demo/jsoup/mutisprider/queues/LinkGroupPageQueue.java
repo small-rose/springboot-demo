@@ -9,7 +9,7 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  * @Project : springboot-demo
- * @Author : zhangzongyuan
+ * @Author : small-rose/zhangxiaocai
  * @Description : [ CategoryQueue ] 说明：无
  * @Function :  功能说明：无
  * @Date ：2021/12/27 14:29
