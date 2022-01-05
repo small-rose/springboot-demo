@@ -30,7 +30,7 @@ rules:
           - ww
 
   - id: 2
-    door: https://meizitu.cn
+    door: https://justtest.example.cn
     category:
         eleLocation: 121
         categoryName: test

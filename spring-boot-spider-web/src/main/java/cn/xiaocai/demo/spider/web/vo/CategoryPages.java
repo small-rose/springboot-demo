@@ -1,5 +1,6 @@
 package cn.xiaocai.demo.spider.web.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.util.List;
@@ -15,11 +16,10 @@ import java.util.List;
 @Data
 public class CategoryPages {
 
+    @JSONField(ordinal = 1)
     protected String eleLocation ;
 
+    @JSONField(ordinal = 2)
     protected List<String> skipKeys ;
-
-    protected String linkHrefKey = "abs:href"  ;
-
 
 }

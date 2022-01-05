@@ -1,7 +1,9 @@
 package cn.xiaocai.demo.spider.web.controller;
 
+import cn.xiaocai.demo.spider.web.service.RuleService;
 import cn.xiaocai.demo.spider.web.vo.Rules;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +25,18 @@ import java.util.Map;
 @RequestMapping("/rule")
 public class RuleController extends RulesData{
 
+    @Autowired
+    RuleService ruleService;
+
     @PostMapping("/add")
     public Map addRule(@RequestBody Rules rules){
 
         log.info("Rule added :" + rules) ;
         HashMap result = new HashMap();
 
-        result.put("code", 200);
-        result.put("data", "添加成功");
+        boolean bool = ruleService.saveRules(rules);
+        result.put("code", bool ? 200 : 500);
+        result.put("data", bool ? "添加成功":"添加失败");
         return result ;
     }
 }

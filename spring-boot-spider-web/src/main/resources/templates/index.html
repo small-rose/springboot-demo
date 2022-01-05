@@ -319,7 +319,15 @@
             var linkGroupPagesSkipKeys = $("#linkGroupPagesSkipKeys"+index).val();
             var picLinkEleLocation = $("#picLinkEleLocation"+index).val();
             var picLinkSkipKeys = $("#picLinkSkipKeys"+index).val();
-            var data = "{'door':door, 'category':{'eleLocation':'"+categoryEleLocation+"}}";
+            //var data = "{'door':door, 'category':{'eleLocation':'"+categoryEleLocation+"}}";
+            var data = '{"id":"","door":"'+door+'",' +
+                '"category":{"eleLocation":"'+categoryEleLocation+'","categoryName":"'+categoryName+'","skipKeys":['+categorySkipKeys.split(',')+']},' +
+                '"categoryPages":{"eleLocation":"'+categoryPagesEleLocation+'","skipKeys":['+categoryPagesSkipKeys.split(',')+']},' +
+                '"linkGroup":{"eleLocation":"'+linkGroupEleLocation+'","skipKeys":['+linkGroupSkipKeys.split(',')+']},' +
+                '"linkGroupPages":{"eleLocation":"'+linkGroupPagesEleLocation+'","skipKeys":['+linkGroupPagesSkipKeys.split(',')+']},' +
+                '"picLink":{"eleLocation":"'+picLinkEleLocation+'","skipKeys":['+picLinkSkipKeys.split(',')+']}' +
+                '}';
+
             $.ajax({
                 type: 'POST',
                 url: "/rule/add",
@@ -358,7 +366,9 @@
         </div>
     </nav>
     <hr/>
-
+    <div class="panel " th:if="${not #strings.isEmpty(errorMsg)}">
+       Tips : <span class="tip"  th:text="${errorMsg}"></span>
+    </div>
     <!--/*@thymesVar id="ruleList" type="java.util.ArrayList"*/-->
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" >
         <div class="panel panel-default panel-success" th:each="rule:${ruleList}">

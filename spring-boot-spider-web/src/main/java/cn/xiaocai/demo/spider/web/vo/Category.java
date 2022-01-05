@@ -32,9 +32,5 @@ public class Category  {
     @JSONField(ordinal = 3)
     protected List<String> skipKeys ;
 
-    /**
-     * 默认连接取值方式
-     */
-    protected String linkHrefKey = "abs:href"  ;
 
 }

@@ -1,6 +1,5 @@
 package cn.xiaocai.demo.spider.web.config;
 
-import cn.xiaocai.demo.spider.web.vo.Category;
 import cn.xiaocai.demo.spider.web.vo.Rules;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +28,6 @@ import java.util.List;
 @Component
 public class InnerDataConfig {
 
-     private Category category ;
-
      private List<Rules> ruleList ;
 
 
@@ -43,7 +40,5 @@ public class InnerDataConfig {
         ruleList = ruleConfig.getRules();
 
         log.info("ruleConfig :" + ruleConfig);
-        log.info("Initialized : "+ category);
-        log.info("Initialized : "+ ruleList);
     }
 }

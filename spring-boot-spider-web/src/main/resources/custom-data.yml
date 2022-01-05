@@ -1,0 +1,62 @@
+
+#data:
+rules:
+  - id: 1
+    door: https://test.example.cn
+    category:
+      eleLocation: 121
+      categoryName: test+TEST2
+      skipKeys:
+        - active
+        - MAVEN_BATCH_ECHO
+    categoryPages:
+      eleLocation: 123456
+      skipKeys:
+        - 123456
+        - 333456
+    linkGroup:
+      eleLocation: db_async
+      skipKeys:
+        - xx
+        - zz
+    linkGroupPages:
+      eleLocation: 243242
+      skipKeys:
+        - qq
+        - ww
+    picLink:
+      eleLocation: qqq
+      skipKeys:
+        - qq
+        - ww
+
+  - id: 2
+    door: https://img.blog.cn
+    category:
+      eleLocation: 121
+      categoryName: test
+      skipKeys:
+        - active
+        - MAVEN_BATCH_ECHO
+    categoryPages:
+      eleLocation: 123456
+      skipKeys:
+        - 123456
+        - 333456
+    linkGroup:
+      eleLocation: db_async
+      skipKeys:
+        - xx
+        - zz
+    linkGroupPages:
+      eleLocation: 243242
+      skipKeys:
+        - qq
+        - ww
+    picLink:
+      eleLocation: qqq
+      skipKeys:
+        - qq
+        - ww
+
+
