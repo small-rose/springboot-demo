@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Project : springboot-demo
@@ -28,8 +29,9 @@ import java.util.List;
 @Component
 public class InnerDataConfig {
 
-     private List<Rules> ruleList ;
+    private List<Rules> ruleList ;
 
+    private List<String> ids ;
 
     @PostConstruct
     public void init() throws FileNotFoundException {
@@ -39,6 +41,8 @@ public class InnerDataConfig {
         RuleConfig ruleConfig = yaml.loadAs(new FileInputStream(visitor), RuleConfig.class);
         ruleList = ruleConfig.getRules();
 
+        ids = ruleList.stream().map(Rules::getId).collect(Collectors.toList());
         log.info("ruleConfig :" + ruleConfig);
+        log.info("ids :" + ids);
     }
 }

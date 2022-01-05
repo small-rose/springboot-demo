@@ -288,8 +288,38 @@
         return newWeb;
     }
 
+    function getModel(titel, content){
+        var modelContent =
+            '<!-- 模态框（Modal） -->\n' +
+            '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+            '    <div class="modal-dialog">\n' +
+            '        <div class="modal-content">\n' +
+            '            <div class="modal-header">\n' +
+            '                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n' +
+            '                <h4 class="modal-title" id="myModalLabel">'+titel+'</h4>\n' +
+            '            </div>\n' +
+            '            <div class="modal-body">'+content+'</div>\n' +
+            '            <div class="modal-footer">\n' +
+            '                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>\n' +
+            '                <button type="button" class="btn btn-primary">确定</button>\n' +
+            '            </div>\n' +
+            '        </div><!-- /.modal-content -->\n' +
+            '    </div><!-- /.modal-dialog -->\n' +
+            '</div>'
+    }
+
+    function checkNull(data){
+        if (data == undefined || data =='' || data ==null){
+            return true ;
+        }
+        return  false ;
+    }
 
     $(function(){
+
+
+
+        $('#myModal').modal('hide');
 
         $("#refresh").click(function(){
             location.reload();
@@ -298,7 +328,9 @@
         var index = 1 ;
         $("#addNew").click(function(){
             if (index > 1){
-                alert("别贪心一个个的配置吧！");
+                $('#myModalLabelTitle').html('添加配置提示');
+                $('#msgContent').html('一个一个的配置新站，别贪心!');
+                $('#myModal').modal('show');
                 return false ;
             }
             $("#accordion").append(getTemplate(index));
@@ -306,18 +338,53 @@
         });
 
         $("#saveNew").click(function () {
+            if (index==1){
+                $('#myModalLabelTitle').html('保存提示');
+                if (checkNull(doorIndex)){
+                    //$(this).attr("saveNew", "")
+                    $('#msgContent').html('还没添加配置新站!');
+                    $('#myModal').modal('show');
+                    return;
+                }
+            }
              //取配置数据
             var door = $("#door"+index).val();
+
             var categoryEleLocation = $("#categoryEleLocation"+index).val();
+            if (checkNull(categoryEleLocation)){
+                $('#msgContent').html('分类CSS定位必填!');
+                $('#myModal').modal('show');
+                return ;
+            }
             var categoryName = $("#categoryName"+index).val();
             var categorySkipKeys = $("#categorySkipKeys"+index).val();
             var categoryPagesEleLocation = $("#categoryPagesEleLocation"+index).val();
+            if (checkNull(categoryPagesEleLocation)){
+                $('#msgContent').html('分类分页CSS定位必填!');
+                $('#myModal').modal('show');
+                return ;
+            }
             var categoryPagesSkipKeys = $("#categoryPagesSkipKeys"+index).val();
             var linkGroupEleLocation = $("#linkGroupEleLocation"+index).val();
+            if (checkNull(linkGroupEleLocation)){
+                $('#msgContent').html('图组CSS定位必填!');
+                $('#myModal').modal('show');
+                return ;
+            }
             var linkGroupSkipKeys = $("#linkGroupSkipKeys"+index).val();
             var linkGroupPagesEleLocation = $("#linkGroupPagesEleLocation"+index).val();
+            if (checkNull(linkGroupPagesEleLocation)){
+                $('#msgContent').html('图组分页CSS定位必填!');
+                $('#myModal').modal('show');
+                return ;
+            }
             var linkGroupPagesSkipKeys = $("#linkGroupPagesSkipKeys"+index).val();
             var picLinkEleLocation = $("#picLinkEleLocation"+index).val();
+            if (checkNull(picLinkEleLocation)){
+                $('#msgContent').html('图片CSS定位必填');
+                $('#myModal').modal('show');
+                return ;
+            }
             var picLinkSkipKeys = $("#picLinkSkipKeys"+index).val();
             //var data = "{'door':door, 'category':{'eleLocation':'"+categoryEleLocation+"}}";
             var data = '{"id":"","door":"'+door+'",' +
@@ -327,10 +394,10 @@
                 '"linkGroupPages":{"eleLocation":"'+linkGroupPagesEleLocation+'","skipKeys":['+linkGroupPagesSkipKeys.split(',')+']},' +
                 '"picLink":{"eleLocation":"'+picLinkEleLocation+'","skipKeys":['+picLinkSkipKeys.split(',')+']}' +
                 '}';
-
+            console.log(data);
             $.ajax({
                 type: 'POST',
-                url: "/rule/add",
+                url: "/spider-web/rule/add",
                 dataType:"json",
                 data: data,
                 success:function(data){
@@ -633,9 +700,35 @@
     <div class="btn-group" role="group" aria-label=" ">
         <button type="button" class="btn btn-info" id="refresh">刷新</button>&nbsp;&nbsp;
         <button type="button" class="btn btn-primary" id="addNew">添加新站</button>&nbsp;&nbsp;
-        <button type="button" class="btn btn-success" id="saveNew">保存新站</button>
+        <button type="button" class="btn btn-success" id="saveNew" title="保存新站"
+                data-container="body" data-toggle="popover" data-placement="bottom"
+                data-content="">保存新站</button>
     </div>
-
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabelTitle">
+                        模态框（Modal）标题
+                    </h4>
+                </div>
+                <div class="modal-body" id="msgContent">
+                    点击关闭按钮检查事件功能。
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        确定
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 </div>
 </body>

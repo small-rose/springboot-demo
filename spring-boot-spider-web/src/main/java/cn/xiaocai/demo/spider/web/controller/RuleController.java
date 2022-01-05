@@ -34,7 +34,10 @@ public class RuleController extends RulesData{
         log.info("Rule added :" + rules) ;
         HashMap result = new HashMap();
 
-        boolean bool = ruleService.saveRules(rules);
+
+        RULELIST.add(rules);
+        boolean bool = ruleService.saveRules(RULELIST);
+
         result.put("code", bool ? 200 : 500);
         result.put("data", bool ? "添加成功":"添加失败");
         return result ;
