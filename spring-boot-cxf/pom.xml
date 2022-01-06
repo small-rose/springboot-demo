@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.1.41</version>
+            <version>1.2.79</version>
         </dependency>
 
         <!-- 服务端：用来生成JSONArray -->
