@@ -1,14 +1,18 @@
 package cn.xiaocai.demo.spider.web.service;
 
+import cn.xiaocai.demo.spider.web.config.InnerDataConfig;
 import cn.xiaocai.demo.spider.web.config.RuleConfig;
 import cn.xiaocai.demo.spider.web.vo.Rules;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Project : springboot-demo
@@ -22,30 +26,37 @@ import java.util.List;
 @Service
 public class RuleService {
 
+    @Autowired
+    private InnerDataConfig innerDataConfig ;
 
-    public boolean saveRules(Rules rules) {
+    public boolean saveRules(List<Rules> rules) {
         FileWriter fileWriter = null ;
         try {
-            File visitor = ResourceUtils.getFile("classpath:custom-data.yml");
-            Yaml yaml = new Yaml();
-            fileWriter = new FileWriter(visitor);
-            yaml.dump(rules, fileWriter);
-            return true ;
-        }catch(FileNotFoundException e){
+            List<String> ids = innerDataConfig.getIds();
+            List<Rules> customRuleList = rules.stream().filter(r->!ids.contains(r.getId())).collect(Collectors.toList());
+
+            File ymlPath = ResourceUtils.getFile("classpath:custom-data.yml");
+            FileOutputStream outputStream = new FileOutputStream(ymlPath);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            //Yaml yaml = new Yaml();
+            // yaml.dump(customRuleList, outputStreamWriter);
+            //return true ;
+
+            DumperOptions dumperOptions = new DumperOptions();
+            dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+            dumperOptions.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN);
+            dumperOptions.setPrettyFlow(false);
+            Yaml yaml = new Yaml(dumperOptions);
+            yaml.dump(customRuleList, outputStreamWriter);
+        } catch (IOException e) {
+            log.info("Write Yaml failed");
             e.printStackTrace();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                if (fileWriter!=null){
-                    fileWriter.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return false ;
     }
+
+
+
 
     public List<Rules> queryCustomList() throws Exception{
 
