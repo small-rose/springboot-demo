@@ -8,9 +8,7 @@ import org.springframework.util.ResourceUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +34,27 @@ public class InnerDataConfig {
     @PostConstruct
     public void init() throws FileNotFoundException {
 
+        InputStream inputStream = InnerDataConfig.class.getResourceAsStream("classpath:app-data.yml");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String line = reader.readLine();
+            log.info("----读取到line----"+line);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 获取类路径下的文件路径
+        File path = new File(ResourceUtils.getURL("classpath:app-data.yml").getPath());
+        if (!path.exists()) {
+            log.info("---文件不存在！----");
+        }
+        log.info("path = {}", path.getAbsolutePath());
+
+
+
         File visitor = ResourceUtils.getFile("classpath:app-data.yml");
+        log.info("app-data.yml path = " + visitor.getAbsolutePath());
+
         Yaml yaml = new Yaml();
         RuleConfig ruleConfig = yaml.loadAs(new FileInputStream(visitor), RuleConfig.class);
         ruleList = ruleConfig.getRules();

@@ -47,7 +47,11 @@ public class RuleService {
             dumperOptions.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN);
             dumperOptions.setPrettyFlow(false);
             Yaml yaml = new Yaml(dumperOptions);
-            yaml.dump(customRuleList, outputStreamWriter);
+
+            RuleConfig trmp = new RuleConfig();
+            trmp.setRules(customRuleList);
+            yaml.dump(trmp, outputStreamWriter);
+            return true ;
         } catch (IOException e) {
             log.info("Write Yaml failed");
             e.printStackTrace();

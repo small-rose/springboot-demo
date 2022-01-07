@@ -89,7 +89,7 @@
             '                                    <tr>\n' +
             '                                        <td class="col-sm-2">主站地址</td>\n' +
             '                                        <td class="col-sm-2">door</td>\n' +
-            '                                        <td class="col-sm-4"><input type="text"  class="col-sm-4  form-control" id="door'+index +'" name="door'+index +'" value=" "></td>\n' +
+            '                                        <td class="col-sm-4"><input type="text"  class="col-sm-4  form-control" id="door'+index +'" name="door'+index +'" value=" "/></td>\n' +
             '                                        <td class="col-sm-2">规则说明</td>\n' +
             '                                    </tr>\n' +
             '                                    </thead>\n' +
@@ -115,7 +115,7 @@
             '                                        <td>\n' +
             '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.Category"*/-->\n' +
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryEleLocation'+index +'" name="categoryEleLocation'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryEleLocation'+index +'" name="categoryEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
@@ -125,7 +125,7 @@
             '                                        <td>\n' +
             '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.Category"*/-->\n' +
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryName'+index +'"  name="categoryName'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryName'+index +'"  name="categoryName'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>抓取指定分类，多个使用+号连接</td>\n' +
             '                                    </tr>\n' +
@@ -133,7 +133,7 @@
             '                                        <td>跳过关键字</td>\n' +
             '                                        <td>categorykeys</td>\n' +
             '                                        <td>\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="categorySkipKeys'+index +'" name="categorySkipKeys'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categorySkipKeys'+index +'" name="categorySkipKeys'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>该配置用于抓取分配时，可以排除所有分类或者广告、登录字样、也可用于排除不需要的分配</td>\n' +
             '                                    </tr>\n' +
@@ -160,7 +160,7 @@
             '                                        <td>\n' +
             '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.CategoryPages"*/-->\n' +
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryPagesEleLocation'+index +'" name="categoryPagesEleLocation'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="categoryPagesEleLocation'+index +'" name="categoryPagesEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
@@ -168,7 +168,7 @@
             '                                        <td>跳过关键字</td>\n' +
             '                                        <td>categorykeys</td>\n' +
             '                                        <td>\n' +
-            '                                            <input type="text" class="col-sm-4  form-control" id="categoryPagesSkipKeys'+index +'"  name="categoryPagesSkipKeys'+index +'" value="">\n' +
+            '                                            <input type="text" class="col-sm-4  form-control" id="categoryPagesSkipKeys'+index +'"  name="categoryPagesSkipKeys'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>该配置用于抓取分配时，可以排除重复检索，提高抓取效率，默认值如上一页、下一页，可选配置</td>\n' +
             '                                    </tr>\n' +
@@ -195,7 +195,7 @@
             '                                        <td>\n' +
             '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroup"*/-->\n' +
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupEleLocation'+index +'" name="linkGroupEleLocation'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupEleLocation'+index +'" name="linkGroupEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
@@ -203,7 +203,7 @@
             '                                        <td>跳过关键字</td>\n' +
             '                                        <td>skipKeys</td>\n' +
             '                                        <td>\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupSkipKeys'+index +'" name="linkGroupSkipKeys'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupSkipKeys'+index +'" name="linkGroupSkipKeys'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>该配置用于抓取图组时，可以剔除广告链接</td>\n' +
             '                                    </tr>\n' +
@@ -230,7 +230,7 @@
             '                                        <td>\n' +
             '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroupPages"*/-->\n' +
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupPagesEleLocation'+index +'" name="linkGroupPagesEleLocation'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupPagesEleLocation'+index +'" name="linkGroupPagesEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>抓取图组分页的css坐标</td>\n' +
             '                                    </tr>\n' +
@@ -238,7 +238,7 @@
             '                                        <td>跳过关键字</td>\n' +
             '                                        <td>skipKeys</td>\n' +
             '                                        <td>\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupPagesSkipKeys'+index +'" name="linkGroupPagesSkipKeys'+index +'" value=" ">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupPagesSkipKeys'+index +'" name="linkGroupPagesSkipKeys'+index +'" value=" "/>\n' +
             '                                        </td>\n' +
             '                                        <td>该配置用于抓取图组分页时，可以剔除重复链接，也可以防止抓取时，提取到重复提取邻近图组，默认值有上一组、下一组。前一组。后一组</td>\n' +
             '                                    </tr>\n' +
@@ -265,7 +265,7 @@
             '                                        <td>\n' +
             '                                            <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.PicLink"*/-->\n' +
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="picLinkEleLocation'+index +'" name="picLinkEleLocation'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="picLinkEleLocation'+index +'" name="picLinkEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
@@ -273,7 +273,7 @@
             '                                        <td>跳过关键字</td>\n' +
             '                                        <td>skipKeys</td>\n' +
             '                                        <td>\n' +
-            '                                            <input type="text"  class="col-sm-4  form-control" id="picLinkSkipKeys'+index +'" name="picLinkSkipKeys'+index +'" value="">\n' +
+            '                                            <input type="text"  class="col-sm-4  form-control" id="picLinkSkipKeys'+index +'" name="picLinkSkipKeys'+index +'" value=""/>\n' +
             '                                        </td>\n' +
             '                                        <td>该配置用于抓取图组的图片时，可以剔除重复链接，也可以防止抓取广告，可选配置</td>\n' +
             '                                    </tr>\n' +
@@ -326,19 +326,21 @@
         });
 
         var index = 1 ;
+        var flag = false ;
         $("#addNew").click(function(){
-            if (index > 1){
+
+            if (flag ){
                 $('#myModalLabelTitle').html('添加配置提示');
                 $('#msgContent').html('一个一个的配置新站，别贪心!');
                 $('#myModal').modal('show');
                 return false ;
             }
             $("#accordion").append(getTemplate(index));
-            index++;
+            flag = true ;
         });
 
         $("#saveNew").click(function () {
-            if (index==1){
+            if (!flag){
                 $('#myModalLabelTitle').html('保存提示');
                 if (checkNull(doorIndex)){
                     //$(this).attr("saveNew", "")
@@ -394,11 +396,13 @@
                 '"linkGroupPages":{"eleLocation":"'+linkGroupPagesEleLocation+'","skipKeys":['+linkGroupPagesSkipKeys.split(',')+']},' +
                 '"picLink":{"eleLocation":"'+picLinkEleLocation+'","skipKeys":['+picLinkSkipKeys.split(',')+']}' +
                 '}';
+
             console.log(data);
             $.ajax({
                 type: 'POST',
                 url: "/spider-web/rule/add",
                 dataType:"json",
+                contentType: 'application/json; charset=UTF-8',
                 data: data,
                 success:function(data){
                     if(data.code==200){

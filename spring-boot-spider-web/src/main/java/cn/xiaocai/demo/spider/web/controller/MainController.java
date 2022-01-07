@@ -43,6 +43,7 @@ public class MainController extends RulesData{
         String errorMsg = "数据加载成功";
         if (total!=RULELIST.size()){
             try {
+                log.info("加载自定义配置");
                 customList = ruleService.queryCustomList();
                 RULELIST.addAll(customList);
             } catch (Exception e) {

@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.xiaocai.demo</groupId>
     <artifactId>spring-boot-spider-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>spring-boot-spider-web</name>
     <description>Spider-web project for Spring Boot</description>
     <properties>
@@ -103,6 +103,7 @@
     </dependencies>
 
     <build>
+        <finalName>spider-web-v.${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

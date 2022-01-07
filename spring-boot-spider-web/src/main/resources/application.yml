@@ -18,3 +18,9 @@ spring:
     #配置模板路径，默认是templates，可以不用配置
     prefix: classpath:/templates/
     suffix: .html
+
+
+logging:
+  level:
+    root: INFO
+    com.xiaocai: INFO
