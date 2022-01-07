@@ -1,8 +1,8 @@
 package com.xiaocai.demo.java;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -20,6 +20,7 @@ import java.util.Date;
  * @Date ：2021/11/2 10:15
  * @Version ： 1.0
  **/
+@Slf4j
 public class DateTimeDemo {
 
     @Test
@@ -108,5 +109,15 @@ public class DateTimeDemo {
 
         Date inPaymentDate = new SimpleDateFormat("yyyyMMdd").parse(date);
         System.out.println(inPaymentDate);
+    }
+
+    @Test
+    public void test03() throws ParseException {
+        String str = "20220108";
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        Date dateStr = format.parse(str);
+        if (dateStr.after(format.parse("20220107"))) {
+           log.info("----" + str +" 在 20220107 之后" );
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.xiaocai.demo.client;
 
 import com.xiaocai.demo.http.HttpClientUtil;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,24 +22,25 @@ public class QueryApplication {
             "<TRAN_CODE>B0</TRAN_CODE>\n" +
             "\n" +
             "\t\t<USER>\n" +
-            "\t\t\t<![CDATA[Hx05]]>\n" +
+            "\t\t\t<![CDATA[Hx04]]>\n" +
             "\t\t</USER>\n" +
             "\t\t<PASSWORD>\n" +
-            "\t\t\t<![CDATA[Hx05pwd]]>\n" +
+            "\t\t\t<![CDATA[Hx04pwd]]>\n" +
             "\t\t</PASSWORD>\n" +
             "</HEAD>\n" +
             "<BODY>\n" +
             "<BASE>\n" +
-            "<PAY_APP_NO>210102182588</PAY_APP_NO>\n" +
+            "<PAY_APP_NO>18ACIC01002220107305213</PAY_APP_NO>\n" +
             "</BASE>\n" +
             "</BODY>\n" +
             "</PACKET>";
 
-    public static void main(String[] args) {
+    @Test
+    public  void queryApplicationStatus() {
         //String url = "http://192.168.120.21:9090/bp-paystation/ApplicationsServlet";
 //        String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
-        String url = "http://192.168.50.254:9090/bp-paystation/ApplicationsServlet";
-
+//        String url = "http://192.168.50.254:9090/bp-paystation/ApplicationsServlet";
+        String url = "https://payprod.e-acic.com/bp-paystation/ApplicationsServlet";
         // 调收付 接口
         Map<String, String> params = new HashMap<>(2);
         params.put("param1", "queryApplicationStatus");

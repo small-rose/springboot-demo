@@ -14,7 +14,7 @@ import java.util.Map;
  * @Date ：2021/9/9 16:05
  * @Version ： 1.0
  **/
-public class PostApplication_ChinaPay {
+public class PostApplication_ChinaPayNoRealName {
 
     public static String requestMessage = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<PACKET TYPE=\"REQUEST\">\n" +
@@ -28,7 +28,7 @@ public class PostApplication_ChinaPay {
             "    <APP_BASE>\n" +
             "        <CHECK_CODE></CHECK_CODE>   <!--校验码-->\n" +
             "        <INSU_MIDNO></INSU_MIDNO>   <!--商户号-->\n" +
-            "        <AMOUNT>388344</AMOUNT> <!--交易金额-->\n" +
+            "        <AMOUNT>737541</AMOUNT> <!--交易金额-->\n" +
             "        <DIRECT_BANKCODE></DIRECT_BANKCODE>    <!--付款银行代码-->\n" +
             "        <DIRECT_ORDERBANKCODE>CHINAPAY</DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
             "        <REMARK></REMARK>   <!--备注（江苏实名，投保人与付款人关系为“其他”时必传）-->\n" +
@@ -40,11 +40,11 @@ public class PostApplication_ChinaPay {
             "        <CHECKNO><![CDATA[]]></CHECKNO> <!--支票号-->\n" +
             "        <CHECKSERRAL></CHECKSERRAL> <!--支票流水号-->\n" +
             "        <POLICYSTARTDATE>20220107230000</POLICYSTARTDATE>   <!--过期时间（起保时间）-->\n" +
-            "        <SUBCOMPANY>37</SUBCOMPANY>    <!--分公司代码-->\n" +
+            "        <SUBCOMPANY>50</SUBCOMPANY>    <!--分公司代码-->\n" +
             "        <CURRENCYTYPE>CNY</CURRENCYTYPE>    <!--币种-->\n" +
             "        <PARANORMALDAY></PARANORMALDAY>\n" +
             "        <INSUREDNAME><![CDATA[冯超]]></INSUREDNAME> <!--缴款人名称-->\n" +
-            "        <DEPARTMENTCODE>37010701</DEPARTMENTCODE>    <!--业务归属部门-->\n" +
+            "        <DEPARTMENTCODE>50010901</DEPARTMENTCODE>    <!--业务归属部门-->\n" +
             "        <BANKCODE></BANKCODE>\n" +
             "        <CUSTACCOUNTNAME></CUSTACCOUNTNAME>\n" +
             "        <CUSTACCOUNTNO></CUSTACCOUNTNO>\n" +
@@ -70,7 +70,7 @@ public class PostApplication_ChinaPay {
             "        <VEHICLEOWNERPHONENO>18995557653</VEHICLEOWNERPHONENO>    <!--车主手机号-->\n" +
             "        <APPLICANTIDCODE>01</APPLICANTIDCODE>    <!--投保人证件类型-->\n" +
             "        <ISCERTIFICATE></ISCERTIFICATE>    <!--是否需认证-->\n" +
-            "        <REALNAMEMODE>02</REALNAMEMODE><!-- 实名认证方式 00:无需实名认证 01:江苏模式  02:全国模式 03:深圳模式 04:上海模式 -->\n" +
+            "        <REALNAMEMODE>00</REALNAMEMODE><!-- 实名认证方式 00:无需实名认证 01:江苏模式  02:全国模式 03:深圳模式 04:上海模式 -->\n" +
             "        <APPLICANTNATURE>1</APPLICANTNATURE> <!--投保人类型-->\n" +
             "        <PAYACCOUNTNAME>冯超</PAYACCOUNTNAME>   <!--付款人名称-->\n" +
             "        <RELATIONSHIPCODE></RELATIONSHIPCODE>   <!--投保人与付款人关系-->\n" +
@@ -79,33 +79,33 @@ public class PostApplication_ChinaPay {
             "    </APP_BASE>\n" +
             "    <DETAILS>\n" +
             "                <APP_INFO>\n" +
-            "            <CUSTSEQ>599370103662021001207-6Q8qkpIenvwMFAie2yZ</CUSTSEQ>  <!--流水号-->\n" +
-            "            <APPLICANTNO>599370103662021001207</APPLICANTNO> <!--投保单号-->\n" +
+            "            <CUSTSEQ>599500103662021001484-DNXB7Odz9PFwWrXDrfT</CUSTSEQ>  <!--流水号-->\n" +
+            "            <APPLICANTNO>599500103662021001484</APPLICANTNO> <!--投保单号-->\n" +
             "            <POLICYNO></POLICYNO>  <!--保单号-->\n" +
             "            <ENDORSENO></ENDORSENO>   <!--批单号-->\n" +
             "            <CURRENCYTYPE>CNY</CURRENCYTYPE>  <!--币种-->\n" +
-            "            <AMOUNT>388344</AMOUNT>    <!--金额（分）-->\n" +
-            "            <TRANSACTORNAME>侯延冰</TRANSACTORNAME>    <!--业务经办人-->\n" +
+            "            <AMOUNT>737541</AMOUNT>    <!--金额（分）-->\n" +
+            "            <TRANSACTORNAME>黎明</TRANSACTORNAME>    <!--业务经办人-->\n" +
             "            <APPLICANTNAME>冯超</APPLICANTNAME>   <!--投保人名称-->\n" +
             "            <APPLICANTCODE>ACI820210000007524</APPLICANTCODE>   <!--投保人代码-->\n" +
             "            <INSUREDNAME>冯超</INSUREDNAME>     <!--被保人名称-->\n" +
             "            <INSUREDCODE>ACI820210000007524</INSUREDCODE>     <!--被保险人代码-->\n" +
-            "            <STARTDATE>20211210000000</STARTDATE>   <!--起保日期-->\n" +
+            "            <STARTDATE>20211215000000</STARTDATE>   <!--起保日期-->\n" +
             "            <DATATYPE>1</DATATYPE>  <!--数据类型-->\n" +
             "            <DATASOURCE>04</DATASOURCE>    <!--数据来源-->\n" +
-            "            <DEPARTMENTCODE>37010701</DEPARTMENTCODE>    <!--业务归属部门代码-->\n" +
+            "            <DEPARTMENTCODE>50010901</DEPARTMENTCODE>    <!--业务归属部门代码-->\n" +
             "            <INSTALLMENTSTIMES></INSTALLMENTSTIMES>   <!--分期缴费期次-->\n" +
             "\n" +
-            "            <PROCONFIRM_SEQUENCE_NO>V0101ACIC370021121008859216819</PROCONFIRM_SEQUENCE_NO>  <!--上海平台预确认码/江苏平台查询码-->\n" +
+            "            <PROCONFIRM_SEQUENCE_NO>V0101ACIC500021120229470801902</PROCONFIRM_SEQUENCE_NO>  <!--上海平台预确认码/江苏平台查询码-->\n" +
             "            <AMEND_QUERY_NO></AMEND_QUERY_NO>  <!--批改查询码-->\n" +
             "            <POLICYTYPE>01</POLICYTYPE>    <!--出单类型-->\n" +
             "            <CITYCODE></CITYCODE>  <!--出单归属地-->\n" +
             "            <COVERAGETYPE>2</COVERAGETYPE>  <!--险种类型-->\n" +
-            "            <LICENSEPLATETYPE></LICENSEPLATETYPE>  <!--号牌种类-->\n" +
-            "            <LICENSEPLATENO>*</LICENSEPLATENO>    <!--号牌号码-->\n" +
-            "            <VIN>LMN35784375837485</VIN> <!--车架号-->\n" +
-            "            <ENGINENO>3452345</ENGINENO>  <!--发动机号-->\n" +
-            "            <EXPIREDATE>20221209235959</EXPIREDATE>    <!--终保日期-->\n" +
+            "            <LICENSEPLATETYPE>02</LICENSEPLATETYPE>  <!--号牌种类-->\n" +
+            "            <LICENSEPLATENO>渝ABD326</LICENSEPLATENO>    <!--号牌号码-->\n" +
+            "            <VIN>LNYNBAA48AB101856</VIN> <!--车架号-->\n" +
+            "            <ENGINENO>184246</ENGINENO>  <!--发动机号-->\n" +
+            "            <EXPIREDATE>20221214235959</EXPIREDATE>    <!--终保日期-->\n" +
             "            <CLASSESCODE>0366</CLASSESCODE><!-- 业务险种代码 -->\n" +
             "        </APP_INFO>\n" +
             "            </DETAILS>\n" +
