@@ -2,23 +2,16 @@ package com.xiaocai.demo.poi.oracle.facade;
 
 
 import com.xiaocai.demo.poi.oracle.service.OracleSelectService;
-import com.xiaocai.demo.poi.oracle.vo.TableInfo;
 import com.xiaocai.demo.poi.utils.TestFileUtil;
 import lombok.extern.slf4j.Slf4j;
-
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * @Project : springboot-demo
