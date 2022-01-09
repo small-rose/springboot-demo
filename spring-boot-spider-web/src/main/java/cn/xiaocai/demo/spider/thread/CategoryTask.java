@@ -4,6 +4,7 @@ import cn.xiaocai.demo.spider.data.CategoryQueue;
 import cn.xiaocai.demo.spider.data.UrlData;
 import cn.xiaocai.demo.spider.handler.CategoryHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -34,7 +35,11 @@ public class CategoryTask extends CategoryHandler implements Runnable {
         super(categoryQueue);
         this.urlData = urlData;
         this.threadName = "-".concat(categoryQueue.getClass().getSimpleName());
-        this.categorykeyArrays = categoryKeys.split("\\+");
+        if (StringUtils.hasText(categoryKeys)) {
+            this.categorykeyArrays = categoryKeys.split("\\+");
+        }else{
+            this.categorykeyArrays = new String[0];
+        }
     }
 
     @Override

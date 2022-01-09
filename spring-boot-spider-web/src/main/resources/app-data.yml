@@ -1,59 +1,62 @@
 #data:
 rules:
   - id: 1
-    door: https://zhangxiaocai.cn
+    door: https://www.10wallpaper.com
     category:
-        eleLocation: 121
-        categoryName: test+TEST2
-        skipKeys:
-          - active
-          - MAVEN_BATCH_ECHO
+        eleLocation: div#left-menu ul.title-3 li a
+        categoryName:
+        skipKeys: []
     categoryPages:
-        eleLocation: 123456
-        skipKeys:
-          - 123456
-          - 333456
+        eleLocation:  div#content  div.pg_pointer a
+        skipKeys: []
     linkGroup:
-        eleLocation: db_async
+        eleLocation: div#content  div#pics-list p a
         skipKeys:
-          - xx
-          - zz
+          - img.reapi.cn
     linkGroupPages:
-        eleLocation: 243242
-        skipKeys:
-          - qq
-          - ww
+        eleLocation: abcdefg
+        skipKeys: []
     picLink:
-        eleLocation: qqq
-        skipKeys:
-          - qq
-          - ww
+        eleLocation: p#main-pic img
+        skipKeys: []
 
   - id: 2
-    door: https://justtest.example.cn
+    door: https://www.fulitu.cc/
     category:
-        eleLocation: 121
-        categoryName: test
+        eleLocation: div#bs-example-navbar-collapse-1  ul.nav.navbar-nav ul.dropdown-menu li a
+        categoryName:
         skipKeys:
-          - active
-          - MAVEN_BATCH_ECHO
+          - 所有
+          - admin/login
     categoryPages:
-        eleLocation: 123456
-        skipKeys:
-          - 123456
-          - 333456
+        eleLocation: html.no-js body div.content ol.page-navigator li a
+        skipKeys: []
     linkGroup:
-        eleLocation: db_async
+        eleLocation: div#masonry div.item div.item-title a
         skipKeys:
-          - xx
-          - zz
+          - img.reapi.cn
     linkGroupPages:
-        eleLocation: 243242
-        skipKeys:
-          - qq
-          - ww
+        eleLocation: .abcdefghijk
+        skipKeys: []
     picLink:
-        eleLocation: qqq
-        skipKeys:
-          - qq
-          - ww
+        eleLocation: div#masonry  div.post-item img
+        skipKeys: []
+  - id: 3
+    door: https://www.ligui.org/
+    category:
+      eleLocation: .nav_header > li > a
+      categoryName: 丽柜
+      skipKeys: ["首页","套图","电影","小说"]
+    categoryPages:
+      eleLocation: div#pager ul li a
+      skipKeys: []
+    linkGroup:
+      eleLocation: div#container div.post > a
+      skipKeys: []
+    linkGroupPages:
+      eleLocation: div.pageart > ul > li > a
+      skipKeys: []
+    picLink:
+      eleLocation: html body div#content  div#bigpic a img
+      skipKeys: []
+

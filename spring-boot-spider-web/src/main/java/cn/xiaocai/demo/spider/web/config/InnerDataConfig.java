@@ -3,12 +3,13 @@ package cn.xiaocai.demo.spider.web.config;
 import cn.xiaocai.demo.spider.web.vo.Rules;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.annotation.PostConstruct;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,14 +28,18 @@ import java.util.stream.Collectors;
 @Component
 public class InnerDataConfig {
 
+    private String appdata = "/app-data.yml";
+    private String customdata = "/custom-data.yml";
+
     private List<Rules> ruleList ;
 
     private List<String> ids ;
 
     @PostConstruct
-    public void init() throws FileNotFoundException {
+    public void init() throws IOException {
+/*
 
-        InputStream inputStream = InnerDataConfig.class.getResourceAsStream("classpath:app-data.yml");
+        InputStream inputStream = InnerDataConfig.class.getResourceAsStream("/app-data.yml");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
             String line = reader.readLine();
@@ -44,19 +49,25 @@ public class InnerDataConfig {
         }
 
         // 获取类路径下的文件路径
-        File path = new File(ResourceUtils.getURL("classpath:app-data.yml").getPath());
+        File path = new File(ResourceUtils.getURL("/app-data.yml").getPath());
         if (!path.exists()) {
             log.info("---文件不存在！----");
         }
         log.info("path = {}", path.getAbsolutePath());
+*/
 
 
+        //ResourceUtils的getFile方法无法获取jar中打包进去的资源文件，所以建议采用getInputStream方法获取resources目录下的资源文件。
+        //File visitor = ResourceUtils.getFile("classpath:app-data.yml");
+        //log.info("app-data.yml path = " + visitor.getAbsolutePath());
 
-        File visitor = ResourceUtils.getFile("classpath:app-data.yml");
-        log.info("app-data.yml path = " + visitor.getAbsolutePath());
+        // 读取内置数据
+        ClassPathResource classPathResource = new ClassPathResource(appdata);
+        log.info(classPathResource.getPath());
+        InputStream fileInputStream = classPathResource.getInputStream();
 
         Yaml yaml = new Yaml();
-        RuleConfig ruleConfig = yaml.loadAs(new FileInputStream(visitor), RuleConfig.class);
+        RuleConfig ruleConfig = yaml.loadAs(fileInputStream, RuleConfig.class);
         ruleList = ruleConfig.getRules();
 
         ids = ruleList.stream().map(Rules::getId).collect(Collectors.toList());
