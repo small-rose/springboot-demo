@@ -72,17 +72,17 @@ public class SpiderThreadManager {
 
 
             // 提交提取URL的任务
-            //for (int i = 0; i< spiderThread.getThreadNums(); i++) {
+            for (int i = 0; i< spiderThread.getThreadNums(); i++) {
                 linkSetPageExecutor.submit(new LinkGroupPageTask(spiderThread.getLinkGroupQueue(), spiderThread.getLinkGroupPageQueue()));
                 log.info("----提交 LinkSetPageTask ---------- ");
-            //}
+            }
             // 提交提取URL的任务
             picLinkExecutor.submit(new PicLinkTask(spiderThread.getLinkGroupPageQueue(), spiderThread.getPicLinkQueue()));
             log.info("----提交 PictureTask ---------- ");
             // 提交下载图片的任务
-            //for (int i = 0; i< spiderThread.getThreadNums(); i++){
-            scheduled.submit(new PicDownloadTask(spiderThread.getPicLinkQueue()));
-            //}
+            for (int i = 0; i< spiderThread.getThreadNums(); i++){
+                scheduled.submit(new PicDownloadTask(spiderThread.getPicLinkQueue()));
+            }
 
             QueueCheckTask queueCheckTask = new QueueCheckTask();
             queueCheckTask.setCategoryQueue(spiderThread.getCategoryQueue());
@@ -123,10 +123,10 @@ public class SpiderThreadManager {
                 new NamedThreadFactory("spider-group-"+name, "categoryPage-"+name));
 
         linkSetExecutor = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "linkSet-"+name));
+                new NamedThreadFactory("spider-group-"+name, "linkGroup-"+name));
 
         linkSetPageExecutor = new ScheduledThreadPoolExecutor(1,
-                new NamedThreadFactory("spider-group-"+name, "linkSetPage-"+name));
+                new NamedThreadFactory("spider-group-"+name, "linkGroupPage-"+name));
 
         picLinkExecutor = new ScheduledThreadPoolExecutor(1,
                 new NamedThreadFactory("spider-group-"+name, "picLink-"+name));
