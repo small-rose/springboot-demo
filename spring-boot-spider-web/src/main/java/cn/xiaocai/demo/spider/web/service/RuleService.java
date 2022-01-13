@@ -5,14 +5,13 @@ import cn.xiaocai.demo.spider.web.config.RuleConfig;
 import cn.xiaocai.demo.spider.web.vo.Rules;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Project : springboot-demo
@@ -32,12 +31,19 @@ public class RuleService {
     public boolean saveRules(List<Rules> rules) {
         FileWriter fileWriter = null ;
         try {
-            List<String> ids = innerDataConfig.getIds();
-            List<Rules> customRuleList = rules.stream().filter(r->!ids.contains(r.getId())).collect(Collectors.toList());
+            //List<String> ids = innerDataConfig.getIds();
+            //List<Rules> customRuleList = rules.stream().filter(r->!ids.contains(r.getId())).collect(Collectors.toList());
+            List<Rules> customRuleList = rules;
 
-            File ymlPath = ResourceUtils.getFile("classpath:custom-data.yml");
-            FileOutputStream outputStream = new FileOutputStream(ymlPath);
+            //File ymlPath = ResourceUtils.getFile("classpath:custom-data.yml");
+            //FileOutputStream outputStream = new FileOutputStream(ymlPath);
+            //OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+
+            ClassPathResource classPathResource = new ClassPathResource(innerDataConfig.getCustomdata());
+            log.info(classPathResource.getPath());
+            OutputStream outputStream = new FileOutputStream(classPathResource.getFile());
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+
             //Yaml yaml = new Yaml();
             // yaml.dump(customRuleList, outputStreamWriter);
             //return true ;
@@ -51,6 +57,8 @@ public class RuleService {
             RuleConfig trmp = new RuleConfig();
             trmp.setRules(customRuleList);
             yaml.dump(trmp, outputStreamWriter);
+            outputStreamWriter.flush();
+            outputStreamWriter.close();
             return true ;
         } catch (IOException e) {
             log.info("Write Yaml failed");
@@ -64,9 +72,11 @@ public class RuleService {
 
     public List<Rules> queryCustomList() throws Exception{
 
-        File visitor = ResourceUtils.getFile("classpath:custom-data.yml");
+        //File visitor = ResourceUtils.getFile("classpath:custom-data.yml");
+        ClassPathResource classPathResource = new ClassPathResource(innerDataConfig.getCustomdata());
+        InputStream fileInputStream = classPathResource.getInputStream();
         Yaml yaml = new Yaml();
-        RuleConfig ruleConfig = yaml.loadAs(new FileInputStream(visitor), RuleConfig.class);
+        RuleConfig ruleConfig = yaml.loadAs(fileInputStream, RuleConfig.class);
         List<Rules>  ruleList = ruleConfig.getRules();
 
         log.info("custom ruleConfig :" + ruleConfig);

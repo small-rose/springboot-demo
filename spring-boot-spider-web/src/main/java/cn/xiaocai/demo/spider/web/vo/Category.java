@@ -25,7 +25,7 @@ public class Category  {
      * 指定分类
      */
     @JSONField(ordinal = 2)
-    protected String categoryName ;
+    protected String categoryName = "";
     /**
      * 定义跳过规则
      */

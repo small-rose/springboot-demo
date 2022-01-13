@@ -4,7 +4,7 @@ import cn.xiaocai.demo.spider.data.*;
 import cn.xiaocai.demo.spider.door.baserules.BaseWebRule;
 import cn.xiaocai.demo.spider.thread.SpiderThreadManager;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -18,13 +18,10 @@ import java.util.List;
  * @version: v1.0
  */
 @Data
+@Component
 public class SpiderServer implements Server {
 
     private List<BaseWebRule> ruleList ;
-
-
-    @Autowired
-    CategoryPageQueue picLinkQueue ;
 
     /**
      * 图片下载线程数

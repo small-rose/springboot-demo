@@ -23,17 +23,25 @@ public class Rules {
     private String door ;
 
     @JSONField(ordinal = 3)
-    private Category category ;
+    private String saveLocation = "d:\\download";
 
     @JSONField(ordinal = 4)
-    private CategoryPages categoryPages;
+    private Category category ;
 
     @JSONField(ordinal = 5)
-    private LinkGroup linkGroup ;
+    private CategoryPages categoryPages;
 
     @JSONField(ordinal = 6)
-    private LinkGroupPages linkGroupPages ;
+    private LinkGroup linkGroup ;
 
     @JSONField(ordinal = 7)
+    private LinkGroupPages linkGroupPages ;
+
+    @JSONField(ordinal = 8)
     private PicLink picLink ;
+
+    public String getDoor() {
+        return door;
+    }
+
 }

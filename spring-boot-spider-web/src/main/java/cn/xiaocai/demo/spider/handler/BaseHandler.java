@@ -24,7 +24,7 @@ public abstract class BaseHandler<T> {
     /**
      * 数据打标记
      */
-    protected boolean IS_MARK = Boolean.FALSE;
+    protected boolean IS_MARK = Boolean.TRUE;
 
     protected CatchHandler catchHandler = new CatchHandler();
 

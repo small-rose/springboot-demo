@@ -64,6 +64,9 @@ public class LinkGroupHandler extends BaseHandler{
         log.info("图组links : " + links.size());
         for (Element link : links) {
             String text = link.text();
+            if (!StringUtils.hasText(text)){
+                text = link.attr("title");
+            }
             absHref = link.attr(rule.getLinkHrefKey());
             //log.info("图组Link text :"+text +" , link = "+absHref);
             if (StringUtils.isEmpty(absHref) || "#".equals(absHref)){

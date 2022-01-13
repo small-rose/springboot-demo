@@ -83,9 +83,9 @@ public class CategoryPageHandler extends BaseHandler implements BasePageHandler 
         String text = "";
         String absHref = "";
 
-        log.info("category  rule : " + rule.getEleLocation());
+        log.info("categoryPage  rule : " + rule.getEleLocation());
         Elements links = document.select(rule.getEleLocation());
-        log.info("category links : " + links.size());
+        log.info("categoryPage links : " + links.size());
 
         UrlData newUrlData = null;
         for (Element link : links) {
@@ -118,7 +118,7 @@ public class CategoryPageHandler extends BaseHandler implements BasePageHandler 
             log.info("add a url data : " + newUrlData);
             pageList.add(newUrlData); //pageList 用来结束迭代
             //pageListQueue.print();
-            //pageListQueue.add(newUrlData); // 用来进行下一个流程处理
+            pageListQueue.add(newUrlData); // 用来进行下一个流程处理
             collectPageListUrl(newUrlData);
         }
 

@@ -56,7 +56,7 @@ public class CategoryPageTask extends CategoryPageHandler implements Runnable {
             //List<UrlData> dataList = this.analsysUrlList(doc);
             List<UrlData> dataList = this.getAllPageListUrl(urlData);
 
-            pageListQueue.add(dataList);
+            //pageListQueue.add(dataList);
             pageListQueue.print();
 
             log.info("类别抓取剩余 ："+categoryQueue.size());

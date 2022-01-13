@@ -5,6 +5,7 @@ import cn.xiaocai.demo.spider.catcher.SpiderThread;
 import cn.xiaocai.demo.spider.data.UrlData;
 import cn.xiaocai.demo.spider.thread.factory.NamedThreadFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +49,16 @@ public class SpiderThreadManager {
 
 
         THREAD_LIST.forEach(spiderThread -> {
-
-            initExecutor(spiderThread.getKeyName());
+            String keyName = spiderThread.getKeyName();
+            String url = spiderThread.getDoorUrl();
+            if (StringUtils.hasText(url)){
+                if (url.startsWith("https")){
+                    keyName = url.substring(url.indexOf("https")+3, url.lastIndexOf("."));
+                }else{
+                    keyName = url.substring(url.indexOf("http")+3, url.lastIndexOf("."));
+                }
+            }
+            initExecutor(keyName);
             // 调用入口线程去抓页面
             UrlData urlData = new UrlData();
             urlData.setReferer(spiderThread.getDoorUrl());

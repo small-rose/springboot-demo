@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.xiaocai.demo</groupId>
     <artifactId>spring-boot-spider</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <name>spring-boot-spider</name>
     <description>Demo project for Spring Boot Spider</description>
     <properties>

@@ -6,7 +6,8 @@
     <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
     <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
-
+    <link rel="icon" href="https://blog.zhangxiaocai.cn/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+    <link rel="icon" href="https://blog.zhangxiaocai.cn/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
 </head>
 <style>
     .table th, .table td {
@@ -62,12 +63,17 @@
     .panel-group {
         margin-bottom: 10px;
     }
+    .must{
+        align-content: center;
+        font-size: medium;
+        color: red;
+    }
 </style>
 <body>
 <script type="text/javascript">
 
     function getTemplate(index) {
-        var newWeb = '<div class="panel panel-default panel-success newTabs" >\n' +
+        const newWeb = '<div class="panel panel-default panel-success newTabs" >\n' +
             '            <div class="panel-heading bg-success" role="tab" id="headingNew"'+index +' >\n' +
             '                <h4 class="panel-title">\n' +
             '                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNew'+index +'" aria-expanded="true" aria-controls="collapseOne">\n' +
@@ -89,8 +95,14 @@
             '                                    <tr>\n' +
             '                                        <td class="col-sm-2">主站地址</td>\n' +
             '                                        <td class="col-sm-2">door</td>\n' +
-            '                                        <td class="col-sm-4"><input type="text"  class="col-sm-4  form-control" id="door'+index +'" name="door'+index +'" value=" "/></td>\n' +
-            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                        <td class="col-sm-4"><input type="text"  class="col-sm-4  form-control" id="door'+index +'" name="door'+index +'" value=""/></td>\n' +
+            '                                        <td class="col-sm-2">主站地址</td>\n' +
+            '                                    </tr>\n' +
+            '                                    <tr>\n' +
+            '                                        <td class="col-sm-2">下载目录</td>\n' +
+            '                                        <td class="col-sm-2">saveLocation</td>\n' +
+            '                                        <td class="col-sm-4"><input type="text"  class="col-sm-4  form-control" id="download'+index +'" name="download'+index +'" value="d:\\download"/></td>\n' +
+            '                                        <td class="col-sm-2">下载目录</td>\n' +
             '                                    </tr>\n' +
             '                                    </thead>\n' +
             '                                 </table>\n' +
@@ -105,7 +117,7 @@
             '                                        <td class="col-sm-2">规则</td>\n' +
             '                                        <td class="col-sm-2">key</td>\n' +
             '                                        <td class="col-sm-4">值</td>\n' +
-            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                        <td class="col-sm-2">规则说明(带*必填)</td>\n' +
             '                                    </tr>\n' +
             '                                    </thead>\n' +
             '                                    <tbody>\n' +
@@ -117,7 +129,7 @@
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
             '                                            <input type="text"  class="col-sm-4  form-control" id="categoryEleLocation'+index +'" name="categoryEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
-            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                        <td><span class="must">*</span>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
             '                                    <tr>\n' +
             '                                        <td>指定分类</td>\n' +
@@ -127,7 +139,7 @@
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
             '                                            <input type="text"  class="col-sm-4  form-control" id="categoryName'+index +'"  name="categoryName'+index +'" value=""/>\n' +
             '                                        </td>\n' +
-            '                                        <td>抓取指定分类，多个使用+号连接</td>\n' +
+            '                                        <td><span class="must">*</span>抓取指定分类，多个使用+号连接</td>\n' +
             '                                    </tr>\n' +
             '                                    <tr>\n' +
             '                                        <td>跳过关键字</td>\n' +
@@ -150,7 +162,7 @@
             '                                        <td class="col-sm-2">规则</td>\n' +
             '                                        <td class="col-sm-2">key</td>\n' +
             '                                        <td class="col-sm-4">值</td>\n' +
-            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                        <td class="col-sm-2">规则说明(带*必填)</td>\n' +
             '                                    </tr>\n' +
             '                                    </thead>\n' +
             '                                    <tbody>\n' +
@@ -162,7 +174,7 @@
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
             '                                            <input type="text"  class="col-sm-4  form-control" id="categoryPagesEleLocation'+index +'" name="categoryPagesEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
-            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                        <td><span class="must">*</span>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
             '                                    <tr>\n' +
             '                                        <td>跳过关键字</td>\n' +
@@ -185,7 +197,7 @@
             '                                        <td class="col-sm-2">规则</td>\n' +
             '                                        <td class="col-sm-2">key</td>\n' +
             '                                        <td class="col-sm-4">值</td>\n' +
-            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                        <td class="col-sm-2">规则说明(带*必填)</td>\n' +
             '                                    </tr>\n' +
             '                                    </thead>\n' +
             '                                    <tbody>\n' +
@@ -197,7 +209,7 @@
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
             '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupEleLocation'+index +'" name="linkGroupEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
-            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                        <td><span class="must">*</span>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
             '                                    <tr>\n' +
             '                                        <td>跳过关键字</td>\n' +
@@ -220,7 +232,7 @@
             '                                        <td class="col-sm-2">规则</td>\n' +
             '                                        <td class="col-sm-2">key</td>\n' +
             '                                        <td class="col-sm-4">值</td>\n' +
-            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                        <td class="col-sm-2">规则说明(带*必填)</td>\n' +
             '                                    </tr>\n' +
             '                                    </thead>\n' +
             '                                    <tbody>\n' +
@@ -232,7 +244,7 @@
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
             '                                            <input type="text"  class="col-sm-4  form-control" id="linkGroupPagesEleLocation'+index +'" name="linkGroupPagesEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
-            '                                        <td>抓取图组分页的css坐标</td>\n' +
+            '                                        <td><span class="must">*</span>抓取图组分页的css坐标</td>\n' +
             '                                    </tr>\n' +
             '                                    <tr>\n' +
             '                                        <td>跳过关键字</td>\n' +
@@ -255,7 +267,7 @@
             '                                        <td class="col-sm-2">规则</td>\n' +
             '                                        <td class="col-sm-2">key</td>\n' +
             '                                        <td class="col-sm-4">值</td>\n' +
-            '                                        <td class="col-sm-2">规则说明</td>\n' +
+            '                                        <td class="col-sm-2">规则说明(带*必填)</td>\n' +
             '                                    </tr>\n' +
             '                                    </thead>\n' +
             '                                    <tbody>\n' +
@@ -267,7 +279,7 @@
             '                                            <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->\n' +
             '                                            <input type="text"  class="col-sm-4  form-control" id="picLinkEleLocation'+index +'" name="picLinkEleLocation'+index +'" value=""/>\n' +
             '                                        </td>\n' +
-            '                                        <td>抓取分类的坐标</td>\n' +
+            '                                        <td><span class="must">*</span>抓取分类的坐标</td>\n' +
             '                                    </tr>\n' +
             '                                    <tr>\n' +
             '                                        <td>跳过关键字</td>\n' +
@@ -289,7 +301,7 @@
     }
 
     function getModel(titel, content){
-        var modelContent =
+        const modelContent =
             '<!-- 模态框（Modal） -->\n' +
             '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
             '    <div class="modal-dialog">\n' +
@@ -315,9 +327,39 @@
         return  false ;
     }
 
+    function show(error, info, content, callback){
+        if (checkNull(error) && !checkNull(info)){
+            $("#error").hide();
+            $("#info").html(content);
+            $("#info").show('slow', callback);
+
+        }else if (checkNull(info) && !checkNull(error)) {
+            $("#info").hide();
+            $("#error").html(content);
+            $("#error").show('slow', callback);
+
+        }else{
+            $("#error").html('');
+            $("#info").html('');
+            $("#error").hide();
+            $("#info").hide();
+        }
+    }
+
+    function collapseNew(index){
+        if (!$("#collapseNew"+index).hasClass("collapse in")){
+            $("#collapseNew"+index).addClass("collapse in");
+        }else{
+            $("#collapseNew"+index).removeClass("collapse in");
+        }
+    }
+    function error(object){
+        $(object).css("border-color","rgba(247, 8, 8, 0.88)");
+    }
     $(function(){
 
 
+        show(null, null, null);
 
         $('#myModal').modal('hide');
 
@@ -325,14 +367,21 @@
             location.reload();
         });
 
-        var index = 1 ;
-        var flag = false ;
+        const index = 1 ;
+        let flag = false ;
         $("#addNew").click(function(){
 
             if (flag ){
-                $('#myModalLabelTitle').html('添加配置提示');
+                show(error, null, '一个一个的配置新站，别贪心!', function () {
+                    $("#collapseNew"+index).addClass("collapse in");
+                });
+                /*$('#myModalLabelTitle').html('添加配置提示');
                 $('#msgContent').html('一个一个的配置新站，别贪心!');
                 $('#myModal').modal('show');
+                $('#myModal').on('hide.bs.modal',
+                    function() {
+                        $("#door"+index).focus();
+                    })*/
                 return false ;
             }
             $("#accordion").append(getTemplate(index));
@@ -341,55 +390,89 @@
 
         $("#saveNew").click(function () {
             if (!flag){
-                $('#myModalLabelTitle').html('保存提示');
+
+                //$('#myModalLabelTitle').html('保存提示');
+                const doorIndex = $("#door"+index);
                 if (checkNull(doorIndex)){
-                    //$(this).attr("saveNew", "")
+                    /* $(this).attr("saveNew", "")
                     $('#msgContent').html('还没添加配置新站!');
                     $('#myModal').modal('show');
-                    return;
+                    $('#myModal').on('hide.bs.modal',
+                        function() {
+                            $("#door"+index).focus();
+                        })*/
+                    show( null, 'info', '请添加新站配置!', function () {
+                        //$("#door"+index).focus();
+                    });
+                    return false;
                 }
             }
              //取配置数据
-            var door = $("#door"+index).val();
+            const door = $("#door"+index).val().replace(/\s+/g,"");
+            if (checkNull(door)){
+                show('error', null, '还没配置网站地址!', function () {
+                    collapseNew(index);
+                    $("#door"+index).focus(error("#door"+index));
+                    return false;
+                });
+                return false;
+            }
+            const download = $("#download"+index).val();
 
-            var categoryEleLocation = $("#categoryEleLocation"+index).val();
+            const categoryEleLocation = $("#categoryEleLocation"+index).val();
             if (checkNull(categoryEleLocation)){
-                $('#msgContent').html('分类CSS定位必填!');
-                $('#myModal').modal('show');
-                return ;
+                show('error', null, '分类CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#categoryEleLocation"+index).focus(error("#categoryEleLocation"+index));
+                });
+                return false ;
             }
-            var categoryName = $("#categoryName"+index).val();
-            var categorySkipKeys = $("#categorySkipKeys"+index).val();
-            var categoryPagesEleLocation = $("#categoryPagesEleLocation"+index).val();
+            const categoryName = $("#categoryName"+index).val();
+            const categorySkipKeys = $("#categorySkipKeys"+index).val();
+            const categoryPagesEleLocation = $("#categoryPagesEleLocation"+index).val();
             if (checkNull(categoryPagesEleLocation)){
-                $('#msgContent').html('分类分页CSS定位必填!');
-                $('#myModal').modal('show');
+                show('error', null, '分类分页CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#categoryPagesEleLocation"+index).focus();
+                });
                 return ;
             }
-            var categoryPagesSkipKeys = $("#categoryPagesSkipKeys"+index).val();
-            var linkGroupEleLocation = $("#linkGroupEleLocation"+index).val();
+            const categoryPagesSkipKeys = $("#categoryPagesSkipKeys"+index).val();
+            const linkGroupEleLocation = $("#linkGroupEleLocation"+index).val();
             if (checkNull(linkGroupEleLocation)){
-                $('#msgContent').html('图组CSS定位必填!');
-                $('#myModal').modal('show');
+                show('error', null, '图组CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#linkGroupEleLocation"+index).focus();
+                });
                 return ;
             }
-            var linkGroupSkipKeys = $("#linkGroupSkipKeys"+index).val();
-            var linkGroupPagesEleLocation = $("#linkGroupPagesEleLocation"+index).val();
+            const linkGroupSkipKeys = $("#linkGroupSkipKeys"+index).val();
+            const linkGroupPagesEleLocation = $("#linkGroupPagesEleLocation"+index).val();
             if (checkNull(linkGroupPagesEleLocation)){
+                show('error', null, '图组分页CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#linkGroupPagesEleLocation"+index).focus();
+                });/*
                 $('#msgContent').html('图组分页CSS定位必填!');
                 $('#myModal').modal('show');
+                $("#linkGroupPagesEleLocation"+index).focusin();*/
                 return ;
             }
-            var linkGroupPagesSkipKeys = $("#linkGroupPagesSkipKeys"+index).val();
-            var picLinkEleLocation = $("#picLinkEleLocation"+index).val();
+            const linkGroupPagesSkipKeys = $("#linkGroupPagesSkipKeys" + index).val();
+            const picLinkEleLocation = $("#picLinkEleLocation" + index).val();
             if (checkNull(picLinkEleLocation)){
+                show('error', null, '图片CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#picLinkEleLocation"+index).focus();
+                });/*
                 $('#msgContent').html('图片CSS定位必填');
                 $('#myModal').modal('show');
+                $("#picLinkEleLocation"+index).focusin();*/
                 return ;
             }
-            var picLinkSkipKeys = $("#picLinkSkipKeys"+index).val();
-            //var data = "{'door':door, 'category':{'eleLocation':'"+categoryEleLocation+"}}";
-            var data = '{"id":"","door":"'+door+'",' +
+            const picLinkSkipKeys = $("#picLinkSkipKeys"+index).val();
+            //const data = "{'door':door, 'category':{'eleLocation':'"+categoryEleLocation+"}}";
+            const data = '{"id":"","door":"'+door+'","saveLocation":"'+download+'",'+
                 '"category":{"eleLocation":"'+categoryEleLocation+'","categoryName":"'+categoryName+'","skipKeys":['+categorySkipKeys.split(',')+']},' +
                 '"categoryPages":{"eleLocation":"'+categoryPagesEleLocation+'","skipKeys":['+categoryPagesSkipKeys.split(',')+']},' +
                 '"linkGroup":{"eleLocation":"'+linkGroupEleLocation+'","skipKeys":['+linkGroupSkipKeys.split(',')+']},' +
@@ -405,9 +488,71 @@
                 contentType: 'application/json; charset=UTF-8',
                 data: data,
                 success:function(data){
+                    console.log(data);
                     if(data.code==200){
-                        alert(data.msg);
+                        collapseNew(index);
+                        show( null, 'info', data.message, function () {
+                            top.location.reload();
+                        });
+                        //$('#msgContent').html(data.msg);
+                        //$('#myModal').modal('show');
+                        //top.location.reload();
                     }else{
+                        show('error', null, '图片CSS定位必填!', function () {
+                            $('#msgContent').html(data.message);
+                            $('#myModal').modal('show');
+
+                        });
+                    }
+                },
+                error:function(jqXHR){
+                    console.log("Error: "+jqXHR.status);
+                }
+            });
+        });
+
+        $(".catch-button").click(function () {
+            const id = $(this).attr("data");
+            $.ajax({
+                type: 'POST',
+                url: "/spider-web/didi/start/"+id,
+                dataType:"json",
+                contentType: 'application/json; charset=UTF-8',
+                data: {},
+                success:function(data){
+                    console.log(data);
+                    if(data.code==200){
+                        show( null, 'info','已经启动抓取任务!', function () {
+                            collapseNew(id);
+                        });
+                        //top.location.reload();
+                    }
+                },
+                error:function(jqXHR){
+                    console.log("Error: "+jqXHR.status);
+                }
+
+            });
+        });
+
+        $(".stop-button").click(function () {
+            const id = $(this).attr("data");
+            $.ajax({
+                type: 'POST',
+                url: "/spider-web/didi/stop/"+id,
+                dataType:"json",
+                contentType: 'application/json; charset=UTF-8',
+                data: {},
+                success:function(data){
+                    console.log(data);
+                    if(data.code==200){
+
+                        $('#msgContent').html(data.msg);
+                        $('#myModal').modal('show');
+                        //top.location.reload();
+                    }else{
+                        $('#msgContent').html(data.msg);
+                        $('#myModal').modal('show');
                         alert(data.msg);
                     }
                 },
@@ -419,7 +564,7 @@
         });
     });
 </script>
-<div class="container">
+<div class="container" id="container">
 
     <nav class="navbar bg-success">
         <div class="container-fluid  bg-success">
@@ -433,12 +578,15 @@
                     <ul class="nav navbar-nav">
                         <li class=" "><a class=" title-custom">Small Spider</a></li>
                     </ul>
-                </div></div>
+                </div>
+
+            </div>
         </div>
     </nav>
     <hr/>
-    <div class="panel " th:if="${not #strings.isEmpty(errorMsg)}">
+    <div class="panel list-inline" th:if="${not #strings.isEmpty(errorMsg)}">
        Tips : <span class="tip"  th:text="${errorMsg}"></span>
+
     </div>
     <!--/*@thymesVar id="ruleList" type="java.util.ArrayList"*/-->
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" >
@@ -446,6 +594,7 @@
             <div class="panel-heading bg-success" role="tab" id="headingOne">
                 <h4 class="panel-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#collapseOne'+ ${rule.id}" aria-expanded="true" aria-controls="collapseOne">
+                        <!--/*@thymesVar id="door" type="cn"*/-->
                         <span th:text="${rule.door}"></span>
                     </a>
 
@@ -460,12 +609,12 @@
                         <tr>
                             <td class="col-sm-2">规则 定义</td>
                             <td class="col-sm-10">
-                                <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-danger">终止抓取</button>
-                                    <button type="button" class="btn btn-primary"> 开始抓取</button>
+<!--
+                                <div style="text-align:center" class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-danger  stop-button" th:data="${rule.id}" >终止抓取</button>
+                                    <button type="button" class="btn btn-primary catch-button" th:data="${rule.id}"> 开始抓取</button>
 
-                                    <div class="btn-group" role="group">
-
+                                    &lt;!&ndash;<div class="btn-group" role="group">
                                         <select class="form-control btn-warning">
                                             <option value="1">刷新频率 1s</option>
                                             <option value="2">刷新频率 2s</option>
@@ -473,8 +622,25 @@
                                             <option value="4">刷新频率 4s</option>
                                             <option value="5">刷新频率 5s</option>
                                         </select>
-                                    </div>
-                                </div>
+                                    </div>&ndash;&gt;
+                                    <button type="button" class="btn btn-default" >
+                                    保存路径:
+                                    </button>
+                                    <button type="button" class="btn " >
+                                         <input type="text"  class="col-sm-6  form-control"  name="download" th:value="${rule.saveLocation}"/>
+                                    </button>
+                                </div>-->
+                                <table >
+                                    <tr>
+                                        <td class="col-sm-2"><button type="button" class="btn btn-primary catch-button" th:data="${rule.id}"> 开始抓取</button></td>
+                                        <td class="col-sm-2"><button type="button" class="btn btn-danger  stop-button" th:data="${rule.id}" >终止抓取</button></td>
+                                        <td class="col-sm-2">保存路径:</td>
+                                        <td class="col-sm-8"><input type="text"  class="col-sm-6  form-control"  name="download" th:value="${rule.saveLocation}"/></td>
+                                        <td class="col-sm-2"><button th:if="${#strings.length(rule.id)} >= 3"  type="button" class="btn btn-primary edit-button" th:data="${rule.id}"> 重新保存</button></td>
+
+                                    </tr>
+                                </table>
+
                             </td>
                         </tr>
                         <tr>
@@ -486,7 +652,7 @@
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
-                                        <td class="col-sm-2">规则说明</td>
+                                        <td class="col-sm-2">规则说明(带*必填)</td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -496,9 +662,10 @@
                                         <td>
                                             <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.Category"*/-->
                                             <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
-                                            <input type="text"  class="col-sm-4  form-control" name="categoryEleLocation" th:value="${rule.category.eleLocation}">
+                                            <span th:if="${#strings.length(rule.id)} < 3" th:text="${rule.category.eleLocation}"></span>
+                                            <input th:if="${#strings.length(rule.id)} >= 3" type="text"  class="col-sm-4  form-control" name="categoryEleLocation" th:value="${rule.category.eleLocation}">
                                         </td>
-                                        <td>抓取分类的坐标</td>
+                                        <td><span class="must">*</span>抓取分类的坐标</td>
                                     </tr>
                                     <tr>
                                         <td>指定分类</td>
@@ -532,7 +699,7 @@
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
-                                        <td class="col-sm-2">规则说明</td>
+                                        <td class="col-sm-2">规则说明(带*必填)</td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -542,9 +709,10 @@
                                         <td>
                                             <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.CategoryPages"*/-->
                                             <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
-                                            <input type="text"  class="col-sm-4  form-control" name="CategoryPagesEleLocation" th:value="${rule.CategoryPages.eleLocation}">
+                                            <span th:if="${#strings.length(rule.id)} < 3" th:text="${rule.categoryPages.eleLocation}"></span>
+                                            <input th:if="${#strings.length(rule.id)} > 3" type="text"  class="col-sm-4  form-control" name="categoryPagesEleLocation" th:value="${rule.CategoryPages.eleLocation}">
                                         </td>
-                                        <td>抓取分类的坐标</td>
+                                        <td><span class="must">*</span>抓取分类的坐标</td>
                                     </tr>
                                     <tr>
                                         <td>跳过关键字</td>
@@ -567,7 +735,7 @@
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
-                                        <td class="col-sm-2">规则说明</td>
+                                        <td class="col-sm-2">规则说明(带*必填)</td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -577,7 +745,8 @@
                                         <td>
                                             <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroup"*/-->
                                             <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
-                                            <input type="text"  class="col-sm-4  form-control" name="linkGroupEleLocation" th:value="${rule.linkGroup.eleLocation}">
+                                            <span th:if="${#strings.length(rule.id)} < 3" th:text="${rule.linkGroup.eleLocation}"></span>
+                                            <input th:if="${#strings.length(rule.id)} > 3" type="text"  class="col-sm-4  form-control" name="linkGroupEleLocation" th:value="${rule.linkGroup.eleLocation}">
                                         </td>
                                         <td>抓取分类的坐标</td>
                                     </tr>
@@ -602,7 +771,7 @@
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
-                                        <td class="col-sm-2">规则说明</td>
+                                        <td class="col-sm-2">规则说明(带*必填)</td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -612,11 +781,11 @@
                                         <td>
                                             <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.LinkGroupPages"*/-->
                                             <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
-
-                                            <input type="text"  class="col-sm-4  form-control" name="linkGroupPagesEleLocation" th:value="${rule.linkGroupPages.eleLocation}">
+                                            <span th:if="${#strings.length(rule.id)} < 3" th:text="${rule.linkGroupPages.eleLocation}"></span>
+                                            <input th:if="${#strings.length(rule.id)} > 3" type="text"  class="col-sm-4  form-control" name="linkGroupPagesEleLocation" th:value="${rule.linkGroupPages.eleLocation}">
 
                                         </td>
-                                        <td>抓取图组分页的css坐标</td>
+                                        <td><span class="must">*</span>抓取图组分页的css坐标,如没有可配置成 .abcdefg</td>
                                     </tr>
                                     <tr>
                                         <td>跳过关键字</td>
@@ -639,7 +808,7 @@
                                         <td class="col-sm-2">规则</td>
                                         <td class="col-sm-2">key</td>
                                         <td class="col-sm-4">值</td>
-                                        <td class="col-sm-2">规则说明</td>
+                                        <td class="col-sm-2">规则说明(带*必填)</td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -649,11 +818,11 @@
                                         <td>
                                             <!--/*@thymesVar id="category" type="cn.xiaocai.demo.spider.web.vo.PicLink"*/-->
                                             <!--/*@thymesVar id="categoryName" type="java.lang.String"*/-->
-
-                                            <input type="text"  class="col-sm-4  form-control" name="picLinkEleLocation" th:value="${rule.picLink.eleLocation}">
+                                            <span th:if="${#strings.length(rule.id)} < 3" th:text="${rule.picLink.eleLocation}"></span>
+                                            <input th:if="${#strings.length(rule.id)} > 3" type="text"  class="col-sm-4  form-control" name="picLinkEleLocation" th:value="${rule.picLink.eleLocation}">
 
                                         </td>
-                                        <td>抓取分类的坐标</td>
+                                        <td><span class="must">*</span>抓取分类的坐标</td>
                                     </tr>
 
                                     <tr>
@@ -708,6 +877,8 @@
                 data-container="body" data-toggle="popover" data-placement="bottom"
                 data-content="">保存新站</button>
     </div>
+    <div id="error" hidden class="alert alert-danger alert-dismissable">错误！请进行一些更改。</div>
+    <div id="info" hidden class="alert alert-info alert-dismissable">错误！请进行一些更改。</div>
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -735,5 +906,20 @@
     </div><!-- /.modal -->
 
 </div>
+<!--<div class="footer-copyright"><p>Powered by <a target="_blank" href="https://small-rose.github.io" marked="1">small-rose</a> </div>-->
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html,body{
+        height: 100%;
+    }
+     .footer-copyright {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
 </body>
 </html>
