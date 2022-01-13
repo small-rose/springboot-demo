@@ -120,4 +120,31 @@ public class DateTimeDemo {
            log.info("----" + str +" 在 20220107 之后" );
         }
     }
+
+    @Test
+    public void test04() throws ParseException {
+        String lastTime = "2022-01-11 19:00:10";
+        // 上次的时间
+        // 上次的时间
+        log.info("上次时间："+lastTime);
+        Date lastTimeDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastTime);
+        Instant instant = lastTimeDate.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime lastTimeLocl = LocalDateTime.ofInstant(instant, zoneId).plusHours(2);
+        // 上次实名时间+2小时，和现在比较
+        String last = lastTimeLocl.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        log.info("上次时间+2小时："+last);
+        String limit = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        log.info("本次时间："+limit);
+        if(last.compareTo(limit) >0){
+            //在2小时范围内
+            log.info("本次实名在2小时内");
+            //return true ;
+        }else{
+            // 超出2小时
+            log.info("本次实名已经超出2小时");
+            //return  false ;
+        }
+
+    }
 }
