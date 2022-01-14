@@ -12,5 +12,5 @@ import java.util.List;
 @FunctionalInterface
 public interface HrefFilter {
 
-    public boolean accept(List<String> skipkeys, String href);
+    public boolean accept(List<String> skipkeys);
 }

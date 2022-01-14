@@ -1,6 +1,6 @@
 package com.xiaocai.demo.filter.demotest;
 
-import com.xiaocai.demo.filter.demotest.hrefFilter.HerfContainsFilter;
+import com.xiaocai.demo.filter.demotest.hrefFilter.HrefContainsFilter;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,18 +14,21 @@ import java.util.List;
  * @version: v1.0
  */
 public class HrefTestDemo {
-
+    HrefRule rule = new HrefRule();
 
     @Test
     public void hrefFilter(){
 
         List<String> skipKeys = Arrays.asList("aa","bb","cc");
         String href="https://zhangxiacai.cn/aa/102";
-         Href href1 = new Href();
+         HrefData href1 = new HrefData();
          href1.setHref(href);
-         href1.setSkipkeys(skipKeys);
+         href1.setName("还不能");
 
-        Boolean bool =  href1.doFilter(new HerfContainsFilter());
+        rule.setSkipkeys(skipKeys);
+        //rule.setHrefData(href1);
+
+        Boolean bool =  rule.doFilter(new HrefContainsFilter(href1));
         System.out.println(bool);
 
     }
