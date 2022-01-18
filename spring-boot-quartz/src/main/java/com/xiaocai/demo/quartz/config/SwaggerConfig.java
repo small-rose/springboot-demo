@@ -33,7 +33,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.xiaocai.demo.jsoup"))
+                .apis(RequestHandlerSelectors.basePackage("com.xiaocai.demo"))
                 //.apis(RequestHandlerSelectors.withClassAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
