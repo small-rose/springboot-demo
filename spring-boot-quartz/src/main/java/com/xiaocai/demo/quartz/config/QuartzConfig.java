@@ -20,7 +20,7 @@ public class QuartzConfig {
     public SchedulerFactoryBean schedulerFactoryBean(){
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         schedulerFactoryBean.setOverwriteExistingJobs(true);//覆盖已存在的任务
-        schedulerFactoryBean.setStartupDelay(60);//延时60秒启动定时任务，避免系统未完全启动却开始执行定时任务的情况
+        schedulerFactoryBean.setStartupDelay(30);//延时60秒启动定时任务，避免系统未完全启动却开始执行定时任务的情况
         return schedulerFactoryBean;
     }
 

@@ -4,9 +4,24 @@ server:
   servlet:
     context-path: /db-quartz
 
-
-  # DataSource Config
 spring:
+  # Quartz \u7684\u914D\u7F6E\uFF0C\u5BF9\u5E94 QuartzProperties \u914D\u7F6E\u7C7B  for com.xiaocai.demo.quartz.jobs \u6F14\u793A\u4EFB\u52A1\u7684\u914D\u7F6E\u65B9\u5F0F
+  quartz:
+    job-store-type: memory # Job \u5B58\u50A8\u5668\u7C7B\u578B\u3002\u9ED8\u8BA4\u4E3A memory \u8868\u793A\u5185\u5B58\uFF0C\u53EF\u9009 jdbc \u4F7F\u7528\u6570\u636E\u5E93\u3002
+    auto-startup: true # Quartz \u662F\u5426\u81EA\u52A8\u542F\u52A8
+    startup-delay: 0 # \u5EF6\u8FDF N \u79D2\u542F\u52A8
+    wait-for-jobs-to-complete-on-shutdown: true # \u5E94\u7528\u5173\u95ED\u65F6\uFF0C\u662F\u5426\u7B49\u5F85\u5B9A\u65F6\u4EFB\u52A1\u6267\u884C\u5B8C\u6210\u3002\u9ED8\u8BA4\u4E3A false \uFF0C\u5EFA\u8BAE\u8BBE\u7F6E\u4E3A true
+    overwrite-existing-jobs: false # \u662F\u5426\u8986\u76D6\u5DF2\u6709 Job \u7684\u914D\u7F6E
+    properties: # \u6DFB\u52A0 Quartz Scheduler \u9644\u52A0\u5C5E\u6027
+      org:
+        quartz:
+          threadPool:
+            threadCount: 25 # \u7EBF\u7A0B\u6C60\u5927\u5C0F\u3002\u9ED8\u8BA4\u4E3A 10 \u3002
+            threadPriority: 5 # \u7EBF\u7A0B\u4F18\u5148\u7EA7
+            class: org.quartz.simpl.SimpleThreadPool # \u7EBF\u7A0B\u6C60\u7C7B\u578B
+  #    jdbc: # \u8FD9\u91CC\u6682\u65F6\u4E0D\u8BF4\u660E\uFF0C\u4F7F\u7528 JDBC \u7684 JobStore \u7684\u65F6\u5019\uFF0C\u624D\u9700\u8981\u914D\u7F6E
+
+  # DataSource Config for tasks  com.xiaocai.demo.quartz.tasks \u81EA\u5DF1\u5B9A\u4E49\u4E00\u5F20\u4EFB\u52A1\u8868\u7BA1\u7406\u4EFB\u52A1\u7684\u793A\u4F8B
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root

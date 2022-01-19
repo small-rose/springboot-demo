@@ -35,7 +35,7 @@ public class BatchTaskService {
     }
 
     public BuzBatchTask getById(int id) {
-        return batchTaskTdRepository.getById(id);
+        return batchTaskTdRepository.getOne(id);
     }
 
     public int updateStatusById(BuzBatchTask job) {
