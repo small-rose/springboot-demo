@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @Slf4j
 @SpringBootApplication
-public class SpringBootQuartzDbApplication {
+public class QuartzJdbcApplication {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(SpringBootQuartzDbApplication.class, args);
-        log.info("SpringBootQuartzDbApplication 启动成功了--- +^_^+");
+        SpringApplication.run(QuartzJdbcApplication.class, args);
+        log.info("QuartzJdbcApplication 启动成功了--- +^_^+");
     }
 
 }
