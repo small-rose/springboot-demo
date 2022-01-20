@@ -6,6 +6,14 @@
 
 官方文档：https://www.xuxueli.com/xxl-job/
 
+
+源码仓库地址
+
+|源码仓库地址 	| Release Download |
+|---------------|------------------|
+|https://github.com/xuxueli/xxl-job 	|Download|
+|http://gitee.com/xuxueli0323/xxl-job 	|Download|
+
 调度中心
 
 （1）下载源码，修改数据库配置
