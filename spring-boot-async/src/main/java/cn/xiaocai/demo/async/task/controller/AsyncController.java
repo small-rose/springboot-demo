@@ -1,12 +1,10 @@
 package cn.xiaocai.demo.async.task.controller;
 
 import cn.xiaocai.demo.async.task.service.AsyncTaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
