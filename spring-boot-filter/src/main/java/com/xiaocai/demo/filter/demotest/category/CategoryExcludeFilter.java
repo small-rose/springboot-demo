@@ -17,17 +17,19 @@ import java.util.stream.Collectors;
 public class CategoryExcludeFilter extends CategoryIncludeFilter implements CategoryFilter{
 
 
-    public CategoryExcludeFilter(Category category){
-        super(category);
+    public CategoryExcludeFilter(List<IncludeRule> includeRuleList){
+        super(includeRuleList);
      }
 
 
     @Override
-    public Category doFilter(List<IncludeRule> includeRuleList) {
+    public Category doFilter(Category category) {
         if (null == category){
             return null;
         }
-
+        if (includeRuleList==null || includeRuleList.size()==0){
+            return category ;
+        }
         List<IncludeRule> collect = includeRuleList.stream().filter(i -> i instanceof ExcludeRule).collect(Collectors.toList());
 
         for (IncludeRule includeRule : collect){

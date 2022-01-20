@@ -16,16 +16,19 @@ import java.util.stream.Collectors;
  */
 public class CategoryIncludeFilter implements CategoryFilter{
 
-    protected Category category;
+    protected List<IncludeRule> includeRuleList ;
 
-    public CategoryIncludeFilter(Category category){
-
+    public CategoryIncludeFilter(List<IncludeRule> includeRuleList){
+        this.includeRuleList = includeRuleList;
     }
 
     @Override
-    public Category doFilter(List<IncludeRule> includeRuleList) {
+    public Category doFilter(Category category) {
         if (null == category){
             return null;
+        }
+        if (includeRuleList==null || includeRuleList.size()==0){
+            return category ;
         }
 
         List<IncludeRule> collect = includeRuleList.stream().filter(i -> !(i instanceof ExcludeRule)).collect(Collectors.toList());

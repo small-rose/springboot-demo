@@ -1,9 +1,6 @@
 package com.xiaocai.demo.filter.demotest.category;
 
-import com.xiaocai.demo.filter.demotest.include.IncludeRule;
 import com.xiaocai.demo.filter.vo.Category;
-
-import java.util.List;
 
 /**
  * @description: TODO 功能角色说明：
@@ -16,5 +13,5 @@ import java.util.List;
 public interface CategoryFilter {
 
 
-    public Category doFilter(List<IncludeRule> includeRuleList);
+    public Category doFilter(Category category);
 }

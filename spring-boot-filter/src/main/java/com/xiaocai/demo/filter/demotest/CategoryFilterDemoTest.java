@@ -1,10 +1,13 @@
 package com.xiaocai.demo.filter.demotest;
 
+import com.xiaocai.demo.filter.demotest.include.ExcludeRule;
+import com.xiaocai.demo.filter.demotest.include.IncludeRule;
 import com.xiaocai.demo.filter.vo.Category;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @description: TODO 功能角色说明：
@@ -16,6 +19,15 @@ import java.util.List;
 public class CategoryFilterDemoTest {
 
     @Test
+    public void test(){
+        List<IncludeRule> includeRuleList = new ArrayList<IncludeRule>();
+        includeRuleList.add(new ExcludeRule());
+        includeRuleList.add(new IncludeRule());
+        List<IncludeRule> collect = includeRuleList.stream().filter(i -> !(i instanceof ExcludeRule)).collect(Collectors.toList());
+
+    }
+
+    @Test
     public void categoryFilter(){
 
         List<Category> categoryList = new ArrayList<>();
@@ -23,14 +35,10 @@ public class CategoryFilterDemoTest {
         for (int i = 0; i < 10 ; i++){
             category = new Category();
             category.setName("测试" + i);
-            category.setUrl("https://zhangxiaocai.cn/2022/02"+i);
+            category.setUrl("https://zhangxiaocai.cn/02"+i);
             categoryList.add(category);
         }
 
 
-        for (Category  categoryTmp : categoryList){
-
-
-        }
     }
 }

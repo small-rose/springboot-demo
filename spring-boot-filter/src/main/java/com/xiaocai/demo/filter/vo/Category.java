@@ -1,5 +1,6 @@
 package com.xiaocai.demo.filter.vo;
 
+import com.xiaocai.demo.filter.demotest.category.CategoryFilter;
 import lombok.Data;
 
 /**
@@ -12,4 +13,14 @@ import lombok.Data;
 @Data
 public class Category extends UrlData{
 
+
+
+
+
+    public Category filter(CategoryFilter filter){
+        if (filter==null){
+            return this ;
+        }
+        return filter.doFilter(this);
+    }
 }
