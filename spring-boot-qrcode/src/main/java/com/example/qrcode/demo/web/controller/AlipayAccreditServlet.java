@@ -1,18 +1,7 @@
 package com.example.qrcode.demo.web.controller;
 
-import com.alipay.api.AlipayApiException;
-import com.alipay.api.AlipayClient;
-import com.alipay.api.AlipayConstants;
-import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.request.AlipaySystemOauthTokenRequest;
-import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.example.qrcode.demo.core.constants.AliPayConstants;
-//import com.fenet.insurance.paystation.onlinepay.api.config.Basic2Config;
-//import com.fenet.insurance.paystation.onlinepay.api.config.BasicConfig;
-//import com.fenet.insurance.paystation.onlinepay.api.utils.DES;
-//import com.fenet.insurance.paystation.onlinepay.api.utils.ResultPageUtils;
 import lombok.extern.slf4j.Slf4j;
-//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -21,10 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.*;
+
+//import com.fenet.insurance.paystation.onlinepay.api.config.Basic2Config;
+//import com.fenet.insurance.paystation.onlinepay.api.config.BasicConfig;
+//import com.fenet.insurance.paystation.onlinepay.api.utils.DES;
+//import com.fenet.insurance.paystation.onlinepay.api.utils.ResultPageUtils;
+//import org.apache.log4j.Logger;
 
 @Slf4j
 public class AlipayAccreditServlet extends HttpServlet {
