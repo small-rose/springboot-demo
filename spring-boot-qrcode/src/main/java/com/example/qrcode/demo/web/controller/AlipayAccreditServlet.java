@@ -86,7 +86,7 @@ public class AlipayAccreditServlet extends HttpServlet {
 				alipay_userId = responseToken.getUserId();
 
 				// 第二步:调gatweay中的Action(gateway中先进行实名认证，再得到表单信息)
-				String header = request.getHeader("user-agent");
+				String header = request.getHeader("apps-agent");
 				if (header != null) {
 					if (header.contains("Mobile")) {
 						PayChannel = "01";
