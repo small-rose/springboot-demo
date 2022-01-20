@@ -81,7 +81,7 @@ public class HttpNetUtil {
             try {
                 u = new URL(url);
                 con = (HttpURLConnection)u.openConnection();
-                con.setRequestMethod("POST");
+                con.setRequestMethod("GET");
                 con.setDoOutput(true);
                 con.setDoInput(true);
                 con.setConnectTimeout(120000);
@@ -108,6 +108,71 @@ public class HttpNetUtil {
                 //osw.write(data1);
                 osw.flush();
                 osw.close();
+            } catch (Exception var13) {
+                var13.printStackTrace();
+            } finally {
+                if (con != null) {
+                    con.disconnect();
+                }
+
+            }
+
+            StringBuffer buffer = new StringBuffer();
+
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8.name()));
+
+                String temp;
+                while((temp = br.readLine()) != null) {
+                    buffer.append(temp);
+                    buffer.append("\n");
+                }
+            } catch (Exception var15) {
+                var15.printStackTrace();
+            }
+
+            return buffer.toString();
+        } else {
+            System.out.println("发送地址为空");
+            return null;
+        }
+    }
+
+    public String httpGet(String url, String referer, String visitIP) {
+        if (null != url && !"".equals(url.trim())) {
+            URL u = null;
+            HttpURLConnection con = null;
+
+            try {
+                u = new URL(url);
+                con = (HttpURLConnection)u.openConnection();
+                con.setRequestMethod("GET");
+                con.setDoOutput(true);
+                con.setDoInput(true);
+                con.setConnectTimeout(120000);
+                con.setReadTimeout(120000);
+                con.setUseCaches(false);
+                con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                //con.setRequestProperty("sign", sign);
+                //con.setRequestProperty("data", data1);
+                con.setRequestProperty("Referer", referer);
+
+
+
+                if (!StringUtils.isEmpty(visitIP)) {
+                    con.setRequestProperty("X-Forwarded-For",visitIP);
+                    con.setRequestProperty("Proxy-Client-IP",visitIP);
+                    con.setRequestProperty("WL-Proxy-Client-IP",visitIP);
+                    con.setRequestProperty("HTTP_CLIENT_IP",visitIP);
+                    con.setRequestProperty("HTTP_X_FORWARDED_FOR",visitIP);
+                    con.setRequestProperty("REMOTE_ADDR",visitIP);
+                    con.setRequestProperty("x-forwarded-for",visitIP);
+                }
+
+                //OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream(), StandardCharsets.UTF_8.name());
+                //osw.write(data1);
+                //osw.flush();
+                //osw.close();
             } catch (Exception var13) {
                 var13.printStackTrace();
             } finally {
