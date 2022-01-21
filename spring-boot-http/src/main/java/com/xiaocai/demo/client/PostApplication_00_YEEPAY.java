@@ -1,6 +1,7 @@
 package com.xiaocai.demo.client;
 
 import com.xiaocai.demo.http.HttpClientUtil;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class PostApplication_00_YEEPAY {
             "        <INSU_MIDNO></INSU_MIDNO>   <!--商户号-->\n" +
             "        <AMOUNT>5000</AMOUNT> <!--交易金额-->\n" +
             "        <DIRECT_BANKCODE></DIRECT_BANKCODE>    <!--付款银行代码-->\n" +
-            "        <DIRECT_ORDERBANKCODE>YEEPAY</DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
+            "        <DIRECT_ORDERBANKCODE>YEE_EBANK</DIRECT_ORDERBANKCODE>  <!--第三方支付渠道-->\n" +
             "        <REMARK></REMARK>   <!--备注（江苏实名，投保人与付款人关系为“其他”时必传）-->\n" +
             "        <OPCODE></OPCODE>   <!--操作员代码-->\n" +
             "        <OPPW></OPPW>   <!--操作员密码-->\n" +
@@ -38,7 +39,7 @@ public class PostApplication_00_YEEPAY {
             "        <PAYWAY>07</PAYWAY>   <!--支付方式-->\n" +
             "        <CHECKNO><![CDATA[]]></CHECKNO> <!--支票号-->\n" +
             "        <CHECKSERRAL></CHECKSERRAL> <!--支票流水号-->\n" +
-            "        <POLICYSTARTDATE>20220104220000</POLICYSTARTDATE>   <!--过期时间（起保时间）-->\n" +
+            "        <POLICYSTARTDATE>20220121220000</POLICYSTARTDATE>   <!--过期时间（起保时间）-->\n" +
             "        <SUBCOMPANY>14</SUBCOMPANY>    <!--分公司代码-->\n" +
             "        <CURRENCYTYPE>CNY</CURRENCYTYPE>    <!--币种-->\n" +
             "        <PARANORMALDAY></PARANORMALDAY>\n" +
@@ -109,7 +110,8 @@ public class PostApplication_00_YEEPAY {
             "</BODY>\n" +
             "</PACKET>" ;
 
-    public static void main(String[] args) {
+    @Test
+    public  void main() {
         //String url = "http://192.168.50.251:9090/bp-paystation/ApplicationsServlet";
 
         String url = "http://10.2.6.76:9090/bp-paystation/ApplicationsServlet";
