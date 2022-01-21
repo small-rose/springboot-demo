@@ -43,9 +43,9 @@ public class FirstJobConfig {
                 .build();
     }
 
-    @Bean
+   /* @Bean
     public void schedulerFirstJob() throws SchedulerException {
         scheduler.scheduleJob(jobDetailFirstJob(), trigger1());
     }
-
+*/
 }

@@ -39,6 +39,6 @@ public class SecondJobConfig implements ApplicationRunner {
                 .startNow() //立即執行一次任務
                 .build();
         // 手动将触发器与任务绑定到调度器内
-        scheduler.scheduleJob(jobDetail, trigger);
+        //scheduler.scheduleJob(jobDetail, trigger);
     }
 }
