@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Small Spider</title>
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" href="webjars/bootstrap-table/1.16.0/bootstrap-table.css" />-->
+    <script src="webjars/bootstrap-table/1.16.0/bootstrap-table.min.js"></script>
+    <script src="webjars/bootstrap-table/1.16.0/bootstrap-table-locale-all.min.js"></script>
+    <!--
+    <script src="webjars/bootstrap-table/1.16.0/themes/foundation/bootstrap-table-foundation.js" />
+    <link rel="stylesheet" href="webjars/bootstrap-table/1.16.0/themes/foundation/bootstrap-table-foundation.css" />
+    -->
+    <link rel="icon" href="https://blog.zhangxiaocai.cn/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+    <link rel="icon" href="https://blog.zhangxiaocai.cn/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+</head>
+<style>
+    .table th, .table td {
+        vertical-align: middle!important;
+    }
+    .table th, .table td.middle {
+        text-align: left;
+        vertical-align: middle!important;
+    }
+
+    .navbar-custom {
+        background-color: rgba(104, 216, 227, 0.97);
+    }
+    /* 自定义brand和文字颜色 */
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+        color: rgba(255,255,255,.8);
+    }
+    /* 自定义链接颜色 */
+    .navbar-custom .navbar-nav .nav-link {
+        color: rgba(255,255,255,.5);
+    }
+    /* 自定义激活或者悬停的链接颜色 */
+    .navbar-custom .nav-item.active .nav-link,
+    .navbar-custom .nav-item:hover .nav-link {
+        color: #ffffff;
+        background-color:#dff0d8
+    }
+
+    .title-custom{
+        color-adjust: economy;
+        font-size: medium;
+    }
+    .title-custom:hover{
+
+    }
+    .btn-info-custom {
+        /*color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;*/
+        color: #fff;
+        background-color: #31b0d5;
+        border-color: #269abc;
+    }
+
+   .btn-info-custom:hover {
+        color: #fff;
+        background-color: #31b0d5;
+        border-color: #269abc;
+    }
+
+    .panel-group {
+        margin-bottom: 10px;
+    }
+    .must{
+        align-content: center;
+        font-size: medium;
+        color: red;
+    }
+</style>
+<body>
+<script type="text/javascript">
+
+
+
+    function checkNull(data){
+        if (data == undefined || data =='' || data ==null){
+            return true ;
+        }
+        return  false ;
+    }
+
+    function show(error, info, content, callback){
+        if (checkNull(error) && !checkNull(info)){
+            $("#error").hide();
+            $("#info").html(content);
+            $("#info").show('slow', callback);
+
+        }else if (checkNull(info) && !checkNull(error)) {
+            $("#info").hide();
+            $("#error").html(content);
+            $("#error").show('slow', callback);
+
+        }else{
+            $("#error").html('');
+            $("#info").html('');
+            $("#error").hide();
+            $("#info").hide();
+        }
+    }
+
+    function collapseNew(index){
+        if (!$("#collapseNew"+index).hasClass("collapse in")){
+            $("#collapseNew"+index).addClass("collapse in");
+        }else{
+            $("#collapseNew"+index).removeClass("collapse in");
+        }
+    }
+    function error(object){
+        $(object).css("border-color","rgba(247, 8, 8, 0.88)");
+    }
+
+</script>
+<div class="container" id="container">
+
+    <nav class="navbar bg-success">
+        <div class="container-fluid  bg-success">
+            <div class="container">
+                <div class="navbar-header bg-success">
+                    <a class="navbar-brand" href="#">
+                        <img alt="small-spider" width="24" height="24" src="https://cdn.jsdelivr.net/gh/small-rose/small-rose.github.io@master/medias/logo-3.png" />
+                    </a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class=" "><a class=" title-custom">定时任务控制台</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <hr/>
+    <div class="panel list-inline" th:if="${not #strings.isEmpty(errorMsg)}">
+       Tips : <span class="tip"  th:text="${errorMsg}"></span>
+
+    </div>
+
+     <form id="toolbar" class="form-inline">
+        <div class="form-group">
+            <label for="searchKey">关键字</label>
+            <input type="text" class="form-control" id="searchKey" placeholder="输入关键字搜索">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+    </form>
+    <table id="table" class="col-xs-12" data-toolbar="#toolbar"></table>
+    <div id="error" hidden class="alert alert-danger alert-dismissable">错误！请进行一些更改。</div>
+    <div id="info" hidden class="alert alert-info alert-dismissable">错误！请进行一些更改。</div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabelTitle">
+                        模态框（Modal）标题
+                    </h4>
+                </div>
+                <div class="modal-body" id="msgContent">
+                    点击关闭按钮检查事件功能。
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        确定
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+
+
+<!--<div class="footer-copyright"><p>Powered by <a target="_blank" href="https://small-rose.github.io" marked="1">small-rose</a> </div>-->
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html,body{
+        height: 100%;
+    }
+     .footer-copyright {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<script type="text/javascript">
+    //然后在初始化前设计默认语言
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+
+    var $table;
+    var queryUrl = '/db-quartz/pageList?rnd=' + Math.random();
+    $(function(){
+
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+        //2.初始化Button的点击事件
+        //var oButtonInit = new ButtonInit();
+        //oButtonInit.Init();
+
+        /*show(null, null, null);
+
+        $('#myModal').modal('hide');
+
+        $("#refresh").click(function(){
+            location.reload();
+        });
+
+        const index = 1 ;
+        let flag = false ;
+        $("#addNew").click(function(){
+
+
+        });
+
+        $("#editJob").click(function () {
+            if (!flag){
+
+                //$('#myModalLabelTitle').html('保存提示');
+                const doorIndex = $("#door"+index);
+                if (checkNull(doorIndex)){
+                    /!* $(this).attr("saveNew", "")
+                    $('#msgContent').html('还没添加配置新站!');
+                    $('#myModal').modal('show');
+                    $('#myModal').on('hide.bs.modal',
+                        function() {
+                            $("#door"+index).focus();
+                        })*!/
+                    show( null, 'info', '请添加新站配置!', function () {
+                        //$("#door"+index).focus();
+                    });
+                    return false;
+                }
+            }
+            //取配置数据
+            const door = $("#door"+index).val().replace(/\s+/g,"");
+            if (checkNull(door)){
+                show('error', null, '还没配置网站地址!', function () {
+                    collapseNew(index);
+                    $("#door"+index).focus(error("#door"+index));
+                    return false;
+                });
+                return false;
+            }
+            const download = $("#download"+index).val();
+
+            const categoryEleLocation = $("#categoryEleLocation"+index).val();
+            if (checkNull(categoryEleLocation)){
+                show('error', null, '分类CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#categoryEleLocation"+index).focus(error("#categoryEleLocation"+index));
+                });
+                return false ;
+            }
+            const categoryName = $("#categoryName"+index).val();
+            const categorySkipKeys = $("#categorySkipKeys"+index).val();
+            const categoryPagesEleLocation = $("#categoryPagesEleLocation"+index).val();
+            if (checkNull(categoryPagesEleLocation)){
+                show('error', null, '分类分页CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#categoryPagesEleLocation"+index).focus();
+                });
+                return ;
+            }
+            const categoryPagesSkipKeys = $("#categoryPagesSkipKeys"+index).val();
+            const linkGroupEleLocation = $("#linkGroupEleLocation"+index).val();
+            if (checkNull(linkGroupEleLocation)){
+                show('error', null, '图组CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#linkGroupEleLocation"+index).focus();
+                });
+                return ;
+            }
+            const linkGroupSkipKeys = $("#linkGroupSkipKeys"+index).val();
+            const linkGroupPagesEleLocation = $("#linkGroupPagesEleLocation"+index).val();
+            if (checkNull(linkGroupPagesEleLocation)){
+                show('error', null, '图组分页CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#linkGroupPagesEleLocation"+index).focus();
+                });/!*
+                $('#msgContent').html('图组分页CSS定位必填!');
+                $('#myModal').modal('show');
+                $("#linkGroupPagesEleLocation"+index).focusin();*!/
+                return ;
+            }
+            const linkGroupPagesSkipKeys = $("#linkGroupPagesSkipKeys" + index).val();
+            const picLinkEleLocation = $("#picLinkEleLocation" + index).val();
+            if (checkNull(picLinkEleLocation)){
+                show('error', null, '图片CSS定位必填!', function () {
+                    collapseNew(index);
+                    $("#picLinkEleLocation"+index).focus();
+                });/!*
+                $('#msgContent').html('图片CSS定位必填');
+                $('#myModal').modal('show');
+                $("#picLinkEleLocation"+index).focusin();*!/
+                return ;
+            }
+            const picLinkSkipKeys = $("#picLinkSkipKeys"+index).val();
+            //const data = "{'door':door, 'category':{'eleLocation':'"+categoryEleLocation+"}}";
+            const data = '{"id":"","door":"'+door+'","saveLocation":"'+download+'",'+
+                '"category":{"eleLocation":"'+categoryEleLocation+'","categoryName":"'+categoryName+'","skipKeys":['+categorySkipKeys.split(',')+']},' +
+                '"categoryPages":{"eleLocation":"'+categoryPagesEleLocation+'","skipKeys":['+categoryPagesSkipKeys.split(',')+']},' +
+                '"linkGroup":{"eleLocation":"'+linkGroupEleLocation+'","skipKeys":['+linkGroupSkipKeys.split(',')+']},' +
+                '"linkGroupPages":{"eleLocation":"'+linkGroupPagesEleLocation+'","skipKeys":['+linkGroupPagesSkipKeys.split(',')+']},' +
+                '"picLink":{"eleLocation":"'+picLinkEleLocation+'","skipKeys":['+picLinkSkipKeys.split(',')+']}' +
+                '}';
+
+            console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: "/spider-web/rule/add",
+                dataType:"json",
+                contentType: 'application/json; charset=UTF-8',
+                data: data,
+                success:function(data){
+                    console.log(data);
+                    if(data.code==200){
+                        collapseNew(index);
+                        show( null, 'info', data.message, function () {
+                            top.location.reload();
+                        });
+                        //$('#msgContent').html(data.msg);
+                        //$('#myModal').modal('show');
+                        //top.location.reload();
+                    }else{
+                        show('error', null, '图片CSS定位必填!', function () {
+                            $('#msgContent').html(data.message);
+                            $('#myModal').modal('show');
+
+                        });
+                    }
+                },
+                error:function(jqXHR){
+                    console.log("Error: "+jqXHR.status);
+                }
+            });
+        });
+
+        $("#startJob").click(function () {
+            const id = $(this).attr("data");
+            $.ajax({
+                type: 'POST',
+                url: "/spider-web/didi/start/"+id,
+                dataType:"json",
+                contentType: 'application/json; charset=UTF-8',
+                data: {},
+                success:function(data){
+                    console.log(data);
+                    if(data.code==200){
+                        show( null, 'info', data.message || '操作成功', function () {
+
+                        });
+                        top.location.reload();
+                    }
+                },
+                error:function(jqXHR){
+                    console.log("Error: "+jqXHR.status);
+                }
+
+            });
+        });
+
+        $("#pauseJob").click(function () {
+            const id = $(this).attr("data");
+            $.ajax({
+                type: 'POST',
+                url: "/db-quartz/job/pause/" + id,
+                dataType: "json",
+                contentType: 'application/json; charset=UTF-8',
+                data: {},
+                success: function (data) {
+                    console.log(data);
+                    if(data.code==200){
+                        show( null, 'info', data.message || '操作成功', function () {
+
+                        });
+                        top.location.reload();
+                    }
+                },
+                error: function (jqXHR) {
+                    console.log("Error: " + jqXHR.status);
+                }
+
+            });
+        });
+
+        $("#resumeJob").click(function () {
+
+            const id = $(this).attr("data");
+            $.ajax({
+                type: 'POST',
+                url: "/db-quartz/job/start/" + id,
+                dataType: "json",
+                contentType: 'application/json; charset=UTF-8',
+                data: {},
+                success: function (data) {
+                    console.log(data);
+                    if(data.code==200){
+                        show( null, 'info', data.message || '操作成功', function () {
+
+                        });
+                        top.location.reload();
+                    }
+                },
+                error: function (jqXHR) {
+                    console.log("Error: " + jqXHR.status);
+                }
+
+            });
+        });
+
+        $(".stopJob").click(function () {
+            const id = $(this).attr("data");
+            $.ajax({
+                type: 'POST',
+                url: "/db-quartz/job/delete/"+id,
+                dataType:"json",
+                contentType: 'application/json; charset=UTF-8',
+                data: {},
+                success:function(data){
+                    console.log(data);
+                    console.log(data);
+                    if(data.code==200){
+                        show( null, 'info', data.message || '操作成功', function () {
+
+                        });
+                        top.location.reload();
+                    }
+                },
+                error:function(jqXHR){
+                    console.log("Error: "+jqXHR.status);
+                }
+
+            });
+        });*/
+
+    });
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        oTableInit.Init = function() {
+            $('#table').bootstrapTable({
+                url: queryUrl,
+                method: 'GET',
+                cache: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                toolbar: '#toolbar',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列（选择显示的列）
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                  //是否显示父子表
+                queryParams: function queryParams(params) {
+                    //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    var params = {
+                        rows: params.limit,                         //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        sort: params.sort,      //排序列名
+                        sortOrder: params.order, //排位命令（desc，asc）
+                        searchKey: $("#searchKey").val()
+                    };
+                    return params;
+                },
+                columns: [{
+                    field: 'id',
+                    title: 'ID',
+                    hidden: true
+                }, {
+                    field: 'jobName',
+                    title: '任务名称'
+                }, {
+                    field: 'cronExpression',
+                    title: '执行频率'
+                }, {
+                    field: 'jobDesc',
+                    title: '任务描述'
+                }, {
+                    field: 'status',
+                    title: '任务状态'
+                }, {
+                    field: 'beanName',
+                    title: '任务类名'
+                },{
+                    field: 'jobParameter',
+                    title: '任务参数'
+                },{
+                    field: 'opt',
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value,row,index){
+
+                        var buttons = '<button id="editJob"  data="'+value+'"  class="btn-min btn-primary btn">修改</button>'+
+                            '<button id="startJob" data="'+value+'"  class="btn-min btn-success btn">启动</button>'+
+                            '<button id="pauseJob" data="'+value+'" class="btn-min btn-warning btn">暂停</button>'+
+                            '<button id="resumeJob" data="'+value+'"  class="btn-min btn-primary btn">恢复</button>'+
+                            '<button id="stopJob"  data="'+value+'"  class="btn-min btn-danger btn">停止</button>';
+
+                        return buttons ;
+                    },
+                    events: {
+                        'click button[id=startJob]': function (e, value, row, index) {
+                            if(confirm('请确认是否启动'+row.jobName+'定时任务？')){
+                                console.log('启动' +row.jobName+'定时任务' );
+                                postOperationJob("start", row.id);
+                            }
+
+                        },
+                        'click button[id=pauseJob]': function (e, value, row, index) {
+                            // e.preventDefault();
+                            if(confirm('请确认是否暂停'+row.jobName+'定时任务？')){
+                                console.log('暂停' +row.jobName+'定时任务' );
+                                postOperationJob("pause", row.id);
+                            }
+
+                        },
+                        'click button[id=resumeJob]': function (e, value, row, index) {
+
+                            // e.preventDefault();
+                            if(confirm('请确认是否恢复'+row.jobName+'定时任务？若恢复失败会重新启动执行。')){
+                                console.log('恢复' +row.jobName+'定时任务' );
+                                postOperationJob("resume", row.id);
+                            }
+                        },
+                        'click button[id=stopJob]': function (e, value, row, index) {
+                            // e.preventDefault();
+                            if(confirm('请确认是否停止'+row.jobName+'定时任务？')){
+                                console.log('停止' +row.jobName+'定时任务' );
+                                postOperationJob("stop", row.id);
+                            }
+                        },
+                    }
+                },
+                ],
+                onLoadSuccess: function () {
+                },
+                onLoadError: function () {
+                    showTips("数据加载失败！");
+                },
+                onDblClickRow: function (row, $element) {
+                    var id = row.ID;
+                    //EditViewById(id, 'view');
+                    alert('onDblClickRow change button');
+                },
+            });
+        }
+        return oTableInit;
+    };
+
+    var ButtonInit = function () {
+        var oInit = new Object();
+        var postdata = {};
+
+        oInit.Init = function () {
+            //初始化页面上面的按钮事件
+        };
+
+        return oInit;
+    };
+
+    function postOperationJob(option, id){
+        $.ajax({
+            type: 'POST',
+            url: "/db-quartz/job/"+option+"/"+id,
+            dataType:"json",
+            contentType: 'application/json; charset=UTF-8',
+            data: {},
+            success:function(data){
+                console.log(data);
+                if(data.code==200){
+                    show( null, 'info', data.message || '操作成功', function () {
+
+                    });
+                    top.location.reload();
+                }
+            },
+            error:function(jqXHR){
+                console.log("Error: "+jqXHR.status);
+            }
+
+        });
+    }
+</script>
+</body>
+</html>

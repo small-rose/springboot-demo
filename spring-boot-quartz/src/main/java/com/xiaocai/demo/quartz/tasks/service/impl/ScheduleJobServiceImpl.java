@@ -6,6 +6,7 @@ import com.xiaocai.demo.quartz.tasks.service.BatchTaskService;
 import com.xiaocai.demo.quartz.tasks.service.QuartzService;
 import com.xiaocai.demo.quartz.tasks.service.ScheduleJobService;
 import lombok.extern.slf4j.Slf4j;
+import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ScheduleJobServiceImpl implements ScheduleJobService {
 
-
+    /**
+     * 调度器
+     */
+    @Autowired
+    private Scheduler scheduler;
     @Autowired
     private QuartzService quartzService;
     @Autowired
@@ -105,6 +110,19 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
         //执行job
         try {
             quartzService.pauseAllJob();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(BuzBatchTask job) {
+
+        //执行job
+        try {
+            quartzService.operateJob(JobOperateEnum.DELETE, job);
+            quartzService.operateJob(JobOperateEnum.START, job);
+
         } catch (SchedulerException e) {
             e.printStackTrace();
         }

@@ -26,30 +26,42 @@ public class BuzBatchTask implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private int id;
 
     /**
      * 任务名称
      */
-    @Column(name = "jobName")
+    @Column(name = "job_Name")
     private String jobName;
+
+    /**
+     * 任务描述
+     */
+    @Column(name = "job_Desc")
+    private String jobDesc;
+
+    /**
+     * 任务参数
+     */
+    @Column(name = "job_Parameter")
+    private String jobParameter;
 
     /**
      * cron表达式
      */
-    @Column(name = "cronExpression")
+    @Column(name = "cron_Expression")
     private String cronExpression;
 
     /**
      * 服务名称
      */
-    @Column(name = "beanName")
+    @Column(name = "bean_Name")
     private String beanName;
 
     /**
      * 方法名称
      */
-    @Column(name = "methodName")
+    @Column(name = "method_Name")
     private String methodName;
 
     /**
@@ -61,14 +73,14 @@ public class BuzBatchTask implements Serializable {
     /**
      * 是否删除 0.否 1.是
      */
-    @Column(name = "deleteFlag")
+    @Column(name = "delete_Flag")
     private int deleteFlag;
 
     /**
      * 创建人id
      */
     @Column(name = "creatorId")
-    private Integer creatorId;
+    private int creatorId;
 
     /**
      * 创建人

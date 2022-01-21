@@ -37,6 +37,36 @@ spring:
     # \u914D\u7F6E\u6307\u660E\u5728\u7A0B\u5E8F\u542F\u52A8\u7684\u65F6\u5019\u8981\u5220\u9664\u5E76\u4E14\u521B\u5EFA\u5B9E\u4F53\u7C7B\u5BF9\u5E94\u7684\u8868\u3002
     hibernate:
       ddl-auto: update #create #update
+
+
+
+  thymeleaf:
+    #\u6A21\u677F\u7684\u6A21\u5F0F\uFF0C\u652F\u6301 HTML, XML TEXT JAVASCRIPT
+    mode: HTML
+    #\u7F16\u7801 \u53EF\u4E0D\u7528\u914D\u7F6E
+    encoding: UTF-8
+    #\u5185\u5BB9\u7C7B\u522B,\u53EF\u4E0D\u7528\u914D\u7F6E
+    servlet:
+      content-type: text/html
+    #\u5F00\u53D1\u914D\u7F6E\u4E3Afalse,\u907F\u514D\u4FEE\u6539\u6A21\u677F\u8FD8\u8981\u91CD\u542F\u670D\u52A1\u5668
+    cache: false
+    #\u914D\u7F6E\u6A21\u677F\u8DEF\u5F84\uFF0C\u9ED8\u8BA4\u662Ftemplates\uFF0C\u53EF\u4EE5\u4E0D\u7528\u914D\u7F6E
+    prefix: classpath:/templates/
+    suffix: .html
+
+#  freemarker:
+#    templateLoaderPath: classpath:/templates/
+#    suffix: .ftl
+#    charset: UTF-8
+#    content-type: text/html
+#    expose-request-attributes: true
+#    expose-session-attributes: true
+#    request-context-attribute: request
+#    settings:
+#      number_format: 0.##########
+    #cache: false
+
+
 ##   ##  ##  ##  ##  ##
 #  \u89E3\u6790\uFF1A
 #  ddl-auto\u8868\u793A\u5BF9\u6570\u636E\u5E93\u8FDB\u884C\u81EA\u52A8\u5316\u914D\u7F6E
@@ -60,3 +90,11 @@ spring:
 #      logic-not-delete-value: 0
 #    banner: false
 #  mapper-locations: classpath:/mapper/*Mapper.xml
+
+
+### freemarker
+#  spring.freemarker.templateLoaderPath=classpath:/templates/
+#  spring.freemarker.suffix=.ftl
+#  spring.freemarker.charset=UTF-8
+#  spring.freemarker.request-context-attribute=request
+#  spring.freemarker.settings.number_format=0.##########

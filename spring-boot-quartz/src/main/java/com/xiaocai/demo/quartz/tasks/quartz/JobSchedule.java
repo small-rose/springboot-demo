@@ -27,7 +27,7 @@ public class JobSchedule  implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         System.out.println("任务调度开始=======加载数据库配置的任务=======任务调度开始");
-        taskService.timingTask();
+        ///taskService.timingTask();
         System.out.println("任务调度结束=======加载数据库配置的任务=======任务调度结束");
     }
 }

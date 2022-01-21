@@ -45,4 +45,10 @@ public interface ScheduleJobService {
      */
     void pauseAllJob();
 
+
+    /**
+     * 更新任務修改立即生效
+     * @param record
+     */
+    void update(BuzBatchTask record);
 }
