@@ -2,8 +2,11 @@
 
 ### spring-boot-rabbitmq
 
+MQ消息控制台
 
-#### spring-boot-rabbitmq 整合与简历实例
+http://192.168.10.127:15672/#/
+
+#### spring-boot-rabbitmq 整合与实例
 
 ##### 消息推送/接收模式
 
