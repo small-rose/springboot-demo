@@ -38,7 +38,7 @@ public class MessageListenerConfig {
 
 
         //另一种设置队列的方法,如果使用这种情况,那么要设置多个,就使用addQueues
-        //container.setQueues(new Queue("TestDirectQueue",true));
+        //container.addQueues(new Queue("TestDirectQueue",true));
         //container.addQueues(new Queue("TestDirectQueue2",true));
         //container.addQueues(new Queue("TestDirectQueue3",true));
 
