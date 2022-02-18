@@ -59,7 +59,7 @@ public class ServerDemo {
             read = inputStream.read(bytes);
             while (true){
                 if(read != -1 ){
-                    log.info("获取到客户端数据的数据"+new String(bytes,0,read) );
+                    log.info("received client data : "+new String(bytes,0,read) );
                 }else{
                     break; // 退出
                 }
