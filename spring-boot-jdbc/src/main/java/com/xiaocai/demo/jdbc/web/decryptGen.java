@@ -2,9 +2,6 @@ package com.fndsoft.mm.boot;
 
 import com.alibaba.druid.filter.config.ConfigTools;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-
 public class decryptGen {
     public static void main(String[] args) throws Exception {
         String password = "123456";
