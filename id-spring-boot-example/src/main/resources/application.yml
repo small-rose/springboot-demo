@@ -1,0 +1,28 @@
+
+server:
+  port: 8801
+  servlet:
+    context-path: /id-example
+
+spring:
+  redis:
+    max-active: 8
+    max-wait: -1
+    max-idle: 8
+    min-idle: 0
+    timeout: 1000
+    port: 6379
+    host: 192.168.10.187
+    #password: redis_test@xiandai2021
+
+
+small-id:
+  # \u5F53id\u751F\u6210\u6A21\u5F0Fid-mode=num,\u4F7F\u7528\u6307\u5B9A\u751F\u6210\u5668id
+  #  id: 2
+  # \u751F\u6210\u5668\u552F\u4E00ID\u7684\u751F\u6210\u6A21\u5F0F\uFF1A=num:\u901A\u8FC7id\u6307\u5B9A;=redis:\u901A\u8FC7redis\u6CE8\u518C\u81EA\u52A8\u83B7\u53D6
+  id-mode: redis
+
+
+logging:
+  level:
+    cn.xiaocai: debug
