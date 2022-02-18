@@ -251,4 +251,54 @@ public class FileDemoTest {
             });
         }
     }
+
+    @Test
+    public void counts(){
+        //String file = "C:\\Users\\SHFND-NOTE200001\\Downloads\\paystation-2022-02-14-1.log\\paystation-2022-02-14-1.log";
+        //String file = "C:\\Users\\SHFND-NOTE200001\\Downloads\\paystation-2022-02-15-1.log\\paystation-2022-02-15-1.log";
+        String file = "C:\\Users\\SHFND-NOTE200001\\Downloads\\paystation-2022-02-16-1.log\\paystation-2022-02-16-1.log";
+        BufferedReader br = null;
+        InputStreamReader isr = null;
+
+        Map<String, Integer> result = new HashMap<String, Integer>();
+        String line = "";
+        try {
+            isr = new InputStreamReader(new FileInputStream(file), "UTF-8");
+            br = new BufferedReader(isr);
+
+            int sumTimes = 0 ;
+            int counts = 0 ;
+            while ((line = br.readLine()) != null) {
+                //dataList.add(line);
+                if (line.contains("缴费通知接口计时")){
+                    //line = line.replace("com.fenet.insurance.paystation.back.service.impl.", "");
+                    String datetime = line.substring(0, line.lastIndexOf(","));
+                    String takeTime = line.substring(line.lastIndexOf(":")+2, line.length()-2);
+
+                    System.out.println(datetime +"," + takeTime);
+                    sumTimes += Integer.parseInt(takeTime);
+                    counts += 1;
+                    result.put(datetime, Integer.parseInt(takeTime));
+                }
+            }
+
+            System.out.println("平均值(ms) ： "+ sumTimes/counts);
+            //2022-02-14 平均值(ms) ： 6857
+            //2022-02-15 平均值(ms) ： 6583
+            //2022-02-16 平均值(ms) ： 5961
+            // 均值 6476
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (br!=null){
+                    br.close();
+                }
+                if (isr!=null){
+                    isr.close();
+                }
+            } catch (IOException e) {
+            }
+        }
+    }
 }
