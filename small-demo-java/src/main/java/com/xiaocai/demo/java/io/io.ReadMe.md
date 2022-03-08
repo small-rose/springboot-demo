@@ -71,17 +71,17 @@ io操作demo
         CharArrayWriter: 继承自Writer的字符数组输出流类。
         PrintWriter: 继承自Writer的打印写入类，提供了PrintStream的所有打印方法，其方法也从不抛出IOException。与PrintStream的区别：作为处理流使用时，PrintStream只能封装OutputStream类型的字节流，而PrintWriter既可以封装OutputStream类型的字节流，还能够封装Writer类型的字符输出流并增强其功能。
 
-[Java IO Mind](https://github.com/small-rose/springboot-demo/blob/main/small-demo-java/images/io/Javaio_mind_all.png)
+[Java IO Mind](https://cdn.jsdelivr.net/gh/mall-rose/springboot-demo/small-demo-java/images/io/Javaio_mind_all.png)
 
 IO UML 类图
 
-[Java_inputstream_uml](https://github.com/small-rose/springboot-demo/blob/main/small-demo-java/images/io/java_inputstream_uml.png)
+[Java_inputstream_uml](https://cdn.jsdelivr.net/gh/small-rose/springboot-demo/small-demo-java/images/io/java_inputstream_uml.png)
 
-[Java_outputstream_uml](https://github.com/small-rose/springboot-demo/blob/main/small-demo-java/images/io/java_outputstream_uml.png)
+[Java_outputstream_uml](https://cdn.jsdelivr.net/gh/small-rose/springboot-demo/small-demo-java/images/io/java_outputstream_uml.png)
 
-[Java_reader_uml](https://github.com/small-rose/springboot-demo/blob/main/small-demo-java/images/io/java_reader_uml.png)
+[Java_reader_uml](https://cdn.jsdelivr.net/gh/small-rose/springboot-demo/small-demo-java/images/io/java_reader_uml.png)
 
-[Java_writer_uml](https://github.com/small-rose/springboot-demo/blob/main/small-demo-java/images/io/java_writer_uml.png)
+[Java_writer_uml](https://cdn.jsdelivr.net/gh/small-rose/springboot-demo/small-demo-java/images/io/java_writer_uml.png)
 
 
 流的分类
@@ -99,9 +99,9 @@ IO UML 类图
     注：输入输出流中的入和出，都是相对于系统内存而言的。为什么要有处理流？直接使用节点流，读写不方便，为了更快的读写文件，才有了处理流。
 
 
-[流按类型分类](https://github.com/small-rose/springboot-demo/blob/main/small-demo-java/images/io/javaio_mind_optype.png)
+[流按类型分类](https://cdn.jsdelivr.net/gh/small-rose/springboot-demo/small-demo-java/images/io/javaio_mind_optype.png)
 
-[流按用途分类](https://github.com/small-rose/springboot-demo/blob/main/small-demo-java/images/io/javaio_mind_object.png)
+[流按用途分类](https://cdn.jsdelivr.net/gh/small-rose/springboot-demo/small-demo-java/images/io/javaio_mind_object.png)
 
 
 
