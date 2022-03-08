@@ -2,6 +2,8 @@ package com.xiaocai.demo.transaction.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @program: springboot-demo
  * @description
@@ -12,8 +14,19 @@ import lombok.Data;
 @Data
 public class AccountRecord {
 
-    private int id ;
-    private String nickName;
-    private String pass ;
-    private int uid;
+    private Long id;
+
+    private String name;
+
+    private String pass;
+
+    private Date addDate;
+
+    private Date lastLogin;
+
+    private Long balance;
+
+    private String description;
+
+    private byte[] headImage;
 }
