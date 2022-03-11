@@ -79,6 +79,12 @@
   </select>
 
 
+  <select id="selectAllByPagesCount" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
+    select count(1)
+    from t_account
+    where pass = #{param2.pass}
+
+  </select>
   <select id="selectAllByPages" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
     select ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE
     from t_account

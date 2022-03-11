@@ -33,10 +33,16 @@ public class AccountService {
 
 
     public  IPage<Account> selectAllByPages(int current, int pageSize, Account account){
-        Page page = new Page(current,pageSize);
+        Page page = new Page(current,pageSize );
         return accountMapper.selectAllByPages(page, account);
     }
 
+    public  IPage<Account> selectAllByPagesCount(int current, int pageSize, Account account){
+        Page page = new Page(current,pageSize );
+        // 执行自己写的count
+        page.setCountId("selectAllByPagesCount");
+        return accountMapper.selectAllByPages(page, account);
+    }
 
     public  IPage<Account> selectAllWithParamsByPages(int current, int pageSize, Account account){
         Page page = new Page(current,pageSize);
