@@ -23,7 +23,7 @@
         <property name="endingDelimiter" value="`"/>
 
         <!-- 自定义的注释规则，继承 DefaultCommentGenerator 重写 一些方法 -->
-        <commentGenerator type="com.xiaocai.mybatis.generator.MyCommentGenerator">
+        <commentGenerator type="com.xiaocai.mybatis.generator.CustomerCommentGenerator">
             <!-- 是否去除自动生成日期的注释 true：是 ： false:否 -->
             <property name="suppressDate" value="true"/>
             <!-- 是否去除所有自动生成的注释 true：是 ： false:否 -->
@@ -39,8 +39,10 @@
             <!-- mysql8 禁止生成器试图为MySql信息模式（sys，information_schema，performance_schema等）中的表生成代码 -->
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
-
-        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+        <!--
+                <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+                -->
+        <javaTypeResolver type="com.xiaocai.mybatis.generator.CustomerJavaTypeResolverImpl">
             <!--
                 true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
                 false：默认,
@@ -64,8 +66,8 @@
         <javaClientGenerator targetPackage="com.xiaocai.demo.mybatis.generator.example.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
         <!--表配置，tableName支持%，表示全部生成-->
-
-        <table tableName="mm_policy_events_td"
+        <!-- % -->
+        <table tableName="%"
                enableDeleteByPrimaryKey="true"
                enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true"

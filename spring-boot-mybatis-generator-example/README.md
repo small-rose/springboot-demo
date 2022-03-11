@@ -44,7 +44,7 @@ mybatis-Generator
 <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
  
         <!-- 自定义的注释规则，继承 DefaultCommentGenerator 重写 一些方法 -->
-        <commentGenerator type="com.xiaocai.mybatis.generator.MyCommentGenerator">
+        <commentGenerator type="com.xiaocai.mybatis.generator.CustomerCommentGenerator">
             <!-- 是否去除自动生成日期的注释 true：是 ： false:否 -->
             <property name="suppressDate" value="true"/>
             <!-- 是否去除所有自动生成的注释 true：是 ： false:否 -->
