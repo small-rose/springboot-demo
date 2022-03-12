@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaocai.demo.dynamic.mapper.TAccountMapper">
+  <resultMap id="BaseResultMap" type="com.xiaocai.demo.dynamic.entity.TAccount">
+    <!--
+      WARNING - @mbg.generated
+      说明: .
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PASS" jdbcType="VARCHAR" property="pass" />
+    <result column="ADD_DATE" jdbcType="DATE" property="addDate" />
+    <result column="LAST_LOGIN" jdbcType="TIMESTAMP" property="lastLogin" />
+    <result column="BALANCE" jdbcType="DECIMAL" property="balance" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xiaocai.demo.dynamic.entity.TAccount">
+    <!--
+      WARNING - @mbg.generated
+      说明: .
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    <result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="description" />
+    <result column="HEAD_IMAGE" jdbcType="LONGVARBINARY" property="headImage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+      说明: .
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+      说明: .
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+      说明: .
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated
+      说明: .
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    DESCRIPTION, HEAD_IMAGE
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xiaocai.demo.dynamic.entity.TAccountExample" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据自定义Example条件查询对象列表（含大字段）.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select useCache="false" id="selectByExample" parameterType="com.xiaocai.demo.dynamic.entity.TAccountExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据自定义Example条件查询对象列表.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据主键条件查询对象.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_account
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据主键删除.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    delete from t_account
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiaocai.demo.dynamic.entity.TAccountExample">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据自定义Example条件判断删除.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    delete from t_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiaocai.demo.dynamic.entity.TAccount">
+    <!--
+      WARNING - @mbg.generated
+      说明: 正常的insert全部的属性.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_account (NAME, PASS, ADD_DATE, 
+      LAST_LOGIN, BALANCE, DESCRIPTION, 
+      HEAD_IMAGE)
+    values (#{name,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, #{addDate,jdbcType=DATE}, 
+      #{lastLogin,jdbcType=TIMESTAMP}, #{balance,jdbcType=DECIMAL}, #{description,jdbcType=LONGVARCHAR}, 
+      #{headImage,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaocai.demo.dynamic.entity.TAccount">
+    <!--
+      WARNING - @mbg.generated
+      说明: 仅insert有值的属性.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="pass != null">
+        PASS,
+      </if>
+      <if test="addDate != null">
+        ADD_DATE,
+      </if>
+      <if test="lastLogin != null">
+        LAST_LOGIN,
+      </if>
+      <if test="balance != null">
+        BALANCE,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="headImage != null">
+        HEAD_IMAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null">
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null">
+        #{addDate,jdbcType=DATE},
+      </if>
+      <if test="lastLogin != null">
+        #{lastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="headImage != null">
+        #{headImage,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiaocai.demo.dynamic.entity.TAccountExample" resultType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据自定义Example条件查询总条数.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    select count(*) from t_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据自定义Example条件对象参数有值的属性.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    update t_account
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pass != null">
+        PASS = #{record.pass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addDate != null">
+        ADD_DATE = #{record.addDate,jdbcType=DATE},
+      </if>
+      <if test="record.lastLogin != null">
+        LAST_LOGIN = #{record.lastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.balance != null">
+        BALANCE = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.headImage != null">
+        HEAD_IMAGE = #{record.headImage,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据自定义Example条件更新参数有值的属性（含大字段）.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    update t_account
+    set ID = #{record.id,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PASS = #{record.pass,jdbcType=VARCHAR},
+      ADD_DATE = #{record.addDate,jdbcType=DATE},
+      LAST_LOGIN = #{record.lastLogin,jdbcType=TIMESTAMP},
+      BALANCE = #{record.balance,jdbcType=DECIMAL},
+      DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      HEAD_IMAGE = #{record.headImage,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据自定义Example条件更新全部属性.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    update t_account
+    set ID = #{record.id,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PASS = #{record.pass,jdbcType=VARCHAR},
+      ADD_DATE = #{record.addDate,jdbcType=DATE},
+      LAST_LOGIN = #{record.lastLogin,jdbcType=TIMESTAMP},
+      BALANCE = #{record.balance,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaocai.demo.dynamic.entity.TAccount">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据主键更新对象参数有值的属性.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    update t_account
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null">
+        PASS = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null">
+        ADD_DATE = #{addDate,jdbcType=DATE},
+      </if>
+      <if test="lastLogin != null">
+        LAST_LOGIN = #{lastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null">
+        BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="headImage != null">
+        HEAD_IMAGE = #{headImage,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xiaocai.demo.dynamic.entity.TAccount">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据主键更新对象全部属性（含大字段）.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    update t_account
+    set NAME = #{name,jdbcType=VARCHAR},
+      PASS = #{pass,jdbcType=VARCHAR},
+      ADD_DATE = #{addDate,jdbcType=DATE},
+      LAST_LOGIN = #{lastLogin,jdbcType=TIMESTAMP},
+      BALANCE = #{balance,jdbcType=DECIMAL},
+      DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      HEAD_IMAGE = #{headImage,jdbcType=LONGVARBINARY}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaocai.demo.dynamic.entity.TAccount">
+    <!--
+      WARNING - @mbg.generated
+      说明: 根据主键更新对象全部属性.
+      This element was generated on Sat Mar 12 15:51:51 CST 2022.
+    -->
+    update t_account
+    set NAME = #{name,jdbcType=VARCHAR},
+      PASS = #{pass,jdbcType=VARCHAR},
+      ADD_DATE = #{addDate,jdbcType=DATE},
+      LAST_LOGIN = #{lastLogin,jdbcType=TIMESTAMP},
+      BALANCE = #{balance,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
