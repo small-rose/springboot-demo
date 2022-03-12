@@ -1,16 +1,13 @@
 package com.xiaocai.demo.java;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * @Project : springboot-demo
@@ -90,4 +87,22 @@ public class StringTest {
     }
 
 
+    @Test
+    public void typeTest() {
+        List<Student> studentList = new ArrayList<>();
+
+        Student s1 = new Student("zz", 13);
+        Student s2 = new Student("aa", 18);
+        studentList.add(s1);
+        studentList.add(s2);
+        studentList.sort(Comparator.comparingInt(Student::getAge));
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    class Student{
+        private String name;
+        private int age;
+    }
 }

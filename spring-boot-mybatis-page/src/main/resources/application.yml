@@ -1,0 +1,29 @@
+server:
+  port: 8803
+  servlet:
+    context-path: /page-demo
+
+
+
+spring:
+  datasource:
+    #mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/bp_demo?serverTimezone=GMT%2b8&useSSL=false&Unicode=true&characterEncoding=utf8&autoReconnectForPools=true&allowMultiQueries=true&rewriteBatchedStatements=true
+      username: root
+      password: 123456
+
+
+# \u65B9\u5F0F\u4E00\uFF0C\u6307\u5B9A\u5168\u5C40\u914D\u7F6E\u6587\u4EF6\u4F4D\u7F6E\uFF0C\u6307\u5B9AXML\u914D\u7F6E\u6587\u4EF6
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+
+# \u65B9\u5F0F\u4E8C\uFF0C \u6307\u5B9AXML\u914D\u7F6E\u6587\u4EF6\uFF0C \u5168\u5C40\u914D\u7F6E\u6587\u4EF6\u53D8\u6210configuration \u6A21\u5F0F
+#mybatis:
+#  mapper-locations: classpath:mybatis/mapper/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    local-cache-scope: session
+#    map-underscore-to-camel-case: false

@@ -1,0 +1,4 @@
+server:
+  port: 2215  # 2022-02-15
+  servlet:
+    context-path: /swagger-demo

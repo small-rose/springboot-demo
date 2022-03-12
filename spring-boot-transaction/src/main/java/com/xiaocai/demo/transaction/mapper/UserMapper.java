@@ -1,6 +1,6 @@
 package com.xiaocai.demo.transaction.mapper;
 
-import com.xiaocai.demo.transaction.entity.UserRecord;
+import com.xiaocai.demo.transaction.entity.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;

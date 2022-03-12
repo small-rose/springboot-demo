@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator/db_dev.properties"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--处理sql中的`符号-->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!--数据源配置-->
+        <jdbcConnection driverClass="${mysql.datasource.driver-class-name}"
+                        connectionURL="${mysql.datasource.url}"
+                        userId="${mysql.datasource.username}"
+                        password="${mysql.datasource.password}">
+            <!-- mysql8 禁止生成器试图为MySql信息模式（sys，information_schema，performance_schema等）中的表生成代码 -->
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+        <!--model包路径-->
+        <javaModelGenerator targetPackage="cn.xiaocai.demo.kingbase.web.model.mysql" targetProject="src/main/java"/>
+        <!--mapper.xml包路径-->
+        <sqlMapGenerator targetPackage="mysql" targetProject="src/main/resources/mapper"/>
+        <!--mapper包路径-->
+        <javaClientGenerator targetPackage="cn.xiaocai.demo.kingbase.web.mapper.mysql" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+        <!--表配置，tableName支持%，表示全部生成-->
+        <table tableName="T_Account" domainObjectName="MysqlAccount">
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="T_Order" domainObjectName="MysqlOrder">
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

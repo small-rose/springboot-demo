@@ -1,7 +1,7 @@
 package com.xiaocai.demo.quartzdb.config.bean;
 
-import lombok.SneakyThrows;
 import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -23,7 +23,6 @@ public class QuartzConfig {
     @Autowired
     private CustomJobFactory customJobFactory;
 
-    @SneakyThrows
     @Bean
     public Scheduler scheduler(){
         // 想使用默认的
@@ -31,8 +30,13 @@ public class QuartzConfig {
         //SchedulerFactory schedulerFactory = new StdSchedulerFactory();
         //Scheduler scheduler = schedulerFactory.getScheduler();
         // 自定义 JobFactory 使得在 Quartz Job 中可以使用 @Autowired
-        scheduler.setJobFactory(customJobFactory);
-        scheduler.start();
+        try {
+            scheduler.setJobFactory(customJobFactory);
+            scheduler.start();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+
         return scheduler;
     }
 }
