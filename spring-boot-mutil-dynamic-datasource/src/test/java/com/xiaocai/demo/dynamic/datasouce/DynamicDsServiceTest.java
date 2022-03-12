@@ -21,6 +21,7 @@ import java.util.List;
 
 //@RunWith( SpringRunner.class)
 @SpringBootTest(classes = {MutilDynamicDatasourceApp.class})
+//@Transactional
 public class DynamicDsServiceTest {
 
     @Autowired
