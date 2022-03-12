@@ -30,10 +30,11 @@ public class JdbcTemplateDataSourceConfig {
     public JdbcTemplate ds2JdbcTemplate(@Qualifier("kingbaseDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-
-    //JdbcTemplate第二个 oracle 数据源
+/*
+    //JdbcTemplate第3个 oracle 数据源
     @Bean(name = "oracleJdbcTemplate")
     public JdbcTemplate oracleJdbcTemplate(@Qualifier("oracleDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+    */
 }

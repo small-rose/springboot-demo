@@ -50,6 +50,7 @@ public class DataSourceConfig {
         return dataSourceProperties.initializeDataSourceBuilder().build();
     }
 
+    /*
     //第3个ds3数据源配置 oracle
     @Bean(name = "oracleDataSourceProperties")
     @ConfigurationProperties(prefix = "spring.datasource.oracle")
@@ -62,4 +63,6 @@ public class DataSourceConfig {
     public DataSource oracleDataSource(@Qualifier("oracleDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().build();
     }
+
+     */
 }
