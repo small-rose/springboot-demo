@@ -10,7 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootCxfApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SpringBootCxfApplication.class, args);
+        System.out.println("CXF Demo 启动成功");
     }
 
 }

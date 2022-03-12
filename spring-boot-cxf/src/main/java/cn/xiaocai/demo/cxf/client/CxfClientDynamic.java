@@ -1,12 +1,7 @@
 package cn.xiaocai.demo.cxf.client;
 
-import com.google.gson.Gson;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -25,6 +20,7 @@ public class CxfClientDynamic {
 
     /**
      *  方式2  动态调用方式
+     *  可以不需要服务端相关代码
      */
     @SuppressWarnings("all")
     public static void main(String[] args) {
