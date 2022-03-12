@@ -1,7 +1,13 @@
 package cn.xiaocai.demo.kingbase.web.service.impl;
 
+import cn.xiaocai.demo.kingbase.web.mapper.kingbase.KbOrderMapper;
+import cn.xiaocai.demo.kingbase.web.mapper.mysql.MysqlOrderMapper;
+import cn.xiaocai.demo.kingbase.web.model.mysql.MysqlOrder;
 import cn.xiaocai.demo.kingbase.web.service.IOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Project : springboot-demo
@@ -14,4 +20,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl implements IOrderService {
 
+    @Autowired
+    private KbOrderMapper KbOrderMapper ;
+    @Autowired
+    private MysqlOrderMapper mysqlOrderMapper ;
+
+    @Override
+    public int addOrder(MysqlOrder record) {
+        return mysqlOrderMapper.insert(record);
+    }
+
+    @Override
+    public List<MysqlOrder> getOrderListByAccount(String account) {
+        return mysqlOrderMapper.selectAll();
+    }
 }

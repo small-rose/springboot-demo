@@ -39,6 +39,11 @@
 
         <setting name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
 
+        <!-- 日志输出 logImpl的取值范围：SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING
+其中，STDOUT_LOGGING表示打印日志到控制台。NO_LOGGING表示不打印日志。-->
+        <!--
+        <setting name="logImpl" value="LOG4J"/>
+        -->
     </settings>
 
     <typeAliases>

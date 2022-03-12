@@ -41,6 +41,14 @@ public class AccountCURDTest {
     }
 
     @Test
+    public void test02Count(){
+        Account account = new Account();
+        account.setPass("123");
+        IPage<Account> list = accountService.selectAllByPagesCount(1,5, account);
+        System.out.println(list.getSize());
+    }
+
+    @Test
     public void test03Params(){
         Account account = new Account();
         account.setPass("456");

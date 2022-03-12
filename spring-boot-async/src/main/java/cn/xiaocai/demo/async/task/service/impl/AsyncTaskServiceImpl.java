@@ -1,7 +1,9 @@
 package cn.xiaocai.demo.async.task.service.impl;
 
+import cn.xiaocai.demo.async.task.bean.*;
 import cn.xiaocai.demo.async.task.bean.TbUser;
 import cn.xiaocai.demo.async.task.repository.TbUserRepository;
+import cn.xiaocai.demo.async.task.service.*;
 import cn.xiaocai.demo.async.task.service.AsyncTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
