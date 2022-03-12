@@ -4,8 +4,24 @@ import cn.xiaocai.demo.cxf.service.TestService;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 /**
- * @program: springboot-redis
- * @description
+ * @program: spring-boot-cxf
+ * @description    客户端调用方式1 使用代理工厂的方式调用，需要拿到服务方接口。
+ *                 可以根据 wsdl 地址生成。使用 jdk 的 bin下 wsimport 命令
+ *              wsimport -keep -d D:\temp\d -s D:\temp\s -p com.map -verbose http://ws.webxml.com.cn/WebServices/MobileCodeWS.asmx?wsdl
+ *                  -keep：是否生成java源文件
+ *
+ *                  -d：指定.class文件的输出目录
+ *
+ *                  -s：指定.java文件的输出目录
+ *
+ *                  -p：定义生成类的包名，不定义的话有默认包名
+ *
+ *                  -verbose：在控制台显示输出信息
+ *
+ *                  -b：指定jaxws/jaxb绑定文件或额外的schemas
+ *
+ *                  -extension：使用扩展来支持SOAP1.2
+ *                  参考 https://blog.csdn.net/qq_39459412/article/details/79079865
  * @function:
  * @author: zzy
  * @create: 2021-05-06 11:00
