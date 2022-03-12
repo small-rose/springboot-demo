@@ -51,10 +51,4 @@
     </typeAliases>
 
 
-    <plugins>
-        <plugin interceptor="com.xiaocai.demo.page.interceptor.MyPageInterceptor">
-            <property name="limit" value="10"/>
-            <property name="dbType" value="mysql"/>
-        </plugin>
-    </plugins>
 </configuration>
