@@ -1,5 +1,6 @@
 package cn.xiaocai.demo.kingbase.web.service;
 
+import cn.xiaocai.demo.kingbase.web.model.kingbase.KbOrder;
 import cn.xiaocai.demo.kingbase.web.model.mysql.MysqlOrder;
 
 import java.util.List;
@@ -16,7 +17,12 @@ public interface IOrderService {
 
 
 
-    int addOrder(MysqlOrder record);
+    int addMysqlOrder(MysqlOrder record);
 
-    List<MysqlOrder> getOrderListByAccount(String account);
+    List<MysqlOrder> getMysqlOrderListByAccount(String account);
+
+
+    int addKbOrder(KbOrder record);
+
+    List<KbOrder> getKbOrderListByAccount(String account);
 }

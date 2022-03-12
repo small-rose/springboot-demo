@@ -1,5 +1,6 @@
 package cn.xiaocai.demo.kingbase.web.service;
 
+import cn.xiaocai.demo.kingbase.web.model.kingbase.KbAccount;
 import cn.xiaocai.demo.kingbase.web.model.mysql.MysqlAccount;
 
 import java.util.List;
@@ -14,7 +15,11 @@ import java.util.List;
  **/
 public interface IAccountService {
 
-    int addAccount(MysqlAccount record);
+    int addMysqlAccount(MysqlAccount record);
 
-    List<MysqlAccount> getAccounts();
+    List<MysqlAccount> getMysqlAccounts();
+
+    int addKbAccount(KbAccount record);
+
+    List<KbAccount> getKbAccounts();
  }

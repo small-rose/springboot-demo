@@ -1,6 +1,8 @@
 package cn.xiaocai.demo.kingbase.web.service.impl;
 
+import cn.xiaocai.demo.kingbase.web.mapper.kingbase.KbAccountMapper;
 import cn.xiaocai.demo.kingbase.web.mapper.mysql.MysqlAccountMapper;
+import cn.xiaocai.demo.kingbase.web.model.kingbase.KbAccount;
 import cn.xiaocai.demo.kingbase.web.model.mysql.MysqlAccount;
 import cn.xiaocai.demo.kingbase.web.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,26 @@ public class AccountServiceImpl implements IAccountService {
     @Autowired
     private MysqlAccountMapper mysqlAccountMapper ;
 
+    @Autowired
+    private KbAccountMapper kbAccountMapper ;
+
     @Override
-    public int addAccount(MysqlAccount record) {
+    public int addMysqlAccount(MysqlAccount record) {
         return mysqlAccountMapper.insert(record);
     }
 
     @Override
-    public List<MysqlAccount> getAccounts() {
+    public List<MysqlAccount> getMysqlAccounts() {
         return mysqlAccountMapper.selectAll();
+    }
+
+    @Override
+    public int addKbAccount(KbAccount record) {
+        return kbAccountMapper.insert(record);
+    }
+
+    @Override
+    public List<KbAccount> getKbAccounts() {
+        return kbAccountMapper.selectAll();
     }
 }
