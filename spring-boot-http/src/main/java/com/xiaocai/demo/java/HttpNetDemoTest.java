@@ -4,7 +4,6 @@ import com.xiaocai.demo.http.HttpNetUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -31,10 +30,10 @@ public class HttpNetDemoTest {
     @Test
     public void http(){
         int threadNumber = 100 ;
-        final CountDownLatch count = new CountDownLatch(threadNumber);//参数为线程个数
+        //final CountDownLatch count = new CountDownLatch(threadNumber);//参数为线程个数
         ScheduledExecutorService pool = Executors.newScheduledThreadPool(5);
-        String url = "https://www.jianshu.com/p/506dac547b25";
-        String referer = "https://www.jianshu.com/";
+        String url = "https://m.booea.com/news/s_2504950.html";
+        String referer = "https://m.booea.com";
         HttpNetUtil http = new HttpNetUtil();
         String resp  = http.httpGet(url, referer, null);
         //log.info(resp);
@@ -42,14 +41,14 @@ public class HttpNetDemoTest {
             http.httpGet(url, referer, null);
             log.info("----get url --- ");
             //TimeUnit.SECONDS.sleep(2);
-            count.countDown();
+            //count.countDown();
         });
         pool.scheduleAtFixedRate(task, 5, 5, TimeUnit.SECONDS);
-        try {
+        /*try {
 
-            count.await();
+            //count.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

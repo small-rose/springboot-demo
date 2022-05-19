@@ -99,6 +99,16 @@ public class StringTest {
 
     }
 
+    @Test
+    public void contains11Test() {
+        System.out.println("='5'".contains("'"));
+        System.out.println("='5'".length());;
+
+    }
+
+
+
+
     @Data
     @AllArgsConstructor
     class Student{

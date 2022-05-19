@@ -12,7 +12,7 @@ import java.util.List;
  * @Date ：2022/3/2 17:15
  * @Version ： 1.0
  **/
-public class ContainsStrategy implements FilterStrategy{
+public class FileNameContainsStrategy implements FilterStrategy{
 
     @Override
     public List<File> execute(List<File> target, String ... keys) {

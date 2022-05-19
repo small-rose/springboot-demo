@@ -15,7 +15,7 @@ import java.util.List;
  * @Date ：2022/3/2 16:51
  * @Version ： 1.0
  **/
-public class FileUtils {
+public class FileFilterUtils {
 
 
 
