@@ -1,7 +1,6 @@
 package com.xiaocai.demo.mybatisplus.web.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaocai.demo.mybatisplus.web.entity.Account;
 import org.apache.ibatis.annotations.Param;
@@ -56,7 +55,7 @@ public interface AccountMapper extends BaseMapper<Account> {
      * @param account
      * @return
      */
-    IPage<Account>  selectAllByPages(Page<Account> page, Account account);
+    Page<Account>  selectAllByPages(Page<Account> page, Account account);
 
 
     /**
@@ -65,7 +64,8 @@ public interface AccountMapper extends BaseMapper<Account> {
      * @param account
      * @return
      */
-    IPage<Account>  selectAllWithParamsByPages(Page<Account> page, @Param("account")Account account);
+    Page<Account>  selectAllWithParamsByPages(Page<Account> page, @Param("account")Account account);
 
 
+    Account selectAccountById(Long id);
 }

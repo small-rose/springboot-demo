@@ -64,4 +64,11 @@ public class AccountCURDTest {
         List<Account> list = accountService.selectList(account);
         System.out.println(list.size());
     }
+
+
+    @Test
+    public void test04(){
+        Account account = accountService.selectOne(1L);
+        System.out.println(account);
+    }
 }

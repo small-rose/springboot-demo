@@ -98,4 +98,12 @@
     where pass = #{account.pass}
 
   </select>
+  <sql id="test01">select * from t_account where id = #{id} </sql>
+    <select id="selectAccountById" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
+      <include refid="test01" />
+    </select>
+
+
+
+
 </mapper>
