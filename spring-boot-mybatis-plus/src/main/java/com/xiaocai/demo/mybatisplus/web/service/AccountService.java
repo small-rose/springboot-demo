@@ -74,4 +74,23 @@ public class AccountService {
 
         return accountMapper.selectAccountById(id);
     }
+
+
+    public  Page<Account> selectAllWithParamsByPagesTest(Page page, Account account){
+        //logm
+        log.info(" selectAllWithParamsByNoPages() called with parameters => 【page = {}】, 【account = {}】", page, account);
+        Page<Account> result = accountMapper.selectAllWithParamsByPages(page, account);
+        //logr
+        log.info("selectAllWithParamsByPages() returned: " +  result);
+        return result;
+    }
+
+    public  List<Account> selectAllWithParamsByNoPagesTest(Page page, Account account){
+        //logm
+        log.info("selectAllWithParamsByNoPages() called with parameters => 【page = {}】, 【account = {}】", page, account);
+        List<Account> result = accountMapper.selectAllWithParamsByNoPages(page, account);
+        //logr
+        log.info("selectAllWithParamsByPages() returned: " +  page);
+        return result;
+    }
 }

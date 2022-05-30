@@ -27,3 +27,14 @@ INSERT INTO bp_demo.t_account (ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DE
 INSERT INTO bp_demo.t_account (ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE) VALUES (5, '宋词人', '456', '2022-03-01', '2022-03-01 10:04:00', 240, '宋朝词人', null);
 INSERT INTO bp_demo.t_account (ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE) VALUES (6, '元好问', '123', '2022-03-01', '2022-03-01 10:05:37', 560, '考生', null);
 INSERT INTO bp_demo.t_account (ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE) VALUES (7, '开发01', '456', '2022-03-01', '2022-03-01 10:07:01', 600, null, null);
+
+
+
+create table t_log
+(
+    id     bigint(30)                          null,
+    name   varchar(20)                         null,
+    opt    varchar(100)                        null,
+    opdate timestamp default CURRENT_TIMESTAMP null
+);
+

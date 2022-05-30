@@ -1,6 +1,7 @@
 package com.xiaocai.demo.mybatisplus.test;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaocai.demo.mybatisplus.MybatisPlusDemoApplication;
 import com.xiaocai.demo.mybatisplus.web.entity.Account;
 import com.xiaocai.demo.mybatisplus.web.service.AccountService;
@@ -70,5 +71,33 @@ public class AccountCURDTest {
     public void test04(){
         Account account = accountService.selectOne(1L);
         System.out.println(account);
+    }
+
+    @Test
+    public void test5(){
+        Account account = new Account();
+        account.setPass("456");
+        Page<Account> page = new Page<Account>(1,2);
+        List<Account> records = accountService.selectAllWithParamsByNoPagesTest(page, account);
+        page.setRecords(records);
+        System.out.println(page.getRecords().size());
+    }
+
+    @Test
+    public void test6(){
+        Account account = new Account();
+        account.setPass("456");
+        List<Account> pages = accountService.selectAllWithParamsByNoPagesTest(null, account);
+        System.out.println(pages.size());
+    }
+
+
+    @Test
+    public void test7(){
+        Account account = new Account();
+        account.setPass("456");
+        Page<Account> page = new Page<Account>(1,2);
+        accountService.selectAllWithParamsByPagesTest(null, account);
+        System.out.println(page.getRecords().size());
     }
 }

@@ -96,14 +96,19 @@
     select ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE
     from t_account
     where pass = #{account.pass}
-
   </select>
+
   <sql id="test01">select * from t_account where id = #{id} </sql>
+
     <select id="selectAccountById" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
       <include refid="test01" />
     </select>
 
-
+  <select id="selectAllWithParamsByNoPages" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
+     select ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE
+    from t_account
+    where pass = #{account.pass}
+  </select>
 
 
 </mapper>

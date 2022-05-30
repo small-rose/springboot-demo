@@ -68,4 +68,15 @@ public interface AccountMapper extends BaseMapper<Account> {
 
 
     Account selectAccountById(Long id);
+
+
+    /**
+     * 不分页的写法
+     *  写参数绑定注解  @Param
+     * @param account
+     * @return
+     */
+    List<Account>  selectAllWithParamsByNoPages(Page<Account> page, @Param("account")Account account);
+    
+
 }
