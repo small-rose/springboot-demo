@@ -3,8 +3,10 @@ package com.xiaocai.demo.mybatisplus.web.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaocai.demo.mybatisplus.web.entity.Account;
+import com.xiaocai.demo.mybatisplus.web.vo.AccountVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountMapper extends BaseMapper<Account> {
@@ -77,6 +79,15 @@ public interface AccountMapper extends BaseMapper<Account> {
      * @return
      */
     List<Account>  selectAllWithParamsByNoPages(Page<Account> page, @Param("account")Account account);
-    
 
+
+    List<Account> selectAllByAccountPassList(@Param("pass") Long[] pass);
+
+    List<Account> selectAllByAccountvoList(@Param("accountVo") AccountVo accountVo);
+
+    List<Account> selectAllByAccountvoList2(@Param("accountVo") AccountVo accountVo);
+
+    int updateBalanceDecimal(@Param("money") BigDecimal money, @Param("id") Long id);
+
+    int updateBalanceString(@Param("money") String money, @Param("id") Long id);
 }

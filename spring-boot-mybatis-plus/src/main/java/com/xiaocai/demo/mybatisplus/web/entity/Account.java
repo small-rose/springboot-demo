@@ -4,6 +4,7 @@ package com.xiaocai.demo.mybatisplus.web.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @TableName("t_account")
@@ -60,7 +61,7 @@ public class Account  {
      *
      * @mbg.generated Tue Mar 01 14:48:45 CST 2022
      */
-    private Long balance;
+    private BigDecimal balance;
 
     /**
      *
@@ -208,7 +209,7 @@ public class Account  {
      *
      * @mbg.generated Tue Mar 01 14:48:45 CST 2022
      */
-    public Long getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
@@ -220,7 +221,7 @@ public class Account  {
      *
      * @mbg.generated Tue Mar 01 14:48:45 CST 2022
      */
-    public void setBalance(Long balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

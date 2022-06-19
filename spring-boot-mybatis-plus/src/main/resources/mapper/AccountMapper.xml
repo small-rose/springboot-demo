@@ -110,5 +110,37 @@
     where pass = #{account.pass}
   </select>
 
+  <select id="selectAllByAccountPassList" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
+         select ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE
+    from t_account
+    where pass in
+    <foreach collection="pass" item="p" index="i" separator="," open="(" close=")">
+      #{p}
+    </foreach>
+  </select>
 
+  <select id="selectAllByAccountvoList" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
+     select ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE
+     from t_account
+     where ADD_DATE between  #{accountVo.startDate} and #{accountVo.endDate}
+  </select>
+
+  <select id="selectAllByAccountvoList2" resultType="com.xiaocai.demo.mybatisplus.web.entity.Account">
+     select ID, NAME, PASS, ADD_DATE, LAST_LOGIN, BALANCE, DESCRIPTION, HEAD_IMAGE
+     from t_account
+     where ADD_DATE >=  #{accountVo.startDate}
+     and ADD_DATE &lt;=  #{accountVo.endDate}
+  </select>
+
+  <update id="updateBalanceDecimal" >
+     UPDATE t_account
+     SET BALANCE = BALANCE + #{money}
+     where id = #{id}
+  </update>
+
+  <update id="updateBalanceString">
+      UPDATE t_account
+     SET BALANCE = BALANCE + #{money}
+     where id = #{id}
+  </update>
 </mapper>

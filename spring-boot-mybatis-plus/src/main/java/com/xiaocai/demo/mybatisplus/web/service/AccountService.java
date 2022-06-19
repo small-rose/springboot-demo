@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaocai.demo.mybatisplus.web.entity.Account;
 import com.xiaocai.demo.mybatisplus.web.mapper.AccountMapper;
+import com.xiaocai.demo.mybatisplus.web.vo.AccountVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -92,5 +94,28 @@ public class AccountService {
         //logr
         log.info("selectAllWithParamsByPages() returned: " +  page);
         return result;
+    }
+
+    public List<Account>  selectAllByAccountPassList(Long[] pass){
+        List<Account> result = accountMapper.selectAllByAccountPassList(pass);
+        return result ;
+    }
+
+    public List<Account>  selectAllByAccountvoList(AccountVo accountVo){
+        List<Account> result = accountMapper.selectAllByAccountvoList(accountVo);
+        return result ;
+    }
+
+    public List<Account>  selectAllByAccountvoList2(AccountVo accountVo){
+        List<Account> result = accountMapper.selectAllByAccountvoList2(accountVo);
+        return result ;
+    }
+
+    public int  updateMoneyByDecimal(BigDecimal money, Long id){
+        return accountMapper.updateBalanceDecimal(money,id) ;
+    }
+
+    public int  updateMoneyByString(String money, Long id){
+        return accountMapper.updateBalanceString(money,id) ;
     }
 }

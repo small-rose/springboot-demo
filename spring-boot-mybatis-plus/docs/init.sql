@@ -9,7 +9,7 @@ create table t_account
     PASS        varchar(20)                         null comment '账户密码',
     ADD_DATE    date                                null comment '创建日期',
     LAST_LOGIN  timestamp default CURRENT_TIMESTAMP null comment '最后登录时间',
-    BALANCE     decimal   default 0                 null comment '账户余额',
+    BALANCE     decimal(15,2)   default 0                 null comment '账户余额',
     DESCRIPTION text                                null comment '自我介绍',
     HEAD_IMAGE  blob                                null comment '个人头像',
     constraint t_account_ID_uindex
