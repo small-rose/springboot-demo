@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class BpWebCount {
 
-    String path = "D:\\dev-tools-JetBrains\\idea-work\\Localization\\cibp\\bp-web\\src\\main\\java\\com\\fenet\\insurance";
+    String path = "D:\\dev-tools-JetBrains\\idea-work\\Localization\\cibp\\bp-web\\src\\main\\java\\com\\fenet\\insurance\\mm";
 
     /**
      * 找要修改的Dao
@@ -58,7 +58,7 @@ public class BpWebCount {
 
         //计算 含有关键词的 文件
         FilterStrategy strategy2 = new FileContentContainsStrategy();
-        List<File> sqlServiceList = FileFilterUtils.getAllFilesByFileNameKeys(containsList, strategy2, " from ");
+        List<File> sqlServiceList = FileFilterUtils.getAllFilesByFileNameKeys(containsList, strategy2, "UnlinkUtil.unlink(");
         //sqlServiceList.stream().forEach(System.out::println);
         System.out.println("-----------sqlServiceList ------"+ sqlServiceList.size());
 

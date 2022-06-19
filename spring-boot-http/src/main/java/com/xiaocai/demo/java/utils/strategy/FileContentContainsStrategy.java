@@ -40,16 +40,19 @@ public class FileContentContainsStrategy implements FilterStrategy{
         String line = "";
          try {
             int x = 1 ;
+             System.out.println(file.getAbsoluteFile());
             isr = new InputStreamReader(new FileInputStream(file), "UTF-8");
             br = new BufferedReader(isr);
             while ((line = br.readLine()) != null) {
-
+                x = 1 ;
                 for (int i = 0; i < keys.length; i++){
 
                     if (line.contains(keys[i])){
+                        System.out.println("lineNum " +x +"-- 内容：" + line);
                         return true ;
                     }
                 }
+                x++;
             }
 
         } catch(Exception e) {
