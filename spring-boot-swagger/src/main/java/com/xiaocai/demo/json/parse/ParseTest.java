@@ -2,6 +2,7 @@ package com.xiaocai.demo.json.parse;
 
 import com.alibaba.fastjson.JSON;
 import com.xiaocai.demo.json.bean.MyBean;
+import org.junit.Test;
 
 /**
  * @Project : springboot-demo
@@ -13,7 +14,8 @@ import com.xiaocai.demo.json.bean.MyBean;
  **/
 public class ParseTest {
 
-    public static void main(String[] args) {
+    @Test
+    public  void jsonParse(){
 
         String data = "{\"FLAG\":\"0\",\"RETURN_MSG\":\"SUCCESS\"}";
         MyBean request = JSON.parseObject(data, MyBean.class);

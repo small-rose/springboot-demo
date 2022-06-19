@@ -1,13 +1,12 @@
 package com.xiaocai.demo.controller;
 
+import com.xiaocai.demo.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,7 @@ import java.util.Map;
 @Api(value = "查询测试", description="查询测试", tags="查询测试")
 public class TestController {
 
-    @RequestMapping(value = "/test01")
+    @GetMapping(value = "/test01")
     public String test01(){
 
         return "SUCCESS";
@@ -50,4 +49,13 @@ public class TestController {
         return map;
     }
 
+
+    @ApiOperation(value = "测试传值-JSOn解析",response = Map.class)
+    @PostMapping("/testJson01")
+    public Map testJson01(@RequestBody UserVO userVO) {
+
+        Map map = new HashMap();
+        map.put("data" , userVO);
+        return map;
+    }
 }

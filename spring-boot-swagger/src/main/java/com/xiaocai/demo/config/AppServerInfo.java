@@ -45,12 +45,10 @@ public class AppServerInfo implements ApplicationListener<WebServerInitializedEv
                         "\tApplication is running! Access address:\n" +
                         "\tLocal:\t\thttp://localhost:{}{}" +
                         "\n\tExternal:\thttp://{}:{}{}" +
-                        "\n\tCheckUrl:\thttp://{}:{}{}{}" +
                         "\n\tApiInfo:\t{}" +
                         "\n------------------------------------------------------------\n",
                 port, contextPath,
                 ip, port, contextPath,
-                ip, port, contextPath, "/path",
                 termsOfServiceUrl);
 
     }

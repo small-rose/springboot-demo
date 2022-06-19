@@ -2,6 +2,8 @@ package com.xiaocai.demo.json.format;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xiaocai.demo.json.bean.MyBean;
+import com.xiaocai.demo.vo.UserVO;
+import org.junit.Test;
 
 /**
  * @Project : springboot-demo
@@ -13,12 +15,19 @@ import com.xiaocai.demo.json.bean.MyBean;
  **/
 public class FormatTest {
 
-    public static void main(String[] args) {
+    @Test
+    public  void jsonFormat() {
 
         MyBean bean = new MyBean();
         bean.setStatus("1");
         bean.setReturnMsg("你的参数没有输入");
         String data = JSONObject.toJSONString(bean);
         System.out.println(data);
+
+        UserVO userVO = new UserVO();
+        userVO.setUser("zxc");
+        userVO.setPass("123456");
+        String result = JSONObject.toJSONString(userVO);
+        System.out.println(result);
     }
 }
