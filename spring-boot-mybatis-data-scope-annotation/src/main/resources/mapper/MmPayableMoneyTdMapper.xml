@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaocai.demo.mybatis.datascope.web.mapper.MmPayableMoneyTdMapper">
+
+    <select id="findPayableMoney" resultType="com.xiaocai.demo.mybatis.datascope.web.vo.PayableMoneyResultVO">
+        <include refid="find_PayableMoney"/>
+    </select>
+
+    <sql id="find_PayableMoney">
+
+        <choose>
+            <when test="findType == 1">
+                select * from MM_PAYABLEMONEY_TD p where  p.opstatus in ('0','9')
+                <!--
+                and  exists(select d.listno from MM_PAYMENTIN_EVENTS_TD d where d.newno=p.payableno and d.businesstwo  in ('401','408') and d.businessone = '402' and d.opstatus  ='0')
+                -->
+            </when>
+            <when test="findType == 2">
+                select * from MM_PAYABLEMONEY_TD p where p.opstatus in ('1','2')
+                <!--
+                and exists (select d.listno from MM_PAYMENTIN_EVENTS_TD d where d.oldno=p.payableno and
+                d.businessone in ('101','102','103','104','108','201','202','516','518','526','528','304','390','385','517','539','542','520')
+                and businesstwo in ('107','112','204','208','206','302','311','315','319','325','402','502','506','526','384','391','541','540','519','506') and d.opstatus='0')
+                -->
+            </when>
+            <when test="findType == 4">
+                select * from MM_PAYABLEMONEY_TD p where p.opstatus ='0'
+            </when>
+        </choose>
+
+        <if test="condition.subcompany != null and condition.subcompany != ''">
+            and p.subcompany in ( #{condition.subcompany})
+        </if>
+        <if test="condition.unitcode != null and condition.unitcode != ''">
+            and p.unitcode in ( #{condition.unitcode})
+        </if>
+        <if test="condition.policyno != null and condition.policyno != ''">
+            and p.policyno in ( #{condition.policyno})
+        </if>
+        <if test="condition.endorseno != null and condition.endorseno != ''">
+            and p.endorseno in ( #{condition.endorseno})
+        </if>
+        <if test="condition.claimno != null and condition.claimno != ''">
+            and p.claimno in ( #{condition.claimno})
+        </if>
+        <if test="condition.summaryno != null and condition.summaryno != ''">
+            and p.summaryno in ( #{condition.summaryno})
+        </if>
+
+    </sql>
+</mapper>

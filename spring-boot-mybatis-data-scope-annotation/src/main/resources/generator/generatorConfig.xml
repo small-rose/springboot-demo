@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator/db_dev.properties"/>
+    <!--
+        context:生成一组对象的环境
+        id:必选，上下文id，用于在生成错误时提示
+        defaultModelType:指定生成对象的样式
+            1，conditional：类似hierarchical；
+            2，flat：所有内容（主键，blob）等全部生成在一个对象中；
+            3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)
+        targetRuntime:
+            1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample； MyBatis3Simple
+            2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySample；
+        introspectedColumnImpl：类全限定名，用于扩展MBG
+    -->
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!--处理sql中的`符号-->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+
+        <!--数据源配置-->
+        <jdbcConnection driverClass="${mysql.datasource.driver-class-name}"
+                        connectionURL="${mysql.datasource.url}"
+                        userId="${mysql.datasource.username}"
+                        password="${mysql.datasource.password}">
+            <!-- mysql8 禁止生成器试图为MySql信息模式（sys，information_schema，performance_schema等）中的表生成代码 -->
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <!--
+                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+                false：默认,
+                    scale>0;length>18：使用BigDecimal;
+                    scale=0;length[10,18]：使用Long；
+                    scale=0;length[5,9]：使用Integer；
+                    scale=0;length<5：使用Short；
+             -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--model包路径-->
+        <javaModelGenerator targetPackage="com.xiaocai.demo.mybatis.datascope.web.entity" targetProject="src/main/java"/>
+        <!--mapper.xml包路径-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+        <!--mapper包路径-->
+        <javaClientGenerator targetPackage="com.xiaocai.demo.mybatis.datascope.web.mapper" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+        <!--表配置，tableName支持%，表示全部生成-->
+
+        <table tableName="T_Biz_data"  domainObjectName="BizData"
+               enableDeleteByPrimaryKey="true"
+               enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true"
+               enableInsert="true"
+               selectByPrimaryKeyQueryId="true"
+               enableSelectByExample="false"
+            >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="MM_BIZPRIVILEGE_COVER_TD"  domainObjectName="BizData"
+               enableDeleteByPrimaryKey="true"
+               enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true"
+               enableInsert="true"
+               selectByPrimaryKeyQueryId="true"
+               enableSelectByExample="false"
+        >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
