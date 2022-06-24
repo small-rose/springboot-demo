@@ -79,7 +79,7 @@ public class DataSourceConfiguration {
             sessionFactoryBean.setDataSource(dynamicDataSource);
             sessionFactoryBean.setTransactionFactory(new MultiDataSourceTransactionFactory());
             // 读取配置
-            sessionFactoryBean.setTypeAliasesPackage("com.youjia.user.model");
+            sessionFactoryBean.setTypeAliasesPackage("com.xiaocai.demo.dynamic");
             //设置mapper.xml文件所在位置             R
             Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml");
             sessionFactoryBean.setMapperLocations(resources);

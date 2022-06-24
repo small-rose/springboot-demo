@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+File appender logback configuration provided for import, equivalent to the programmatic
+initialization performed by Boot
+-->
+
+<included>
+    <property name="NORMAL_LOG_FILE" value="${NORMAL_LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/cibp.log}"/>
+
+    <appender name="NORMAL_FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 支持多JVM同时操作同一个日志文件，开启后，性能会变慢 。为true时，不能进行文件压缩，并且不能设置file属性 -->
+        <prudent>false</prudent>
+
+        <file>${NORMAL_LOG_FILE}</file>
+
+        <!-- 日志滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${NORMAL_LOG_FILE}.%d{yyyy-MM-dd}.%i.gz
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <!-- 按时间回滚的同时，按文件大小来回滚 -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+</included>

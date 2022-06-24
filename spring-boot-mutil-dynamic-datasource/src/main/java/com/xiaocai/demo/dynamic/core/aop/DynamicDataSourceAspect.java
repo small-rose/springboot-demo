@@ -54,6 +54,16 @@ public class DynamicDataSourceAspect {
     }
 
     /**
+     * 获取直接目标方法、支持mapper接口
+     */
+    private Method getTargetMethodSimple(ProceedingJoinPoint pjp) throws NoSuchMethodException {
+        Signature signature = pjp.getSignature();
+        MethodSignature methodSignature = (MethodSignature) signature;
+        Method agentMethod = methodSignature.getMethod();
+        return agentMethod;
+    }
+
+    /**
      * 获取目标方法
      */
     private Method getTargetMethod(ProceedingJoinPoint pjp) throws NoSuchMethodException {

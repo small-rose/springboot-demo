@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <!-- 加载自定义错误日志单独记录的配置-->
+    <include resource="logback-file-normal.xml" />
+    <include resource="logback-file-errorlog.xml" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="org.apache.ibatis" level="debug" />
+    <logger name="java.sql.Connection" level="debug" />
+    <logger name="java.sql.Statement" level="debug" />
+    <logger name="java.sql.PreparedStatement" level="debug" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" /><!-- 控制台日志-->
+        <appender-ref ref="ERROR_FILE" /><!-- 异常日志-->
+        <appender-ref ref="NORMAL_FILE" /><!-- 普通日志,包含异常日志-->
+    </root>
+
+ </configuration>

@@ -1,4 +1,5 @@
 
+
 # 数据源配置
 spring:
   datasource:
@@ -6,12 +7,12 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
       master:
-        url: jdbc:mysql://127.0.0.1:3306/master?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://127.0.0.1:3306/bp_demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
         password: 123456
       slave:
         enable: true
-        url: jdbc:mysql://127.0.0.1:3306/slave?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://127.0.0.1:3306/bp_demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
         password: 123456
       # 初始连接数
@@ -75,3 +76,7 @@ spring:
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com.xiaocai.demo.dynamic.mapper: debug  # mybatis-plus logback 日志输出SQL在这里配置
