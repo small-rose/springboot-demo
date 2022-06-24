@@ -44,6 +44,12 @@ public class FileContentContainsStrategy implements FilterStrategy{
             isr = new InputStreamReader(new FileInputStream(file), "UTF-8");
             br = new BufferedReader(isr);
             while ((line = br.readLine()) != null) {
+
+                //跳过注释
+                if (line.startsWith("//")){
+                    continue;
+                }
+
                 x = 1 ;
                 for (int i = 0; i < keys.length; i++){
 

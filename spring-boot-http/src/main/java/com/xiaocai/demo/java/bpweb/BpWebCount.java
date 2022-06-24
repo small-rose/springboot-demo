@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class BpWebCount {
 
-    String path = "D:\\dev-tools-JetBrains\\idea-work\\Localization\\cibp\\bp-web\\src\\main\\java\\com\\fenet\\insurance\\mm";
+    String path = "D:\\idea-Work\\Localization\\cibp\\bp-web\\src\\main\\java\\com\\fenet";
 
     /**
      * 找要修改的Dao
@@ -58,11 +58,39 @@ public class BpWebCount {
 
         //计算 含有关键词的 文件
         FilterStrategy strategy2 = new FileContentContainsStrategy();
-        List<File> sqlServiceList = FileFilterUtils.getAllFilesByFileNameKeys(containsList, strategy2, "UnlinkUtil.unlink(");
+        List<File> sqlServiceList = FileFilterUtils.getAllFilesByFileNameKeys(containsList, strategy2, "@Service");
         //sqlServiceList.stream().forEach(System.out::println);
         System.out.println("-----------sqlServiceList ------"+ sqlServiceList.size());
 
+
         List<String> result = FileFilterUtils.getFileNameList(sqlServiceList);
+        result.stream().forEach(System.out::println);
+
+    }
+
+    @Test
+    public void test03(){
+
+        // 全部列表
+        List<File> allList = FileFilterUtils.getAllList(path);
+        //allList.stream().forEach(System.out::println);
+        System.out.println("------------allList------"+ allList.size());
+
+        //计算 含有关键词的 文件
+        FilterStrategy strategy = new FileNameEndsWithStrategy();
+        List<File> containsList = FileFilterUtils.getAllFilesByFileNameKeys(allList, strategy, "ServiceImpl.java");
+        //containsList.stream().forEach(System.out::println);
+        System.out.println("-----------containsList ------"+ containsList.size());
+
+        //计算 含有关键词的 文件
+        FilterStrategy strategy2 = new FileContentContainsStrategy();
+        List<File> sqlServiceList = FileFilterUtils.getAllFilesByFileNameKeys(containsList, strategy2, "@Service");
+        //sqlServiceList.stream().forEach(System.out::println);
+        System.out.println("-----------sqlServiceList ------"+ sqlServiceList.size());
+
+        //去除包含有关键词的 文件，剩下的就是不包含某种关键词的文件
+        containsList.removeAll(sqlServiceList);
+        List<String> result = FileFilterUtils.getFileNameList(containsList);
         result.stream().forEach(System.out::println);
 
     }
