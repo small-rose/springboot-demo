@@ -83,7 +83,10 @@ public class FileFilterUtils {
         for (File file : fileList){
             fileName = file.getName();
             if (bool){
-                list.add(fileName.substring(0, fileName.lastIndexOf(".java")));
+                if (fileName.endsWith(".java")){
+                    fileName = fileName.substring(0, fileName.lastIndexOf(".java"));
+                }
+                list.add(fileName);
             }else{
                 list.add(fileName);
             }
