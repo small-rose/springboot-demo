@@ -95,6 +95,16 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.1</version>
         </dependency>
+
+        <!-- java mock data-->
+        <dependency>
+            <groupId>com.github.jsonzou</groupId>
+            <artifactId>jmockdata</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <!-- java faker-->
+
     </dependencies>
     <!--<dependencyManagement>
         <dependencies>
