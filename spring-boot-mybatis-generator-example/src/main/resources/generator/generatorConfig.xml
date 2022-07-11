@@ -58,24 +58,25 @@
         <!--
         <javaModelGenerator targetPackage="com.fenet.insurance.mm.datahub.wss.entity" targetProject="src/main/java"/>
         -->
-        <javaModelGenerator targetPackage="com.xiaocai.demo.mybatis.generator.example.entity" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="com.fenet.insurance.mm.entity" targetProject="src/main/java"/>
 
         <!--mapper.xml包路径-->
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
         <!--mapper包路径-->
-        <javaClientGenerator targetPackage="com.xiaocai.demo.mybatis.generator.example.mapper" targetProject="src/main/java"
+        <javaClientGenerator targetPackage="com.fenet.insurance.mm.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
         <!--表配置，tableName支持%，表示全部生成-->
         <!-- % -->
         <table tableName="%"
-               enableDeleteByPrimaryKey="true"
-               enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true"
-               enableInsert="true"
-               selectByPrimaryKeyQueryId="true"
-               enableUpdateByExample="true"
-               enableSelectByExample="true"
-               enableDeleteByExample="true"
+               enableDeleteByPrimaryKey="false"
+               enableSelectByPrimaryKey="false"
+               enableUpdateByPrimaryKey="false"
+               enableInsert="false"
+               selectByPrimaryKeyQueryId="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false"
+               enableDeleteByExample="false"
+               enableCountByExample="false"
 
 
         >

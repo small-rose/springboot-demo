@@ -1,6 +1,7 @@
 package com.xiaocai.demo.java.utils;
 
 import com.xiaocai.demo.java.utils.strategy.FileContentContainsStrategy;
+import com.xiaocai.demo.java.utils.strategy.FileContentRegExpStrategy;
 import com.xiaocai.demo.java.utils.strategy.FileNameEndsWithStrategy;
 import com.xiaocai.demo.java.utils.strategy.FilterStrategy;
 import lombok.Setter;
@@ -55,6 +56,9 @@ public class FileFinder {
                 break;
             case FileContentContains:
                 strategy = new FileContentContainsStrategy();
+                break;
+            case FileContentRegExpStrategy:
+                strategy = new FileContentRegExpStrategy();
                 break;
             default:
                 throw new IllegalArgumentException("查询策略不允许为空");

@@ -14,9 +14,9 @@ import java.util.Date;
 @Data
 public class AccountRecord {
 
-    private Long id;
+    private Long uid;
 
-    private String name;
+    private String nickName;
 
     private String pass;
 

@@ -6,10 +6,13 @@ import com.xiaocai.demo.java.utils.FileFinder;
 import com.xiaocai.demo.java.utils.strategy.FileContentContainsStrategy;
 import com.xiaocai.demo.java.utils.strategy.FileNameEndsWithStrategy;
 import com.xiaocai.demo.java.utils.strategy.FilterStrategy;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @description: TODO 功能角色说明：
@@ -138,12 +141,94 @@ public class BpWebCount {
         System.out.println("------------xmlFileList------"+ xmlFileList.size());
 
 
-        String[] keys = new String[]{" AND ", " OR ", " ！= "};
+        //String[] keys = new String[]{" AND ", " OR ", " ！= "};
+        //String[] keys = new String[]{"(.*)((test=)?)(.*)(\\sAND\\s|\\sOR\\s)+(.*)"}; // 检索大写的AND OR
+        String[] keys = new String[]{"(.*)((test=)+)(.*)(and )+(.*)(date|Date|datetime|time|timestamp|amount)+\\s?(!= '')+(.*)"}; // 检索日期相关字段 != '' 的写法
+        //查文件里包含关键字的文件列表
+        List<File> resultFileList = finder.getFileList( ContainsMode.FileContentRegExpStrategy,  keys, xmlFileList);
+        System.out.println("------------resultFileList------"+ resultFileList.size());
+
+        List<String> result = FileFilterUtils.getFileNameList(resultFileList);
+        result.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void test_151(){
+        String str = "<if test='unitcode !=null AND unitcode !=\"\" AND isMutual !=null AND isMutual '>";
+        String str2 = "  AND isMutual !=null AND isMutual '>";
+        String str3 = " and isMutual !=null and isMutual '>";
+        //String str4 = "  (SELECT SUM(T.AMOUNT) FROM BFP_BALANCEDETAIL_TD T WHERE T.BALANCETYPE IN ('sun_add_sum') AND T.BALANCEID = J.BALANCEID) AS sunaddsumamount,\n";
+        String str5 = "  AND SUBCOMPANY = #{subcompay}";
+        String pattern = "(.*)((test=)?)(.*)(\\sAND\\s|\\sOR\\s)+(.*)[^#{,\\${](.*)";
+
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(str);
+        System.out.println(m.matches());
+
+        Matcher m2 = r.matcher(str2);
+        System.out.println(m2.matches());
+        Assert.assertEquals(true, m2.matches());
+
+        Matcher m3 = r.matcher(str3);
+        Assert.assertEquals(false, m3.matches());
+
+        //Matcher m4 = r.matcher(str4);
+        //Assert.assertEquals("第4个不能正常匹配", false, m4.matches());
+
+        Matcher m5 = r.matcher(str5);
+        Assert.assertEquals(false, m5.matches());
+    }
+
+    @Test
+    public void test07(){
+        String path = "D:\\idea-Work\\gitLab\\guochanhua\\bp-service\\bp-web\\src\\main\\resources\\mapper\\mysql";
+        FileFinder finder = new FileFinder();
+        finder.setPath(path);
+        List<File> allFiles = finder.getAllFiles();
+        System.out.println("------------allList------"+ allFiles.size());
+
+        String[] nameKeys = new String[]{" Mapper.xml"};
+        //查文件里包含关键字的文件列表
+        List<File> xmlFileList = finder.getFileList( ContainsMode.FileNameEndWith,  nameKeys, null);
+        System.out.println("------------xmlFileList------"+ xmlFileList.size());
+
+
+        //String[] keys = new String[]{"'true'"," BizPrivilege ", ".id." , " Unit ", " UnitMapping ", " BizSub ", " PlatFormFileDetail "  }; // 检索关键字
+
+        String[] keys = new String[]{"List != ''","List != ''.toString()"};
         //查文件里包含关键字的文件列表
         List<File> resultFileList = finder.getFileList( ContainsMode.FileContentContains,  keys, xmlFileList);
         System.out.println("------------resultFileList------"+ resultFileList.size());
 
         List<String> result = FileFilterUtils.getFileNameList(resultFileList);
         result.stream().forEach(System.out::println);
+    }
+
+
+    @Test
+    public void test_209(){
+
+        String path = "D:\\idea-Work\\gitLab\\guochanhua\\bp-service\\bp-web\\src\\";
+        FileFinder finder = new FileFinder();
+        finder.setPath(path);
+        List<File> allFiles = finder.getAllFiles();
+        System.out.println("------------allList------"+ allFiles.size());
+
+        String[] nameKeys = new String[]{"Mapper.java"};
+        //查文件里包含关键字的文件列表
+        List<File> xmlFileList = finder.getFileList( ContainsMode.FileNameEndWith,  nameKeys, null);
+        System.out.println("------------xmlFileList------"+ xmlFileList.size());
+
+
+
+        //String[] keys = new String[]{" List<Object> "," Page<Object> ", "page.getRecords()"};
+        String[] keys = new String[]{"page.getRecords()"," Page<"};
+        //查文件里包含关键字的文件列表
+        List<File> resultFileList = finder.getFileList( ContainsMode.FileContentContains,  keys, xmlFileList);
+        System.out.println("------------resultFileList------"+ resultFileList.size());
+
+        List<String> result = FileFilterUtils.getFileNameList(resultFileList);
+        result.stream().forEach(System.out::println);
+
     }
 }
