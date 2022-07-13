@@ -57,3 +57,16 @@ Maven 依赖
    </dependency>
 ```
 
+
+## Java Faker
+
+Maven 依赖
+
+```xml
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
+
