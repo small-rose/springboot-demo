@@ -69,13 +69,13 @@ public class AccountService {
      */
     public int batchInsert() {
         List<Long> idList = new ArrayList<>();
-        for (int i = 1; i< 101; i++) {
+        for (int i = 1; i< 10; i++) {
             idList.add(100L+i);
         }
         accountMapper.deleteBatchIds(idList);
 
         List<Account> list = new ArrayList<>();
-        for (int i = 1; i< 101; i++) {
+        for (int i = 1; i< 10; i++) {
             Account a1 = new Account(100L+i, "测试"+String.format("%03d", i), "123", new Date(), new Date(), 22L, "test"+String.format("%03d", i));
             list.add(a1);
         }
