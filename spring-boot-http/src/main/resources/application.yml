@@ -6,4 +6,5 @@ server:
 
 logging:
     config: classpath:log4j2.xml
-    level: info
+    level:
+      root: debug
