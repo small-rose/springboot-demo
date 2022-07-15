@@ -1,7 +1,9 @@
 package cn.xiaocai.demo.kingbase.test;
 
+import cn.xiaocai.demo.kingbase.web.mapper.kingbase.TestMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -14,11 +16,15 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 
 @RunWith( SpringRunner.class)
-@SpringBootTest
+@SpringBootTest()
 public class KingbaseTest {
+
+
+    @Autowired
+    TestMapper testMapper;
 
     @Test
     public void test01(){
-
+        testMapper.test();
     }
 }
