@@ -20,12 +20,12 @@ public class PlatMain {
 
     static String SEPARATOR = File.separator ;
 
-    static final String targetSqlPath = "D:"+SEPARATOR+"AnCheng"+ SEPARATOR+"db_plat_update.sql";
+    static final String targetSqlPath = "D:\\onlyTest"+SEPARATOR+"AnCheng"+ SEPARATOR+"db_plat_update_test.sql";
 
     //static String sql = "INSERT INTO MM_SWITCHCONTROL_TC (SUBCOMPANY, SWITCHEDSYS, IFVALID, DESCRIPTION, TIMESTAMP, SWITCHINFO, INTFTYPE) values ('%s', '%s', '1', '%s实名认证地址', sysdate, '%s', '=');";
     static String sql = "UPDATE MM_SWITCHCONTROL_TC SET SWITCHINFO= '%s' WHERE SUBCOMPANY='%s' AND SWITCHEDSYS = '%s';";
 
-    static String sourceFile = "D:"+SEPARATOR+"Ancheng"+ File.separator+"ac_plat_prod_urls.xlsx";
+    static String sourceFile = "D:\\onlyTest"+SEPARATOR+"Ancheng"+ File.separator+"ac_plat_prod_urls.xlsx";
 
     
     static {
