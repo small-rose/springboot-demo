@@ -1,0 +1,19 @@
+
+
+
+
+
+
+spring:
+  datasource:
+    #mysql:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bp_demo?serverTimezone=GMT%2b8&useSSL=false&Unicode=true&characterEncoding=utf8&autoReconnectForPools=true&allowMultiQueries=true&rewriteBatchedStatements=true
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      #\u5B9A\u4E49\u6570\u636E\u5E93\u8868\u7684\u751F\u6210\u7B56\u7565 create \u521B\u5EFA\u4E00\u4E2A\u8868 update \u66F4\u65B0\u6216\u8005\u521B\u5EFA\u6570\u636E\u8868
+      ddl-auto: update
+      #\u63A7\u5236\u53F0\u663E\u793Asql\u8BED\u53E5
+    show-sql: true
