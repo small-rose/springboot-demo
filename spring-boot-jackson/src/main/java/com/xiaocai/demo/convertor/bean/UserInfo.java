@@ -1,6 +1,8 @@
 package com.xiaocai.demo.convertor.bean;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,10 @@ import java.util.List;
 public class UserInfo {
 
     private String name ;
+
+    @JsonAlias("number")
     private Integer age ;
+    @JsonProperty("s")
     private String sex ;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

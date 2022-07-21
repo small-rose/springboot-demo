@@ -37,4 +37,10 @@ public class TestService {
     public Long testSlave(){
         return kbTestMapper.test();
     }
+
+
+    @TargetDataSource(target = DataSourcesType.MASTER)
+    public Long testMysqlUpdate(){
+        return testMapper.updatePolicyTdTest();
+    }
 }

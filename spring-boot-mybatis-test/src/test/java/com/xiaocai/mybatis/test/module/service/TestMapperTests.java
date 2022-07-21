@@ -28,4 +28,11 @@ public class TestMapperTests {
 
         testService.testMater();
     }
+
+    @Test
+    public void testMysql_update(){
+
+
+        testService.testMysqlUpdate();
+    }
 }

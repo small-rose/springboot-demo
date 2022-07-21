@@ -157,7 +157,7 @@ public class DataSourceConfiguration {
             sessionFactoryBean.setTransactionFactory(new MultiDataSourceTransactionFactory());
             // 读取配置
             String mapper = getMapper();
-            log.info("Mapper.xml location : " + mapper);
+            //log.info("Mapper.xml location : " + mapper);
             //设置mapper.xml文件所在位置             R
             Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/**/*.xml");
             sessionFactoryBean.setMapperLocations(resources);

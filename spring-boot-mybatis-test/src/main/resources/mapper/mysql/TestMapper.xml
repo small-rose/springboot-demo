@@ -5,4 +5,19 @@
     <select id="test" resultType="java.lang.Long">
         select id from mm_inpayment_ti where to_char(INPAYMENTDATE, 'yyyy-MM-dd') = to_char(now(),  'yyyy-MM-dd')
     </select>
+
+    <update id="updatePolicyTdTest" >
+        update
+            mm_policy_td t
+        set
+            t.summaryno = '0',
+            t.lastopdate = now()
+        where
+            exists (select 1 from mm_handover_events_td d where d.handoverno = '1'
+                    and t.policyno = d.policyno
+                    and t.endorseno = d.endorseno
+                    and t.basecurrencycode = d.currencycode
+                    and d.subcompany = '1' )
+            and t.businessattr = '4'
+    </update>
 </mapper>

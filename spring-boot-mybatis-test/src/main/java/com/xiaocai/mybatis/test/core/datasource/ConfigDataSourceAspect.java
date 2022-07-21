@@ -42,7 +42,7 @@ public class ConfigDataSourceAspect {
 	public Object around(ProceedingJoinPoint joinPoint, TargetDataSource targetDataSource){
 
 		String oldDataSource = DataSourceContextHolder.getDataSource();
-		logger.debug("原数据源："+oldDataSource);
+		logger.info("原数据源："+oldDataSource);
 		try{
 			Method targetMethod = this.getTargetMethodSimple(joinPoint);
 			Class<?> targetClass1 = joinPoint.getTarget().getClass();
@@ -59,7 +59,7 @@ public class ConfigDataSourceAspect {
 				newDbType = targetDataSourceB.target().name();
 			}
 			DataSourceContextHolder.setDataSource(newDbType);
-			logger.debug("设置数据源："+ newDbType);
+			logger.info("设置数据源："+ newDbType);
 
 
 			try {//执行具体的业务方法

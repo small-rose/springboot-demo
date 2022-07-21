@@ -11,4 +11,6 @@ public interface TestMapper {
 
     public Long test();
 
+    public Long updatePolicyTdTest();
+
 }

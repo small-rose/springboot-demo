@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 
-
+/**
+ *  json demo
+ */
 public class UserInfoTest {
 
 
@@ -26,8 +28,11 @@ public class UserInfoTest {
         try {
             //对象转json字符串
             String jsonString = objectMapper.writeValueAsString(userInfo1);
+
+            String jsons = "[{\"name\":\"李寻欢\",\"number\":28,\"birth\":\"2022-07-21\",\"friendList\":[\"孙晓红\",\"阿飞\"],\"s\":\"男\"},{\"name\":\"张小菜\",\"number\":18,\"birth\":\"2022-07-21\",\"friendList\":[\"张三\",\"李四\"],\"s\":\"男\"}]";
+
             //json字符串转为对象
-            UserInfo emp1 = objectMapper.readValue(jsonString, UserInfo.class);
+            UserInfo emp1 = objectMapper.readValue(jsons, UserInfo.class);
             System.out.println("json字符串：" + jsonString);
             System.out.println("对象1：" + emp1);
 
