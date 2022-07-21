@@ -36,6 +36,7 @@
         <module>spring-boot-filter</module>
         <module>spring-boot-guava</module>
         <module>spring-boot-http</module>
+        <module>spring-boot-jackson</module>
         <module>spring-boot-javaassist</module>
         <module>spring-boot-jdbc</module>
         <module>spring-boot-jedis</module>
