@@ -13,4 +13,10 @@ public interface KBTestMapper {
 
     public Long test();
 
+
+    public Long testTemporaryTable();
+
+
+
+
 }

@@ -35,4 +35,13 @@ public class TestMapperTests {
 
         testService.testMysqlUpdate();
     }
+
+
+
+    @Test
+    public void testTemporaryTable(){
+
+
+        testService.testTemporaryTable();
+    }
 }

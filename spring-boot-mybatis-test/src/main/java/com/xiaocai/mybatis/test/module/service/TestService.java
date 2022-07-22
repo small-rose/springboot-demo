@@ -43,4 +43,9 @@ public class TestService {
     public Long testMysqlUpdate(){
         return testMapper.updatePolicyTdTest();
     }
+
+    @TargetDataSource(target = DataSourcesType.MASTER)
+    public void testTemporaryTable() {
+         kbTestMapper.testTemporaryTable();
+    }
 }
