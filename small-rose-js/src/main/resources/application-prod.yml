@@ -1,6 +1,6 @@
 
 server:
-  port: 80
+  port: 8088
   servlet:
     context-path: /
 

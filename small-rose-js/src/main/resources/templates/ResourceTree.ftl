@@ -193,6 +193,7 @@
                     <li>支持拼音搜索。</li>
                     <li>搜索结果显示最近30天的上榜记录。</li>
                     <li>累计上榜统计数据自2022年7月1日开始</li>
+                    <li>Copyright ©2022 残阳丹落枫 | 心有玲兮 All Rights Reserved.</li>
                 </ul>
             </div>
         </div>
