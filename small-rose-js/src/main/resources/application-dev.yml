@@ -1,0 +1,49 @@
+
+server:
+  port: 8803
+  servlet:
+    context-path: /
+
+
+spring:
+  datasource:
+    #mysql:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bp_demo?serverTimezone=GMT%2b8&useSSL=false&Unicode=true&characterEncoding=utf8&autoReconnectForPools=true&allowMultiQueries=true&rewriteBatchedStatements=true
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      show_sql: true
+      ddl-auto: update
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    devtools:
+    restart:
+      exclude: static/**,public/**
+  freemarker:
+    cache: false
+    suffix: .ftl
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+
+swagger:
+  production: false
+  basic:
+    enable: true
+    username: small-rose
+    password: Small@2022
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        transaction: DEBUG
+        orm: DEBUG
+      hibernate: info
