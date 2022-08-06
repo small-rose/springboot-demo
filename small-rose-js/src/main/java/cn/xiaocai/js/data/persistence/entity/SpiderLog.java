@@ -31,5 +31,6 @@ public class SpiderLog {
     private String rank_type ; //AR 文章排名
     private String status ;//当日抓取结果 S / F
     private String result ;//当日抓取结果
+    private String update_result ;//更新结果
     private Date exec_time ;//当日抓取结果
 }

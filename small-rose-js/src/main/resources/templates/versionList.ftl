@@ -134,23 +134,16 @@
     }
 </script>
 <style>
-    @media only screen and (max-width:467px){
-        .ui.table.user img{display: none !important;}
+    @media only screen and (max-width:476px){
+        .user img{display: none !important;}
         .ui.table{font-size: 0.78em;}
-        .user img{display: none;}
     }
-    @media only screen and (max-width:450px){
-        .ui.table:not(.unstackable){width:100%}
-        .ui.table:not(.unstackable) tbody,
-        .ui.table:not(.unstackable) tr,
-        .ui.table:not(.unstackable) tr>td,
-        .ui.table:not(.unstackable) tr>th{
-            width:auto!important;display:block!important
-        }
+    @media only screen and (max-width:347px){
         .ui.table.user img{display: none !important;}
-        .ui.table{font-size: 0.78em;}
-        .user img{display: none;}
+        .ui.table{font-size: 0.58em;}
+
     }
+
 
 
     .user img{
