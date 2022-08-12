@@ -130,7 +130,7 @@ public class BpWebCount {
 
     @Test
     public void test05(){
-        String path = "D:\\idea-Work\\Localization\\cibp\\bp-web\\src\\main\\resources\\mapper\\mysql";
+        String path = "D:\\idea-Work\\gitLab\\guochanhua\\bp-service\\bp-web\\src\\main\\resources\\mapper\\";
         FileFinder finder = new FileFinder();
         finder.setPath(path);
         List<File> allFiles = finder.getAllFiles();
@@ -144,7 +144,8 @@ public class BpWebCount {
 
         //String[] keys = new String[]{" AND ", " OR ", " ！= "};
         //String[] keys = new String[]{"(.*)((test=)?)(.*)(\\sAND\\s|\\sOR\\s)+(.*)"}; // 检索大写的AND OR
-        String[] keys = new String[]{"(.*)((test=)+)(.*)(and )+(.*)(date|Date|datetime|time|timestamp|amount)+\\s?(!= '')+(.*)"}; // 检索日期相关字段 != '' 的写法
+        //String[] keys = new String[]{"(.*)((test=)+)(.*)(and )+(.*)(date|Date|datetime|time|timestamp|amount)+\\s?(!= '')+(.*)"}; // 检索日期相关字段 != '' 的写法
+        String[] keys = new String[]{"(.*)((test=)+)(.*)( = )+(.*)\\s?(.*)"}; // 检索 test 条件中包含 = 的关键字
         //查文件里包含关键字的文件列表
         List<File> resultFileList = finder.getFileList( ContainsMode.FileContentRegExpStrategy,  keys, xmlFileList);
         System.out.println("------------resultFileList------"+ resultFileList.size());
