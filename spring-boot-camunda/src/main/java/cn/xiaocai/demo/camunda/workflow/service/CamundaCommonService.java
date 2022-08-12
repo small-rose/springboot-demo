@@ -1180,4 +1180,45 @@ public class CamundaCommonService {
             return new ResultResponse().data("未查询到任务,taskId:"+taskId);
         }
     }
+
+
+    public String getProcessStarter(String processInstanceId){
+        Map<String, Object> map = this.getRuntimeSingleProcessVariable(processInstanceId,"starter");
+        if (map != null){
+            return (String)map.get("starter");
+        }else{
+            return null;
+        }
+    }
+
+
+    public ResultResponse taskGetComment(String processInstanceId){
+        List<HistoricActivityInstance> list = historyService.createHistoricActivityInstanceQuery()
+                .processInstanceId(processInstanceId)
+                .orderByHistoricActivityInstanceStartTime()
+                //.taskAssignee("lisi")
+                .asc()
+                .list();
+        List<Map<String,Object>> result=new ArrayList<>(list.size());
+        for (HistoricActivityInstance historicActivityInstance : list) {
+            Map<String,Object> map=new HashMap<>(5);
+            String taskId = historicActivityInstance.getTaskId();
+            List<Comment> taskComments = taskService.getTaskComments(taskId);
+            System.out.println(taskComments.size());
+            map.put("activityName",historicActivityInstance.getActivityName());
+            map.put("activityType",matching(historicActivityInstance.getActivityType()));
+            map.put("assignee",historicActivityInstance.getAssignee()==null?"无":historicActivityInstance.getAssignee());
+            map.put("startTime", DateFormatUtils.format(historicActivityInstance.getStartTime(),"yyyy-MM-dd HH:mm:ss") );
+            map.put("endTime",DateFormatUtils.format(historicActivityInstance.getEndTime(),"yyyy-MM-dd HH:mm:ss"));
+            map.put("costTime",getDatePoor(historicActivityInstance.getEndTime(),historicActivityInstance.getStartTime()));
+
+            if (taskComments.size()>0){
+                map.put("message",taskComments.get(0).getFullMessage());
+            }else {
+                map.put("message","无");
+            }
+            result.add(map);
+        }
+        return new ResultResponse().data(JSONUtil.toJsonStr(result));
+    }
 }

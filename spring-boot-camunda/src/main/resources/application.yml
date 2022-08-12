@@ -1,3 +1,38 @@
+server:
+  port: 32001
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+spring:
+  application:
+    name: camunda-demo
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration #StandardServletMultipartResolver，不依赖commons-fileupload
+  datasource:
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://192.168.147.128:33307/yanshi_flow?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false
+    driverClassName: oracle.jdbc.OracleDriver
+    #url: jdbc:oracle:thin:@37.220.51.221:1521:helowin
+    url: jdbc:oracle:thin:@192.168.10.118:1521:orcl
+    username: bvis
+    password: bvis123
+    maxActive: 20
+    initialSize: 20
+    maxWait: 2000
+    minIdle: 20
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    druid:
+      filter:
+        config:
+          enabled: false
+      connection-properties: config.decrypt=false;config.decrypt.key=${spring.datasource.publickey}
+      stat-view-servlet:
+        url-pattern: /druid/*
+
 
 
 camunda:
@@ -12,6 +47,7 @@ camunda:
       properties:
         javaSerializationFormatEnabled: true
         jdbcBatchProcessing: false
+
 pagehelper:
   auto-dialect: true
   page-size-zero: true

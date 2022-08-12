@@ -7,6 +7,7 @@ import cn.xiaocai.demo.camunda.workflow.entity.TaskVo;
 import cn.xiaocai.demo.camunda.workflow.service.CamundaCommonService;
 import cn.xiaocai.demo.camunda.workflow.service.PaymentService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +38,6 @@ public class WorkFlowController {
     @Autowired
     private PaymentService paymentService;
 
-    @Autowired
-    private TBOperationService tBOperationService;
 
     @ApiOperation("发布类路径下的流程文件")
     @RequestMapping(value = "/classpath/deploy", method = RequestMethod.GET)
@@ -341,7 +340,7 @@ public class WorkFlowController {
     public ResultResponse getProcessStarter(@ApiParam("流程实例id") @RequestParam String processInstanceId){
         ResultResponse result = new ResultResponse();
         try{
-            String starter = tBOperationService.getProcessStarter(processInstanceId);
+            String starter = camundaCommonService.getProcessStarter(processInstanceId);
             result.setData(starter);
             result.setMessage("获取流程发起人成功");
             result.setSuccess(true);
@@ -448,4 +447,19 @@ public class WorkFlowController {
         return response;
     }
 
+    @ApiOperation(value = "审核记录查询接口",response = ResultResponse.class)
+    @RequestMapping(value = "/findCommentByProcessInstanceId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultResponse findComment(@ApiParam("流程实例Id") @RequestParam("processInstanceId") String processInstanceId){
+        ResultResponse response = new ResultResponse();
+        try {
+            return camundaCommonService.taskGetComment(processInstanceId);
+
+        }catch (Exception e){
+            response.setSuccess(false);
+            response.setCode(500);
+            response.setMessage("审核记录查询接口失败 ：" + e.getMessage());
+        }
+        return response;
+    }
 }
