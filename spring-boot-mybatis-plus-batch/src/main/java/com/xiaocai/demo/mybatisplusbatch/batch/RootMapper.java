@@ -1,4 +1,4 @@
-package com.xiaocai.demo.mybatisplus.batch;
+package com.xiaocai.demo.mybatisplusbatch.batch;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

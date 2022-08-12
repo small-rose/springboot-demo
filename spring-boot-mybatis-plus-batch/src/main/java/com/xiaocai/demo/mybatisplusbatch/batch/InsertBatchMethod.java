@@ -1,4 +1,4 @@
-package com.xiaocai.demo.mybatisplus.batch;
+package com.xiaocai.demo.mybatisplusbatch.batch;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;

@@ -1,4 +1,4 @@
-package com.xiaocai.demo.mybatisplus.config;
+package com.xiaocai.demo.mybatisplusbatch.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.xiaocai.demo.mybatisplus.injector.CustomizedSqlInjector;
+import com.xiaocai.demo.mybatisplusbatch.injector.CustomizedSqlInjector;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;

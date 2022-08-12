@@ -1,4 +1,4 @@
-package com.xiaocai.demo.mybatisplus.web.entity;
+package com.xiaocai.demo.mybatisplusbatch.web.entity;
 
 
 

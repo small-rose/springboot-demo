@@ -1,10 +1,10 @@
-package com.xiaocai.demo.mybatisplus.injector;
+package com.xiaocai.demo.mybatisplusbatch.injector;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.xiaocai.demo.mybatisplus.batch.InsertBatchMethod;
-import com.xiaocai.demo.mybatisplus.batch.UpdateBatchMethod;
+import com.xiaocai.demo.mybatisplusbatch.batch.InsertBatchMethod;
+import com.xiaocai.demo.mybatisplusbatch.batch.UpdateBatchMethod;
 
 import java.util.List;
 

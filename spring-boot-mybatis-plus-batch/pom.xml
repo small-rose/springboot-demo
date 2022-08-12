@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.xaiocai.demo</groupId>
-    <artifactId>spring-boot-mybatis-plus</artifactId>
+    <artifactId>spring-boot-mybatis-plus-batch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-mybatis-plus-batch</name>
     <description>mybatis-plus Demo project for Spring Boot</description>

@@ -1,9 +1,9 @@
 package com.xiaocai.demo.mybatisplus.test;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xiaocai.demo.mybatisplus.MybatisPlusBatchApplication;
-import com.xiaocai.demo.mybatisplus.web.entity.Account;
-import com.xiaocai.demo.mybatisplus.web.service.AccountService;
+import com.xiaocai.demo.mybatisplusbatch.MybatisPlusBatchApplication;
+import com.xiaocai.demo.mybatisplusbatch.web.entity.Account;
+import com.xiaocai.demo.mybatisplusbatch.web.service.AccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.xiaocai.demo.mybatisplus;
+package com.xiaocai.demo.mybatisplusbatch;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,10 +1,10 @@
-package com.xiaocai.demo.mybatisplus.web.service;
+package com.xiaocai.demo.mybatisplusbatch.web.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiaocai.demo.mybatisplus.web.entity.Account;
-import com.xiaocai.demo.mybatisplus.web.mapper.AccountMapper;
+import com.xiaocai.demo.mybatisplusbatch.web.entity.Account;
+import com.xiaocai.demo.mybatisplusbatch.web.mapper.AccountMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
