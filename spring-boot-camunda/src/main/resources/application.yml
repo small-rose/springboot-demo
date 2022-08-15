@@ -1,0 +1,17 @@
+
+
+camunda:
+  bpm:
+    auto-deployment-enabled: false
+    job-execution:
+      enabled: false
+    database:
+      type: oracle
+      jdbc-batch-processing: false #oracle\u65F6\u8981\u8BBE\u7F6E\u6210false
+    generic-properties:
+      properties:
+        javaSerializationFormatEnabled: true
+        jdbcBatchProcessing: false
+pagehelper:
+  auto-dialect: true
+  page-size-zero: true
