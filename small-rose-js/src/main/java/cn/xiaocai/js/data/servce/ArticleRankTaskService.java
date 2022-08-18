@@ -41,7 +41,7 @@ public class ArticleRankTaskService {
     @Autowired
     private SpiderLogRepository spiderLogRepository ;
 
-    String URL = "https://www.jianshu.com/asimov/fp_rankings/voter_notes?date=20220729";
+    private static  String URL = "https://www.jianshu.com/asimov/fp_rankings/voter_notes?date=";
 
     public String catchRankData(String start, String end) throws UnirestException {
 
@@ -55,7 +55,7 @@ public class ArticleRankTaskService {
             for (LocalDate billDate : localDates){
                 catchRankData(billDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
             }
-            log.info("日期区间{} 到 {} 的数据住区完成！", yyyyMMdd1, yyyyMMdd2);
+            log.info("日期区间{} 到 {} 的数据抓取完成！", yyyyMMdd1, yyyyMMdd2);
         }else{
             yyyyMMdd = start ;
             List<SpiderLog> list = spiderLogRepository.selectByRankDateRankType(yyyyMMdd, "AR");
@@ -120,7 +120,7 @@ public class ArticleRankTaskService {
 
     private String catchAndSaveRankData(String yyyyMMdd) throws UnirestException {
         log.info("开始抓取 " + yyyyMMdd +" 的文章排名数据！");
-        GetRequest getRequest = Unirest.get("https://www.jianshu.com/asimov/fp_rankings/voter_notes?date="+yyyyMMdd);
+        GetRequest getRequest = Unirest.get(URL +yyyyMMdd);
         HttpResponse<String> stringResult = getRequest.asString();
         int status = stringResult.getStatus();
         if (status!=200 ){

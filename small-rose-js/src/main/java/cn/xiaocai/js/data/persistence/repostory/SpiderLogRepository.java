@@ -20,4 +20,6 @@ public interface SpiderLogRepository extends JpaRepository<SpiderLog,Long> {
     @Query(value = "select * from JS_SPIDER_LOG where rank_date = :randDate and rank_type = :rankType"  ,nativeQuery = true)
     List<SpiderLog> selectByRankDateRankType(String randDate, String rankType);
 
+    @Query(value = "select * from JS_SPIDER_LOG where  rank_type = :rankType order by rank_date desc "  ,nativeQuery = true)
+    List<SpiderLog> selectByRankTypeUpdateResult(String rankType);
 }

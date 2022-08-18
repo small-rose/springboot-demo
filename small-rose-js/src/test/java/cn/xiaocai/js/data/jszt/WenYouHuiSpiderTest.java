@@ -25,9 +25,21 @@ public class WenYouHuiSpiderTest {
 
     String URL = "https://www.jianshu.com/c/57cc936b828b";
     String REFERURL = "https://www.jianshu.com/";
-    String URL_wen = "https://www.jianshu.com/c/57cc936b828b";
+    String URL_wen = "https://www.jianshu.com/p/57cc936b828b";
     String URL_zan = "https://www.jianshu.com/shakespeare/notes/${noteId}/comments?page=1&count=100&author_only=false&order_by=desc";
 
+
+    @Test
+    public void test_(){
+        String url = "https://www.jianshu.com/p/a3e1f33b787e";
+        Document document = NetUtil.getDocument(url, REFERURL);
+        System.out.println(document);
+        Elements cList = document.select("._1OhGeD");
+        for (Element c :cList) {
+            String nickName = c.text();
+            System.out.println(" nickName " + nickName);
+        }
+    }
 
     @Test
     public void test_33() throws UnirestException {

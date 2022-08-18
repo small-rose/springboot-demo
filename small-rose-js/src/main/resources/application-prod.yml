@@ -46,3 +46,6 @@ logging:
         transaction: info
         orm: info
       hibernate: info
+  file:
+    name: /home/blog/jianshu/logs/js_search.log
+    #path: /home/blog/jianshu/logs/
