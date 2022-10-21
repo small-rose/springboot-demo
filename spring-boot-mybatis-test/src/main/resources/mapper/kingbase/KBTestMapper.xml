@@ -83,4 +83,13 @@
                 )
     </update>
 
+
+    <select id="selectNextDay" resultType="java.lang.String">
+     select to_char(DATE_TRUNC('day', #{date} + interval '1 day'), 'yyyy-MM-dd') from dual
+  <!--select to_char(DATE_TRUNC('day',timestamp'2022-07-26 14:36:20.067' + interval '1 day'), 'yyyy-MM-dd') from dual
+ -->
+    </select>
+    <select id="selectNextDay2" resultType="java.lang.String">
+        select to_char(#{date} + interval '1 day')  from dual
+      </select>
 </mapper>

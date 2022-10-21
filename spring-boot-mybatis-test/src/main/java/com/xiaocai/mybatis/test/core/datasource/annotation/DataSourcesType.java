@@ -7,7 +7,7 @@ public enum DataSourcesType {
 
     MASTER("01", "主数据源"),
 
-    SLAVE ("02", "读数据源"),
+    KINGBASE ("02", "读数据源"),
 
     BPJYOPR("03", "交易库"),
 

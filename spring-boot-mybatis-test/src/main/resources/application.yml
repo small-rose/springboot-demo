@@ -37,6 +37,7 @@ logging:
             datasource: DEBUG
     springfox:
       documentation: error
+
 spring:
   servlet:
     multipart:
@@ -118,7 +119,7 @@ spring:
       decrypt: #\u81EA\u5B9A\u4E49\u7684\u914D\u7F6E\u6587\u4EF6 druid \u89E3\u5BC6\u5BC6\u7801\u4F7F\u7528\u7684\u516C\u94A5
         publickey: "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKLq631Q7G0ojRaUklMbdXvR2PbV7Z058DahC8G48J7jnq5AzaW60VZHo2SgpjhsMrwk7VrVWg6TRkZT3KlKp6MCAwEAAQ=="
         password: "HrXNxnKcwYPXVBTf3gtW2dB1VEt9o2YKZzWlykb9pH7TfrjjgoWKdsxFM9czLp79F2+bTfWO2givtdI+lJ6N3A=="
-      connectionProperties: druid.log.stmt.executableSql=true;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=false;config.decrypt.key=${spring.datasource.druid.decrypt.publickey} # \u901A\u8FC7connectProperties\u5C5E\u6027\u6765\u6253\u5F00mergeSql\u529F\u80FD\uFF1B\u6162SQL\u8BB0\u5F55
+      connectionProperties: druid.log.stmt.executableSql=true;druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000;config.decrypt=false;config.decrypt.key=${spring.datasource.druid.decrypt.publickey} # \u901A\u8FC7connectProperties\u5C5E\u6027\u6765\u6253\u5F00mergeSql\u529F\u80FD\uFF1B\u6162SQL\u8BB0\u5F55
       useGlobalDataSourceStat: false # \u5408\u5E76\u591A\u4E2ADruidDataSource\u7684\u76D1\u63A7\u6570\u636E
       # \u914D\u7F6E DruidStatFilter
       web-stat-filter:
@@ -144,7 +145,7 @@ spring:
           # \u6162SQL\u8BB0\u5F55
           log-slow-sql: true
           slow-sql-millis: 1000
-          merge-sql: true
+          merge-sql: false
         wall:
           config:
             multi-statement-allow: true

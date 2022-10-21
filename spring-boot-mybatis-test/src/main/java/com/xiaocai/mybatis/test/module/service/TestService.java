@@ -7,6 +7,8 @@ import com.xiaocai.mybatis.test.module.mapper.TestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
 /**
  * @Project : springboot-demo
  * @Author : Small-Rose / zhangxaiocai
@@ -27,13 +29,13 @@ public class TestService {
     KBTestMapper kbTestMapper ;
 
 
-    @TargetDataSource(target = DataSourcesType.SLAVE)
+    @TargetDataSource(target = DataSourcesType.KINGBASE)
     public Long testMater(){
        return testMapper.test();
     }
 
 
-    @TargetDataSource(target = DataSourcesType.SLAVE)
+    @TargetDataSource(target = DataSourcesType.KINGBASE)
     public Long testSlave(){
         return kbTestMapper.test();
     }
@@ -47,5 +49,16 @@ public class TestService {
     @TargetDataSource(target = DataSourcesType.MASTER)
     public void testTemporaryTable() {
          kbTestMapper.testTemporaryTable();
+    }
+
+
+    @TargetDataSource(target = DataSourcesType.KINGBASE)
+    public String getNextDay(Timestamp date) {
+       return kbTestMapper.selectNextDay(date);
+    }
+
+    @TargetDataSource(target = DataSourcesType.KINGBASE)
+    public String getNextDay2(String date) {
+        return kbTestMapper.selectNextDay2(date);
     }
 }

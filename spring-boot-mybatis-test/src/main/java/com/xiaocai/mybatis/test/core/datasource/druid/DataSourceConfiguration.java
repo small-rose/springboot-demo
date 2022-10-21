@@ -4,11 +4,15 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.xiaocai.mybatis.test.core.datasource.DynamicRoutingDataSource;
 import com.xiaocai.mybatis.test.core.datasource.annotation.DataSourcesType;
 import com.xiaocai.mybatis.test.core.datasource.transaction.MultiDataSourceTransactionFactory;
+import com.xiaocai.mybatis.test.core.mybatis.plugin.DataPrivilegeInterceptor;
+import com.xiaocai.mybatis.test.core.mybatis.plugin.ExecutorSwitchInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -127,7 +131,7 @@ public class DataSourceConfiguration {
         Map<Object, Object> targetDataSources = new HashMap<>();
         DynamicRoutingDataSource dynamicDataSource = DynamicRoutingDataSource.build();
         targetDataSources.put(DataSourcesType.MASTER.name(), masterDataSource);
-        targetDataSources.put(DataSourcesType.SLAVE.name(), slaveDataSource);
+        targetDataSources.put(DataSourcesType.KINGBASE.name(), slaveDataSource);
 //        targetDataSources.put(DataSourcesType.BPJYOPR.name(), bpjyoprDataSource);
 //        targetDataSources.put(DataSourcesType.BPTZOPR.name(), bptzoprDataSource);
 //        targetDataSources.put(DataSourcesType.BPDZOPR.name(), bpdzoprDataSource);
@@ -147,12 +151,23 @@ public class DataSourceConfiguration {
         return globalConfig;
     }
 
+    @Autowired
+    DataPrivilegeInterceptor dataPrivilegeInterceptor ;
+    @Autowired
+    ExecutorSwitchInterceptor executorSwitchInterceptor ;
+    @Autowired
+    MybatisPlusInterceptor mybatisPlusInterceptor ;
+
+
     @Bean(name="sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactorys(DynamicRoutingDataSource dynamicDataSource, GlobalConfig globalConfig) throws Exception {
         log.info("--------------------  MybatisSqlSessionFactoryBean init ---------------------");
         try {
             //SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
             MybatisSqlSessionFactoryBean sessionFactoryBean = new MybatisSqlSessionFactoryBean();
+            // 写在前面的拦截器后执行，此处的执行顺序（1）dataPrivilegeInterceptor （2）executorSwitchInterceptor （3）mybatisPlusInterceptor
+            sessionFactoryBean.setPlugins(new Interceptor[]{mybatisPlusInterceptor, executorSwitchInterceptor,dataPrivilegeInterceptor});
+
             sessionFactoryBean.setDataSource(dynamicDataSource);
             sessionFactoryBean.setTransactionFactory(new MultiDataSourceTransactionFactory());
             // 读取配置

@@ -1,8 +1,10 @@
 package com.xiaocai.mybatis.test.module.mapper;
 
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 
 
 /**
@@ -15,6 +17,11 @@ public interface KBTestMapper {
 
 
     public Long testTemporaryTable();
+
+
+
+    public String selectNextDay(@Param("date") Timestamp date);
+    public String selectNextDay2(@Param("date") String date);
 
 
 

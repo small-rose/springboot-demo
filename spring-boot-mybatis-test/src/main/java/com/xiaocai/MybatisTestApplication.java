@@ -1,4 +1,4 @@
-package com.xiaocai.mybatis.test;
+package com.xiaocai;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,7 +15,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class MybatisTestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MybatisTestApplication.class, args);
+        SpringApplication app =new SpringApplication(MybatisTestApplication.class);
+        //加入自定义的监听类
+        //app.addListeners();
+        app.run(args);
     }
+
+
 
 }
