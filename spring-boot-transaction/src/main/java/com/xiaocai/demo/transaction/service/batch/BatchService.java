@@ -35,7 +35,7 @@ public class BatchService {
         for (int i=0 ; i<58; i++){
 
             accountRecord = new AccountRecord();
-            accountRecord.setName("Test00"+i);
+            accountRecord.setNickName("Test00"+i);
             accountRecord.setPass("Pass00"+i);
             mockData.add(accountRecord);
         }
