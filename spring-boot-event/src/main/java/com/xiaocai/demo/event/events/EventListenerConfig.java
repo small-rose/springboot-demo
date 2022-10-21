@@ -30,6 +30,10 @@ public class EventListenerConfig {
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
+    /**
+     * Object 监听所有的事件
+     * @param event
+     */
     @EventListener
     public void handleEvent(Object event) {
         //监听所有事件 可以看看 系统各类时间 发布了哪些事件

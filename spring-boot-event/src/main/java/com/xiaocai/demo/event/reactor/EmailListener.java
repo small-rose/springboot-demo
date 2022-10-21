@@ -17,6 +17,7 @@ import reactor.function.Consumer;
 @Component
 public class EmailListener<Email> implements Consumer<Event<Email>> {
 
+    @Override
     public void accept(Event<Email> event) {
         Email email = event.getData();
         System.out.println("Received email object with " +email);

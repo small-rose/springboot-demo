@@ -25,6 +25,7 @@ public class AppListener<User> implements Consumer<Event<User>> {
     private Reactor reactor;
 
 
+    @Override
     public void accept(Event<User> event) {
         System.out.println("Received user object with " +event.getData());
 
