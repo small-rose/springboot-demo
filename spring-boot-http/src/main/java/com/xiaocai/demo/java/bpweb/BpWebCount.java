@@ -181,13 +181,13 @@ public class BpWebCount {
 
     @Test
     public void test07(){
-        String path = "D:\\idea-Work\\gitLab\\guochanhua\\bp-service\\bp-web\\src\\main\\resources\\mapper\\mysql";
+        String path = "D:\\idea-Work\\gitLab\\guochanhua\\bp-service\\bp-web\\src\\main\\";
         FileFinder finder = new FileFinder();
         finder.setPath(path);
         List<File> allFiles = finder.getAllFiles();
         System.out.println("------------allList------"+ allFiles.size());
 
-        String[] nameKeys = new String[]{" Mapper.xml"};
+        String[] nameKeys = new String[]{".java"};
         //查文件里包含关键字的文件列表
         List<File> xmlFileList = finder.getFileList( ContainsMode.FileNameEndWith,  nameKeys, null);
         System.out.println("------------xmlFileList------"+ xmlFileList.size());
@@ -195,7 +195,7 @@ public class BpWebCount {
 
         //String[] keys = new String[]{"'true'"," BizPrivilege ", ".id." , " Unit ", " UnitMapping ", " BizSub ", " PlatFormFileDetail "  }; // 检索关键字
 
-        String[] keys = new String[]{"List != ''","List != ''.toString()"};
+        String[] keys = new String[]{"//    @JsonFormat("};
         //查文件里包含关键字的文件列表
         List<File> resultFileList = finder.getFileList( ContainsMode.FileContentContains,  keys, xmlFileList);
         System.out.println("------------resultFileList------"+ resultFileList.size());
@@ -230,5 +230,77 @@ public class BpWebCount {
         List<String> result = FileFilterUtils.getFileNameList(resultFileList);
         result.stream().forEach(System.out::println);
 
+    }
+
+    @Test
+    public void test_1511(){
+        Pattern r1 = Pattern.compile("^[a-zA-Z]+$");
+
+        String str1 = "aaaaaaa";
+        String str2 = "Aa";
+        String str3 = "Addinquiry.x";
+        String str4 = "Addgamev";
+        String str5 = "delete/inquiry.a";
+        String str6 = "inquiry";
+        String str7 = "/inquiry.x";
+
+
+        Matcher m = r1.matcher(str1);
+        System.out.println(m.matches());
+
+        Matcher m2 = r1.matcher(str2);
+        System.out.println(m2.matches());
+        Assert.assertEquals(true, m2.matches());
+
+        Matcher m3 = r1.matcher(str3);
+        System.out.println(m3.matches());
+        Assert.assertEquals(false, m3.matches());
+
+        Matcher m4 = r1.matcher(str4);
+        System.out.println(m4.matches());
+        Assert.assertEquals("第4个能正常匹配", true, m4.matches());
+
+        Matcher m5 = r1.matcher(str5);
+        System.out.println(m5.matches());
+        Assert.assertEquals(false, m5.matches());
+
+        Matcher m6 = r1.matcher(str6);
+        System.out.println(m6.matches());
+        Assert.assertEquals(true, m6.matches());
+
+        Matcher m7 = r1.matcher(str7);
+        System.out.println(m7.matches());
+        Assert.assertEquals(false, m7.matches());
+
+
+        String pattern = "^[a-zA-Z]+$ | ^(?!inquiry).*$ | ^(?!/inquiry).*$";
+        System.out.println(" r3 ------------------------");
+        Pattern r3 = Pattern.compile(pattern);
+        Matcher m31 = r3.matcher(str1);
+        System.out.println(m31.matches());
+
+        Matcher m32 = r3.matcher(str2);
+        System.out.println(m32.matches());
+        Assert.assertEquals(false, m32.matches());
+
+        Matcher m33 = r3.matcher(str3);
+        System.out.println(m33.matches());
+        Assert.assertEquals(false, m33.matches());
+
+        Matcher m34 = r3.matcher(str4);
+        System.out.println(m34.matches());
+        Assert.assertEquals("第4个能正常匹配", false, m34.matches());
+
+        Matcher m35 = r3.matcher(str5);
+        System.out.println(m35.matches());
+        Assert.assertEquals(false, m35.matches());
+
+        Matcher m36 = r3.matcher(str6);
+        System.out.println(m36.matches());
+        Assert.assertEquals(false, m36.matches());
+
+        Matcher m37 = r3.matcher(str7);
+        System.out.println(m37.matches());
+        Assert.assertEquals(false, m37.matches());
     }
 }

@@ -14,7 +14,13 @@ import java.util.List;
  **/
 public class FileContentContainsStrategy implements FilterStrategy{
 
-
+    private boolean ignoreLineComment = false;
+    public FileContentContainsStrategy(){
+        this(false);
+    }
+    FileContentContainsStrategy(boolean ignoreLineComment){
+        this. ignoreLineComment = ignoreLineComment ;
+    }
     @Override
     public List<File> execute(List<File> target, String... keys) {
         List<File> result = new ArrayList<>();
@@ -48,7 +54,7 @@ public class FileContentContainsStrategy implements FilterStrategy{
             while ((line = br.readLine()) != null) {
 
                 //跳过注释
-                if (line.startsWith("//")){
+                if (line.startsWith("//") && ignoreLineComment){
                     x++;
                     continue;
                 }

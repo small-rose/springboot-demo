@@ -48,4 +48,18 @@ public class UnirestGetDemo {
         System.out.println("Body：" +stringResult.getBody());
         System.out.println("RawBody：" +stringResult.getRawBody());
     }
+
+
+    @Test
+    public void test02() throws UnirestException {
+        HttpResponse<String> stringResult = Unirest.get("http://localhost:9028/httpDemo/rest/getData")
+                .queryString("name", "abcd")
+                .asString();
+
+        System.out.println("Status：" + stringResult.getStatus());
+        System.out.println("StatusText：" +stringResult.getStatusText());
+        System.out.println("Headers：" +stringResult.getHeaders());
+        System.out.println("Body：" +stringResult.getBody());
+        System.out.println("RawBody：" +stringResult.getRawBody());
+    }
 }
