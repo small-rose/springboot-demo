@@ -17,7 +17,7 @@ public class TransDtlTest {
     static String sourceFile = "E:"+ File.separator+"Tmp"+ File.separator+"old_table.xlsx";
 
     public static void main(String[] args) {
-        com.xiaocai.demo.excel.clasz.TransReadListener platListener = new com.xiaocai.demo.excel.clasz.TransReadListener();
+        TransReadListener platListener = new TransReadListener();
 
         // 被读取的文件绝对路径
         EasyExcel.read(sourceFile,  platListener).sheet().headRowNumber(0).doRead();

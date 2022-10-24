@@ -53,12 +53,12 @@ public class ExcelWriteDemo01 {
 
         // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
         // 如果这里想使用03 则 传入excelType参数即可
-        EasyExcel.write(fileName, DoorData.class)
+       /* EasyExcel.write(fileName, DoorData.class)
                 .sheet("sheet1")
                 .doWrite(() -> {
                     // 分页查询数据
                     return data();
-                });
+                });*/
 
     }
 
@@ -91,13 +91,15 @@ public class ExcelWriteDemo01 {
 
         // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
         // 如果这里想使用03 则 传入excelType参数即可
-        EasyExcel.write(fileName, DoorData.class)
+        /*EasyExcel.write(fileName, DoorData.class)
                 .sheet("sheet1")
                 .doWrite(() -> {
                     // 分页查询数据
                     return data();
-                });
-
+                });*/
+        EasyExcel.write(fileName, DoorData.class)
+                .sheet("sheet1")
+                .doWrite( data());
     }
 
 

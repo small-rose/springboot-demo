@@ -2,7 +2,6 @@ package com.xiaocai.demo.excel;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.util.ListUtils;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.xiaocai.demo.excel.bean.FillData;
 import com.xiaocai.demo.excel.utils.TestFileUtil;
@@ -11,6 +10,7 @@ import org.junit.Test;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,13 +47,18 @@ public class EasyExcelListFillDemo {
         // 方案2 分多次 填充 会使用文件缓存（省内存） jdk8
         // since: 3.0.0-beta1
         fileName = TestFileUtil.getPath() + "listFill02_" + datetime + ".xlsx";
-        EasyExcel.write(fileName)
+      /*  EasyExcel.write(fileName)
                 .withTemplate(templateFileName)
                 .sheet()
                 .doFill(() -> {
                     // 分页查询数据
                     return data();
-                });
+                });*/
+
+        EasyExcel.write(fileName)
+                .withTemplate(templateFileName)
+                .sheet()
+                .doFill(data());
 
         // 方案3 分多次 填充 会使用文件缓存（省内存）
         fileName = TestFileUtil.getPath() + "listFill" + System.currentTimeMillis() + ".xlsx";
@@ -66,7 +71,7 @@ public class EasyExcelListFillDemo {
     }
 
     private List<FillData> data() {
-        List<FillData> list = ListUtils.newArrayList();
+        List<FillData> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             FillData fillData = new FillData();
             list.add(fillData);

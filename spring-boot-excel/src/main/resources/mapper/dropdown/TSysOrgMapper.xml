@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+    namespace="com.xiaocai.demo.excel.dropdown.mapper.TSysOrgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap"
+        type="com.xiaocai.demo.excel.dropdown.entity.TSysOrg">
+        <id column="ORG_CODE" property="orgCode" />
+        <result column="FATHER_ORG_CODE" property="fatherOrgCode" />
+        <result column="ORG_NAME" property="orgName" />
+        <result column="CONTACT_NAME" property="contactName" />
+        <result column="CONTACT_PHONE" property="contactPhone" />
+        <result column="EMAIL" property="email" />
+        <result column="ORG_ADDR" property="orgAddr" />
+        <result column="PROVINCE" property="province" />
+        <result column="STATUS" property="status" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="UNION_ORG_CODE" property="unionOrgCode" />
+        <result column="SYNC_FLAG" property="syncFlag" />
+        <result column="ORG_LEVEL" property="orgLevel"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ORG_CODE, FATHER_ORG_CODE, ORG_NAME, CONTACT_NAME,
+        CONTACT_PHONE, EMAIL, ORG_ADDR, PROVINCE, STATUS, CREATED_BY,
+        CREATED_TIME, UPDATED_BY, UPDATED_TIME, UNION_ORG_CODE,
+        SYNC_FLAG,ORG_LEVEL
+    </sql>
+
+    <select id="selectOrgListByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+         select r.ORG_CODE,
+                r.FATHER_ORG_CODE,
+                r.ORG_NAME,
+                r.CONTACT_NAME,
+                r.CONTACT_PHONE,
+                r.EMAIL,
+                r.PROVINCE,
+                r.STATUS,
+                r.num,
+                r.UNION_ORG_CODE,
+                r.SYNC_FLAG,
+                r.CREATED_BY,
+                r.CREATED_TIME,
+                r.UPDATED_BY,
+                r.UPDATED_TIME,
+                r.ORG_LEVEL
+           from T_SYS_ORG r
+           join T_SYS_USERS_ORG rr on rr.ORG_CODE = r.ORG_CODE
+          where rr.USER_ID = #{userId,jdbcType=VARCHAR}
+            and r.status = '00'
+    </select>
+
+    <select id="findOrgByChildOrgCode" resultType="com.xiaocai.demo.excel.dropdown.entity.TSysOrg">
+         select org.ORG_CODE,org.UNION_ORG_CODE,org.ORG_NAME,org.ORG_LEVEL,org.NUM from T_SYS_ORG org
+          where org.ORG_CODE = (select t.father_org_code  from T_SYS_ORG t where t.UNION_ORG_CODE = #{orgCode}) and org.status = '00'
+    </select>
+
+    <select id="selectOrgCodeByUnionOrgCode" resultType="java.lang.String">
+        select org_code from T_SYS_ORG where UNION_ORG_CODE = #{orgCode} and status = '00'
+    </select>
+
+    <select id="selectOrgNameByOrgCode" resultType="java.lang.String">
+        select org_name from T_SYS_ORG where num = #{orgCode} and status = '00'
+    </select>
+
+    <select id="findOrgListByEqualsLevel" resultMap="BaseResultMap">
+        SELECT ORG_CODE, ORG_NAME, UNION_ORG_CODE, ORG_LEVEL
+         FROM T_SYS_ORG WHERE ORG_LEVEL = #{orgLevel}  and status = '00' order by UNION_ORG_CODE
+    </select>
+
+    <select id="findOrgListByParentUnionOrgCode" resultMap="BaseResultMap">
+        SELECT ORG_CODE, ORG_NAME, UNION_ORG_CODE, ORG_LEVEL FROM T_SYS_ORG
+        WHERE FATHER_ORG_CODE = (select t.ORG_CODE  from T_SYS_ORG t where t.UNION_ORG_CODE = #{orgCode} ) and status = '00'
+    </select>
+
+
+    <select id="getNameByCode" resultType="java.lang.String">
+        select wm_concat(t.ORG_NAME) from T_SYS_ORG t where status = '00' and t.UNION_ORG_CODE in
+        <foreach collection="codes" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+
+
+    <select id="findOrgTree" resultType="com.xiaocai.demo.excel.dropdown.entity.TSysOrg">
+        SELECT
+            t.ORG_CODE,
+            t.UNION_ORG_CODE,
+            t.ORG_NAME,
+            t.FATHER_ORG_CODE,
+            t.ORG_LEVEL
+        FROM
+            T_SYS_ORG t
+        WHERE
+            t.ORG_LEVEL in ('1','2') AND t.STATUS = '00'
+          and t.FATHER_ORG_CODE not in (select a.ORG_CODE from t_sys_org a where a.UNION_ORG_CODE='9010100')
+    </select>
+
+
+    <select id="queryOrgCodeByUnionOrgCode" resultType="com.xiaocai.demo.excel.dropdown.entity.TSysOrg">
+        select  ORG_CODE, ORG_NAME, UNION_ORG_CODE, ORG_LEVEL
+        from  T_SYS_ORG
+        where  UNION_ORG_CODE = #{unionOrgCode}  and STATUS ='00'
+    </select>
+
+    <select id="getSubCode" resultType="java.lang.String">
+        select UNION_ORG_CODE  from T_SYS_ORG WHERE ORG_LEVEL = '1' and STATUS ='00' order by UNION_ORG_CODE
+    </select>
+
+    <select id="getUnionOrgCodeByOrgCode" resultType="java.lang.String">
+        select concat(ORG_NAME,concat('_',UNION_ORG_CODE)) from T_SYS_ORG where FATHER_ORG_CODE = #{orgCode} and STATUS ='00'
+    </select>
+</mapper>

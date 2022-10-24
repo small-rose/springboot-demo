@@ -21,7 +21,7 @@ public class TransReadListener extends AnalysisEventListener<Map<Integer, String
 
     static List<Map<Integer, String>> readList = new ArrayList<>();
     static List<Map<String, Object>> preList = new ArrayList<>();
-    static List<com.xiaocai.demo.excel.clasz.TransDtl> beanList = new ArrayList<>();
+    static List<TransDtl> beanList = new ArrayList<>();
     @Override
     public void onException(Exception e, AnalysisContext analysisContext) throws Exception {
         e.printStackTrace();
@@ -42,7 +42,7 @@ public class TransReadListener extends AnalysisEventListener<Map<Integer, String
             }
             JSONObject json = new JSONObject(data);
             System.out.println(json.toJSONString());
-            com.xiaocai.demo.excel.clasz.TransDtl transDtl1 = JSON.parseObject(json.toJSONString(), com.xiaocai.demo.excel.clasz.TransDtl.class);
+            TransDtl transDtl1 = JSON.parseObject(json.toJSONString(), TransDtl.class);
             System.out.println(transDtl1);
             preList.add(data);
             beanList.add(transDtl1);

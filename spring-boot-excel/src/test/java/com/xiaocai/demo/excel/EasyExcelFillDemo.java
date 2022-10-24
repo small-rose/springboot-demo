@@ -4,15 +4,13 @@ import com.alibaba.excel.EasyExcel;
 import com.xiaocai.demo.excel.bean.DemoData;
 import com.xiaocai.demo.excel.bean.FillData;
 import com.xiaocai.demo.excel.utils.TestFileUtil;
-
-
-import com.alibaba.excel.util.MapUtils;
 import org.junit.Test;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +48,7 @@ public class EasyExcelFillDemo {
         // 方案2 根据Map填充
         fileName = TestFileUtil.getPath() + "simpleFill02_" + datetime + ".xlsx";
         // 这里 会填充到第一个sheet， 然后文件流会自动关闭
-        Map<String, Object> map = MapUtils.newHashMap();
+        Map<String, Object> map = new HashMap<>();
         map.put("name", "张三");
         map.put("number", 5.2);
         EasyExcel.write(fileName).withTemplate(templateFileName).sheet().doFill(map);

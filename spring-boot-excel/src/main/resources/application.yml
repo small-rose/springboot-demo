@@ -6,10 +6,16 @@ server:
 
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@10.10.108.70/paymt
-    username: paymt
-    password: paymt_1
+    #orcle
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@10.10.108.70/paymt
+#    username: paymt
+#    password: paymt_1
+    #mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bp_demo?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
     druid: # 数据源专有配置
       initialSize: 5
       minIdle: 5
@@ -53,7 +59,12 @@ spring:
           #数据库过滤器
           config:
             enabled: true
+
 logging:
   level:
     com.xiaocai: info
+#mybatis-plus:
+  #mapper-locations: classpath*:/mapper/**/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
