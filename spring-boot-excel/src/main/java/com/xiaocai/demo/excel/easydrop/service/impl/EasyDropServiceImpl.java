@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import com.xiaocai.demo.excel.easydrop.annotation.DropDownSetField;
 import com.xiaocai.demo.excel.easydrop.handler.DropDownCascadeReWriteHandler;
 import com.xiaocai.demo.excel.easydrop.handler.DropDownCellReWriteHandler;
+import com.xiaocai.demo.excel.easydrop.handler.GxDetailExcelStyleHandler;
 import com.xiaocai.demo.excel.easydrop.service.EasyDropService;
 import com.xiaocai.demo.excel.easydrop.util.ResoveDropAnnotationUtil;
 import com.xiaocai.demo.excel.easydrop.vo.GXDetailListLogVO;
@@ -80,7 +81,7 @@ public class EasyDropServiceImpl implements EasyDropService  {
             // 解析注解信息
             DropDownSetField dropDownSetField = field.getAnnotation(DropDownSetField.class);
             if (null != dropDownSetField) {
-                System.out.println(field.getName() + "   " +dropDownSetField.methodName());
+                log.info("下拉字段：" +field.getName());
                 if (!"".equals(dropDownSetField.methodName())){
                     Map<String, List<String>> sourceMap = ResoveDropAnnotationUtil.resoveMethod(dropDownSetField);
                     if (null != sourceMap) {
@@ -102,10 +103,10 @@ public class EasyDropServiceImpl implements EasyDropService  {
             List<Integer> columns = Lists.newArrayList();
             columns.add(0);
             columns.add(1);
-            //builder.registerWriteHandler(new GxDetailExcelStyleConfig(Lists.newArrayList(20), columns, null));
+            builder.registerWriteHandler(new GxDetailExcelStyleHandler(Lists.newArrayList(20), columns, null));
             builder.head(GXDetailListVO.class);
         } else {
-            //builder.registerWriteHandler(new GxDetailExcelStyleConfig(null, null, null));
+            builder.registerWriteHandler(new GxDetailExcelStyleHandler(null, null, null));
             builder.head(GXDetailListLogVO.class);
         }
         WriteSheet sheet1 = EasyExcel.writerSheet(0, "共享明细清单").build();

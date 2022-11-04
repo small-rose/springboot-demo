@@ -59,11 +59,13 @@ public class TsOrgServiceImpl implements TsOrgService {
                 map.put(stringBuilder.toString(),result);
             });
 
-            System.out.println("====================中支");
+            System.out.println("====================中支公司数据=========");
             map.forEach((k,v)->{
                 System.out.println(" key = " +k);
                 System.out.println(" val = " +v);
             });
+            System.out.println("====================中支公司数据=========");
+
         }catch (Exception e) {
             log.info("初始化excel下拉框失败！");
         }
@@ -85,11 +87,13 @@ public class TsOrgServiceImpl implements TsOrgService {
                 map.put(stringBuilder.toString(),result);
             });
 
-            System.out.println("====================支公司");
+            System.out.println("====================支公司数据=========");
             map.forEach((k,v)->{
                 System.out.println(" key = " +k);
                 System.out.println(" val = " +v);
             });
+            System.out.println("====================支公司数据=========");
+
         }catch (Exception e) {
             log.info("初始化excel下拉框失败！");
         }

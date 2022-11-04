@@ -4,6 +4,7 @@ import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
 import com.xiaocai.demo.excel.easydrop.annotation.DropDownSetField;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -39,6 +40,7 @@ import java.util.Map;
  * @Date ：2022/10/24 13:51
  * @Version ： 1.0
  **/
+@Slf4j
 public class DropDownCascadeReWriteHandler implements SheetWriteHandler {
 
     /**
@@ -72,14 +74,14 @@ public class DropDownCascadeReWriteHandler implements SheetWriteHandler {
         Sheet sheet = writeSheetHolder.getSheet();
         //取出对应的  Workbook
         Workbook workbook = writeWorkbookHolder.getWorkbook();
-        styles = createStyles(workbook);
+        //styles = createStyles(workbook);
         // 第二步：创建一个Sheet页
         String hiddenSheetName = "dataSheet";
         Sheet dataSheet = workbook.createSheet(hiddenSheetName);
 
         // k 为存在下拉数据集的单元格下标 v为下拉数据集
         fieldMap.forEach((k, v) -> {
-            System.out.println("Excel 第 " + k  +" 列");
+            log.info("开始处理 Excel 第 " + k  +" 列");
             Map<String, List<String>> vdata = caseCadeMap.get(k);
 
             int colIndex = k;
@@ -89,8 +91,9 @@ public class DropDownCascadeReWriteHandler implements SheetWriteHandler {
             if (value==null || !StringUtils.hasText(value.beforeFieldName()) ){
 
                 int nameManage = createNameManage(workbook, dataSheet, v.getName(), vdata.get(v.getName()));
-//                System.out.println(" getCellColumnFlag(1) = " + getCellColumnFlag(k+1) + " ,  nameManage + 1 = " +  (nameManage + 1));
                 String formulaIndirect = String.format(formulaIndirectFormat, dataSheet.getSheetName(), getCellColumnFlag(1), nameManage + 1);
+                log.info("下拉框命名管理器名字坐标：" + formulaIndirect);
+
                 createDataValidate(sheet, formulaIndirect, value.validationType(), value.firstRow(), value.lastRow(), colIndex, colIndex);
 
             }else {
@@ -114,8 +117,6 @@ public class DropDownCascadeReWriteHandler implements SheetWriteHandler {
                     String formulaIndirect = String.format(formulaIndirectFormat, sheet.getSheetName(), getCellColumnFlag(beforeColIndex + 1), rowIndex + 1);
                     createDataValidate(sheet, formulaIndirect, value.validationType(), rowIndex, rowIndex, colIndex, colIndex);
                 }
-
-
             }
         });
         //隐藏新创建的sheet  调试的时候可以放开
@@ -178,7 +179,7 @@ public class DropDownCascadeReWriteHandler implements SheetWriteHandler {
             cell = row.createCell(colIndex);
         }
         if (type == 0) {
-            cell.setCellStyle(styles.get("header"));
+            //cell.setCellStyle(styles.get("header"));
             row.setHeightInPoints(40);
         }
         cell.setCellValue(val == null ? "" : val);

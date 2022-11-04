@@ -9,10 +9,11 @@ import com.xiaocai.demo.excel.easydrop.annotation.DropDownSetField;
 import com.xiaocai.demo.excel.easydrop.service.casecade.MidBranchDataServiceImpl;
 import com.xiaocai.demo.excel.easydrop.service.casecade.SubBranchDataServiceImpl;
 import com.xiaocai.demo.excel.easydrop.service.casecade.SubcompanyDataServiceImpl;
-import com.xiaocai.demo.excel.easydrop.service.impl.AuditStatusDropDownSetImpl;
-import com.xiaocai.demo.excel.easydrop.service.impl.CustTypeDropDownSetImpl;
-import com.xiaocai.demo.excel.easydrop.service.impl.DataSourceDropDownSetImpl;
-import com.xiaocai.demo.excel.easydrop.service.impl.DataStatusDropDownSetImpl;
+import com.xiaocai.demo.excel.easydrop.service.drop.AuditStatusDropDownSetImpl;
+import com.xiaocai.demo.excel.easydrop.service.drop.BranchCodeDropDownSetImpl;
+import com.xiaocai.demo.excel.easydrop.service.drop.CustTypeDropDownSetImpl;
+import com.xiaocai.demo.excel.easydrop.service.drop.DataSourceDropDownSetImpl;
+import com.xiaocai.demo.excel.easydrop.service.drop.DataStatusDropDownSetImpl;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -36,6 +37,15 @@ public class GXDetailListVO implements Serializable {
     @HeadStyle(fillBackgroundColor = 10)
     private String policyNo;
 
+    /**
+     * 不联动的分公司代码
+     */
+    @ApiModelProperty(value = "所属分公司",required=false)
+    @ExcelProperty(value = "*所属分公司")
+    @ColumnWidth(25)
+    @HeadStyle(fillBackgroundColor = 10)
+    @DropDownSetField(sourceClass = BranchCodeDropDownSetImpl.class)
+    private String beSubCompanyNo;
 
 
     /**

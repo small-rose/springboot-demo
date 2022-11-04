@@ -1,4 +1,4 @@
-package com.xiaocai.demo.excel.easydrop.service.impl;
+package com.xiaocai.demo.excel.easydrop.service.drop;
 
 import com.xiaocai.demo.excel.dropdown.helper.SpringApplicationContextHelper;
 import com.xiaocai.demo.excel.easydrop.service.DropDownSetInterface;
@@ -15,7 +15,7 @@ public class BranchCodeDropDownSetImpl implements DropDownSetInterface {
     @Override
     public String[] getSource() {
 
-        TsOrgService tsOrgService = (TsOrgService) SpringApplicationContextHelper.getBean(TsOrgService.class);
+        TsOrgService tsOrgService = SpringApplicationContextHelper.getBean(TsOrgService.class);
         String str = "";
         try {
             Map<String, List<String>> unitList = tsOrgService.getSubcompany();

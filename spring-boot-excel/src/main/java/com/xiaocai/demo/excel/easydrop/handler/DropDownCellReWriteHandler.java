@@ -42,14 +42,15 @@ public class DropDownCellReWriteHandler implements SheetWriteHandler {
         // 这里可以对cell进行任何操作
         Sheet sheet = writeSheetHolder.getSheet();
         DataValidationHelper helper = sheet.getDataValidationHelper();
+
+        // 第二步：创建一个Sheet页
+        String hiddenSheetName = "sheet1";
+        Workbook workbook = writeWorkbookHolder.getWorkbook();
+        Sheet sheet1 = workbook.createSheet(hiddenSheetName);
         // k 为存在下拉数据集的单元格下标 v为下拉数据集
         map.forEach((k, v) -> {
             String string = Arrays.deepToString(v);
             if (string.length() > 250) {
-                // 第二步：创建一个Sheet页
-                String hiddenSheetName = "sheet1";
-                Workbook workbook = writeWorkbookHolder.getWorkbook();
-                Sheet sheet1 = workbook.createSheet(hiddenSheetName);
                 //写入数据到新的sheet页
                 Row row;
                 for (int i = 0; i < v.length; i++) {
