@@ -26,8 +26,9 @@ public class AlipayAccreditServlet extends HttpServlet {
 	@Autowired
 	AliPayConstants aliPayConstants;
 
+	@Override
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+						 HttpServletResponse response) throws ServletException, IOException {
 		//doPost(request, response);
 	}
 /*
