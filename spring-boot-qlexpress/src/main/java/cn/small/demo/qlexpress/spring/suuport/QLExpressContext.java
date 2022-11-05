@@ -1,4 +1,4 @@
-package cn.small.demo.qlexpress.spring;
+package cn.small.demo.qlexpress.spring.suuport;
 
 import com.ql.util.express.IExpressContext;
 import org.springframework.context.ApplicationContext;
@@ -15,11 +15,11 @@ import java.util.Map;
  * @version: v1.0
  */
 @Component
-public class SpringBeanContext extends HashMap<String,Object> implements IExpressContext<String,Object> {
+public class QLExpressContext extends HashMap<String,Object> implements IExpressContext<String,Object> {
 
     private ApplicationContext applicationContext;
 
-    public SpringBeanContext(Map<String,Object> aProperties, ApplicationContext applicationContext)
+    public QLExpressContext(Map<String,Object> aProperties, ApplicationContext applicationContext)
     {
         super(aProperties);
         this.applicationContext = applicationContext;
@@ -30,6 +30,7 @@ public class SpringBeanContext extends HashMap<String,Object> implements IExpres
      * @param key
      * @return
      */
+    @Override
     public Object get(Object key) {
         Object object = super.get(key);
         try {
@@ -49,6 +50,7 @@ public class SpringBeanContext extends HashMap<String,Object> implements IExpres
      * @param key
      * @param value
      */
+    @Override
     public Object put(String key, Object value) {
         return super.put(key, value);
     }

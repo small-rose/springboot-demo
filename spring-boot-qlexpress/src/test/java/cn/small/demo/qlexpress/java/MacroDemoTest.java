@@ -31,6 +31,7 @@ public class MacroDemoTest {
 
     /**
      * 编译脚本
+     *  执行过程：单词分解-->单词类型分析-->语法分析-->生成运行期指令集合-->执行生成的指令集合
      * @throws Exception
      */
     @Test

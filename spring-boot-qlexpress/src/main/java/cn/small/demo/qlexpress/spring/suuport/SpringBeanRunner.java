@@ -1,7 +1,8 @@
-package cn.small.demo.qlexpress.spring;
+package cn.small.demo.qlexpress.spring.suuport;
 
 import com.ql.util.express.ExpressRunner;
 import com.ql.util.express.IExpressContext;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -23,6 +24,7 @@ public class SpringBeanRunner implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
+    @Getter
     private ExpressRunner runner;
 
 
@@ -35,9 +37,11 @@ public class SpringBeanRunner implements ApplicationContextAware {
 
     public Object executeExpress(String express, Map<String,Object> context)
     {
-        IExpressContext<String,Object> expressContext = new SpringBeanContext(context,this.applicationContext);
+        IExpressContext<String,Object> expressContext = new QLExpressContext(context,this.applicationContext);
         try{
-            return runner.execute(express, expressContext, null, true, false);
+            //return runner.execute(express, expressContext, null, true, false);
+            return runner.execute(express, expressContext, null, false, true);
+
         }catch(Exception e){
             log.error("qlExpress运行出错！",e);
         }
@@ -47,10 +51,12 @@ public class SpringBeanRunner implements ApplicationContextAware {
 
     public Object executeExpress(String express, Map<String,Object> context, List<String> errorList)
     {
-        IExpressContext<String,Object> expressContext = new SpringBeanContext(context,this.applicationContext);
+        IExpressContext<String,Object> expressContext = new QLExpressContext(context,this.applicationContext);
         try{
-            return runner.execute(express, expressContext, errorList, true, false);
+            //return runner.execute(express, expressContext, errorList, true, false);
+            return runner.execute(express, expressContext, errorList, false, true);
         }catch(Exception e){
+            e.printStackTrace();
             log.error("qlExpress运行出错！",e);
         }
         return null;
