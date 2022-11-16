@@ -1,7 +1,8 @@
-package com.xiaocai.demo.mybatisplusbatch;
+package com.xiaocai.demo.mpbatch;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 
 @SpringBootApplication

@@ -1,9 +1,9 @@
-package com.xiaocai.demo.mybatisplusbatch.web.mapper;
+package com.xiaocai.demo.mpbatch.web.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiaocai.demo.mybatisplusbatch.batch.RootMapper;
-import com.xiaocai.demo.mybatisplusbatch.web.entity.Account;
+import com.xiaocai.demo.mpbatch.batch.RootMapper;
+import com.xiaocai.demo.mpbatch.web.entity.Account;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.xaiocai.demo</groupId>
-    <artifactId>spring-boot-mybatis-plus-batch</artifactId>
+    <artifactId>spring-boot-mplus-batch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-mybatis-plus-batch</name>
+    <name>spring-boot-mplus-batch</name>
     <description>mybatis-plus Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
@@ -53,8 +53,10 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.11</version>
+            <version>1.2.4</version>
         </dependency>
+
+
     </dependencies>
 
     <build>

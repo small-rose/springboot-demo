@@ -12,7 +12,21 @@ spring:
     url: jdbc:mysql://localhost:3306/bp_demo?serverTimezone=GMT%2b8&useSSL=false&Unicode=true&characterEncoding=utf8&autoReconnectForPools=true&allowMultiQueries=true&rewriteBatchedStatements=true
     username: root
     password: 123456
-
+    druid:
+      initial-size: 5                                                                 #初始化连接大小
+      min-idle: 5                                                                     #最小连接池数量
+      max-active: 20                                                                  #最大连接池数量
+      max-wait: 60000                                                                 #获取连接时最大等待时间，单位毫秒
+      time-between-eviction-runs-millis: 60000                                        #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      min-evictable-idle-time-millis: 300000                                          #配置一个连接在池中最小生存的时间，单位是毫秒
+      validation-query: SELECT 1 FROM DUAL                                            #测试连接
+      test-while-idle: true                                                           #申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
+      test-on-borrow: false                                                           #获取连接时执行检测，建议关闭，影响性能
+      test-on-return: false                                                           #归还连接时执行检测，建议关闭，影响性能
+      pool-prepared-statements: false                                                 #是否开启PSCache，PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
+      max-pool-prepared-statement-per-connection-size: 20                             #开启poolPreparedStatements后生效
+      filters: stat,wall                                                              #配置扩展插件，常用的插件有=>stat:监控统计  wall:防御sql注入
+      connection-properties: 'druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000' #通过connectProperties属性来打开mergeSql功能;慢SQL记录
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
   configuration:

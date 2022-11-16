@@ -1,4 +1,4 @@
-package com.xiaocai.demo.mybatisplusbatch.config;
+package com.xiaocai.demo.mpbatch.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
@@ -8,12 +8,11 @@ import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.xiaocai.demo.mybatisplusbatch.injector.CustomizedSqlInjector;
+import com.xiaocai.demo.mpbatch.injector.CustomizedSqlInjector;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,10 +31,10 @@ import java.io.IOException;
  **/
 
 // 配置第一步、扫码Mapper
-@MapperScan("com.xiaocai.demo.mybatisplus.web.mapper")
+@MapperScan("com.xiaocai.demo.mpbatch.web.mapper")
 @Configuration
 @Slf4j
-public class MybatisPlusConfig {
+public class MPlusConfig {
 
     /**
      * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置
@@ -58,7 +57,7 @@ public class MybatisPlusConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource")
-    public DruidDataSource masterDataSource(DataSourceProperties dataSourceProperties)  {
+    public DruidDataSource masterDataSource()  {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         log.info("------ 初始化 masterDataSource 数据源");
         return  dataSource ;
