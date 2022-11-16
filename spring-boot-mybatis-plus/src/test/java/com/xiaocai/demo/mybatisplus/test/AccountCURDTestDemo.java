@@ -31,7 +31,7 @@ import java.util.List;
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= MybatisPlusDemoApplication.class)
-public class AccountCURDTest {
+public class AccountCURDTestDemo {
 
     @Autowired
     AccountService accountService ;
