@@ -144,11 +144,53 @@ public class RuleDemoTest extends QlExpressApplicationTests {
                 new Class[]{RuleConfig.class, PolicyData.class}, null);
 
         //String express = "如果 ( 校验数据所属分公司(ruleConfig, policyData) && 校验保费范围(ruleConfig, policyData) ) 则 result true ; 否则 return false ;";
-        String express = "如果 (校验数据所属分公司(ruleConfig, policyData) && 校验保费范围(ruleConfig, policyData) && 校验倒计时范围(ruleConfig, policyData)) 则 { return true; } 否则 { return false ;}";
+        String express = "如果 (校验数据所属分公司( , policyData) && 校验保费范围(ruleConfig, policyData) && 校验倒计时范围(ruleConfig, policyData)) 则 { return true; } 否则 { return false ;}";
 
         Map<String, Object> context = new HashMap<>();
         context.put("ruleConfig", ruleConfig);
         context.put("policyData", policyData);
+
+        List<String> errorList =  new ArrayList<>();
+        Object result = engineFactory.executeExpress(express, context, errorList);
+        System.out.println("数据是否符号要求 = " +result);
+        errorList.forEach(System.out::println);
+    }
+
+
+
+
+    @Test
+    public void test_163() throws Exception {
+
+        //规则
+        RuleConfig ruleConfig = new RuleConfig();
+        ruleConfig.setSubcompany("100010");
+        ruleConfig.setPolicyFeeBegin(new BigDecimal("10000"));
+        ruleConfig.setPolicyFeeEnd(new BigDecimal("30000"));
+        ruleConfig.setCountDays(100);
+        ruleConfig.setContainsBegin(false);
+        ruleConfig.setContainsEnd(false);
+
+        // 数据
+        PolicyData policyData = new PolicyData();
+        policyData.setSubcompany("100010");
+        policyData.setLastYearPolicyFee(new BigDecimal("13800.00"));
+        policyData.setExpriedTime("20221010-111221");
+
+        ExpressRunner runner = EngineFactory.expressRunner;
+
+        runner.addOperatorWithAlias("如果", "if", null);
+        runner.addOperatorWithAlias("则", "then", null);
+        runner.addOperatorWithAlias("否则", "else", null);
+
+
+
+        //String express = "如果 ( 校验数据所属分公司(ruleConfig, policyData) && 校验保费范围(ruleConfig, policyData) ) 则 result true ; 否则 return false ;";
+        String express = "如果 ( 分公司 == subcompany ) 则 { return true; } 否则 { return false ;}";
+
+        Map<String, Object> context = new HashMap<>();
+        context.put("分公司", ruleConfig.getSubcompany());
+        context.put("subcompany", policyData.getSubcompany());
 
         List<String> errorList =  new ArrayList<>();
         Object result = engineFactory.executeExpress(express, context, errorList);

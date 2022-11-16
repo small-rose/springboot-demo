@@ -1,1 +1,17 @@
 
+server:
+  port: 8007
+  servlet:
+    context-path: /elp
+
+
+spring:
+  datasource:
+    # oracle:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.10.118:1521/bvis?useUnicode=true&characterEncoding=utf-8&rewriteBatchedStatements=true&allowMultiQueries=true
+    username: bvis
+    password: bvis123
+
+
+
