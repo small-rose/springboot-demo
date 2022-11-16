@@ -38,7 +38,7 @@ public class FileFinder {
      * @param keys 关键字，至少有1个参数
      * @return
      */
-    public List<File>  getFileList(ContainsMode containsMode,String[] keys, List<File> customerFileList) {
+    public List<File>  getFileList(ContainsMode containsMode,String[] keys, List<File> customerFileList, File ... files) {
         if (keys==null || keys.length==0){
             throw new IllegalArgumentException("缺少搜索的关键字");
         }
@@ -56,7 +56,11 @@ public class FileFinder {
                 strategy = new FileNameEndsWithStrategy();
                 break;
             case FileContentContains:
-                strategy = new FileContentContainsStrategy();
+                if (files!=null && files.length>0){
+                    strategy = new FileContentContainsStrategy(files[0]);
+                }else {
+                    strategy = new FileContentContainsStrategy();
+                }
                 break;
             case FileContentRegExpStrategy:
                 strategy = new FileContentRegExpStrategy();
