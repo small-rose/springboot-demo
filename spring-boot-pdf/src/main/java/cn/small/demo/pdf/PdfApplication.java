@@ -1,13 +1,13 @@
-package com.xiaocai.demo.standford;
+package cn.small.demo.pdf;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CoreNLPDemoApplication {
+public class PdfApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CoreNLPDemoApplication.class, args);
+        SpringApplication.run(PdfApplication.class, args);
     }
 
 }
