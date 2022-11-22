@@ -1,10 +1,10 @@
-package com.xiaocai.demo.standford;
+package cn.small.demo.pdf;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CoreNLPDemoApplicationTests {
+class SpringBootPdfApplicationTests {
 
     @Test
     void contextLoads() {
