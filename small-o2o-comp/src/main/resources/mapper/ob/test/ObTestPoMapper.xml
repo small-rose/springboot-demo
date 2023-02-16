@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cppic.obgenerator.small.mapper.ob.ObTestPoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cppic.obgenerator.small.pojo.TestPO">
+        <id column="ID" property="id" />
+        <result column="NAME" property="name" />
+        <result column="AGE" property="age" />
+        <result column="ADDR" property="addr" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, NAME, AGE, ADDR
+    </sql>
+
+    <insert id="insertSelective" >
+        insert into  test
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="name != null" >
+                NAME,
+            </if>
+            <if test="age != null" >
+                AGE,
+            </if>
+            <if test="addr != null" >
+                ADDR,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null" >
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="addr != null" >
+                #{addr,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO test
+        (id, name, age, addr)
+        VALUES
+        <foreach collection ="dataList" item="testPO" separator =",">
+            (#{testPO.id}, #{testPO.name}, #{testPO.age}, #{testPO.addr})
+        </foreach >
+    </insert>
+
+    <delete id="deleteAll" >
+        DELETE FROM TEST
+    </delete>
+</mapper>
