@@ -19,7 +19,7 @@ public class AppInfo implements ApplicationListener<WebServerInitializedEvent> {
 
 
     @Autowired
-    com.cppic.obgenerator.small.config.SwaggerConfig swaggerConfig;
+    SwaggerConfig swaggerConfig;
 
     @SneakyThrows
     @Override

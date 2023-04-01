@@ -2,11 +2,12 @@ package com.small.o2o.comp.module.facade;
 
 
 import com.alibaba.excel.metadata.Sheet;
-import com.cppic.obgenerator.small.constants.OBConstants;
-import com.cppic.obgenerator.small.excel.MultipleSheelPropety;
-import com.cppic.obgenerator.small.service.OracleMetaDataService;
-import com.cppic.obgenerator.small.vo.ORATablePrimaryKeyVO;
-import com.cppic.obgenerator.small.vo.ObTablePrimaryKeyVO;
+import com.small.o2o.comp.module.constants.OBConstants;
+import com.small.o2o.comp.module.excel.MultipleSheelPropety;
+import com.small.o2o.comp.module.facade.base.CommonGenerater;
+import com.small.o2o.comp.module.service.oracle.OracleMetaDataService;
+import com.small.o2o.comp.module.vo.ORATablePrimaryKeyVO;
+import com.small.o2o.comp.module.vo.ObTablePrimaryKeyVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,13 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class OraclePkRepairService  extends com.cppic.obgenerator.small.facade.CommonGenerater {
+public class OraclePkRepairService  extends CommonGenerater {
 
 
     @Autowired
     private OracleMetaDataService oracleMetaDataService;
     @Autowired
-    private com.cppic.obgenerator.small.facade.FilePickService filePickService;
+    private FilePickService filePickService;
 
     @PostConstruct
     public void init(){

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author c_zhangzongyuan
+ * @author zhangxiaocai
  */
 @Repository
 public interface OracleTestPoMapper extends BaseMapper<TestPO> {

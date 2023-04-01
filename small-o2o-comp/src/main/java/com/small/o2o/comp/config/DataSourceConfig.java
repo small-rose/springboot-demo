@@ -36,7 +36,7 @@ public class DataSourceConfig {
     //@Bean
     //@ConfigurationProperties(prefix = "spring.datasource")
     public DruidDataSource dataSource(DataSourceProperties properties)  {
-        DruidDataSource dataSource = new com.cppic.obgenerator.small.config.CustomDatasource(properties);
+        DruidDataSource dataSource = new CustomDatasource(properties);
         System.out.println("obuse = " + obUse);
         if ("true".equalsIgnoreCase(obUse)){
             dataSource.setDriverClassName(obDriverClassName);

@@ -2,11 +2,11 @@ package com.small.o2o.comp.module.facade;
 
 
 import com.alibaba.excel.metadata.Sheet;
-import com.cppic.obgenerator.small.constants.OBConstants;
-import com.cppic.obgenerator.small.excel.MultipleSheelPropety;
-import com.cppic.obgenerator.small.service.metadata.ProcedureListService;
-import com.cppic.obgenerator.small.vo.OracleProcedureVO;
+import com.small.o2o.comp.module.constants.OBConstants;
+import com.small.o2o.comp.module.excel.MultipleSheelPropety;
 import com.small.o2o.comp.module.facade.base.CommonGenerater;
+import com.small.o2o.comp.module.service.metadata.ProcedureListService;
+import com.small.o2o.comp.module.vo.OracleProcedureVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

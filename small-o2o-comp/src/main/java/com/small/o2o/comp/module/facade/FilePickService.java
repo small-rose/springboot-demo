@@ -3,7 +3,7 @@ package com.small.o2o.comp.module.facade;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileReader;
-import com.cppic.obgenerator.small.utils.FileRWUtils;
+import com.small.o2o.comp.module.utils.FileRWUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

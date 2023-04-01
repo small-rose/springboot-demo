@@ -1,7 +1,7 @@
 package com.small.o2o.comp.module.exception;
 
 /**
- * @author c_zhangzongyuan
+ * @author zhangxiaocai
  */
 public class QueryException extends RuntimeException {
 

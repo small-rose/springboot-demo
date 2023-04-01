@@ -1,7 +1,7 @@
 package com.small.o2o.comp.module.excel;
 
 /**
- * @author c_zhangzongyuan
+ * @author zhangxiaocai
  */
 public class SheetDataVO {
 }
